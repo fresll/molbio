@@ -1,0 +1,1513 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="author" content="Кафедра биологии и генетики · Медицинский университет Петровского · курс «Молекулярная биология», 5–6 семестры">
+<title>Семинар 7 · Ресурсные решения клетки — Кафедра биологии и генетики, Медицинский университет Петровского</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* Проекционный стол: слева большая схема, справа управление, подпись к текущему состоянию и вывод.
+   Один визуальный язык во всех сценах: жёлтый — активен, «P» — фосфорилирован, пунктир с крестом — белка нет,
+   стрелка — активирует, линия с поперечиной — тормозит. */
+:root{
+  --bg:#EDF0F4; --surface:#FFFFFF; --surface-2:#F6F8FA; --ink:#15202B; --muted:#5A6676; --line:#D3DAE3;
+  --cyto:#F8FAFC; --lyso:#AE3A6C; --lyso-fill:#F6E3EB; --nuc:#E6E9F2; --nuc-line:#97A0BA;
+  --on:#DC930F; --on-soft:#FCEBC4; --off:#BCC4CE; --off-ink:#556171;
+  --mtor:#0D6E73; --mtor-soft:#D3ECEC; --tfeb:#6748B6; --tfeb-soft:#E7E0F6;
+  --aa:#2C7B45; --akt:#C0561B; --bad:#C42B2B; --good:#1E7848; --edge:#3F4B5A;
+  --mito:#B5651D; --mito-fill:#FBEFE3; --mal:#6748B6; --acyl:#C0561B; --carn:#C2185B; --adp:#8A96A6;
+  --gfp:#E8C21A; --rfp:#D62F4B; --micro:#10151B;
+  --p-ink:#1A1E23;
+  --f-display:"Unbounded","Golos Text",system-ui,sans-serif;
+  --f-body:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0D1217; --surface:#151C23; --surface-2:#1A222B; --ink:#E4E9EF; --muted:#97A3B0; --line:#29333E;
+  --cyto:#121920; --lyso:#DE6A9B; --lyso-fill:#381C29; --nuc:#1B2130; --nuc-line:#56607B;
+  --on:#EFB13A; --on-soft:#4A3913; --off:#404A56; --off-ink:#B3BDC8;
+  --mtor:#33B6BB; --mtor-soft:#123A3C; --tfeb:#A28CEC; --tfeb-soft:#2A2343;
+  --aa:#6BC486; --akt:#EF8A4A; --bad:#F06666; --good:#4FC58C; --edge:#AEB8C4;
+  --mito:#E39A57; --mito-fill:#2E2116; --mal:#A28CEC; --acyl:#EF8A4A; --carn:#F06AA0; --adp:#7D8896;
+  --gfp:#F2D23A; --rfp:#FF5B73; --micro:#07090C;
+  --p-ink:#1A1E23; color-scheme:dark; } }
+:root[data-theme="dark"]{
+  --bg:#0D1217; --surface:#151C23; --surface-2:#1A222B; --ink:#E4E9EF; --muted:#97A3B0; --line:#29333E;
+  --cyto:#121920; --lyso:#DE6A9B; --lyso-fill:#381C29; --nuc:#1B2130; --nuc-line:#56607B;
+  --on:#EFB13A; --on-soft:#4A3913; --off:#404A56; --off-ink:#B3BDC8;
+  --mtor:#33B6BB; --mtor-soft:#123A3C; --tfeb:#A28CEC; --tfeb-soft:#2A2343;
+  --aa:#6BC486; --akt:#EF8A4A; --bad:#F06666; --good:#4FC58C; --edge:#AEB8C4;
+  --mito:#E39A57; --mito-fill:#2E2116; --mal:#A28CEC; --acyl:#EF8A4A; --carn:#F06AA0; --adp:#7D8896;
+  --gfp:#F2D23A; --rfp:#FF5B73; --micro:#07090C;
+  --p-ink:#1A1E23; color-scheme:dark; }
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{background:var(--bg);color:var(--ink)}
+body{margin:0;font-family:var(--f-body);font-size:17px;line-height:1.45}
+.wrap{max-width:1560px;margin:0 auto;padding-inline:16px;padding-block:8px 24px}
+.affil{margin:0 0 8px;padding:0 0 6px;border-bottom:2px solid var(--mtor);color:var(--mtor);font-size:15px;font-weight:600;letter-spacing:.01em;text-wrap:balance}
+.foot{margin-top:14px;padding-top:8px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.wm{font-family:var(--f-body);font-size:11px;fill:var(--muted);text-anchor:end;dominant-baseline:central}
+header{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;justify-content:space-between}
+h1{font-family:var(--f-display);font-weight:600;font-size:clamp(19px,2vw,25px);margin:0;text-wrap:balance}
+.tools{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.bar{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 8px}
+.tab{font:inherit;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--muted);padding:8px 13px;border-radius:11px;cursor:pointer;display:flex;gap:9px;align-items:center}
+.tab .n{font-family:var(--f-mono);font-size:13px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;border:1.5px solid currentColor;flex:none}
+.tab[aria-selected="true"]{background:var(--mtor);border-color:var(--mtor);color:var(--surface)}
+.qrow{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;margin:0 0 10px}
+.qline{color:var(--ink);font-size:16px;margin:0;font-weight:500;max-width:80ch}
+.seg{display:inline-flex;padding:3px;border-radius:10px;background:var(--surface);border:1px solid var(--line);gap:2px;flex-wrap:wrap}
+.seg button{font:inherit;font-size:14px;font-weight:600;border:0;background:transparent;color:var(--muted);padding:6px 11px;border-radius:8px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--on);outline-offset:2px}
+.switch{display:flex;align-items:center;gap:10px;font-weight:500;cursor:pointer;user-select:none;font-size:15px}
+.switch input{appearance:none;width:44px;height:26px;border-radius:13px;background:var(--off);position:relative;cursor:pointer;transition:background .2s;margin:0;flex:none}
+.switch input::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--surface);transition:transform .2s}
+.switch input:checked{background:var(--mtor)}
+.switch input:checked::after{transform:translateX(18px)}
+.btn{font:inherit;font-weight:600;font-size:15px;border-radius:10px;padding:8px 13px;cursor:pointer;border:1.5px solid var(--mtor);background:var(--mtor);color:var(--surface)}
+.btn.ghost{background:transparent;color:var(--mtor)}
+.btn.warn{border-color:var(--on);background:var(--on);color:var(--p-ink)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+
+.scene{display:grid;gap:14px;grid-template-columns:minmax(0,1.6fr) minmax(320px,1fr);align-items:start}
+@media (min-width:1001px){.side{max-height:var(--avail,calc(100vh - 150px));overflow-y:auto;padding-right:4px}}
+@media (max-width:1000px){.scene{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;min-width:0}
+.stage{padding:0;overflow:hidden;position:relative}
+.stage svg{display:block;width:100%;height:auto;max-height:calc(var(--avail,calc(100vh - 160px)) - 2px)}
+/* невысокий экран (проектор 1280×720, 1366×768): шапка компактнее, схема целиком в окне */
+@media (min-width:1001px) and (max-height:860px){
+  .wrap{padding-block:4px 16px}
+  .affil{font-size:13px;margin:0 0 4px;padding:0 0 3px}
+  h1{font-size:18px}
+  header .btn{padding:5px 10px;font-size:14px} header .switch{font-size:14px}
+  .bar{margin:5px 0 4px} .tab{padding:5px 10px;font-size:14px}
+  .qrow{margin:0 0 6px;gap:6px 14px} .qline{font-size:15px} .qrow .btn{padding:5px 11px;font-size:14px} .qrow .seg button{padding:4px 9px}
+  .scene{gap:10px} .side{gap:9px} .side .panel{padding:11px}
+}
+.side{display:grid;gap:12px;min-width:0}
+.label{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 8px}
+.slider{display:grid;gap:2px}
+.slider .row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.slider label{font-weight:600;font-size:15.5px}
+.slider output{font-family:var(--f-mono);font-variant-numeric:tabular-nums;color:var(--muted);font-size:14px}
+input[type=range]{width:100%;accent-color:var(--mtor);height:30px;margin:0}
+.ctrl{display:grid;gap:12px}
+.ctrl .grp{display:grid;gap:6px}
+.ctrl .grp > span{font-size:13px;color:var(--muted);font-weight:600}
+.reads{display:grid;gap:7px}
+.read{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:7px 10px;border-radius:10px;background:var(--surface-2)}
+.read b{font-family:var(--f-mono);font-weight:600;font-size:14.5px}
+.read small{display:block;color:var(--muted);font-size:13px;line-height:1.3}
+.read .v{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:16px;font-weight:600}
+.meter{height:9px;border-radius:5px;background:var(--line);overflow:hidden;margin-top:5px}
+.meter i{display:block;height:100%;background:var(--mtor);transition:width .3s}
+.pill{font-size:13px;font-weight:600;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.pill.p{background:var(--on);color:var(--p-ink)}
+.pill.np{background:var(--surface);color:var(--off-ink);border:1px solid var(--line)}
+.pill.cy{background:var(--tfeb-soft);color:var(--tfeb);border:1px solid var(--tfeb)}
+.pill.nu{background:var(--nuc);color:var(--ink);border:1px solid var(--nuc-line)}
+.cap{border-left:4px solid var(--mtor)}
+.cap p{margin:0;font-size:16.5px}
+.cap .why{margin-top:9px;padding-top:9px;border-top:1px dashed var(--line)}
+.cap .why b,.take b,.info b.k{display:block;font-size:12px;letter-spacing:.07em;text-transform:uppercase;margin-bottom:2px}
+.cap .why b{color:var(--good)}
+.take{border:2px solid var(--mtor);background:var(--mtor-soft)}
+.take b{color:var(--mtor)}
+.take p{margin:0;font-size:15.5px}
+.info{border:2px solid var(--tfeb);background:var(--tfeb-soft)}
+.info b.k{color:var(--tfeb)}
+.info p{margin:0;font-size:15.5px}
+.info h4{margin:0 0 4px;font-family:var(--f-mono);font-size:16px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:14px;height:14px;border-radius:50%;display:inline-block;flex:none}
+.sw.line{width:18px;height:4px;border-radius:2px}
+canvas.plot{width:100%;height:200px;display:block;border-radius:8px;background:var(--surface-2)}
+.plotcap{margin:0 0 -4px;font-size:13px;color:var(--muted)}
+.timebox{font-family:var(--f-mono);font-size:17px;font-weight:600;font-variant-numeric:tabular-nums}
+.small{font-size:13.5px;color:var(--muted);margin:0}
+
+/* сценарий занятия */
+.poe{border:2px solid var(--on);background:var(--on-soft)}
+.poe .k{font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+.poe .q{font-size:19px;font-weight:700;margin:4px 0 10px;text-wrap:balance}
+.poe .opts{display:grid;gap:6px}
+.poe .opt{font:inherit;text-align:left;font-size:16px;padding:9px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;display:flex;gap:10px;align-items:flex-start}
+.poe .opt .L{font-family:var(--f-mono);font-weight:700;color:var(--muted)}
+.poe .opt.picked{border-color:var(--ink)}
+.poe .opt.right{border-color:var(--good);background:color-mix(in srgb,var(--good) 14%,var(--surface))}
+.poe .opt.wrongpick{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,var(--surface))}
+.poe .ex{margin:10px 0 0;font-size:16px}
+.poe .ex.wrongex{border-left:3px solid var(--bad);padding-left:10px}
+.poe .opt:disabled{cursor:default}
+.poe .nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+
+/* блот */
+.blotbox{overflow-x:auto}
+.blotgrid{display:grid;grid-template-columns:max-content max-content;justify-content:start}
+.lanes{display:grid;grid-auto-flow:column;grid-auto-columns:46px}
+.rowlab{font-family:var(--f-mono);font-size:12.5px;color:var(--ink);padding-right:10px;display:flex;align-items:center;height:28px;white-space:nowrap}
+.head{font-family:var(--f-mono);font-size:11px;color:var(--muted);text-align:center;line-height:1.2;padding-bottom:5px;font-variant-numeric:tabular-nums}
+.film{background:#E4E8EC;border:1px solid #C5CCD5;border-radius:4px;padding:3px 0}
+.cell{height:28px;display:grid;place-items:center}
+.band{width:32px;height:10px;border-radius:50%;background:radial-gradient(ellipse at center,#191D22 0%,#191D22 40%,transparent 72%);filter:blur(.5px)}
+.lanekey{font-size:13px;color:var(--muted);margin:6px 0 0;display:grid;gap:2px}
+
+/* модальная легенда */
+dialog{border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);max-width:560px;padding:18px}
+dialog::backdrop{background:rgba(10,14,20,.45)}
+.lg{display:grid;grid-template-columns:auto 1fr;gap:10px 14px;align-items:center;font-size:15.5px}
+.lg svg{width:64px;height:30px}
+details.teacher{margin-top:14px}
+details.teacher summary{cursor:pointer;font-weight:600}
+details.teacher p,details.teacher li{max-width:100ch;font-size:15px}
+.noscript{max-width:640px;margin:40px auto;padding:20px;border:2px solid #C42B2B;border-radius:12px;font:16px/1.5 system-ui,sans-serif;color:#15202B;background:#fff}
+
+/* схемы */
+.cyto{fill:var(--cyto)}
+.lyso{fill:var(--lyso-fill);stroke:var(--lyso);stroke-width:4}
+.lyso-s{fill:var(--lyso-fill);stroke:var(--lyso);stroke-width:3;transition:opacity .5s}
+.nuc{fill:var(--nuc);stroke:var(--nuc-line);stroke-width:3}
+.nuc2{fill:none;stroke:var(--nuc-line);stroke-width:1.2;opacity:.7}
+.lbl{font-family:var(--f-body);fill:var(--ink);text-anchor:middle;dominant-baseline:central}
+.lbl-l{font-family:var(--f-body);fill:var(--ink);dominant-baseline:central}
+.area{font-family:var(--f-body);fill:var(--muted);font-size:14px;font-style:italic}
+.area-lyso{fill:var(--lyso);font-size:16px;font-weight:600;font-style:normal}
+.area-mito{fill:var(--mito);font-size:15px;font-weight:600;font-style:normal}
+.mono{font-family:var(--f-mono)}
+.node{stroke-width:2.2;transition:fill .45s,stroke .45s,opacity .4s}
+.node.on{fill:var(--on-soft);stroke:var(--on)}
+.node.off{fill:var(--surface);stroke:var(--off)}
+.box{fill:var(--surface);stroke:var(--off-ink);stroke-width:2;transition:fill .4s,stroke .4s,opacity .4s}
+.box.on{fill:var(--on-soft);stroke:var(--on)}
+.box.inh{fill:var(--surface-2);stroke:var(--off);stroke-dasharray:3 3}
+.ragulator{fill:var(--surface-2);stroke:var(--lyso);stroke-width:1.6}
+.mtor-body{fill:var(--mtor-soft);stroke:var(--mtor);stroke-width:2.5}
+.glow{fill:none;stroke:var(--on);stroke-width:7;transition:opacity .5s}
+.tfeb-body{fill:var(--tfeb-soft);stroke:var(--tfeb);stroke-width:2}
+.kin{fill:var(--akt);transition:opacity .4s}
+.kin-lbl{fill:#FFFFFF;font-weight:700}
+.pb circle{fill:var(--on)}
+.pb text{fill:var(--p-ink);font-family:var(--f-mono);font-size:10px;font-weight:700;text-anchor:middle;dominant-baseline:central}
+.aa-dot{transition:opacity .35s}
+.edge{fill:none;stroke:var(--edge);stroke-width:2;transition:opacity .4s}
+.edge.dash{stroke-dasharray:5 4}
+.mk{fill:var(--edge)}
+.cross line{stroke:var(--bad);stroke-width:3.5;stroke-linecap:round}
+.missing{opacity:.55}
+.mov{transition:transform .8s cubic-bezier(.3,.7,.2,1),opacity .5s}
+.fade{transition:opacity .4s}
+.col-atp{fill:var(--mtor)} .col-adp{fill:var(--adp)} .col-amp{fill:var(--on)}
+.col{transition:y .4s,height .4s}
+.ref{stroke:var(--muted);stroke-width:1.2;stroke-dasharray:5 4}
+.mito{fill:var(--mito-fill);stroke:var(--mito);stroke-width:3}
+.mito2{fill:none;stroke:var(--mito);stroke-width:1.6}
+.flux{fill:none;stroke-linecap:round;transition:stroke-width .4s,opacity .4s}
+.drug{fill:var(--bad)}
+.clickable{cursor:help}
+.clickable:hover > rect:first-of-type,.clickable:hover > circle:first-of-type{stroke-width:3.2}
+.drop{fill:#F5E6B8;stroke:#C9A43A;stroke-width:2}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .drop{fill:#4A3E1C;stroke:#C9A43A}}
+:root[data-theme="dark"] .drop{fill:#4A3E1C;stroke:#C9A43A}
+@media (prefers-reduced-motion: reduce){ .mov,.fade,.node,.glow,.col,.edge,.box,.flux,.meter i{transition:none!important} }
+
+</style>
+</head>
+<body>
+<noscript><style>.wrap{display:none}</style><div class="noscript">Откройте этот файл в браузере на компьютере (Chrome, Edge, Firefox или Safari). В режиме предпросмотра демонстрации не работают.</div></noscript>
+<div class="wrap">
+  <p class="affil" data-t="affil"></p>
+  <header>
+    <h1 data-t="page_title"></h1>
+    <div class="tools">
+      <label class="switch"><input type="checkbox" id="capT" checked><span data-t="captions"></span></label>
+      <button class="btn ghost" id="legendBtn" data-t="legend_btn"></button>
+      <button class="btn ghost" id="fsBtn" data-t="fullscreen"></button>
+    </div>
+  </header>
+  <div class="bar" role="tablist" id="tabs"></div>
+  <div class="qrow">
+    <p class="qline" id="qline"></p>
+    <div class="tools">
+      <div class="seg" id="levelSeg">
+        <button data-l="b" aria-pressed="true" data-t="lvl_b"></button>
+        <button data-l="a" aria-pressed="false" data-t="lvl_a"></button>
+      </div>
+      <button class="btn warn" id="poeBtn" data-t="poe_btn"></button>
+    </div>
+  </div>
+  <div id="scenes"></div>
+
+  <details class="teacher panel">
+    <summary data-t="teacher_t"></summary>
+    <p data-t="teacher_1"></p>
+    <p data-t="teacher_2"></p>
+    <p data-t="teacher_3"></p>
+    <ul id="srcList"></ul>
+  </details>
+  <footer class="foot" data-t="footer"></footer>
+</div>
+
+<dialog id="legendDlg">
+  <h3 style="margin:0 0 12px" data-t="legend_t"></h3>
+  <div class="lg">
+    <svg viewBox="0 0 64 30"><circle cx="32" cy="15" r="12" class="node on"/></svg><span data-t="lg_on"></span>
+    <svg viewBox="0 0 64 30"><circle cx="32" cy="15" r="12" class="node off"/></svg><span data-t="lg_off"></span>
+    <svg viewBox="0 0 64 30"><g class="pb"><circle cx="32" cy="15" r="9"/><text x="32" y="15.5">P</text></g></svg><span data-t="lg_p"></span>
+    <svg viewBox="0 0 64 30"><rect x="14" y="5" width="36" height="20" rx="6" class="box" style="stroke-dasharray:4 3;opacity:.55"/><g class="cross"><line x1="18" y1="7" x2="46" y2="23"/><line x1="46" y1="7" x2="18" y2="23"/></g></svg><span data-t="lg_missing"></span>
+    <svg viewBox="0 0 64 30"><defs><marker id="lgA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="mk"/></marker></defs><path d="M6 15 L56 15" class="edge" marker-end="url(#lgA)"/></svg><span data-t="lg_act"></span>
+    <svg viewBox="0 0 64 30"><defs><marker id="lgB" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="9" orient="auto"><path d="M4 0 L6 0 L6 10 L4 10 z" class="mk"/></marker></defs><path d="M6 15 L56 15" class="edge" marker-end="url(#lgB)"/></svg><span data-t="lg_inh"></span>
+    <svg viewBox="0 0 64 30"><path d="M6 15 L56 15" class="edge" style="opacity:.18"/></svg><span data-t="lg_idle"></span>
+    <svg viewBox="0 0 64 30"><rect x="18" y="5" width="28" height="20" rx="6" class="box clickable"/></svg><span data-t="lg_click"></span>
+  </div>
+  <div class="btns" style="margin-top:16px"><button class="btn" id="legendClose" data-t="close"></button></div>
+</dialog>
+
+<script>
+const TEXTS = {"affil": "Кафедра биологии и генетики · Медицинский университет Петровского · курс «Молекулярная биология», 5–6 семестры", "page_title": "Семинар 7 · Ресурсные решения клетки", "doc_title": "Семинар 7 · Ресурсные решения клетки — Кафедра биологии и генетики, Медицинский университет Петровского", "wm": "© Кафедра биологии и генетики, Медицинский университет Петровского · курс «Молекулярная биология»", "footer": "© 2026 Кафедра биологии и генетики, Медицинский университет Петровского. Учебные материалы курса «Молекулярная биология» (5–6 семестры). При использовании ссылка на кафедру обязательна.", "version": "Версия 2.3, 2 октября 2026 г.", "captions": "Подписи", "legend_btn": "Условные обозначения", "fullscreen": "На весь экран", "lvl_b": "Базовый", "lvl_a": "Продвинутый", "poe_btn": "Сценарий: предскажи и проверь", "tab1": "mTORC1 на лизосоме", "tab2": "AMPK и энергия", "tab3": "Синтез или окисление ЖК", "tab4": "Аутофагия и возврат mTORC1", "q1": "Вопрос 1. Лизосомная активация mTORC1 при совпадении аминокислотного и ростового сигналов", "q2": "Вопрос 2. AMPK как сенсор аденилатного энергетического заряда и переключатель клеточного бюджета", "q3": "Вопрос 3. Переключение между синтезом и β-окислением жирных кислот через ACC, малонил-CoA и CPT1", "q4": "Вопрос 4. Согласование аутофагии, лизосомного гидролиза и повторной активации mTORC1", "why": "Зачем это клетке", "take": "Вывод", "info_t": "Справка", "close": "Закрыть", "lbl_cytosol": "цитоплазма", "lbl_nucleus": "ядро", "lbl_lysosome": "лизосома", "pill_p": "фосфорилирован", "pill_np": "не фосфорилирован", "pill_cyto": "в цитоплазме", "pill_nuc": "в ядре", "pill_on": "работает", "pill_off": "нет", "r_mtorc1": "активность mTORC1", "blot_empty": "Дорожек пока нет. Выставьте условия и нажмите «Записать дорожку».", "blot_clr": "Очистить", "b_actin": "актин", "noscript": "Откройте этот файл в браузере на компьютере (Chrome, Edge, Firefox или Safari). В режиме предпросмотра демонстрации не работают.", "poe_step": "Шаг {i} из {n}", "poe_ans": "Почему:", "poe_show": "Показать на схеме", "poe_pick_first": "Сначала выберите ответ", "poe_your": "Почему ваш ответ неверен:", "poe_score": "Верно с первого раза: {c} из {n}.", "poe_prev": "← Назад", "poe_next": "Дальше →", "poe_end": "Сценарий закончен", "poe_exit": "Выйти", "legend_t": "Условные обозначения", "lg_on": "жёлтый — белок активен", "lg_off": "серый — неактивен", "lg_p": "белок фосфорилирован", "lg_missing": "белка нет: мутация или ингибитор", "lg_act": "активирует", "lg_inh": "тормозит", "lg_idle": "бледная связь — сейчас не работает", "lg_click": "щёлкните по белку — появится справка", "teacher_t": "Для преподавателя: как вести, упрощения, источники", "src_t_st": "Источники", "teacher_1": "На каждый вопрос: базовый уровень 5–7 минут, затем продвинутый 8–10 минут. «Сценарий» задаёт вопрос; студенты выбирают ответ, потом «Показать на схеме». Клавиши: 1–4 — вопросы, B — уровень. Щелчок по белку на схеме открывает справку.", "teacher_2": "Все величины условные (от 0 до 1 или в долях от покоя). Модели передают направление и порядок событий, а не концентрации. Порядок событий в вопросе 4 взят из Yu 2010 (голодание клеток NRK в среде без сыворотки и глутамина): mTORC1 подавлен к 2 ч и восстановлен к 6 ч, аутофагия максимальна к 4 ч, лизосомы восстановлены к 12 ч. Возврат mTORC1 при голоде именно по аминокислотам, зависящий от аутофагии, показан позже (Tan 2017; Kazyken 2024). Упрощение в вопросе 1: без аминокислот Rag-ГТФазы ещё и возвращают TSC2 на лизосому (Demetriades 2014), так что один инсулин RHEB полностью не загружает. В вопросе 4 бафиломицин — вторая чашка: её копируют за 2 ч до съёмки, в ней ничего не переваривается, и обе чашки измеряют в один момент. У mTORC1 в модели вопроса 4 два выхода: чувствительный к рапамицину (S6K, восстановление лизосом) и устойчивый (ULK1 S757, торможение аутофагии); TFEB зависит только от аминокислот. Прибавка LC3-II с бафиломицином включает не только непереваренное: за 2 ч в чашке с бафиломицином аминокислоты не освобождаются, mTORC1 не возвращается и образуются новые аутофагосомы. Поэтому экспозицию держат короткой (Klionsky 2021).", "teacher_3": "Поправки к распространённым схемам. AMPK: по классической схеме запускает аутофагию через ULK1 (Kim 2011; Egan 2011), по новым данным при остром дефиците энергии скорее сдерживает её (Park 2023; Kazyken 2024) — вопрос открыт. TFEB фосфорилируется mTORC1 через Rag и FLCN и не чувствителен к RHEB и рапамицину (Napolitano 2020); при длительной потере TSC2 TFEB, напротив, ядерный (Alesi 2021). SLC38A9 чувствует аргинин в лизосоме и выводит из неё лейцин. Малонил-CoA тормозит фермент CPT1, а через внутреннюю мембрану ацил переносится в виде ацилкарнитина (CACT). AMPK тормозит mTORC1 двумя путями: усиливает TSC2 (Inoki 2003) и тормозит Raptor (Gwinn 2008). В модели CPT1A (печень) и CPT1B (мышца) одинаково чувствительны к малонил-CoA; на деле CPT1B чувствительнее.", "s1_aa": "Аминокислоты", "s1_ins": "Инсулин", "s1_insulin": "инсулин", "s1_o_s6k": "синтез белка", "s1_o_ebp": "трансляция", "s1_o_ulk": "аутофагия", "s1_r_s6k": "с P работает: синтез белка и рибосом", "s1_r_ebp": "без P держит eIF4E и тормозит трансляцию", "s1_r_ulk": "с P от mTORC1 заторможена; без P может запустить аутофагию", "s1_r_tfeb": "в ядре включает гены лизосом и аутофагии", "s1_none": "Нет ни аминокислот, ни инсулина. RagA/B связаны с GDP, mTORC1 в цитоплазме и выключен. TFEB без фосфата в ядре.", "s1_none_z": "Строить не из чего, и разрешения расти нет. Клетка не тратит энергию на синтез белка, а TFEB включает гены лизосом: клетка готовится перерабатывать собственные запасы.", "s1_aa_only": "Аминокислоты перевели RagA/B в GTP-форму, RagC/D — в GDP-форму, и Rag-ГТФазы притянули mTORC1 к лизосоме. Но инсулина нет: TSC держит RHEB в GDP-форме, и S6K, 4E-BP1, ULK1 не фосфорилированы. TFEB при этом фосфорилирован: ему хватает Rag-сигнала.", "s1_aa_only_z": "Материал есть, а разрешения организма расти нет. mTORC1 ждёт на лизосоме, но рост не запускает. Новые лизосомы не нужны — аминокислот хватает.", "s1_ins_only": "Инсулин через AKT фосфорилировал TSC, и TSC ушёл с лизосомы. RHEB перешёл в GTP-форму. Но без аминокислот RagA/B связаны с GDP, mTORC1 к RHEB не попадает и не работает.", "s1_ins_only_z": "Разрешение расти есть, а строить не из чего. Включись mTORC1 сейчас, клетка начала бы синтез белка без сырья и выключила бы аутофагию — свой главный внутренний источник аминокислот.", "s1_both": "Оба сигнала есть: Rag-ГТФазы держат mTORC1 на лизосоме, RHEB-GTP его включает. S6K запускает синтез белка, 4E-BP1 отпускает eIF4E, ULK1 и TFEB выключены.", "s1_both_z": "Есть и материал, и разрешение — клетка вкладывает ресурсы в рост. Аутофагию и синтез лизосом она тормозит, чтобы не разбирать то, что сейчас строит.", "s1_weak": "Оба сигнала есть, но хотя бы один слабый. mTORC1 на лизосоме, часть RHEB связана с GTP, но активность mTORC1 низкая: S6K, 4E-BP1 и ULK1 почти не фосфорилированы. TFEB фосфорилирован: ему хватает сигнала от Rag-ГТФаз.", "s1_weak_z": "Сигналы не складываются, а перемножаются: два слабых сигнала дают слабый ответ. Клетка растёт, только когда достаточно и сырья, и разрешения.", "s1b_take": "Чтобы фосфорилировать S6K, 4E-BP1 и ULK1, mTORC1 нужны два условия сразу. Аминокислоты через Rag-ГТФазы решают, где он находится (на лизосоме). Инсулин через AKT и TSC решает, включится ли он там (RHEB-GTP). Логика «И» защищает клетку от роста без сырья. TFEB — исключение: ему хватает сигнала от Rag-ГТФаз.", "s1a_leu": "Лейцин", "s1a_arg": "Аргинин", "s1a_met": "Метионин (→ SAM)", "s1a_en": "Энергия (ATP)", "drug_t": "Препарат", "drug_0": "нет", "drug_rapa": "рапамицин", "drug_torin": "торин 1", "geno_t": "Клетки", "gt_wt": "норма", "gt_tsc": "нет TSC2", "gt_g1": "нет GATOR1", "gt_flcn": "нет FLCN", "gt_x": "загадка", "myst_show": "Показать ответ", "s1a_mask": "Схема скрыта: что сломано, решайте по блоту", "drug_none_k": "без препарата", "s1a_targets": "мишени mTORC1", "blot_t": "Вестерн-блот", "blot_rec": "Записать дорожку", "b_s6k": "p-S6K (T389)", "b_ebp": "p-4E-BP1 (T37/46)", "b_ulk": "p-ULK1 (S757)", "b_tfeb": "p-TFEB (S211)", "s1a_r_rag": "RagA/B·GTP: mTORC1 на лизосоме", "s1a_r_rheb": "RHEB·GTP", "s1a_r_ampk": "активность AMPK", "s1a_c_full": "Sestrin2 и CASTOR1 связали лейцин и аргинин и отпустили GATOR2, SAMTOR связал SAM и отпустил GATOR1. GATOR2 тормозит GATOR1, RagA/B в GTP-форме, mTORC1 на лизосоме. Инсулин убрал TSC — RHEB-GTP включает mTORC1. Все четыре мишени фосфорилированы.", "s1a_c_full_z": "Есть аминокислоты, SAM, энергия и разрешение расти — клетка строит. Каждый ресурс проверяет отдельный датчик, поэтому нехватка любого из них останавливает рост.", "s1a_c_leu": "Лейцина мало: свободный Sestrin2 связывает GATOR2. GATOR1 больше никто не тормозит, он переводит RagA/B в GDP-форму, и mTORC1 уходит с лизосомы. TFEB уходит в ядро.", "s1a_c_leu_z": "Лейцин — незаменимая аминокислота, клетка его не синтезирует. Без него синтез белка остановился бы на первом же лейциновом кодоне, поэтому рост выключается заранее.", "s1a_c_arg": "Аргинина мало: свободный CASTOR1 связывает GATOR2. Дальше как при нехватке лейцина: GATOR1 переводит RagA/B в GDP-форму, mTORC1 уходит с лизосомы. Аргинин в просвете лизосомы чувствует ещё SLC38A9.", "s1a_c_arg_z": "Клетка проверяет запас аминокислот в двух местах: в цитоплазме (CASTOR1) и внутри лизосомы (SLC38A9). При голоде лизосома — главный источник аминокислот.", "s1a_c_met": "Метионина мало, и SAM падает. SAMTOR без SAM связывается с GATOR1 и усиливает его. RagA/B в GDP-форме, mTORC1 уходит с лизосомы.", "s1a_c_met_z": "SAM — донор метильных групп для ДНК, белков и липидов. Его нехватка означает, что расти и делиться рано.", "s1a_c_torin": "Торин 1 занял активный центр mTOR. mTORC1 сидит на лизосоме, но ничего не фосфорилирует: исчезают все фосфополосы (актин — контроль нагрузки — остаётся), TFEB уходит в ядро.", "s1a_c_torin_z": "Это опыт, а не физиология. Рапамицин не показывает, что TFEB — субстрат mTORC1; торин 1 — показывает.", "s1a_c_ampk": "Энергии мало, AMPK активна. Она фосфорилирует Raptor и TSC2 и выключает mTORC1, хотя аминокислоты и инсулин есть. Через FNIP1 AMPK тормозит и FLCN, поэтому при сильной нехватке энергии TFEB уходит в ядро.", "s1a_c_ampk_z": "Рост дорог: синтез белка — одна из главных статей расхода ATP. При нехватке энергии клетка его останавливает, даже если сырьё и разрешение есть. Без TSC2 этот тормоз всё равно работает — через Raptor.", "s1a_c_ampk_mut": "Энергии мало, AMPK активна. Она фосфорилирует Raptor и выключает mTORC1 даже в этих клетках (Gwinn 2008).", "s1a_c_ampk_mut_z": "Тормоз через Raptor не зависит ни от TSC2, ни от FLCN: при нехватке энергии рост останавливается в любом случае.", "s1a_c_noins": "Аминокислоты есть, mTORC1 на лизосоме, но инсулина нет: TSC держит RHEB в GDP-форме. S6K, 4E-BP1 и ULK1 не фосфорилированы. Судьба TFEB от инсулина не зависит: ему нужны Rag и FLCN, а не RHEB.", "s1a_c_noins_z": "Разные мишени mTORC1 проверяют разные условия. Синтезу белка нужно разрешение организма, а судьба лизосом зависит только от аминокислот.", "s1a_c_weak": "Один из сигналов ослаблен — аминокислоты, инсулин или энергия. mTORC1 на лизосоме, но работает слабо: S6K, 4E-BP1 и ULK1 почти не фосфорилированы. TFEB зависит от другого сигнала — от Rag-ГТФаз и FLCN.", "s1a_c_weak_z": "Сигналы перемножаются: если хотя бы один слабый, слабым будет и ответ.", "s1a_c_rapa": "Рапамицин вместе с белком FKBP12 прикрывает вход в активный центр mTOR. Фосфорилирование S6K почти исчезает, а 4E-BP1 (T37/46) и ULK1 (S757) фосфорилируются почти как обычно. На TFEB рапамицин не действует.", "s1a_c_rapa_z": "Поэтому рапамицин и эверолимус тормозят рост, но слабо запускают аутофагию. Чтобы выключить все функции mTORC1, нужен ингибитор активного центра.", "s1a_c_flcn": "Без FLCN RagC/D остаются в GTP-форме. mTORC1 на лизосоме и фосфорилирует S6K, но TFEB к нему не попадает и всё время в ядре.", "s1a_c_flcn_z": "Так устроен синдром Бёрта — Хогга — Дюбе: опухоли почек, кисты лёгких, опухоли кожи. У мышей с выключением FLCN в почках кисты исчезают, если убрать и TFEB (Napolitano 2020). Одна мутация ломает одну ветвь mTORC1.", "s1a_c_g1": "Без GATOR1 некому перевести RagA/B в GDP-форму. Аминокислот нет, а mTORC1 остаётся на лизосоме и работает.", "s1a_c_g1_z": "Клетка перестаёт чувствовать голод и растёт без сырья. Мутации DEPDC5 (субъединица GATOR1) вызывают наследственную фокальную эпилепсию.", "s1a_c_tsc": "Без TSC2 RHEB всё время в GTP-форме: mTORC1 фосфорилирует S6K и без инсулина. А TFEB, неожиданно, в ядре: без TSC2 нарушается работа RagC, и TFEB плохо фосфорилируется (Alesi 2021).", "s1a_c_tsc_z": "Клетка растёт без разрешения организма, а лизосом в ней больше. Так возникают опухоли при туберозном склерозе; их лечат эверолимусом.", "s1a_c_tsc_noaa": "Без аминокислот mTORC1 уходит с лизосомы и в клетках без TSC2, но гаснет не полностью: в норме при голоде Rag-ГТФазы ещё и приводят TSC2 к лизосоме, а его нет (Demetriades 2014).", "s1a_c_tsc_noaa_z": "Аминокислотный вход не зависит от инсулина, но оба входа связаны через TSC2: голод тормозит mTORC1 двумя путями сразу.", "s1a_c_myst": "В этих клетках выключен один из белков пульта. Записывайте дорожки блота в разных условиях и найдите, какой.", "s1a_c_myst_z": "Так работает генетика: о функции белка судят по тому, что ломается без него.", "s1a_c_ans_tsc": "Ответ: нет TSC2. Признак: p-S6K есть без инсулина, а p-TFEB слабый.", "s1a_c_ans_tsc_z": "Сигнал инсулина больше не нужен, а аминокислотный — нужен.", "s1a_c_ans_g1": "Ответ: нет GATOR1. Признак: полосы не исчезают, когда убирают лейцин и аргинин.", "s1a_c_ans_g1_z": "Сломан аминокислотный вход: клетка не видит голода.", "s1a_c_ans_flcn": "Ответ: нет FLCN. Признак: p-S6K есть, а p-TFEB нет ни в каких условиях.", "s1a_c_ans_flcn_z": "Сломана только ветвь TFEB: ей нужны RagC/D в GDP-форме.", "s1a_take": "На лизосоме сходятся отдельные датчики: лейцина (Sestrin2), аргинина (CASTOR1, SLC38A9), SAM (SAMTOR), энергии (AMPK) и инсулина (TSC). Мишени mTORC1 требуют разного: S6K нужен RHEB, TFEB — только Rag и FLCN. Поэтому мутации и препараты выключают разные наборы функций.", "p1b_1_q": "Добавим только аминокислоты. Что сделает mTORC1?", "p1b_1_o1": "Сядет на лизосому и включится", "p1b_1_o2": "Сядет на лизосому, но не включится", "p1b_1_o3": "Останется в цитоплазме", "p1b_1_e": "Аминокислоты через Rag-ГТФазы приводят mTORC1 на лизосому. Включает его RHEB-GTP, а без инсулина RHEB в GDP-форме.", "p1b_1_w1": "На лизосому он сядет, но для включения нужен второй сигнал — RHEB-GTP от инсулина. Без инсулина TSC держит RHEB в GDP-форме.", "p1b_1_w3": "Наоборот: аминокислоты нужны, чтобы Rag-ГТФазы притянули mTORC1 к лизосоме. Без них он остался бы в цитоплазме.", "p1b_2_q": "Теперь только инсулин, без аминокислот. Что будет?", "p1b_2_o1": "mTORC1 включится в цитоплазме", "p1b_2_o2": "RHEB перейдёт в GTP-форму, но mTORC1 не включится", "p1b_2_o3": "Ничего не изменится", "p1b_2_e": "Инсулин убирает TSC, и RHEB переходит в GTP-форму. Но RHEB сидит на лизосоме, а mTORC1 без Rag-сигнала туда не попадает.", "p1b_2_w1": "RHEB сидит на мембране лизосомы, и встретиться с ним mTORC1 может только там. Без аминокислот mTORC1 к лизосоме не попадает.", "p1b_2_w3": "Меняется RHEB: инсулин через AKT убирает TSC, и RHEB переходит в GTP-форму. Но mTORC1 рядом нет, поэтому его мишени не фосфорилируются.", "p1b_3_q": "Оба сигнала есть. Уберём аминокислоты, инсулин оставим. Где окажется TFEB?", "p1b_3_o1": "В цитоплазме: инсулин держит mTORC1 активным", "p1b_3_o2": "В ядре: без аминокислот mTORC1 уходит с лизосомы", "p1b_3_o3": "Его разрушат протеасомы", "p1b_3_e": "TFEB фосфорилируется только на лизосоме. Без аминокислот mTORC1 уходит, TFEB теряет фосфат и идёт в ядро включать гены лизосом и аутофагии.", "p1b_3_w1": "TFEB фосфорилируется только на лизосоме и только при сигнале от Rag-ГТФаз. Инсулин этого не заменит: без аминокислот mTORC1 уходит с лизосомы.", "p1b_3_w3": "При голоде TFEB не разрушается: без фосфата он перестаёт удерживаться в цитоплазме и уходит в ядро.", "p1a_1_q": "Дорожка 1 — контроль. Добавим рапамицин. Какие полосы исчезнут?", "p1a_1_o1": "Все четыре", "p1a_1_o2": "p-S6K почти исчезнет, остальные полосы почти не изменятся", "p1a_1_o3": "Только p-TFEB", "p1a_1_e": "S6K (T389) очень чувствительна к рапамицину, а сайты 4E-BP1 (T37/46), ULK1 (S757) и TFEB (S211) к нему устойчивы: mTORC1 фосфорилирует их и в присутствии рапамицина (Thoreen 2009; Kang 2013; Settembre 2012).", "p1a_1_w1": "Так действует торин 1, а не рапамицин. Рапамицин лишь частично прикрывает вход в активный центр mTOR: S6K (T389) почти теряет фосфат, а 4E-BP1 (T37/46), ULK1 (S757) и TFEB фосфорилируются почти как обычно.", "p1a_1_w3": "Наоборот: TFEB к рапамицину устойчив. Сильнее всего рапамицин действует на S6K (T389).", "p1a_2_q": "Теперь вместо рапамицина торин 1 — он занимает активный центр mTOR. Какие полосы исчезнут?", "p1a_2_o1": "То же, что рапамицин", "p1a_2_o2": "Исчезнут все фосфополосы, TFEB уйдёт в ядро", "p1a_2_o3": "Полосы станут ярче", "p1a_2_e": "Торин 1 конкурирует с ATP за активный центр и выключает все функции mTORC1. Только с ним видно, что TFEB — субстрат mTORC1.", "p1a_2_w1": "Торин 1 занимает сам активный центр mTOR, конкурируя с ATP, а не прикрывает вход, как рапамицин. Поэтому исчезают все фосфополосы, и устойчивые к рапамицину тоже.", "p1a_2_w3": "Торин 1 выключает киназу mTOR, и её мишени теряют фосфат: фосфополосы исчезают, а не становятся ярче.", "p1a_3_q": "Клетки без TSC2, инсулина нет — mTORC1 работает (дорожка 1). Уберём лейцин и аргинин. Что будет?", "p1a_3_o1": "mTORC1 продолжит работать: тормоза нет", "p1a_3_o2": "mTORC1 почти выключится: без Rag-сигнала он не попадает к RHEB", "p1a_3_o3": "Клетка начнёт синтезировать лейцин", "p1a_3_e": "Потеря TSC2 снимает только требование инсулина; аминокислотный вход нужен по-прежнему. Полностью mTORC1 всё же не гаснет: при голоде Rag-ГТФазы ещё и приводят TSC2 к лизосоме, а его нет (Demetriades 2014).", "p1a_3_w1": "Без TSC2 RHEB всё время в GTP-форме, но mTORC1 ещё должен попасть к RHEB на лизосому. Без лейцина и аргинина Rag-ГТФазы его туда не приводят.", "p1a_3_w3": "Лейцин — незаменимая аминокислота, клетка его не синтезирует. При нехватке аминокислот mTORC1 просто уходит с лизосомы.", "p1a_4_q": "Клетки без GATOR1. Уберём лейцин и аргинин. Что будет?", "p1a_4_o1": "mTORC1 выключится, как в норме", "p1a_4_o2": "mTORC1 продолжит работать: некому перевести RagA/B в GDP-форму", "p1a_4_o3": "TFEB уйдёт в ядро, а S6K выключится", "p1a_4_e": "Датчики передают сигнал о голоде через GATOR2 на GATOR1. Без GATOR1 сигнал некуда передать, и mTORC1 не чувствует голода (Bar-Peled 2013).", "p1a_4_w1": "В норме сигнал о голоде от Sestrin2 и CASTOR1 идёт через GATOR2 на GATOR1, и GATOR1 переводит RagA/B в GDP-форму. Без GATOR1 этот шаг выпадает, и mTORC1 остаётся на лизосоме.", "p1a_4_w3": "TFEB и S6K здесь ведут себя одинаково: оба зависят от того, сидит ли mTORC1 на лизосоме. Без GATOR1 он остаётся там, и оба фосфорилированы.", "p1a_5_q": "Аминокислоты и инсулин есть, но энергии мало. Что сделает mTORC1?", "p1a_5_o1": "Выключится: AMPK фосфорилирует Raptor и TSC2", "p1a_5_o2": "Продолжит работать: сырьё и разрешение есть", "p1a_5_o3": "Уйдёт в ядро", "p1a_5_e": "AMPK тормозит mTORC1 двумя путями — через TSC2 и напрямую через Raptor. Путь через Raptor работает даже без TSC2 (Gwinn 2008).", "p1a_5_w2": "Рост требует много ATP. При нехватке энергии AMPK тормозит mTORC1, даже если аминокислоты и инсулин есть: усиливает TSC2 и фосфорилирует Raptor.", "p1a_5_w3": "При нехватке энергии mTORC1 тормозится на месте — через TSC2 и Raptor. В ядро уходит TFEB, когда теряет фосфат.", "p1a_6_q": "Клетки без FLCN. Что будет с S6K и TFEB?", "p1a_6_o1": "Оба выключатся", "p1a_6_o2": "S6K фосфорилирована, TFEB в ядре", "p1a_6_o3": "Оба как в норме", "p1a_6_e": "FLCN переводит RagC/D в GDP-форму. Только в этой форме Rag притягивают TFEB к mTORC1; S6K это не нужно (Napolitano 2020).", "p1a_6_w1": "Для S6K FLCN почти не нужен: mTORC1 остаётся на лизосоме, и S6K фосфорилируется. FLCN нужен ветви TFEB — он переводит RagC/D в GDP-форму.", "p1a_6_w3": "Для S6K — да, а для TFEB нет. Без FLCN RagC/D остаются в GTP-форме и не притягивают TFEB к mTORC1, поэтому TFEB всё время в ядре.", "s2_load": "Расход ATP", "s2_lkb1": "LKB1 работает", "s2_pool": "адениловые нуклеотиды", "s2_ak": "аденилаткиназа: 2 ADP ⇄ ATP + AMP", "s2_fold": "во сколько раз изменилось", "s2_rest": "покой", "s2_ec_f": "заряд = (ATP + ½ ADP) / (ATP + ADP + AMP)", "s2_alpha": "α — киназа", "s2_gamma": "γ — датчик", "s2_t_acc1": "синтез ЖК ↓", "s2_t_acc2": "окисление ЖК ↑", "s2_t_mtor1": "mTORC1 ↓", "s2_t_mtor2": "рост ↓", "s2_t_ulk1": "аутофагия:", "s2_t_ulk2": "вопрос открыт", "s2_r_atp": "от уровня покоя", "s2_r_amp": "от уровня покоя", "s2_r_ec": "энергетический заряд", "s2_r_ampk": "активность AMPK", "s2_c_rest": "ATP много, AMP почти нет. В γ-субъединице сидит ATP, AMPK неактивна.", "s2_c_rest_z": "Пока энергии хватает, AMPK не мешает клетке тратить ATP на синтез и рост.", "s2_c_on": "ATP снизился всего на {atp} %, а AMP вырос в {amp}: аденилаткиназа превращает лишний ADP в ATP и AMP. AMP вытесняет ATP из γ-субъединицы, LKB1 фосфорилирует Thr172, и AMPK включается.", "s2_c_on_z": "AMP — усилитель: ATP изменился мало, а сигнал уже сильный, и клетка реагирует до опасного падения ATP. AMPK урезает траты (синтез жирных кислот, рост через mTORC1) и включает производство ATP (окисление жирных кислот). Как AMPK влияет на аутофагию, сейчас пересматривают: по классической схеме она её запускает, по новым данным при остром дефиците энергии скорее сдерживает.", "s2_c_nolkb1": "AMP много, но без LKB1 Thr172 не фосфорилирован, и AMPK почти не работает.", "s2_c_nolkb1_z": "Клетка «видит» нехватку энергии, но не может ответить и продолжает тратить. LKB1 — супрессор опухолей; её часто теряют опухоли лёгкого.", "s2b_take": "Аденилаткиназа делает AMP чувствительным датчиком нехватки ATP. AMPK, связав AMP, переключает бюджет клетки: урезает траты (синтез жирных кислот, рост) и включает производство ATP.", "p2b_1_q": "Расход ATP растёт до максимума. Что изменится сильнее?", "p2b_1_o1": "ATP упадёт в разы, AMP почти не изменится", "p2b_1_o2": "ATP снизится на треть, AMP вырастет почти в 20 раз", "p2b_1_o3": "ATP и AMP изменятся одинаково", "p2b_1_e": "Аденилаткиназа держит равновесие 2 ADP ⇄ ATP + AMP, поэтому отношение AMP/ATP растёт примерно как квадрат отношения ADP/ATP. Небольшое падение ATP превращается в большой рост AMP.", "p2b_1_w1": "Наоборот. Аденилаткиназа превращает 2 ADP в ATP и AMP, поэтому ATP держится, а AMP, которого в покое очень мало, растёт во много раз.", "p2b_1_w3": "ATP много, и падает он лишь на треть. AMP в покое мало, поэтому та же реакция аденилаткиназы увеличивает его во много раз.", "p2b_2_q": "Выключим LKB1, расход ATP прежний. Что будет с AMPK?", "p2b_2_o1": "Будет работать: AMP ведь много", "p2b_2_o2": "Почти не будет работать: Thr172 не фосфорилирован", "p2b_2_o3": "Будет работать сильнее", "p2b_2_e": "AMP (и ADP) облегчают фосфорилирование Thr172 и защищают его от фосфатаз, AMP ещё и аллостерически активирует киназу. Но фосфорилирует Thr172 другая киназа — LKB1 (или CaMKK2, см. продвинутый уровень).", "p2b_2_w1": "AMP только помогает: облегчает фосфорилирование Thr172, защищает его от фосфатаз и усиливает уже фосфорилированную AMPK. Фосфорилирует Thr172 киназа LKB1, и без неё AMPK почти не работает.", "p2b_2_w3": "Без LKB1 некому фосфорилировать Thr172 в ответ на AMP. AMPK работает не сильнее, а почти не работает.", "p2b_3_q": "AMPK включилась. Что станет с синтезом жирных кислот и ростом?", "p2b_3_o1": "Ускорятся: клетке нужно больше энергии", "p2b_3_o2": "Выключатся: траты ATP сократятся", "p2b_3_o3": "Синтез жирных кислот ускорится, чтобы запасти энергию", "p2b_3_e": "AMPK выключает ACC (синтез жирных кислот) и mTORC1 (рост). С аутофагией сложнее: по классической схеме AMPK запускает её через ULK1 (Kim 2011; Egan 2011), по новым данным при остром дефиците энергии скорее сдерживает её запуск и сохраняет её белки (Park 2023; Kazyken 2024). Вопрос обсуждается.", "p2b_3_w1": "Синтез жирных кислот и рост тратят ATP. При нехватке энергии AMPK их выключает и включает то, что даёт ATP, например окисление жирных кислот.", "p2b_3_w3": "Энергию запасают, когда её в избытке. AMPK включается при нехватке ATP и выключает ACC: синтез жирных кислот падает, а их окисление растёт.", "s2a_in1": "расход ATP → AMP", "s2a_in2": "мало глюкозы (нет FBP)", "s2a_ald": "альдолаза", "s2a_glc": "Глюкоза", "s2a_ca": "Ca²⁺ в цитоплазме", "s2a_gam": "γ связывает AMP", "s2a_time": "Прошло времени", "s2a_t0": "0", "s2a_t1": "2 мин", "s2a_t2": "10 мин", "s2a_t3": "1 ч", "s2a_t4": "3 ч", "s2a_t5": "8 ч", "s2a_t6": "24 ч", "s2a_row1": "через минуты", "s2a_row2": "через часы", "s2a_e_acc": "синтез ЖК ↓", "s2a_e_hmg": "холестерин ↓", "s2a_e_tsc": "RHEB ↓", "s2a_e_rap": "mTORC1 ↓", "s2a_e_ulk": "аутофагия (?)", "s2a_e_mff": "деление ↑", "s2a_e_tfe": "лизосомы ↑", "s2a_e_pgc": "митохондрии ↑", "s2a_r_ratio": "от уровня покоя", "s2a_r_t172": "Thr172 фосфорилирован", "s2a_rt1": "вход AMP (LKB1)", "s2a_rt2": "вход глюкозы (лизосома)", "s2a_rt3": "вход Ca²⁺ (CaMKK2)", "s2a_c_rest": "Все три входа молчат: ATP хватает, глюкоза есть, Ca²⁺ низкий. AMPK неактивна.", "s2a_c_rest_z": "Повода экономить нет.", "s2a_c_amp": "Расход ATP поднял AMP. AMP связался с γ-субъединицей, LKB1 фосфорилировала Thr172 — классический путь.", "s2a_c_amp_z": "Это ответ на уже наступивший дефицит энергии.", "s2a_c_glc": "Глюкозы мало, а ATP пока в норме. Альдолаза без фруктозо-1,6-бисфосфата (FBP) собирает на лизосоме комплекс v-ATPase — Ragulator — AXIN — LKB1, и LKB1 фосфорилирует AMPK. AMP для этого не нужен.", "s2a_c_glc_z": "Клетка экономит заранее: реагирует на нехватку топлива ещё до падения ATP.", "s2a_c_glc_gam": "γ-субъединица не связывает AMP, но глюкозный вход работает: альдолаза на лизосоме включает AMPK без AMP.", "s2a_c_glc_gam_z": "Так показали, что этот вход не зависит от AMP (Zhang 2017).", "s2a_c_ca": "Ca²⁺ в цитоплазме вырос. CaMKK2 фосфорилирует Thr172 без всякого AMP.", "s2a_c_ca_z": "Возбуждение нейрона или сигнал гормона предупреждает заранее: скоро понадобится много ATP.", "s2a_c_ca0": "LKB1 нет, но Ca²⁺ через CaMKK2 всё равно включает AMPK.", "s2a_c_ca0_z": "Один и тот же Thr172 могут фосфорилировать разные киназы (Hawley 2005).", "s2a_c_nolkb": "LKB1 нет: ни AMP, ни нехватка глюкозы не включают AMPK. Включить её может только вход Ca²⁺ через CaMKK2.", "s2a_c_nolkb_z": "LKB1 нужна обоим энергетическим входам. Опухолевые клетки без LKB1 не тормозят рост при нехватке энергии.", "s2a_c_gam": "γ-субъединица не связывает AMP: расход ATP большой, а AMPK почти не реагирует.", "s2a_c_gam_z": "Значит, датчик AMP — именно γ-субъединица.", "s2a_c_multi": "Работают сразу несколько входов, их эффекты складываются.", "s2a_c_multi_z": "AMPK сводит в одну точку сигналы о расходе энергии, о запасе топлива и о нагрузке.", "s2a_c_part": "AMPK активна лишь частично: Thr172 фосфорилирован не полностью, и мишени почти не фосфорилируются.", "s2a_c_part_z": "Слабые сигналы складываются: чем их больше и чем они сильнее, тем активнее AMPK.", "s2a_take": "AMPK включают три входа: AMP (дефицит ATP уже наступил), нехватка глюкозы через лизосому (топливо кончается) и Ca²⁺ (нагрузка впереди). Ответ идёт в два слоя: за минуты фосфорилируются ферменты, за часы меняются гены — появляются новые лизосомы и митохондрии.", "p2a_1_q": "Уберём глюкозу. ATP пока в норме. Включится ли AMPK?", "p2a_1_o1": "Нет: AMP ведь не вырос", "p2a_1_o2": "Да: через альдолазу на лизосоме, без участия AMP", "p2a_1_o3": "Да, но только через Ca²⁺", "p2a_1_e": "Альдолаза без FBP запускает сборку комплекса с AXIN и LKB1 на лизосоме. AMPK включается раньше, чем упадёт ATP (Zhang 2017).", "p2a_1_w1": "AMPK чувствует не только AMP. Альдолаза без FBP собирает на лизосоме комплекс с AXIN и LKB1, и LKB1 фосфорилирует AMPK ещё до падения ATP.", "p2a_1_w3": "Ca²⁺ здесь не меняется. Нехватку глюкозы AMPK чувствует через альдолазу на лизосоме, а фосфорилирует её LKB1.", "p2a_2_q": "γ-субъединица AMPK не связывает AMP. Поднимем расход ATP. Что будет?", "p2a_2_o1": "AMPK включится как обычно", "p2a_2_o2": "AMPK почти не включится", "p2a_2_o3": "AMPK включится сильнее", "p2a_2_e": "Энергетический вход идёт через связывание AMP с γ. Без него AMPK не «видит» дефицита ATP — но на нехватку глюкозы и на Ca²⁺ отвечает.", "p2a_2_w1": "Энергетический вход работает через связывание AMP с γ-субъединицей. Если γ не связывает AMP, рост AMP AMPK не замечает.", "p2a_2_w3": "Без связывания AMP расход ATP нечем «передать» AMPK: она почти не включается.", "p2a_3_q": "Клетки без LKB1. Поднимем Ca²⁺. Что будет?", "p2a_3_o1": "Ничего: LKB1 нет", "p2a_3_o2": "AMPK включится через CaMKK2", "p2a_3_o3": "AMPK включится через AMP", "p2a_3_e": "CaMKK2 фосфорилирует тот же Thr172. В клетках без LKB1 AMPK включается через Ca²⁺ без изменения AMP (Hawley 2005).", "p2a_3_w1": "Thr172 фосфорилирует не только LKB1. При росте Ca²⁺ это делает CaMKK2, и AMPK включается без LKB1.", "p2a_3_w3": "AMP здесь не растёт: AMPK включается потому, что CaMKK2 фосфорилирует Thr172 (Hawley 2005).", "p2a_4_q": "AMPK работает 2 минуты: фосфорилированы ACC, HMGCR, TSC2, Raptor, ULK1, MFF. Что добавится через несколько часов?", "p2a_4_o1": "Ничего: всё уже сделано", "p2a_4_o2": "Новые лизосомы (FNIP1 → TFEB) и митохондрии (PGC-1α)", "p2a_4_o3": "AMPK выключится, и всё вернётся", "p2a_4_e": "Быстрый ответ — фосфорилирование ферментов. Медленный — смена программы генов: AMPK фосфорилирует FNIP1, TFEB уходит в ядро и включает гены лизосом, а затем PGC-1α — гены митохондрий (Malik 2023).", "p2a_4_w1": "За минуты меняется активность ферментов. Если AMPK работает часами, меняется программа генов: через FNIP1 и TFEB появляются новые лизосомы, через PGC-1α — митохондрии.", "p2a_4_w3": "Пока энергии не хватает, AMPK остаётся активной. Её долгая работа меняет гены: клетка строит новые лизосомы и митохондрии.", "s3_omm": "наружная мембрана", "s3_imm": "внутренняя мембрана", "s3_matrix_lbl": "матрикс", "s3_cit_lbl": "цитрат", "s3_mal": "малонил-CoA", "s3_fas": "синтез ЖК", "s3_box": "β-окисление", "s3_out": "ацетил-CoA → ЦТК → ATP", "s3_leg_acyl": "ацил-CoA", "s3_leg_carn": "ацилкарнитин", "s3_leg_free": "свободный карнитин", "s3_leg_mal": "малонил-CoA", "s3_leg_mcfa": "октаноат (C8)", "s3_r_acc": "активность ACC", "s3_r_mal": "малонил-CoA", "s3_r_cpt": "активность CPT1", "s3_r_syn": "синтез жирных кислот", "s3_r_ox": "β-окисление", "s3_ampk": "AMPK (энергии мало)", "s3_cit": "Цитрат (избыток углеводов)", "s3_c_syn": "ACC активна, малонил-CoA много. Он идёт на синтез жирных кислот и тормозит CPT1: ацил-CoA реже превращается в ацилкарнитин, перенос в митохондрию и окисление снижены.", "s3_c_syn_z": "Углеводов в избытке — клетка запасает энергию в жирных кислотах. Малонил-CoA сразу и сырьё для синтеза, и запрет на окисление: иначе новые жирные кислоты тут же сгорали бы в митохондрии.", "s3_c_mid": "Малонил-CoA на среднем уровне: CPT1 частично заторможена, синтез и окисление идут слабо.", "s3_c_mid_z": "Переключение плавное: чем меньше малонил-CoA, тем больше жирных кислот уходит на окисление.", "s3_c_ox": "AMPK фосфорилировала и выключила ACC; оставшийся малонил-CoA расходуется и разрушается малонил-CoA-декарбоксилазой. CPT1 работает: ацил-CoA → ацилкарнитин → через CACT в матрикс → CPT2 возвращает ацил-CoA → β-окисление.", "s3_c_ox_z": "Энергии мало — запасать незачем, нужно сжигать. Одно фосфорилирование ACC сразу резко снижает синтез и открывает жирным кислотам путь в митохондрию, где из них получается ATP.", "s3_c_ox_cit": "Цитрата мало, поэтому ACC почти не работает и малонил-CoA мало. CPT1 не заторможена: ацил-CoA → ацилкарнитин → через CACT в матрикс → CPT2 возвращает ацил-CoA → β-окисление.", "s3_c_ox_cit_z": "Цитрат в цитоплазме — признак того, что ацетил-CoA и ATP в избытке. Нет цитрата — запасать нечего, и жирные кислоты идут на окисление.", "s3b_take": "Малонил-CoA — общий узел: он сырьё для синтеза жирных кислот и тормоз CPT1, входа в митохондрию. Поэтому синтез и окисление не идут одновременно в полную силу. AMPK одним фосфорилированием ACC переключает клетку с запасания на сжигание.", "p3b_1_q": "Включим AMPK. Что будет с малонил-CoA и с потоком жирных кислот в митохондрию?", "p3b_1_o1": "Малонил-CoA вырастет, поток упадёт", "p3b_1_o2": "Малонил-CoA упадёт, поток вырастет", "p3b_1_o3": "Ничего не изменится", "p3b_1_e": "AMPK фосфорилирует ACC1 и ACC2 и выключает их. Малонил-CoA расходуется, CPT1 растормаживается.", "p3b_1_w1": "AMPK не включает, а выключает ACC — фермент, который делает малонил-CoA. Малонил-CoA падает, тормоз с CPT1 снимается, и поток в митохондрию растёт.", "p3b_1_w3": "Изменится: ACC — прямая мишень AMPK. Одно фосфорилирование выключает фермент, малонил-CoA падает, и CPT1 растормаживается.", "p3b_2_q": "Почему частица меняет цвет на CPT1, а потом снова на CPT2?", "p3b_2_o1": "Её окисляют дважды", "p3b_2_o2": "Ацил-CoA в цитоплазме и в матриксе — разные жирные кислоты", "p3b_2_o3": "Внутренняя мембрана не пропускает ацил-CoA: переносится ацилкарнитин, а в матриксе ацил снова переходит на CoA", "p3b_2_e": "CPT1 переносит ацил с CoA на карнитин, транспортёр CACT меняет ацилкарнитин на свободный карнитин, CPT2 возвращает ацил на CoA уже в матриксе. Запасы CoA в цитоплазме и в матриксе остаются раздельными.", "p3b_2_w1": "Смена цвета — не окисление. Ацил переходит с CoA на карнитин (CPT1), а в матриксе — обратно на CoA (CPT2). Окисляется он потом, в матриксе.", "p3b_2_w2": "Это одна и та же жирная кислота. Меняется только то, с чем связан ацил: CoA в цитоплазме, карнитин при переходе через внутреннюю мембрану, снова CoA в матриксе.", "p3b_3_q": "Пришло много углеводов (цитрат ↑). Что произойдёт?", "p3b_3_o1": "Синтез ЖК вырастет, окисление упадёт", "p3b_3_o2": "Окисление вырастет", "p3b_3_o3": "Оба процесса вырастут", "p3b_3_e": "Цитрат активирует ACC. Малонил-CoA одновременно питает синтез и тормозит CPT1: избыток углеводов уходит в запас, а не в топку.", "p3b_3_w2": "Цитрат активирует ACC. Малонил-CoA растёт и тормозит CPT1, поэтому окисление падает.", "p3b_3_w3": "Малонил-CoA и питает синтез, и тормозит CPT1. Поэтому синтез растёт, а окисление падает. Если бы росли оба, получился бы холостой цикл.", "s3a_ins": "+ инсулин", "s3a_eto_tag": "этомоксир", "s3a_fed": "Сытость (инсулин, цитрат)", "tis_t": "Ткань", "tis_liver": "печень", "tis_muscle": "мышца", "ch_t": "Жирная кислота", "ch_long": "пальмитат (C16)", "ch_medium": "октаноат (C8)", "geno3_t": "Генотип или препарат", "gt_acc2": "нет ACC2", "gt_ki": "ACC S79A/S212A", "gt_eto": "этомоксир", "s3a_fut": "Мысленный опыт: малонил-CoA не тормозит CPT1", "s3a_out_keto": "ацетил-CoA → кетоновые тела", "s3a_out_liver": "ацетил-CoA → ЦТК", "s3a_out_muscle": "ацетил-CoA → ЦТК → ATP", "s3a_r_mal2": "малонил-CoA у CPT1", "s3a_r_keto": "кетоновые тела", "s3a_r_atp": "ATP из жирных кислот", "s3a_r_fut": "холостой цикл", "s3a_c_syn": "Печень сыта: инсулин и цитрат держат ACC1 и ACC2 активными. Малонил-CoA идёт на синтез жирных кислот и тормозит CPT1.", "s3a_c_syn_z": "Избыток углеводов превращается в жир про запас; окислять его сейчас незачем.", "s3a_c_mfed": "Мышца сыта: ACC2 на наружной мембране делает малонил-CoA прямо у CPT1, и окисление жирных кислот заторможено. Синтеза жирных кислот в мышце почти нет.", "s3a_c_mfed_z": "В мышце малонил-CoA почти не идёт на синтез — он работает как регулятор: в сытости мышца сжигает глюкозу, а жирные кислоты не трогает.", "s3a_c_mid": "Малонил-CoA на среднем уровне: CPT1 частично заторможена.", "s3a_c_mid_z": "Переключение плавное: доля окисления растёт по мере падения малонил-CoA.", "s3a_c_ox": "Малонил-CoA мало, CPT1 работает, жирные кислоты идут через карнитиновый челнок на β-окисление.", "s3a_c_ox_z": "Голод или нагрузка: жирные кислоты становятся главным топливом.", "s3a_c_keto": "Голодная печень: малонил-CoA мало, жирные кислоты окисляются, а ацетил-CoA уходит на кетоновые тела.", "s3a_c_keto_z": "Печень сама живёт за счёт β-окисления, а кетоновые тела отдаёт мозгу и мышцам. Мозг почти не использует жирные кислоты как топливо, а кетоновые тела — использует.", "s3a_c_acc2": "Без ACC2 у CPT1 почти нет малонил-CoA. Даже в сытости CPT1 работает, и жирные кислоты окисляются.", "s3a_c_acc2_z": "У мышей без ACC2 малонил-CoA в сердце был в 10 раз, в мышцах в 30 раз ниже, а окисление жирных кислот выше (Abu-Elheiga 2001; Hoehn 2010). В другой линии мышей малонил-CoA и окисление в мышце не изменились — клетки нашли замену (Olson 2010). Масса жира в независимых линиях не менялась (Olson 2010; Hoehn 2010).", "s3a_c_acc2_liv": "Без ACC2 малонил-CoA у CPT1 остаётся только от ACC1. CPT1 тормозится слабее, чем в норме, и окисление выше; синтез жирных кислот от ACC2 не зависит.", "s3a_c_acc2_liv_z": "В печени много ACC1: её малонил-CoA идёт на синтез жирных кислот и отчасти тормозит CPT1. Какая доля доходит до CPT1, точно не известно — в модели она условная.", "s3a_c_ki": "ACC с заменами S79A/S212A нельзя фосфорилировать. AMPK активна, но ACC работает: малонил-CoA много, синтез идёт, окисление заторможено.", "s3a_c_ki_z": "У таких мышей больше синтез жира в печени, жировая печень и инсулинорезистентность, а метформин не улучшает обмен жиров и чувствительность к инсулину (Fullerton 2013). Через ACC AMPK и управляет жирами.", "s3a_c_eto": "Этомоксир необратимо выключает CPT1. Длинные жирные кислоты не входят в митохондрию, хотя малонил-CoA мало.", "s3a_c_eto_z": "Опыт доказывает: длинные жирные кислоты попадают в митохондрию только через CPT1. Избирательно этомоксир действует только в низкой дозе.", "s3a_c_mcfa": "Октаноат (C8) проходит мембраны без карнитинового челнока и активируется уже в матриксе. Малонил-CoA на него не действует.", "s3a_c_mcfa_z": "Поэтому жиры со средней длиной цепи окисляются и в сытости. Ими кормят больных с нарушениями окисления длинных жирных кислот.", "s3a_c_mcfa_eto": "Этомоксир выключил CPT1, но октаноат окисляется: ему CPT1 не нужен.", "s3a_c_mcfa_eto_z": "McGarry с соавторами (1977) показали: малонил-CoA тормозит окисление олеата, но не октаноата. Значит, он действует на вход через CPT1, а не на само β-окисление.", "s3a_c_mcfa_mus": "Окисление октаноата (C8) малонил-CoA почти не тормозит. В печени он входит в матрикс сам, а мышце для этого нужен карнитин (Pereyra 2021); в модели эта разница не показана.", "s3a_c_mcfa_mus_z": "Поэтому печень окисляет октаноат и без карнитина, а сердцу и мышцам карнитин нужен. У мышей без CPT2 в сердце диета с октаноатом не устранила поражение сердца (Pereyra 2021).", "s3a_c_futile": "Мысленный опыт: малонил-CoA не тормозит CPT1. В сытой печени жирные кислоты синтезируются и тут же сгорают — получается холостой цикл.", "s3a_c_futile_z": "На каждую молекулу пальмитата синтез тратит 7 ATP и 14 NADPH, а окисление возвращает энергию с потерями. Клетка тратила бы ресурсы впустую, а жир не запасался бы.", "s3a_take": "Малонил-CoA у CPT1 решает, войдут ли длинные жирные кислоты в митохондрию. ACC2 ставит этот тормоз прямо у CPT1, AMPK его снимает. Жирные кислоты средней длины идут в обход челнока. Без такого тормоза синтез и окисление шли бы одновременно.", "p3a_1_q": "Сытая мышца. Уберём ACC2. Что будет с окислением жирных кислот?", "p3a_1_o1": "Упадёт", "p3a_1_o2": "Вырастет: у CPT1 исчезнет малонил-CoA", "p3a_1_o3": "Не изменится: ведь ACC1 есть", "p3a_1_e": "В мышце главная ACC — ACC2 на наружной мембране митохондрии. Без неё CPT1 не тормозится даже в сытости (Abu-Elheiga 2001). В одной из линий мышей без ACC2 мышца нашла замену, и малонил-CoA не изменился (Olson 2010).", "p3a_1_w1": "ACC2 делает малонил-CoA, который тормозит CPT1. Без ACC2 тормоз слабее, и окисление не падает, а растёт.", "p3a_1_w3": "В мышце ACC1 мало, а малонил-CoA у CPT1 делает в основном ACC2 на наружной мембране митохондрии. Без неё тормоз пропадает (Abu-Elheiga 2001). Правда, в одной линии мышей мышца нашла замену (Olson 2010).", "p3a_2_q": "Печень мышей ACC S79A/S212A. Активируем AMPK. Что будет с синтезом жирных кислот?", "p3a_2_o1": "Упадёт, как обычно", "p3a_2_o2": "Не изменится", "p3a_2_o3": "Вырастет", "p3a_2_e": "AMPK активна, но не может фосфорилировать ACC. Значит, синтез жира AMPK тормозит именно через ACC (Fullerton 2013).", "p3a_2_w1": "AMPK тормозит синтез жира, фосфорилируя ACC по S79 (ACC1) и S212 (ACC2). Здесь эти серины заменены аланином, фосфорилировать нечего, и синтез не падает.", "p3a_2_w3": "AMPK не ускоряет синтез жира. Здесь она просто не может выключить ACC, и синтез остаётся прежним.", "p3a_3_q": "Голодная печень. Добавим этомоксир. Что будет с окислением пальмитата?", "p3a_3_o1": "Почти остановится", "p3a_3_o2": "Ускорится", "p3a_3_o3": "Не изменится", "p3a_3_e": "Этомоксир необратимо выключает CPT1. Без CPT1 длинные жирные кислоты не попадают в матрикс.", "p3a_3_w2": "Этомоксир — ингибитор CPT1. Без CPT1 пальмитат не превращается в пальмитоилкарнитин и не попадает в матрикс.", "p3a_3_w3": "Пальмитат — длинная жирная кислота, и в матрикс он попадает только через CPT1. Этомоксир её выключает, и окисление почти останавливается.", "p3a_4_q": "Этомоксир остался. Дадим октаноат (C8). Окисляется ли он?", "p3a_4_o1": "Нет: CPT1 ведь выключен", "p3a_4_o2": "Да: средние жирные кислоты проходят без карнитинового челнока", "p3a_4_o3": "Да, но только с добавленным карнитином", "p3a_4_e": "Октаноат проникает в матрикс сам и там превращается в октаноил-CoA. CPT1 и малонил-CoA на него не влияют (McGarry 1977).", "p3a_4_w1": "Октаноат — жирная кислота средней длины. Он проходит в матрикс без CPT1 и там соединяется с CoA.", "p3a_4_w3": "В печени октаноат входит в матрикс сам и там соединяется с CoA: карнитин ему не нужен. А вот мышце для этого карнитин нужен (Pereyra 2021).", "p3a_5_q": "Мысленный опыт: малонил-CoA не тормозит CPT1. Что будет в сытой печени?", "p3a_5_o1": "Клетка получит больше энергии", "p3a_5_o2": "Синтез и окисление пойдут одновременно — холостой цикл", "p3a_5_o3": "Синтез жирных кислот остановится", "p3a_5_e": "Новые жирные кислоты тут же уходят в митохондрию и сгорают. На каждую молекулу пальмитата впустую тратятся 7 ATP и 14 NADPH.", "p3a_5_w1": "Холостой цикл энергию не прибавляет, а тратит: на синтез каждой молекулы пальмитата уходят 7 ATP и 14 NADPH, а её окисление обратно до ацетил-CoA возвращает меньше.", "p3a_5_w3": "Малонил-CoA по-прежнему питает синтез: в этом мысленном опыте он только перестаёт тормозить CPT1. Синтез идёт, но новые жирные кислоты тут же сгорают.", "s4_play": "Пуск", "s4_pause": "Пауза", "s4_starve": "Убрать аминокислоты", "s4_feed": "Вернуть аминокислоты", "s4_reset": "Сначала", "s4_time": "От начала опыта: {h} ч", "s4_time2": "От начала: {h} ч · без аминокислот: {s} ч", "s4_plotcap": "Учебная модель, относительные величины.", "s4a_plotcap": "График — контрольная чашка (−Б). Учебная модель, относительные величины.", "s4_mk_starve": "голод", "s4_mk_feed": "еда", "s4_axis": "ч", "h_short": "ч", "s4_l_mtor": "mTORC1", "s4_l_auto": "переваривание в лизосомах", "s4_l_form": "образование аутофагосом", "s4a_l_mtor": "mTORC1 (по p-S6K)", "s4_l_lyso": "свободные лизосомы", "s4_l_aa": "аминокислоты", "s4_r_ly": "свободные лизосомы", "s4_block": "Протеазы лизосом заблокированы", "s4_leg_lyso": "лизосома", "s4_leg_ap": "аутофагосома", "s4_leg_al": "аутолизосома", "s4_leg_aa": "аминокислота", "s4_r_ap": "аутофагосомы", "s4_r_al": "аутолизосомы", "s4_c_fed": "Аминокислот хватает: mTORC1 на лизосоме и работает, аутофагия заторможена, TFEB фосфорилирован и сидит в цитоплазме.", "s4_c_fed_z": "Аминокислоты поступают снаружи — разбирать собственные белки незачем.", "s4_c_fall": "Аминокислоты из среды больше не поступают. Внутренний запас быстро расходуется на синтез белка, mTORC1 ещё работает.", "s4_c_fall_z": "Пока запас не иссяк, клетка живёт как обычно.", "s4_c_early": "За десятки минут аминокислоты кончились: mTORC1 ушёл с лизосомы и перестал тормозить ULK1. Появляются аутофагосомы, TFEB уходит в ядро.", "s4_c_early_z": "Внешний источник исчез — клетка переключается на внутренний: аутофагия захватывает часть собственных белков и органелл.", "s4_c_auto": "Аутофагосомы сливаются с лизосомами в аутолизосомы. Протеазы расщепляют белки до аминокислот, и те выходят в цитоплазму. Свободных лизосом становится меньше.", "s4_c_auto_z": "Так клетка переживает голод за счёт того, что можно разобрать: аминокислоты идут на самые нужные белки и на энергию.", "s4_c_react": "Аминокислот от аутофагии хватило, чтобы снова включить mTORC1. Он резко уменьшает образование новых аутофагосом и запускает восстановление лизосом: из аутолизосом вытягиваются трубочки и отделяются новые лизосомы.", "s4_c_react_z": "Аутофагия не должна идти бесконечно — иначе клетка разберёт сама себя. Возврат mTORC1 — отрицательная обратная связь: переработки ровно столько, сколько нужно.", "s4_c_done": "Лизосомы восстановлены, аутофагия ослабла. mTORC1 работает на аминокислотах, освобождённых при переработке.", "s4_c_done_z": "Клетка пришла в новое равновесие и снова готова к переработке, если голод продолжится.", "s4_c_block": "Протеазы лизосом заблокированы: аутолизосомы копятся, но аминокислоты не освобождаются. mTORC1 не возвращается, лизосомы не восстанавливаются.", "s4_c_block_z": "Без переваривания аутофагия бесполезна: груз копится, а питания нет. Похожее накопление бывает при лизосомных болезнях накопления.", "s4_c_refed": "Аминокислоты снова есть: mTORC1 работает, новых аутофагосом образуется мало, TFEB возвращается в цитоплазму.", "s4_c_refed_z": "Внешний источник вернулся — собственные запасы больше не трогаются.", "s4b_take": "Голод выключает mTORC1 за минуты, аутофагия набирает силу за часы, и освобождённые аминокислоты через 3–6 часов снова включают mTORC1. Он резко уменьшает образование новых аутофагосом (уже готовые ещё перевариваются) и восстанавливает лизосомы. Без лизосомных протеаз эта петля разрывается.", "p4b_1_q": "Уберём аминокислоты. Как быстро выключится mTORC1?", "p4b_1_o1": "За десятки минут", "p4b_1_o2": "Через сутки", "p4b_1_o3": "Не выключится", "p4b_1_e": "Свободных аминокислот в клетке немного, и синтез белка быстро их расходует. mTORC1 гаснет в первые полчаса.", "p4b_1_w2": "Сутки не нужны: mTORC1 следит за свободными аминокислотами, а их запаса хватает лишь на десятки минут синтеза белка.", "p4b_1_w3": "mTORC1 следит за аминокислотами постоянно. Когда их становится мало, RagA/B переходят в GDP-форму, и mTORC1 уходит с лизосомы.", "p4b_2_q": "Голод продолжается. Что будет с mTORC1 через несколько часов?", "p4b_2_o1": "Останется выключенным, пока не дадут еду", "p4b_2_o2": "Снова включится за счёт аминокислот из аутофагии", "p4b_2_o3": "Клетка погибнет", "p4b_2_e": "Аутолизосомы освобождают аминокислоты, и через несколько часов mTORC1 возвращается, хотя в среде аминокислот по-прежнему нет (Tan 2017; у Yu 2010 — голод без сыворотки и глутамина).", "p4b_2_w1": "У клетки есть внутренний источник — аутофагия. Аутолизосомы освобождают аминокислоты, и mTORC1 возвращается даже без еды.", "p4b_2_w3": "За несколько часов голода клетка не гибнет: аутофагия даёт ей аминокислоты, и mTORC1 снова включается.", "p4b_3_q": "Протеазы лизосом заблокированы. Вернётся ли mTORC1?", "p4b_3_o1": "Да, как обычно", "p4b_3_o2": "Нет: аминокислоты не освобождаются", "p4b_3_o3": "Вернётся быстрее", "p4b_3_e": "Слияние идёт, но белки не расщепляются. Без аминокислот mTORC1 не возвращается — значит, возвращает его именно лизосомный гидролиз (Yu 2010).", "p4b_3_w1": "mTORC1 возвращают аминокислоты, которые освобождают протеазы лизосом. Без протеаз белки груза не расщепляются, и mTORC1 не возвращается.", "p4b_3_w3": "Блок протеаз не ускоряет, а отменяет возврат mTORC1: аминокислоты из груза не освобождаются.", "p4b_4_q": "Три часа голода, аутофагия в разгаре. Вернём аминокислоты. Что будет?", "p4b_4_o1": "mTORC1 включится, новых аутофагосом станет намного меньше", "p4b_4_o2": "Ничего, пока не кончится аутофагия", "p4b_4_o3": "Аутофагия усилится", "p4b_4_e": "Внешние аминокислоты сразу возвращают mTORC1 на лизосому. Он фосфорилирует ULK1 и TFEB, новых аутофагосом образуется намного меньше, а уже готовые перевариваются.", "p4b_4_w2": "Ждать конца аутофагии не нужно: внешние аминокислоты сразу возвращают mTORC1 на лизосому, он фосфорилирует ULK1, и новых аутофагосом становится намного меньше. Готовые просто дойдут до лизосом.", "p4b_4_w3": "Аутофагию запускает нехватка аминокислот. Когда они вернулись, mTORC1 снова тормозит её запуск.", "um": "мкм", "s4a_y": "аутофагосома: GFP + mCherry", "s4a_r": "аутолизосома: GFP гаснет в кислой среде", "s4a_y_baf": "оба сигнала: аутофагосома или аутолизосома без кислоты", "s4a_r_baf": "красных нет: без кислой среды GFP не гаснет", "gt_atg7": "нет ATG7", "gt_ampk": "нет AMPK", "int_t": "Воздействие", "int_none": "нет", "int_prot": "ингибиторы протеаз", "int_rapa": "рапамицин с 2 ч", "int_none_k": "без воздействия", "s4a_bafview": "Вторая чашка: + бафиломицин за 2 ч до съёмки", "s4a_baf_on": "+ бафиломицин с {h} ч", "s4a_since": "без аминокислот {s} ч", "s4a_dish_ctrl": "Чашка без бафиломицина", "s4a_dish_baf": "Вторая чашка: + бафиломицин", "s4a_r_s6k": "mTORC1 → p-S6K (чувствителен к рапамицину)", "s4a_r_ulk": "mTORC1 → p-ULK1 S757 (устойчив к рапамицину)", "blot_t4": "Вестерн-блот: LC3 и p62", "blot_rec4": "Снять блот ± бафиломицин", "blot_flux": "{h} · {g} · {i}: с бафиломицином за {x} ч LC3-II больше на {d} = {a} (в контроле переварен) + {b} (лишние аутофагосомы во второй чашке)", "blot_flux_zero": "{h} · {g} · {i}: с бафиломицином за {x} ч прибавки LC3-II нет", "blot_flux0": "{h} · {g} · {i}: бафиломицин ещё не успел подействовать", "blot_fed": "сыто", "blot_refed": "после еды", "blot_starved": "{h} ч голода", "blot_note4": "−Б и +Б — две чашки, снятые в один момент; во вторую бафиломицин добавили за 2 ч до съёмки. Прибавка LC3-II = LC3-II, который в контроле успел перевариться, + аутофагосомы, которые во второй чашке образовались сверх контроля. Числа условные.", "s4a_ny": "жёлтые точки", "s4a_nr": "красные точки", "s4a_c_fed": "Сыто: точек почти нет — аутофагия на базальном уровне. LC3 в основном в форме LC3-I.", "s4a_c_fed_z": "Базальная аутофагия идёт всегда и убирает старые белки и органеллы, но она мала.", "s4a_c_early": "Начало голода: появляются жёлтые точки — аутофагосомы. В них светят и GFP, и mCherry.", "s4a_c_early_z": "Пока аутофагосома не слилась с лизосомой, среда в ней не кислая, и GFP светит.", "s4a_c_peak": "Много красных точек: аутофагосомы слились с лизосомами. В кислой среде GFP гаснет, а mCherry светит дальше.", "s4a_c_peak_z": "Красные точки — признак того, что груз дошёл до лизосом: поток идёт.", "s4a_c_react": "mTORC1 возвращается: новые аутофагосомы образуются всё реже, а уже готовые аутолизосомы ещё перевариваются.", "s4a_c_react_z": "Отрицательная обратная связь уменьшила образование новых аутофагосом.", "s4a_c_refed": "Аминокислоты вернули: mTORC1 работает, новых аутофагосом образуется мало.", "s4a_c_refed_z": "Собственные запасы больше не нужны.", "s4a_c_atg7": "Без ATG7 LC3 не присоединяется к мембране: точек нет, LC3-II нет, свечение равномерное. p62 копится, mTORC1 не возвращается.", "s4a_c_atg7_z": "Без аутофагии у голодающей клетки нет внутреннего источника аминокислот.", "s4a_c_prot": "Протеазы заблокированы: красных точек всё больше. Слияние и закисление идут, а переваривания нет. LC3-II и p62 копятся.", "s4a_c_prot_z": "Много точек и много LC3-II ещё не значат, что аутофагия сильная: груз может просто не перевариваться.", "s4a_c_rapa": "Рапамицин с 2 ч: p-S6K не возвращается, хотя аминокислоты из аутофагии уже есть. А ULK1 (S757) снова фосфорилируется — этот сайт к рапамицину во многом устойчив, и в модели новых аутофагосом становится мало. Свободные лизосомы не восстанавливаются.", "s4a_c_rapa_z": "Разные мишени mTORC1 по-разному чувствительны к рапамицину (Kang 2013). Восстановлению лизосом нужна та часть активности mTORC1, которую рапамицин подавляет: у Yu 2010 крупные аутолизосомы сохранялись до 10 ч.", "s4a_c_ampk": "Без AMPK точек больше: аутофагия сильнее. А mTORC1 возвращается хуже.", "s4a_c_ampk_z": "При долгом голоде по аминокислотам AMPK сдерживает аутофагию и поддерживает возврат mTORC1, а без AMPK клетки чаще гибнут (Kazyken 2024). Механизм ещё изучают.", "s4a_c_baf": "Вторая чашка: бафиломицин A1 добавлен {x} ч назад и выключил v-ATPase. Кислой среды нет, GFP не гаснет — жёлтыми видны и аутофагосомы, и аутолизосомы. Точек больше: за эти часы в лизосомах ничего не переварилось.", "s4a_c_baf_z": "Прибавка LC3-II во второй чашке складывается из двух частей: LC3-II, который в контроле успел перевариться, и новых аутофагосом — с бафиломицином аминокислоты не выходят из лизосом, mTORC1 не возвращается, и аутофагосомы образуются дольше. Обе части видны в подписи к блоту. В модели слияние под бафиломицином продолжается — это упрощение: в части клеток бафиломицин мешает и слиянию (Mauvezin 2015).", "s4a_c_baf_prot": "Вторая чашка: к ингибиторам протеаз добавили бафиломицин. Красные точки стали жёлтыми: кислой среды нет, GFP не гаснет. Но точек столько же: переваривание и так было остановлено, и прибавки LC3-II почти нет.", "s4a_c_baf_prot_z": "Если выход уже перекрыт, второй блок ничего не добавляет. Поэтому по одной картинке или одной полосе поток не определить — нужна пара «с бафиломицином и без».", "s4a_take": "Аутофагию измеряют по потоку, а не по числу точек. Без бафиломицина тандем mCherry-GFP-LC3 отличает аутофагосомы (жёлтые) от аутолизосом (красные); с бафиломицином жёлтыми становятся и те и другие. Прибавка LC3-II с бафиломицином помогает оценить оборот LC3-II, но не равна количеству переваренного груза: бафиломицин и сам меняет образование аутофагосом. ATG7 нужен для образования аутофагосом, протеазы — для возврата аминокислот, mTORC1 — для восстановления лизосом.", "p4a_1_q": "Четыре часа голода. LC3-II на блоте выше, чем в сытости. Значит ли это, что аутофагия усилилась?", "p4a_1_o1": "Да, обязательно", "p4a_1_o2": "Не обязательно: LC3-II растёт и при блоке переваривания. Сравним с бафиломицином", "p4a_1_o3": "Нет, аутофагия ослабла", "p4a_1_e": "Во второй чашке LC3-II намного выше. Почти вся прибавка — LC3-II, который в первой чашке за эти 2 часа успел перевариться: оборот LC3-II высокий (Klionsky 2021). Небольшую часть дают новые аутофагосомы: с бафиломицином аминокислоты не освобождаются, и mTORC1 не возвращается. Обе части видны в подписи к блоту.", "p4a_1_w1": "LC3-II растёт и тогда, когда аутофагосомы образуются чаще, и тогда, когда их хуже переваривают. По одной полосе это не отличить — нужна вторая чашка с бафиломицином.", "p4a_1_w3": "По одной полосе ослабление не доказать и не исключить: LC3-II растёт и при частом образовании, и при плохом переваривании. Здесь бафиломицин дал большую прибавку — значит, LC3-II быстро переваривается, и аутофагия не ослабла.", "p4a_2_q": "Протеазы лизосом заблокированы. Какие точки будут через 4 часа голода?", "p4a_2_o1": "В основном жёлтые", "p4a_2_o2": "Много красных", "p4a_2_o3": "Никаких", "p4a_2_e": "Слияние и закисление идут — GFP гаснет, но груз не переваривается. Красные точки копятся.", "p4a_2_w1": "Ингибиторы протеаз не мешают слиянию и закислению. В кислой аутолизосоме GFP гаснет, остаётся mCherry, поэтому копятся красные точки.", "p4a_2_w3": "Аутофагосомы образуются как обычно, но содержимое не переваривается. Точек не меньше, а больше, и многие из них красные.", "p4a_3_q": "Добавим бафиломицин. Что станет с красными точками?", "p4a_3_o1": "Станут жёлтыми", "p4a_3_o2": "Станут ярче", "p4a_3_o3": "Исчезнут", "p4a_3_e": "Бафиломицин выключает v-ATPase: среда перестаёт быть кислой, и GFP снова светит — жёлтыми становятся и аутолизосомы. Значит, жёлтая точка с бафиломицином не обязательно аутофагосома (Kimura 2007).", "p4a_3_w2": "Главное — не яркость, а цвет: без кислой среды GFP снова светит вместе с mCherry, и точки становятся жёлтыми.", "p4a_3_w3": "Бафиломицин ничего не разрушает, он лишь убирает кислую среду. Точки остаются, но становятся жёлтыми.", "p4a_4_q": "Те же 4 часа с ингибиторами протеаз. Снимем блот с бафиломицином и без. Какой будет прибавка LC3-II?", "p4a_4_o1": "Большая: аутофагия сильная", "p4a_4_o2": "Почти никакой: переваривание уже остановлено", "p4a_4_o3": "С бафиломицином LC3-II станет меньше", "p4a_4_e": "Ингибиторы протеаз уже остановили переваривание, и бафиломицину нечего добавить: LC3-II в обеих чашках почти одинаков. Много точек и много LC3-II без прибавки от бафиломицина — признак блока, а не сильной аутофагии.", "p4a_4_w1": "Много LC3-II здесь из-за блока: переваривание уже остановлено ингибиторами протеаз, и бафиломицину нечего добавить.", "p4a_4_w3": "Бафиломицин не ускоряет разрушение LC3-II. Если переваривание уже остановлено, LC3-II с бафиломицином будет почти таким же.", "p4a_5_q": "Клетки без ATG7. Что покажет блот через 6 ч голода?", "p4a_5_o1": "LC3-II нет, p62 больше, p-S6K нет", "p4a_5_o2": "Как в норме", "p4a_5_o3": "LC3-II очень много", "p4a_5_e": "ATG7 нужен, чтобы присоединить LC3 к фосфатидилэтаноламину. Нет LC3-II — аутофагия почти не идёт, p62 не разрушается, аминокислоты не возвращаются.", "p4a_5_w2": "ATG7 присоединяет LC3 к фосфатидилэтаноламину. Без него LC3-II не образуется, аутофагия почти не идёт, p62 копится.", "p4a_5_w3": "Без ATG7 LC3-II не образуется: на блоте нет полосы LC3-II, остаётся только LC3-I.", "p4a_6_q": "Рапамицин с 2 часов голода. Что будет к 8 часам?", "p4a_6_o1": "Всё как в норме", "p4a_6_o2": "p-S6K не вернётся, лизосомы не восстановятся", "p4a_6_o3": "Новые аутофагосомы будут образовываться всё сильнее", "p4a_6_e": "Аминокислоты из аутофагии есть, но рапамицин не даёт вернуться p-S6K, и лизосомы из аутолизосом не восстанавливаются (Yu 2010). Фосфорилирование ULK1 (S757) к рапамицину во многом устойчиво (Kang 2013), поэтому в модели новых аутофагосом мало; в опыте Yu это прямо не проверяли.", "p4a_6_w1": "Рапамицин подавляет ту часть активности mTORC1, которая нужна для p-S6K и для восстановления лизосом из аутолизосом. Поэтому p-S6K не возвращается, а лизосомы не восстанавливаются.", "p4a_6_w3": "Фосфорилирование ULK1 (S757) к рапамицину во многом устойчиво: когда аминокислоты вернулись, mTORC1 снова тормозит ULK1. В модели новых аутофагосом становится мало.", "gn_rag": "Rag-ГТФазы (RagA/B · RagC/D)", "g_rag": "Пара малых ГТФаз на лизосоме, закреплённая комплексом Ragulator. При аминокислотах RagA/B связаны с GTP, RagC/D — с GDP, и пара притягивает mTORC1 к лизосоме, связывая Raptor.", "gn_rheb": "RHEB", "g_rheb": "Малая ГТФаза на мембране лизосомы. В GTP-форме прямо включает киназу mTORC1. TSC переводит её в GDP-форму.", "gn_tsc": "TSC (TSC1 · TSC2 · TBC1D7)", "g_tsc": "Тормоз: TSC2 — белок, ускоряющий гидролиз GTP на RHEB (GAP). AKT фосфорилирует TSC2, и комплекс уходит с лизосомы; при нехватке аминокислот Rag-ГТФазы возвращают его на лизосому. При нехватке энергии AMPK фосфорилирует TSC2 и усиливает его (Inoki 2003). Мутации TSC1 или TSC2 — туберозный склероз.", "gn_akt": "AKT", "g_akt": "Киназа ростового сигнала: инсулин → рецептор → PI3K → PIP3 → AKT. Фосфорилирует TSC2 и PRAS40.", "gn_mtorc1": "mTORC1", "g_mtorc1": "Комплекс киназы mTOR с Raptor и mLST8. Включает синтез белка, липидов и нуклеотидов, тормозит аутофагию и синтез лизосом.", "gn_tfeb": "TFEB", "g_tfeb": "Транскрипционный фактор генов лизосом и аутофагии. Фосфорилированный mTORC1 (S211) связан с белками 14-3-3 в цитоплазме; без фосфата идёт в ядро.", "gn_s6k": "S6K1", "g_s6k": "Киназа, которую включает mTORC1 (T389). Усиливает синтез белка и рибосом; через IRS1 ослабляет сигнал инсулина — обратная связь.", "gn_ebp": "4E-BP1", "g_ebp": "Держит фактор инициации трансляции eIF4E. Когда mTORC1 его фосфорилирует, 4E-BP1 отпускает eIF4E, и начинается трансляция.", "gn_ulk1": "ULK1", "g_ulk1": "Киназа, запускающая образование аутофагосомы. mTORC1 выключает её фосфорилированием S757. AMPK фосфорилирует другие её сайты; по классической схеме это запускает аутофагию, по новым данным при остром дефиците энергии скорее сдерживает её. Вопрос обсуждается.", "gn_sestrin": "Sestrin2", "g_sestrin": "Датчик лейцина в цитоплазме (Kd около 20 мкМ). Без лейцина связывает GATOR2 и тормозит его.", "gn_castor": "CASTOR1", "g_castor": "Датчик аргинина в цитоплазме. Без аргинина связывает GATOR2 и тормозит его.", "gn_samtor": "SAMTOR", "g_samtor": "Датчик S-аденозилметионина (SAM). Без SAM связывается с GATOR1 и KICSTOR и усиливает торможение mTORC1.", "gn_gator2": "GATOR2", "g_gator2": "Комплекс, который тормозит GATOR1. Его выключают свободные Sestrin2 и CASTOR1.", "gn_gator1": "GATOR1", "g_gator1": "GAP для RagA/B: переводит их в GDP-форму. Работает при голоде. Мутации его субъединицы DEPDC5 вызывают фокальную эпилепсию.", "gn_flcn": "FLCN (фолликулин)", "g_flcn": "Вместе с FNIP — GAP для RagC/D: переводит их в GDP-форму. Нужен для фосфорилирования TFEB, но не S6K. Мутации — синдром Бёрта — Хогга — Дюбе.", "gn_slc38a9": "SLC38A9", "g_slc38a9": "Транспортёр в мембране лизосомы. Чувствует аргинин в просвете и активирует Rag-ГТФазы; выводит из лизосомы лейцин и другие незаменимые аминокислоты.", "gn_ampk": "AMPK", "g_ampk": "Три субъединицы: α (киназа), β (каркас), γ (связывает AMP, ADP или ATP). Активна, когда Thr172 в α фосфорилирован. Урезает траты ATP и включает его производство.", "gn_lkb1": "LKB1", "g_lkb1": "Постоянно активная киназа Thr172 в AMPK. Супрессор опухолей: синдром Пейтца — Егерса, опухоли лёгкого.", "gn_camkk2": "CaMKK2", "g_camkk2": "Киназа, которая фосфорилирует Thr172 при росте Ca²⁺ в цитоплазме, без участия AMP.", "gn_aldolase": "Альдолаза", "g_aldolase": "Фермент гликолиза. Без своего субстрата фруктозо-1,6-бисфосфата подаёт сигнал на лизосоме: собирает v-ATPase — Ragulator — AXIN — LKB1 и включает AMPK.", "gn_axin": "AXIN", "g_axin": "Каркасный белок: при нехватке глюкозы приводит LKB1 к AMPK на лизосоме.", "gn_acc": "ACC (ацетил-CoA-карбоксилаза)", "g_acc": "Делает малонил-CoA из ацетил-CoA и CO₂, тратя ATP. AMPK выключает её фосфорилированием (у мыши ACC1 — S79, ACC2 — S212).", "gn_acc1": "ACC1", "g_acc1": "ACC в цитоплазме печени и жировой ткани: малонил-CoA для синтеза жирных кислот. AMPK выключает её фосфорилированием S79.", "gn_acc2": "ACC2", "g_acc2": "ACC на наружной мембране митохондрий (мышцы, сердце, печень). Её малонил-CoA тормозит соседний CPT1. AMPK выключает её фосфорилированием S212 (у мыши).", "gn_raptor": "Raptor", "g_raptor": "Белок-каркас mTORC1: подводит к киназе mTOR её субстраты. AMPK фосфорилирует Raptor (S722, S792), к нему присоединяется белок 14-3-3, и mTORC1 тормозится. Этот путь работает даже в клетках без TSC2 (Gwinn 2008).", "gn_ampkmtor": "Как AMPK тормозит mTORC1", "g_ampkmtor": "Двумя путями. AMPK фосфорилирует TSC2 и усиливает его: TSC2 переводит RHEB в GDP-форму (Inoki 2003). Ещё AMPK фосфорилирует Raptor внутри самого mTORC1, и комплекс тормозится даже без TSC2 (Gwinn 2008). Фосфорилирование само по себе не значит «выключение»: TSC2 оно активирует, а Raptor тормозит.", "gn_hmgcr": "HMGCR", "g_hmgcr": "ГМГ-CoA-редуктаза — ключевой фермент синтеза холестерина и мишень статинов. AMPK её выключает.", "gn_mff": "MFF", "g_mff": "Белок наружной мембраны митохондрий, привлекающий DRP1. Фосфорилирование AMPK ускоряет деление митохондрий.", "gn_pgc1a": "PGC-1α", "g_pgc1a": "Коактиватор генов митохондрий. AMPK повышает его активность и количество (в том числе через TFEB); результат — новые митохондрии через часы и дни.", "gn_citrate": "Цитрат", "g_citrate": "При избытке углеводов выходит из митохондрий, даёт ацетил-CoA для синтеза и активирует ACC.", "gn_fasn": "FASN (синтаза жирных кислот)", "g_fasn": "Собирает пальмитат из ацетил-CoA и 7 молекул малонил-CoA, тратя 14 NADPH.", "gn_cpt1": "CPT1", "g_cpt1": "Карнитин-пальмитоилтрансфераза 1 на наружной мембране митохондрии: переносит ацил с CoA на карнитин. Тормозится малонил-CoA, необратимо — этомоксиром. В печени работает CPT1A, в мышцах и сердце — CPT1B, во много раз более чувствительная к малонил-CoA. В раздробленных митохондриях CPT1 к малонил-CoA менее чувствительна (Ngo 2023).", "gn_cact": "CACT", "g_cact": "Транспортёр внутренней мембраны: вносит ацилкарнитин в матрикс в обмен на свободный карнитин.", "gn_cpt2": "CPT2", "g_cpt2": "Фермент на внутренней стороне внутренней мембраны: возвращает ацил с карнитина на CoA матрикса.", "src_01": "Goul C., Peruzzo R., Zoncu R. The molecular basis of nutrient sensing and signalling by mTORC1 in metabolism regulation and disease. Nat Rev Mol Cell Biol. 2023;24:857–875. doi:10.1038/s41580-023-00641-8", "src_02": "Settembre C., Perera R. M. Lysosomes as coordinators of cellular catabolism, metabolic signalling and organ physiology. Nat Rev Mol Cell Biol. 2024;25:223–245. doi:10.1038/s41580-023-00676-x", "src_03": "Steinberg G. R., Hardie D. G. New insights into activation and function of the AMPK. Nat Rev Mol Cell Biol. 2023;24:255–272. doi:10.1038/s41580-022-00547-x", "src_04": "Kim J., Kundu M., Viollet B., Guan K.-L. AMPK and mTOR regulate autophagy through direct phosphorylation of Ulk1. Nat Cell Biol. 2011;13:132–141. doi:10.1038/ncb2152", "src_05": "Egan D. F. et al. Phosphorylation of ULK1 (hATG1) by AMP-activated protein kinase connects energy sensing to mitophagy. Science. 2011;331:456–461. doi:10.1126/science.1196371", "src_06": "Smith T. K. T. et al. AMPK at the interface of nutrient sensing, metabolic flux and energy homeostasis. Nat Metab. 2026;8:27–51. doi:10.1038/s42255-025-01442-3", "src_07": "Park J. M., Lee D. H., Kim D. H. Redefining the role of AMPK in autophagy and the energy stress response. Nat Commun. 2023;14:2994. doi:10.1038/s41467-023-38401-z", "src_08": "Kazyken D. et al. Unexpected roles for AMPK in the suppression of autophagy and the reactivation of MTORC1 signaling during prolonged amino acid deprivation. Autophagy. 2024;20:2017–2040. doi:10.1080/15548627.2024.2355074", "src_09": "Wolfson R. L. et al. Sestrin2 is a leucine sensor for the mTORC1 pathway. Science. 2016;351:43–48. doi:10.1126/science.aab2674", "src_10": "Chantranupong L. et al. The CASTOR proteins are arginine sensors for the mTORC1 pathway. Cell. 2016;165:153–164. doi:10.1016/j.cell.2016.02.035", "src_11": "Gu X. et al. SAMTOR is an S-adenosylmethionine sensor for the mTORC1 pathway. Science. 2017;358:813–818. doi:10.1126/science.aao3265", "src_12": "Bar-Peled L. et al. A tumor suppressor complex with GAP activity for the Rag GTPases that signal amino acid sufficiency to mTORC1. Science. 2013;340:1100–1106. doi:10.1126/science.1232044", "src_13": "Wyant G. A. et al. mTORC1 activator SLC38A9 is required to efflux essential amino acids from lysosomes and use protein as a nutrient. Cell. 2017;171:642–654.e12. doi:10.1016/j.cell.2017.09.046", "src_14": "Zoncu R. et al. mTORC1 senses lysosomal amino acids through an inside-out mechanism that requires the vacuolar H+-ATPase. Science. 2011;334:678–683. doi:10.1126/science.1207056", "src_15": "Napolitano G. et al. A substrate-specific mTORC1 pathway underlies Birt–Hogg–Dubé syndrome. Nature. 2020;585:597–602. doi:10.1038/s41586-020-2444-0", "src_16": "Alesi N. et al. TSC2 regulates lysosome biogenesis via a non-canonical RAGC and TFEB-dependent mechanism. Nat Commun. 2021;12:4245. doi:10.1038/s41467-021-24499-6", "src_17": "Demetriades C., Doumpas N., Teleman A. A. Regulation of TORC1 in response to amino acid starvation via lysosomal recruitment of TSC2. Cell. 2014;156:786–799. doi:10.1016/j.cell.2014.01.024", "src_18": "Thoreen C. C. et al. An ATP-competitive mTOR inhibitor reveals rapamycin-resistant functions of mTORC1. J Biol Chem. 2009;284:8023–8032. doi:10.1074/jbc.M900301200", "src_19": "Kang S. A. et al. mTORC1 phosphorylation sites encode their sensitivity to starvation and rapamycin. Science. 2013;341:1236566. doi:10.1126/science.1236566", "src_20": "Settembre C. et al. A lysosome-to-nucleus signalling mechanism senses and regulates the lysosome via mTOR and TFEB. EMBO J. 2012;31:1095–1108. doi:10.1038/emboj.2012.32", "src_21": "Roczniak-Ferguson A. et al. The transcription factor TFEB links mTORC1 signaling to transcriptional control of lysosome homeostasis. Sci Signal. 2012;5:ra42. doi:10.1126/scisignal.2002790", "src_22": "Inoki K., Zhu T., Guan K.-L. TSC2 mediates cellular energy response to control cell growth and survival. Cell. 2003;115:577–590. doi:10.1016/s0092-8674(03)00929-2", "src_23": "Gwinn D. M. et al. AMPK phosphorylation of raptor mediates a metabolic checkpoint. Mol Cell. 2008;30:214–226. doi:10.1016/j.molcel.2008.03.003", "src_24": "Hawley S. A. et al. Calmodulin-dependent protein kinase kinase-β is an alternative upstream kinase for AMP-activated protein kinase. Cell Metab. 2005;2:9–19. doi:10.1016/j.cmet.2005.05.009", "src_25": "Zhang C.-S. et al. Fructose-1,6-bisphosphate and aldolase mediate glucose sensing by AMPK. Nature. 2017;548:112–116. doi:10.1038/nature23275", "src_26": "Toyama E. Q. et al. AMP-activated protein kinase mediates mitochondrial fission in response to energy stress. Science. 2016;351:275–281. doi:10.1126/science.aab4138", "src_27": "Malik N. et al. Induction of lysosomal and mitochondrial biogenesis by AMPK phosphorylation of FNIP1. Science. 2023;380:eabj5559. doi:10.1126/science.abj5559", "src_28": "McGarry J. D., Mannaerts G. P., Foster D. W. A possible role for malonyl-CoA in the regulation of hepatic fatty acid oxidation and ketogenesis. J Clin Invest. 1977;60:265–270. doi:10.1172/JCI108764", "src_29": "Pereyra A. S. et al. Octanoate is differentially metabolized in liver and muscle and fails to rescue cardiomyopathy in CPT2 deficiency. J Lipid Res. 2021;62:100069. doi:10.1016/j.jlr.2021.100069", "src_30": "Abu-Elheiga L. et al. Continuous fatty acid oxidation and reduced fat storage in mice lacking acetyl-CoA carboxylase 2. Science. 2001;291:2613–2616. doi:10.1126/science.1056843", "src_31": "Olson D. P. et al. Gene knockout of Acc2 has little effect on body weight, fat mass, or food intake. Proc Natl Acad Sci USA. 2010;107:7598–7603. doi:10.1073/pnas.0913492107", "src_32": "Hoehn K. L. et al. Acute or chronic upregulation of mitochondrial fatty acid oxidation has no net effect on whole-body energy expenditure or adiposity. Cell Metab. 2010;11:70–76. doi:10.1016/j.cmet.2009.11.008", "src_33": "Fullerton M. D. et al. Single phosphorylation sites in Acc1 and Acc2 regulate lipid homeostasis and the insulin-sensitizing effects of metformin. Nat Med. 2013;19:1649–1654. doi:10.1038/nm.3372", "src_34": "Ngo J. et al. Mitochondrial morphology controls fatty acid utilization by changing CPT1 sensitivity to malonyl-CoA. EMBO J. 2023;42:e111901. doi:10.15252/embj.2022111901", "src_35": "Yu L. et al. Termination of autophagy and reformation of lysosomes regulated by mTOR. Nature. 2010;465:942–946. doi:10.1038/nature09076", "src_36": "Tan H. W. S., Sim A. Y. L., Long Y. C. Glutamine metabolism regulates autophagy-dependent mTORC1 reactivation during amino acid starvation. Nat Commun. 2017;8:338. doi:10.1038/s41467-017-00369-y", "src_37": "Klionsky D. J. et al. Guidelines for the use and interpretation of assays for monitoring autophagy (4th edition). Autophagy. 2021;17:1–382. doi:10.1080/15548627.2020.1797280", "src_38": "Kimura S., Noda T., Yoshimori T. Dissection of the autophagosome maturation process by a novel reporter protein, tandem fluorescent-tagged LC3. Autophagy. 2007;3:452–460. doi:10.4161/auto.4451", "src_39": "Klionsky D. J., Elazar Z., Seglen P. O., Rubinsztein D. C. Does bafilomycin A1 block the fusion of autophagosomes with lysosomes? Autophagy. 2008;4:849–850. doi:10.4161/auto.6845", "src_40": "Mauvezin C., Nagy P., Juhász G., Neufeld T. P. Autophagosome–lysosome fusion is independent of V-ATPase-mediated acidification. Nat Commun. 2015;6:7007. doi:10.1038/ncomms8007", "src_41": "Нельсон Д., Кокс М. Основы биохимии Ленинджера: синтез и окисление жирных кислот, карнитиновый челнок."};
+function t(k, v){ let s = (k in TEXTS) ? TEXTS[k] : ('⟨' + k + '⟩'); if (v) for (const a in v) s = s.split('{' + a + '}').join(v[a]); return s; }
+const $ = id => document.getElementById(id);
+const NS = 'http://www.w3.org/2000/svg';
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+function H(x, K, n){ x = clamp(x, 0, 1.5); if (x === 0) return 0; return Math.pow(x, n) / (Math.pow(K, n) + Math.pow(x, n)); }
+function Hn(x, K, n){ return H(x, K, n) / H(1, K, n); }
+const fmt = (x, d = 1) => x.toFixed(d).replace('.', ',');
+const pct = x => Math.round(x * 100);
+function ruTimes(x){
+  const r = Math.round(x * 10) / 10;
+  if (Math.abs(r - Math.round(r)) > 0.01) return fmt(r) + ' раза';
+  const n = Math.round(r), m10 = n % 10, m100 = n % 100;
+  return n + ((m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) ? ' раза' : ' раз');
+}
+function cssVar(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+
+/* ---------- SVG: заготовки ---------- */
+function defs(s){ return `<defs>
+  <marker id="a_${s}" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="mk"/></marker>
+  <marker id="b_${s}" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="10" orient="auto"><path d="M3.5 0 L6.5 0 L6.5 10 L3.5 10 z" class="mk"/></marker>
+</defs>`; }
+function E(id, d, kind, s, extra = ''){ return `<path id="${id}" class="edge ${extra}" d="${d}" marker-end="url(#${kind === 'inh' ? 'b' : 'a'}_${s})"/>`; }
+function setEdge(id, v){ const e = $(id); if (e) e.style.opacity = (typeof v === 'boolean' ? (v ? 1 : .16) : (.16 + .84 * clamp(v))).toFixed(2); }
+function setCls(id, cls){ const e = $(id); if (!e) return; e.classList.remove('on', 'off', 'inh'); if (cls) e.classList.add(cls); }
+function setOp(id, v){ const e = $(id); if (e) e.setAttribute('opacity', (+v).toFixed(2)); }
+function setTxt(id, s){ const e = $(id); if (e) e.textContent = s; }
+function move(id, dx, dy){ const e = $(id); if (e) e.style.transform = `translate(${dx}px,${dy}px)`; }
+function PB(id, x, y){ return `<g class="pb fade" id="${id}" opacity="0"><circle cx="${x}" cy="${y}" r="8.5"/><text x="${x}" y="${y + .5}">P</text></g>`; }
+function XX(id, x1, y1, x2, y2){ return `<g class="cross fade" id="${id}" opacity="0"><line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/><line x1="${x2}" y1="${y1}" x2="${x1}" y2="${y2}"/></g>`; }
+/* узел-прямоугольник: id группы, подпись, справка */
+function BX(id, x, y, w, h, label, g, fs = 13){
+  return `<g id="${id}" class="clickable" data-g="${g || ''}"><rect class="box" id="${id}_r" x="${x}" y="${y}" width="${w}" height="${h}" rx="8"/><text class="lbl" x="${x + w / 2}" y="${y + h / 2}" font-size="${fs}" font-weight="700">${label}</text></g>`;
+}
+function setBoxState(id, st){ setCls(id + '_r', st); }
+function missing(id, on){ const g = $(id); if (g) g.classList.toggle('missing', !!on); }
+
+/* ---------- элементы управления ---------- */
+function sliderHTML(id, k, val){ return `<div class="slider"><div class="row"><label for="${id}">${t(k)}</label><output id="${id}O">${val} %</output></div><input type="range" id="${id}" min="0" max="100" value="${val}"></div>`; }
+function toggleHTML(id, k, on){ return `<label class="switch"><input type="checkbox" id="${id}" ${on ? 'checked' : ''}><span>${t(k)}</span></label>`; }
+function segHTML(id, k, opts, val){ return `<div class="grp"><span>${t(k)}</span><div class="seg" id="${id}">` +
+  opts.map(([v, kk]) => `<button data-v="${v}" aria-pressed="${v === val}">${t(kk)}</button>`).join('') + `</div></div>`; }
+function segVal(id){ const b = $(id).querySelector('[aria-pressed="true"]'); return b ? b.dataset.v : null; }
+function segSet(id, v){ $(id).querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === v))); }
+function wire(ids, fn){ ids.forEach(id => { const e = $(id); if (!e) return;
+  if (e.classList.contains('seg')) e.querySelectorAll('button').forEach(b => b.onclick = () => { segSet(id, b.dataset.v); fn(); });
+  else e.addEventListener(e.type === 'checkbox' ? 'change' : 'input', fn); }); }
+function sv(id){ const e = $(id); const v = +e.value / 100; const o = $(id + 'O'); if (o) o.textContent = Math.round(v * 100) + ' %'; return v; }
+function setSlider(id, v){ $(id).value = Math.round(v * 100); sv(id); }
+function readRow(name, sub, right){ return `<div class="read"><div><b>${name}</b>${sub ? `<small>${sub}</small>` : ''}</div>${right}</div>`; }
+function meterRow(name, v, text){ return `<div class="read" style="grid-template-columns:1fr"><div style="display:flex;justify-content:space-between;gap:8px"><small style="color:var(--ink);font-size:14.5px">${name}</small><span class="v">${text}</span></div><div class="meter"><i style="width:${Math.round(clamp(v) * 100)}%"></i></div></div>`; }
+function pill(on, kOn = 'pill_p', kOff = 'pill_np'){ return `<span class="pill ${on ? 'p' : 'np'}">${t(on ? kOn : kOff)}</span>`; }
+
+/* ---------- вестерн-блот ---------- */
+function blotHTML(rows, lanes){
+  if (!lanes.length) return `<p class="small">${t('blot_empty')}</p>`;
+  let h = `<div class="blotbox"><div class="blotgrid"><div><div class="head" style="visibility:hidden">·<br>·</div><div style="padding:3px 0;border:1px solid transparent">`;
+  h += rows.map(r => `<div class="rowlab">${r}</div>`).join('') + `</div></div><div>`;
+  h += `<div class="lanes">` + lanes.map(L => `<div class="head">${L.h1}<br>${L.h2 || '&nbsp;'}</div>`).join('') + `</div>`;
+  h += `<div class="film"><div class="lanes">` + lanes.map(L => `<div>` + L.v.map(v => `<div class="cell"><div class="band" style="opacity:${(0.04 + 0.96 * clamp(v)).toFixed(2)}"></div></div>`).join('') + `</div>`).join('') + `</div></div>`;
+  return h + `</div></div></div>`;
+}
+
+/* ---------- график ---------- */
+function plotLines(cv, series, o){
+  const dpr = window.devicePixelRatio || 1, W = cv.clientWidth || 380, Hh = cv.clientHeight || 200;
+  cv.width = Math.round(W * dpr); cv.height = Math.round(Hh * dpr);
+  const c = cv.getContext('2d'); c.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const pl = 34, pr = 10, pt = 10, pb = 24, w = W - pl - pr, h = Hh - pt - pb, X = x => pl + x / o.xmax * w, Y = y => pt + (1 - clamp(y, 0, o.ymax) / o.ymax) * h;
+  c.font = '12px ' + cssVar('--f-mono'); c.fillStyle = cssVar('--muted'); c.strokeStyle = cssVar('--line'); c.lineWidth = 1;
+  for (let i = 0; i <= o.xmax; i += o.xstep){ c.beginPath(); c.moveTo(X(i), pt); c.lineTo(X(i), pt + h); c.stroke();
+    const last = i + o.xstep > o.xmax; c.textAlign = last ? 'right' : 'center'; c.fillText(last ? i + ' ' + o.xunit : String(i), X(i), Hh - 7); }
+  c.textAlign = 'left';
+  (o.yticks || [0, .5, 1]).forEach(v => { c.beginPath(); c.moveTo(pl, Y(v)); c.lineTo(pl + w, Y(v)); c.stroke(); c.fillText(fmt(v, 1), 3, Y(v) + 4); });
+  c.setLineDash([5, 4]); c.strokeStyle = cssVar('--ink');
+  (o.marks || []).forEach(m => { c.beginPath(); c.moveTo(X(m), pt); c.lineTo(X(m), pt + h); c.stroke(); });
+  c.setLineDash([]); c.fillStyle = cssVar('--ink'); c.font = '11.5px ' + cssVar('--f-body'); c.textAlign = 'left';
+  (o.markLabels || []).forEach(([m, lab]) => c.fillText(lab, X(m) + 4, pt + 11));
+  c.setLineDash([5, 4]);
+  series.forEach(s => { c.strokeStyle = cssVar(s.color); c.lineWidth = s.w || 2.6; c.setLineDash(s.dash || []); c.lineCap = 'round'; c.beginPath();
+    s.data.forEach((p, i) => { const x = X(p[0]), y = Y(p[1]); i ? c.lineTo(x, y) : c.moveTo(x, y); }); c.stroke(); });
+  c.setLineDash([]);
+  if (o.cursor != null){ c.strokeStyle = cssVar('--on'); c.lineWidth = 2; c.beginPath(); c.moveTo(X(o.cursor), pt); c.lineTo(X(o.cursor), pt + h); c.stroke(); }
+}
+
+/* ---------- каркас сцен ---------- */
+const SCENES = {};
+function layout(key){
+  const sec = document.createElement('section'); sec.className = 'scene'; sec.id = 'sc' + key; sec.hidden = true;
+  sec.innerHTML = `<div class="panel stage"><svg id="svg${key}" viewBox="0 0 600 420" role="img"></svg></div>
+  <div class="side">
+    <div class="panel poe" id="poe${key}" hidden></div>
+    <div class="panel ctrl" id="ctrl${key}"></div>
+    <div class="panel cap" id="capbox${key}"><p id="cap${key}"></p><p class="why"><b>${t('why')}</b><span id="why${key}"></span></p></div>
+    <div class="panel info" id="info${key}" hidden></div>
+    <div class="panel reads" id="reads${key}"></div>
+    <div class="panel take"><b>${t('take')}</b><p id="take${key}"></p></div>
+  </div>`;
+  $('scenes').appendChild(sec);
+  sec.querySelector('svg').addEventListener('click', e => { const g = e.target.closest('[data-g]'); if (g && g.dataset.g) showInfo(key, g.dataset.g); });
+  return sec;
+}
+function setCap(key, k, v){ $('cap' + key).textContent = t(k, v); $('why' + key).textContent = t(k + '_z', v); }
+function showInfo(key, g){
+  const box = $('info' + key); box.hidden = false;
+  box.innerHTML = `<b class="k">${t('info_t')}</b><h4>${t('gn_' + g)}</h4><p>${t('g_' + g)}</p><div class="btns" style="margin-top:8px"><button class="btn ghost" id="infoX${key}">${t('close')}</button></div>`;
+  $('infoX' + key).onclick = () => { box.hidden = true; };
+}
+
+/* ---------- сценарий «предскажи — посмотри — объясни» ---------- */
+const POE = { on: false, i: 0, pick: null, shown: false, res: {} };
+/* студенческий вариант страницы: прогноз обязателен, на неверный ответ — своё объяснение (build.py --student) */
+const STUDENT = /*__STUDENT__*/true;
+/* постоянная перестановка вариантов: верный ответ стоит на разных местах, но всегда на одном и том же
+   (преподаватель знает, где он). perm[место на экране] = номер варианта в таблице текстов */
+function poePerm(key, i, n, ok){
+  let h = 2166136261; for (const c of key + '/' + i + '/' + POE_SALT) h = Math.imul(h ^ c.charCodeAt(0), 16777619) >>> 0;
+  const perm = [...Array(n).keys()].filter(j => j !== ok); perm.splice(h % n, 0, ok); return perm;
+}
+const POE_SALT = 'v21';
+function poeRender(){
+  Object.keys(SCENES).forEach(k => { const b = $('poe' + k); b.hidden = true; b.innerHTML = ''; });
+  const capOn = !$('capT') || $('capT').checked;
+  document.querySelectorAll('.cap,.take').forEach(c => c.hidden = !capOn);
+  if (!POE.on) return;
+  /* пока студенты думают, подпись и вывод скрыты: они могли бы подсказать ответ */
+  if (!POE.shown){ $('capbox' + cur).hidden = true; $('take' + cur).parentElement.hidden = true; }
+  const S = SCENES[cur], box = $('poe' + cur), steps = S.poe, st = steps[POE.i], P = `p${cur}_${POE.i + 1}`;
+  box.hidden = false;
+  const letters = ['А', 'Б', 'В', 'Г'];
+  let h = `<div class="k">${t('poe_step', { i: POE.i + 1, n: steps.length })}</div><div class="q">${t(P + '_q')}</div><div class="opts">`;
+  const perm = poePerm(cur, POE.i, st.n, st.ok);
+  for (let d = 0; d < st.n; d++){
+    const j = perm[d];
+    let cls = 'opt';
+    if (POE.pick === j) cls += ' picked';
+    if (POE.shown && j === st.ok) cls += ' right';
+    if (POE.shown && POE.pick === j && j !== st.ok) cls += ' wrongpick';
+    h += `<button class="${cls}" data-j="${j}"${STUDENT && POE.shown ? ' disabled' : ''}><span class="L">${letters[d]}</span><span>${t(P + '_o' + (j + 1))}</span></button>`;
+  }
+  h += `</div>`;
+  if (POE.shown && STUDENT && POE.pick != null && POE.pick !== st.ok) h += `<p class="ex wrongex"><b>${t('poe_your')}</b> ${t(P + '_w' + (POE.pick + 1))}</p>`;
+  if (POE.shown) h += `<p class="ex"><b>${t('poe_ans')}</b> ${t(P + '_e')}</p>`;
+  const last = POE.i === steps.length - 1, needPick = STUDENT && POE.pick == null;
+  const done = Object.keys(POE.res).filter(k => k.startsWith(cur + ':')), right = done.filter(k => POE.res[k]).length;
+  h += `<div class="nav">` + (POE.shown ? '' : `<button class="btn" id="poeShow"${needPick ? ' disabled' : ''}>${t('poe_show')}</button>`) +
+    (POE.i > 0 ? `<button class="btn ghost" id="poePrev">${t('poe_prev')}</button>` : '') +
+    (!last ? ((STUDENT && !POE.shown && !((cur + ':' + POE.i) in POE.res)) ? '' : `<button class="btn ghost" id="poeNext">${t('poe_next')}</button>`)
+           : `<span class="small" style="align-self:center">${t('poe_end')}${STUDENT && POE.shown ? ' ' + t('poe_score', { c: right, n: steps.length }) : ''}</span>`) +
+    `<button class="btn ghost" id="poeExit">${t('poe_exit')}</button></div>`;
+  box.innerHTML = h;
+  box.querySelectorAll('.opt').forEach(b => b.onclick = () => { if (STUDENT && POE.shown) return; POE.pick = +b.dataset.j; poeRender(); });
+  if (needPick && !POE.shown) box.querySelector('.nav').insertAdjacentHTML('beforeend', `<span class="small" style="align-self:center">${t('poe_pick_first')}</span>`);
+  if ($('poeShow')) $('poeShow').onclick = () => { if (STUDENT && POE.pick == null) return; POE.shown = true;
+    const key = cur + ':' + POE.i; if (!(key in POE.res)) POE.res[key] = POE.pick === st.ok; st.apply(); S.update(); poeRender(); };
+  if ($('poePrev')) $('poePrev').onclick = () => { POE.i--; POE.pick = null; POE.shown = false; poeSetup(); };
+  if ($('poeNext')) $('poeNext').onclick = () => { POE.i++; POE.pick = null; POE.shown = false; poeSetup(); };
+  $('poeExit').onclick = () => { POE.on = false; poeRender(); };
+  box.scrollIntoView({ block: 'nearest' });
+}
+function poeSetup(){ const st = SCENES[cur].poe[POE.i]; if (st.pre) { st.pre(); SCENES[cur].update(); } poeRender(); }
+
+/* ---------- навигация ---------- */
+let cur = '1b', qn = 1, lvl = 'b';
+function show(){
+  cur = qn + lvl;
+  Object.keys(SCENES).forEach(k => { $('sc' + k).hidden = k !== cur; });
+  document.querySelectorAll('#tabs .tab').forEach(b => b.setAttribute('aria-selected', String(+b.dataset.q === qn)));
+  document.querySelectorAll('#levelSeg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.l === lvl)));
+  $('qline').textContent = t('q' + qn);
+  POE.on = false; poeRender();
+  SCENES[cur].update();
+  fitStage();
+}
+/* схема и правая колонка помещаются в окно целиком (проектор 1280×720, 1366×768) */
+function fitStage(){
+  const sc = $('scenes'); if (!sc) return;
+  const top = sc.getBoundingClientRect().top + window.scrollY;
+  document.documentElement.style.setProperty('--avail', Math.max(340, Math.floor(window.innerHeight - top - 10)) + 'px');
+}
+function initNav(){
+  $('tabs').innerHTML = [1, 2, 3, 4].map(n => `<button class="tab" role="tab" data-q="${n}"><span class="n">${n}</span><span>${t('tab' + n)}</span></button>`).join('');
+  document.querySelectorAll('#tabs .tab').forEach(b => b.onclick = () => { qn = +b.dataset.q; show(); });
+  document.querySelectorAll('#levelSeg button').forEach(b => b.onclick = () => { lvl = b.dataset.l; show(); });
+  $('poeBtn').onclick = () => { POE.on = true; POE.i = 0; POE.pick = null; POE.shown = false; Object.keys(POE.res).forEach(k => { if (k.startsWith(cur + ':')) delete POE.res[k]; }); poeSetup(); };
+  $('capT').onchange = () => { document.querySelectorAll('.cap,.take').forEach(c => c.hidden = !$('capT').checked); if (POE.on) poeRender(); };
+  $('legendBtn').onclick = () => { try { $('legendDlg').showModal(); } catch(e){ $('legendDlg').setAttribute('open', ''); } };
+  $('legendClose').onclick = () => { try { $('legendDlg').close(); } catch(e){ $('legendDlg').removeAttribute('open'); } };
+  $('fsBtn').onclick = () => { try { const d = document.documentElement; if (!document.fullscreenElement && d.requestFullscreen) d.requestFullscreen().catch(() => {}); else if (document.exitFullscreen) document.exitFullscreen().catch(() => {}); } catch(e){} };
+  window.addEventListener('keydown', e => { if (/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return; if (STUDENT && POE.on) return;
+    if (['1', '2', '3', '4'].includes(e.key)){ qn = +e.key; show(); }
+    if (e.key === 'b' || e.key === 'и'){ lvl = lvl === 'b' ? 'a' : 'b'; show(); } });
+  $('srcList').innerHTML = Object.keys(TEXTS).filter(k => k.startsWith('src_')).sort().map(k => `<li>${TEXTS[k]}</li>`).join('');
+  let last = performance.now();
+  const calm = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+  const loop = now => { const dt = Math.min(.1, (now - last) / 1000); last = now; const S = SCENES[cur]; if (S && S.tick && !(S.decor && calm.matches)) S.tick(dt); requestAnimationFrame(loop); };
+  requestAnimationFrame(loop);
+  window.addEventListener('resize', () => { fitStage(); const S = SCENES[cur]; if (S && S.redraw) S.redraw(); });
+  document.addEventListener('fullscreenchange', () => setTimeout(() => { fitStage(); const S = SCENES[cur]; if (S && S.redraw) S.redraw(); }, 60));
+}
+
+/* =====================================================================
+   Вопрос 1. Лизосомная активация mTORC1
+   1b — базовый: два ползунка, логика «И»
+   1a — «пульт на лизосоме»: сенсоры аминокислот, GATOR, FLCN, AMPK, препараты, мутанты, блот
+   ===================================================================== */
+(function(){
+  const K = '1b';
+  layout(K);
+  const AA = [[34,140],[70,128],[108,146],[148,132],[188,148],[228,136],[262,150],[46,176],[86,190],[126,174],[166,190],
+    [206,176],[246,192],[30,214],[66,226],[104,212],[144,226],[290,182],[318,140],[24,262],[60,280],[100,262],[298,206],[330,170]];
+  $('svg' + K).innerHTML = defs(K) + `
+  <rect class="cyto" width="600" height="420"/>
+  <circle class="nuc" cx="600" cy="0" r="150"/><circle class="nuc2" cx="600" cy="0" r="141"/>
+  <text class="area" x="540" y="30" text-anchor="middle">${t('lbl_nucleus')}</text>
+  <text class="area" x="16" y="26">${t('lbl_cytosol')}</text>
+  <ellipse class="lyso" cx="280" cy="450" rx="270" ry="125"/>
+  <text class="area area-lyso" x="280" y="398" text-anchor="middle">${t('lbl_lysosome')}</text>
+  <g id="s1b_aa">${AA.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="4.5" fill="var(--aa)" class="aa-dot" opacity="0"/>`).join('')}</g>
+  ${E('s1b_e1', 'M150 236 C 150 170, 54 160, 54 96', 'act', K)}
+  ${E('s1b_e2', 'M188 236 C 188 170, 133 160, 133 96', 'inh', K)}
+  ${E('s1b_e3', 'M224 236 C 224 170, 212 160, 212 96', 'inh', K)}
+  ${E('s1b_e4', 'M300 236 C 300 180, 300 150, 300 96', 'inh', K)}
+  ${BX('s1b_s6k', 24, 66, 60, 26, 'S6K', 's6k', 13)}${PB('s1b_s6kP', 84, 66)}
+  ${BX('s1b_ebp', 96, 66, 74, 26, '4E-BP1', 'ebp', 13)}${PB('s1b_ebpP', 170, 66)}
+  ${BX('s1b_ulk', 182, 66, 60, 26, 'ULK1', 'ulk1', 13)}${PB('s1b_ulkP', 242, 66)}
+  <text class="lbl" x="54" y="110" font-size="11.5" fill="var(--muted)">${t('s1_o_s6k')}</text>
+  <text class="lbl" x="133" y="110" font-size="11.5" fill="var(--muted)">${t('s1_o_ebp')}</text>
+  <text class="lbl" x="212" y="110" font-size="11.5" fill="var(--muted)">${t('s1_o_ulk')}</text>
+  <text class="lbl" x="468" y="112" font-size="13" font-weight="600">${t('s1_insulin')}</text>
+  ${E('s1b_eIA', 'M468 121 L468 146', 'act', K)}
+  ${BX('s1b_akt', 440, 150, 56, 26, 'AKT', 'akt', 13.5)}
+  ${E('s1b_eAT', 'M472 177 L476 242', 'inh', K)}
+  <rect class="ragulator" x="140" y="324" width="100" height="16" rx="5"/>
+  <text class="lbl" x="190" y="332" font-size="11">Ragulator</text>
+  <g class="clickable" data-g="rag">
+    <circle id="s1b_rA" class="node off" cx="166" cy="300" r="24"/><text class="lbl" x="166" y="293" font-size="11.5" font-weight="700">RagA/B</text><text class="lbl mono" id="s1b_rAt" x="166" y="309" font-size="11">GDP</text>
+    <circle id="s1b_rC" class="node off" cx="214" cy="300" r="24"/><text class="lbl" x="214" y="293" font-size="11.5" font-weight="700">RagC/D</text><text class="lbl mono" id="s1b_rCt" x="214" y="309" font-size="11">GTP</text>
+  </g>
+  <line x1="372" y1="324" x2="372" y2="333" stroke="var(--off-ink)" stroke-width="2"/>
+  <g class="clickable" data-g="rheb"><circle id="s1b_rh" class="node off" cx="372" cy="300" r="24"/><text class="lbl" x="372" y="293" font-size="11.5" font-weight="700">RHEB</text><text class="lbl mono" id="s1b_rht" x="372" y="309" font-size="11">GDP</text></g>
+  <g id="s1b_tsc" class="mov">
+    ${E('s1b_eTR', 'M408 330 L393 318', 'inh', K)}
+    ${BX('s1b_tscB', 408, 318, 52, 24, 'TSC', 'tsc', 13)}${PB('s1b_tscP', 460, 318)}
+  </g>
+  <g id="s1b_mt" class="mov clickable" data-g="mtorc1">
+    <rect class="glow" id="s1b_glow" x="128" y="236" width="232" height="34" rx="12" opacity="0"/>
+    <rect class="mtor-body" x="128" y="236" width="232" height="34" rx="12"/>
+    <text class="lbl" x="244" y="253" font-size="17" font-weight="700">mTORC1</text>
+  </g>
+  <g id="s1b_tf" class="mov clickable" data-g="tfeb">
+    <rect class="tfeb-body" x="270" y="66" width="60" height="26" rx="13"/>
+    <text class="lbl" x="300" y="79" font-size="13.5" font-weight="700">TFEB</text>${PB('s1b_tfP', 330, 66)}
+  </g>`;
+  $('ctrl' + K).innerHTML = sliderHTML('s1b_aa_r', 's1_aa', 0) + sliderHTML('s1b_ins_r', 's1_ins', 0);
+  $('take' + K).textContent = t('s1b_take');
+
+  function update(){
+    const aa = sv('s1b_aa_r'), ins = sv('s1b_ins_r');
+    const ragA = Hn(aa, .35, 3), rheb = Hn(ins, .35, 2), kin = ragA * rheb;
+    const docked = ragA > .5, rhebOn = rheb > .5, tscOff = ins > .5, on = kin > .5, tfP = ragA > .5;
+    setCls('s1b_rA', docked ? 'on' : 'off'); setTxt('s1b_rAt', docked ? 'GTP' : 'GDP');
+    setCls('s1b_rC', docked ? 'on' : 'off'); setTxt('s1b_rCt', docked ? 'GDP' : 'GTP');
+    setCls('s1b_rh', rhebOn ? 'on' : 'off'); setTxt('s1b_rht', rhebOn ? 'GTP' : 'GDP');
+    move('s1b_mt', docked ? 0 : -60, docked ? 0 : -84);
+    setOp('s1b_glow', kin * .9);
+    move('s1b_tsc', tscOff ? 40 : 0, tscOff ? -70 : 0);
+    setOp('s1b_tscP', tscOff ? 1 : 0); setOp('s1b_eTR', tscOff ? 0 : 1);
+    setBoxState('s1b_tscB', tscOff ? 'inh' : 'on');
+    setBoxState('s1b_akt', ins > .5 ? 'on' : null);
+    setEdge('s1b_eIA', ins); $('s1b_eAT').style.opacity = tscOff ? 1 : 0;
+    ['s1b_e1', 's1b_e2', 's1b_e3'].forEach(id => { if (docked) setEdge(id, kin); else $(id).style.opacity = 0; });
+    if (docked) setEdge('s1b_e4', ragA); else $('s1b_e4').style.opacity = 0;
+    setBoxState('s1b_s6k', on ? 'on' : null); setOp('s1b_s6kP', on ? 1 : 0);
+    setBoxState('s1b_ebp', on ? 'inh' : 'on'); setOp('s1b_ebpP', on ? 1 : 0);
+    setBoxState('s1b_ulk', on ? 'inh' : 'on'); setOp('s1b_ulkP', on ? 1 : 0);
+    move('s1b_tf', tfP ? 0 : 220, tfP ? 0 : -34); setOp('s1b_tfP', tfP ? 1 : 0);
+    const n = Math.round(aa * AA.length);
+    $('s1b_aa').querySelectorAll('circle').forEach((c, i) => c.setAttribute('opacity', i < n ? .9 : 0));
+    $('reads' + K).innerHTML = meterRow(t('r_mtorc1'), kin, pct(kin) + ' %') +
+      readRow('S6K', t('s1_r_s6k'), pill(on)) + readRow('4E-BP1', t('s1_r_ebp'), pill(on)) + readRow('ULK1', t('s1_r_ulk'), pill(on)) +
+      readRow('TFEB', t('s1_r_tfeb'), `<span class="pill ${tfP ? 'cy' : 'nu'}">${t(tfP ? 'pill_cyto' : 'pill_nuc')}</span>`);
+    setCap(K, docked ? (rhebOn ? (on ? 's1_both' : 's1_weak') : 's1_aa_only') : (rhebOn ? 's1_ins_only' : 's1_none'));
+  }
+  wire(['s1b_aa_r', 's1b_ins_r'], update);
+  const set = (a, i) => { setSlider('s1b_aa_r', a); setSlider('s1b_ins_r', i); };
+  SCENES[K] = { update, poe: [
+    { n: 3, ok: 1, pre(){ set(0, 0); }, apply(){ set(1, 0); } },
+    { n: 3, ok: 1, pre(){ set(0, 0); }, apply(){ set(0, 1); } },
+    { n: 3, ok: 1, pre(){ set(1, 1); }, apply(){ set(0, 1); } },
+  ] };
+})();
+
+(function(){
+  const K = '1a';
+  layout(K);
+  const lig = (id, x, y, txt) => `<g id="${id}" class="fade" opacity="0"><rect x="${x}" y="${y}" width="32" height="17" rx="8.5" fill="var(--aa)"/><text x="${x + 16}" y="${y + 9}" class="lbl mono" font-size="10" font-weight="700" fill="#fff" style="fill:#fff">${txt}</text></g>`;
+  $('svg' + K).innerHTML = defs(K) + `
+  <rect class="cyto" width="600" height="420"/>
+  <text class="area" x="12" y="22">${t('lbl_cytosol')}</text>
+  <ellipse class="lyso" cx="300" cy="470" rx="310" ry="140"/>
+  <text class="area area-lyso" x="300" y="404" text-anchor="middle">${t('lbl_lysosome')}</text>
+  ${E('s1a_eSG2', 'M100 53 L118 66', 'inh', K)}
+  ${E('s1a_eCG2', 'M100 93 L118 80', 'inh', K)}
+  ${E('s1a_eG2G1', 'M162 86 L162 152', 'inh', K)}
+  ${E('s1a_eSmG1', 'M100 169 L118 170', 'act', K)}
+  ${E('s1a_eG1R', 'M140 184 C 132 250, 140 296, 163 302', 'inh', K)}
+  ${E('s1a_eSLC', 'M132 360 C 146 356, 152 348, 162 342', 'act', K)}
+  ${E('s1a_eFL', 'M282 326 L259 313', 'act', K)}
+  ${E('s1a_e1', 'M300 236 C 300 150, 420 104, 500 104', 'act', K)}
+  ${E('s1a_e2', 'M324 236 C 330 170, 430 138, 500 138', 'inh', K)}
+  ${E('s1a_e3', 'M348 236 C 360 190, 440 172, 500 172', 'inh', K)}
+  ${E('s1a_e4', 'M372 236 C 390 212, 450 206, 500 206', 'inh', K)}
+  ${E('s1a_eAM', 'M520 253 C 480 253, 440 254, 396 254', 'inh', K)}
+  ${E('s1a_eIA', 'M548 306 L548 326', 'act', K)}
+  ${E('s1a_eAT', 'M520 340 C 506 332, 502 312, 498 300', 'inh', K)}
+  ${BX('s1a_ses', 12, 40, 88, 26, 'Sestrin2', 'sestrin', 12.5)}${lig('s1a_lL', 74, 31, 'Leu')}
+  ${BX('s1a_cas', 12, 80, 88, 26, 'CASTOR1', 'castor', 12.5)}${lig('s1a_lA', 74, 71, 'Arg')}
+  ${BX('s1a_sam', 12, 156, 88, 26, 'SAMTOR', 'samtor', 12.5)}${lig('s1a_lS', 74, 147, 'SAM')}
+  ${BX('s1a_g2', 122, 58, 80, 28, 'GATOR2', 'gator2', 12.5)}
+  <g id="s1a_g1W">${BX('s1a_g1', 122, 156, 80, 28, 'GATOR1', 'gator1', 12.5)}${XX('s1a_g1X', 124, 154, 200, 186)}</g>
+  ${BX('s1a_slc', 52, 352, 80, 24, 'SLC38A9', 'slc38a9', 11.5)}
+  <rect class="ragulator" x="164" y="326" width="98" height="16" rx="5"/>
+  <text class="lbl" x="213" y="334" font-size="10.5">Ragulator</text>
+  <g class="clickable" data-g="rag">
+    <circle id="s1a_rA" class="node off" cx="188" cy="302" r="22"/><text class="lbl" x="188" y="296" font-size="10.5" font-weight="700">RagA/B</text><text class="lbl mono" id="s1a_rAt" x="188" y="310" font-size="10.5">GDP</text>
+    <circle id="s1a_rC" class="node off" cx="236" cy="302" r="22"/><text class="lbl" x="236" y="296" font-size="10.5" font-weight="700">RagC/D</text><text class="lbl mono" id="s1a_rCt" x="236" y="310" font-size="10.5">GTP</text>
+  </g>
+  <g id="s1a_flW">${BX('s1a_fl', 282, 318, 52, 24, 'FLCN', 'flcn', 12)}${XX('s1a_flX', 284, 316, 332, 344)}</g>
+  <line x1="414" y1="324" x2="414" y2="340" stroke="var(--off-ink)" stroke-width="2"/>
+  <g class="clickable" data-g="rheb"><circle id="s1a_rh" class="node off" cx="414" cy="302" r="22"/><text class="lbl" x="414" y="296" font-size="10.5" font-weight="700">RHEB</text><text class="lbl mono" id="s1a_rht" x="414" y="310" font-size="10.5">GDP</text></g>
+  <g id="s1a_tscM" class="mov">
+    ${E('s1a_eTR', 'M444 328 L433 316', 'inh', K)}
+    <g id="s1a_tscW">${BX('s1a_tsc', 444, 318, 52, 24, 'TSC', 'tsc', 12)}${XX('s1a_tscX', 446, 316, 494, 344)}</g>${PB('s1a_tscP', 496, 318)}
+  </g>
+  <text class="lbl" x="548" y="296" font-size="12.5" font-weight="600">${t('s1_insulin')}</text>
+  ${BX('s1a_akt', 520, 330, 56, 26, 'AKT', 'akt', 12.5)}
+  ${BX('s1a_ampk', 520, 240, 66, 26, 'AMPK', 'ampk', 12.5)}
+  <text class="lbl" x="545" y="72" font-size="11.5" fill="var(--muted)">${t('s1a_targets')}</text>
+  ${BX('s1a_s6k', 504, 92, 82, 24, 'S6K', 's6k', 12.5)}${PB('s1a_s6kP', 586, 92)}
+  ${BX('s1a_ebp', 504, 126, 82, 24, '4E-BP1', 'ebp', 12.5)}${PB('s1a_ebpP', 586, 126)}
+  ${BX('s1a_ulk', 504, 160, 82, 24, 'ULK1', 'ulk1', 12.5)}${PB('s1a_ulkP', 586, 160)}
+  <g class="clickable" data-g="tfeb"><rect id="s1a_tf" class="tfeb-body" x="504" y="194" width="82" height="24" rx="12"/><text class="lbl" x="545" y="206" font-size="12.5" font-weight="700">TFEB</text></g>${PB('s1a_tfP', 586, 194)}
+  <text class="lbl" id="s1a_tfL" x="545" y="230" font-size="11.5" fill="var(--muted)"></text>
+  <g id="s1a_mt" class="mov clickable" data-g="mtorc1">
+    <rect class="glow" id="s1a_glow" x="172" y="236" width="220" height="34" rx="12" opacity="0"/>
+    <rect class="mtor-body" x="172" y="236" width="220" height="34" rx="12"/>
+    <text class="lbl" x="282" y="253" font-size="16" font-weight="700">mTORC1</text>
+    <g id="s1a_drug" class="fade" opacity="0"><rect x="172" y="212" width="98" height="20" rx="10" class="drug"/><text id="s1a_drugT" x="221" y="222.5" class="lbl" font-size="11.5" font-weight="700" style="fill:#fff"></text></g>
+  </g>
+  <g id="s1a_mask" class="fade" opacity="0" style="pointer-events:none"><rect width="600" height="420" fill="var(--surface)" opacity=".93"/>
+    <text class="lbl" x="300" y="190" font-size="40" font-weight="700" fill="var(--muted)">?</text>
+    <text class="lbl" x="300" y="236" font-size="15" font-weight="600">${t('s1a_mask')}</text></g>`;
+
+  const geoOpts = [['wt', 'gt_wt'], ['tsc', 'gt_tsc'], ['g1', 'gt_g1'], ['flcn', 'gt_flcn'], ['x', 'gt_x']];
+  $('ctrl' + K).innerHTML =
+    sliderHTML('s1a_leu', 's1a_leu', 100) + sliderHTML('s1a_arg', 's1a_arg', 100) + sliderHTML('s1a_met', 's1a_met', 100) +
+    sliderHTML('s1a_ins', 's1_ins', 100) + sliderHTML('s1a_en', 's1a_en', 100) +
+    segHTML('s1a_drugS', 'drug_t', [['0', 'drug_0'], ['rapa', 'drug_rapa'], ['torin', 'drug_torin']], '0') +
+    segHTML('s1a_geno', 'geno_t', geoOpts, 'wt') +
+    `<div class="btns" id="s1a_revW" hidden><button class="btn ghost" id="s1a_rev">${t('myst_show')}</button></div>`;
+  $('reads' + K).innerHTML = `<div id="s1a_now" style="display:grid;gap:7px"></div>
+    <div style="display:grid;gap:8px;margin-top:6px"><div class="label" style="margin:0">${t('blot_t')}</div>
+    <div class="btns"><button class="btn" id="s1a_rec">${t('blot_rec')}</button><button class="btn ghost" id="s1a_clr">${t('blot_clr')}</button></div>
+    <div id="s1a_blot"></div><div class="lanekey" id="s1a_key"></div></div>`;
+  $('take' + K).textContent = t('s1a_take');
+
+  const S = { lanes: [], myst: null, reveal: false };
+  function model(){
+    const leu = sv('s1a_leu'), arg = sv('s1a_arg'), met = sv('s1a_met'), ins = sv('s1a_ins'), en = sv('s1a_en');
+    const drug = segVal('s1a_drugS'), g = segVal('s1a_geno');
+    const geno = g === 'x' ? S.myst : g;
+    const sest = 1 - Hn(leu, .3, 2), cast = 1 - Hn(arg, .3, 2), samtor = 1 - Hn(met, .3, 2);
+    const gator2 = (1 - .9 * sest) * (1 - .9 * cast);
+    const g1 = geno === 'g1' ? 0 : clamp(1 - .9 * gator2 + .6 * samtor);
+    const ragA = Hn(1 - g1, .45, 3) * (.85 + .15 * Hn(arg, .3, 2));
+    const ampk = 1 - Hn(en, .4, 3);
+    const ragC = geno === 'flcn' ? 0 : ragA * (1 - .8 * ampk) * (geno === 'tsc' ? .3 : 1);   // без TSC2 TFEB гипофосфорилирован (Alesi 2021)
+    const rheb = geno === 'tsc' ? 1 : Hn(ins, .35, 2) * (1 - .85 * ampk);
+    const kin = rheb * (ragA + (1 - ragA) * (geno === 'tsc' ? .3 : 0)) * (1 - .8 * ampk);   // без TSC2 голод гасит mTORC1 не полностью (Demetriades 2014)
+    const f = drug === 'rapa' ? { s6k: .08, ebp: .85, ulk: .85, tfeb: 1 } : drug === 'torin' ? { s6k: .03, ebp: .03, ulk: .03, tfeb: .03 } : { s6k: 1, ebp: 1, ulk: 1, tfeb: 1 };
+    const out = { s6k: kin * f.s6k, ebp: kin * f.ebp, ulk: kin * f.ulk, tfeb: ragC * f.tfeb };
+    return { leu, arg, met, ins, en, drug, g, geno, sest, cast, samtor, gator2, g1, ragA, ragC, rheb, ampk, kin, out };
+  }
+  function update(){
+    const m = model(), o = m.out, show = m.g !== 'x' || S.reveal, gv = show ? m.geno : 'wt';
+    setOp('s1a_lL', Hn(m.leu, .3, 2)); setOp('s1a_lA', Hn(m.arg, .3, 2)); setOp('s1a_lS', Hn(m.met, .3, 2));
+    setBoxState('s1a_ses', m.sest > .5 ? 'on' : 'inh'); setBoxState('s1a_cas', m.cast > .5 ? 'on' : 'inh'); setBoxState('s1a_sam', m.samtor > .5 ? 'on' : 'inh');
+    setEdge('s1a_eSG2', m.sest); setEdge('s1a_eCG2', m.cast); setEdge('s1a_eSmG1', m.samtor);
+    setBoxState('s1a_g2', m.gator2 > .5 ? 'on' : 'inh'); setEdge('s1a_eG2G1', m.gator2);
+    const g1x = gv === 'g1'; missing('s1a_g1W', g1x); setOp('s1a_g1X', g1x ? 1 : 0);
+    setBoxState('s1a_g1', m.g1 > .5 ? 'on' : 'inh'); setEdge('s1a_eG1R', m.g1);
+    setBoxState('s1a_slc', m.arg > .5 ? 'on' : null); setEdge('s1a_eSLC', Hn(m.arg, .3, 2));
+    const dock = m.ragA > .5;
+    setCls('s1a_rA', dock ? 'on' : 'off'); setTxt('s1a_rAt', dock ? 'GTP' : 'GDP');
+    setCls('s1a_rC', m.ragC > .5 ? 'on' : 'off'); setTxt('s1a_rCt', m.ragC > .5 ? 'GDP' : 'GTP');
+    const flx = gv === 'flcn'; missing('s1a_flW', flx); setOp('s1a_flX', flx ? 1 : 0);
+    setBoxState('s1a_fl', m.geno === 'flcn' ? null : (m.ragC > .5 ? 'on' : 'inh')); setEdge('s1a_eFL', m.geno === 'flcn' ? 0 : m.ragC);
+    setCls('s1a_rh', m.rheb > .5 ? 'on' : 'off'); setTxt('s1a_rht', m.rheb > .5 ? 'GTP' : 'GDP');
+    const tscx = gv === 'tsc', lifted = m.ins > .5 && m.geno !== 'tsc';
+    missing('s1a_tscW', tscx); setOp('s1a_tscX', tscx ? 1 : 0);
+    move('s1a_tscM', 0, lifted ? -44 : 0); setOp('s1a_tscP', lifted ? 1 : 0);
+    setBoxState('s1a_tsc', m.geno === 'tsc' ? null : (lifted ? 'inh' : 'on'));
+    setOp('s1a_eTR', (lifted || m.geno === 'tsc') ? 0 : 1);
+    setBoxState('s1a_akt', m.ins > .5 ? 'on' : null); setEdge('s1a_eIA', m.ins); setEdge('s1a_eAT', m.ins);
+    setBoxState('s1a_ampk', m.ampk > .5 ? 'on' : null); setEdge('s1a_eAM', m.ampk);
+    move('s1a_mt', dock ? 0 : 40, dock ? 0 : -112);
+    setOp('s1a_glow', m.kin * (m.drug === 'torin' ? .15 : 1) * .9);
+    setOp('s1a_drug', m.drug === '0' ? 0 : 1); setTxt('s1a_drugT', m.drug === '0' ? '' : t('drug_' + m.drug));
+    [['s1a_e1', o.s6k], ['s1a_e2', o.ebp], ['s1a_e3', o.ulk], ['s1a_e4', o.tfeb]].forEach(([id, v]) => { if (dock) setEdge(id, v); else $(id).style.opacity = 0; });
+    setBoxState('s1a_s6k', o.s6k > .5 ? 'on' : null); setOp('s1a_s6kP', o.s6k > .5 ? 1 : 0);
+    setBoxState('s1a_ebp', o.ebp > .5 ? 'inh' : 'on'); setOp('s1a_ebpP', o.ebp > .5 ? 1 : 0);
+    setBoxState('s1a_ulk', o.ulk > .5 ? 'inh' : 'on'); setOp('s1a_ulkP', o.ulk > .5 ? 1 : 0);
+    const tfC = o.tfeb > .5; setOp('s1a_tfP', tfC ? 1 : 0); setTxt('s1a_tfL', t(tfC ? 'pill_cyto' : 'pill_nuc'));
+    $('s1a_tf').style.opacity = tfC ? .55 : 1;
+    $('s1a_revW').hidden = m.g !== 'x';
+    const hid = m.g === 'x' && !S.reveal; setOp('s1a_mask', hid ? 1 : 0); $('s1a_now').hidden = hid;
+    $('s1a_now').innerHTML = meterRow(t('s1a_r_rag'), m.ragA, pct(m.ragA) + ' %') + meterRow(t('s1a_r_rheb'), m.rheb, pct(m.rheb) + ' %') +
+      meterRow(t('s1a_r_ampk'), m.ampk, pct(m.ampk) + ' %') +
+      readRow('S6K', t('s1_r_s6k'), pill(o.s6k > .5)) + readRow('4E-BP1', t('s1_r_ebp'), pill(o.ebp > .5)) + readRow('ULK1', t('s1_r_ulk'), pill(o.ulk > .5)) +
+      readRow('TFEB', t('s1_r_tfeb'), `<span class="pill ${tfC ? 'cy' : 'nu'}">${t(tfC ? 'pill_cyto' : 'pill_nuc')}</span>`);
+    let k;
+    const minAA = Math.min(m.leu, m.arg, m.met);
+    if (m.g === 'x' && !S.reveal) k = 's1a_c_myst';
+    else if (m.g === 'x') k = 's1a_c_ans_' + m.geno;
+    else if (!dock) k = m.geno === 'tsc' ? 's1a_c_tsc_noaa' : (m.leu === minAA ? 's1a_c_leu' : (m.arg === minAA ? 's1a_c_arg' : 's1a_c_met'));
+    else if (m.drug === 'torin') k = 's1a_c_torin';
+    else if (m.ampk > .5 && o.s6k <= .5) k = (m.geno === 'tsc' || m.geno === 'flcn') ? 's1a_c_ampk_mut' : 's1a_c_ampk';
+    else if (m.drug === 'rapa' && m.rheb >= .5 && o.ebp > .5) k = 's1a_c_rapa';
+    else if (m.geno === 'tsc' && o.s6k > .5) k = 's1a_c_tsc';
+    else if (m.rheb < .5) k = 's1a_c_noins';
+    else if (m.kin <= .5 || (m.drug === 'rapa' && o.ebp <= .5)) k = 's1a_c_weak';
+    else if (m.geno === 'flcn') k = 's1a_c_flcn';
+    else if (m.geno === 'g1' && minAA < .3) k = 's1a_c_g1';
+    else k = 's1a_c_full';
+    setCap(K, k);
+  }
+  function renderBlot(){
+    const rows = ['b_s6k', 'b_ebp', 'b_ulk', 'b_tfeb', 'b_actin'].map(x => t(x));
+    $('s1a_blot').innerHTML = blotHTML(rows, S.lanes);
+    $('s1a_key').innerHTML = S.lanes.map(L => `<span>${L.h1}: ${L.key}</span>`).join('');
+  }
+  function record(){
+    const m = model(), o = m.out;
+    const gcode = { wt: '', tsc: 'TSC2⁻', g1: 'G1⁻', flcn: 'FLCN⁻' }[m.g === 'x' ? 'wt' : m.g] || '';
+    const h2 = m.g === 'x' ? '?' : (gcode + (m.drug === 'rapa' ? (gcode ? '+Р' : 'рапа') : m.drug === 'torin' ? (gcode ? '+Т' : 'торин') : '')) || '—';
+    const key = `Leu ${pct(m.leu)} · Arg ${pct(m.arg)} · SAM ${pct(m.met)} · ${t('s1_insulin')} ${pct(m.ins)} · ATP ${pct(m.en)} · ${t(geoOpts.find(x => x[0] === m.g)[1])} · ${m.drug === '0' ? t('drug_none_k') : t('drug_' + m.drug)}`;
+    S.lanes.push({ h1: '#' + (S.n = (S.n || 0) + 1), h2, key, v: [o.s6k, o.ebp, o.ulk, o.tfeb, .9] });
+    if (S.lanes.length > 7) S.lanes.shift();
+    renderBlot();
+  }
+  wire(['s1a_leu', 's1a_arg', 's1a_met', 's1a_ins', 's1a_en', 's1a_drugS'], update);
+  wire(['s1a_geno'], () => { if (segVal('s1a_geno') === 'x' && !S.myst) S.myst = ['tsc', 'g1', 'flcn'][Math.floor(Math.random() * 3)]; S.reveal = false; update(); });
+  $('s1a_rev').onclick = () => { S.reveal = true; update(); };
+  $('s1a_rec').onclick = record;
+  $('s1a_clr').onclick = () => { S.lanes = []; S.n = 0; renderBlot(); };
+  renderBlot();
+  function st(o){
+    const d = { leu: 1, arg: 1, met: 1, ins: 1, en: 1, drug: '0', geno: 'wt' }; Object.assign(d, o);
+    ['leu', 'arg', 'met', 'ins', 'en'].forEach(x => setSlider('s1a_' + x, d[x]));
+    segSet('s1a_drugS', d.drug); segSet('s1a_geno', d.geno); S.reveal = false;
+  }
+  const clear = () => { S.lanes = []; S.n = 0; renderBlot(); };
+  const rec = () => { update(); record(); };
+  SCENES[K] = { update, poe: [
+    { n: 3, ok: 1, pre(){ clear(); st({}); rec(); }, apply(){ st({ drug: 'rapa' }); rec(); } },
+    { n: 3, ok: 1, pre(){ st({}); }, apply(){ st({ drug: 'torin' }); rec(); } },
+    { n: 3, ok: 1, pre(){ clear(); st({ geno: 'tsc', ins: 0 }); rec(); }, apply(){ st({ geno: 'tsc', ins: 0, leu: 0, arg: 0 }); rec(); } },
+    { n: 3, ok: 1, pre(){ clear(); st({ geno: 'g1' }); rec(); }, apply(){ st({ geno: 'g1', leu: 0, arg: 0 }); rec(); } },
+    { n: 3, ok: 0, pre(){ clear(); st({}); rec(); }, apply(){ st({ en: .15 }); rec(); } },
+    { n: 3, ok: 1, pre(){ clear(); st({}); rec(); }, apply(){ st({ geno: 'flcn' }); rec(); } },
+  ] };
+})();
+
+/* =====================================================================
+   Вопрос 2. AMPK — сенсор энергетического заряда и переключатель бюджета
+   2b — базовый: расход ATP → AMP → AMPK → три мишени; LKB1
+   2a — «три входа и два времени»: AMP, глюкоза (альдолаза на лизосоме), Ca²⁺; мишени через минуты и через часы
+   ===================================================================== */
+const AK = 0.44;                       // константа аденилаткиназы: AMP·ATP / ADP²
+function adPool(r){ const amp = AK * r * r, s = 1 + r + amp; return { atp: 1 / s, adp: r / s, amp: amp / s, ampAtp: amp }; }
+
+(function(){
+  const K = '2b';
+  layout(K);
+  $('svg' + K).innerHTML = defs(K) + `
+  <rect class="cyto" width="600" height="420"/>
+  <text class="area" x="138" y="28" text-anchor="middle">${t('s2_pool')}</text>
+  <text class="lbl" x="138" y="52" font-size="12.5">${t('s2_ak')}</text>
+  <line class="ref" x1="30" y1="316" x2="246" y2="316"/>
+  <text class="lbl-l" x="250" y="316" font-size="11.5" fill="var(--muted)">${t('s2_rest')}</text>
+  <rect class="col col-atp" id="s2b_cATP" x="40" y="316" width="52" height="24" rx="4"/>
+  <rect class="col col-adp" id="s2b_cADP" x="112" y="316" width="52" height="24" rx="4"/>
+  <rect class="col col-amp" id="s2b_cAMP" x="184" y="316" width="52" height="24" rx="4"/>
+  <line x1="28" y1="340" x2="248" y2="340" stroke="var(--line)" stroke-width="2"/>
+  <text class="lbl mono" id="s2b_vATP" x="66" y="304" font-size="12.5">×1</text>
+  <text class="lbl mono" id="s2b_vADP" x="138" y="304" font-size="12.5">×1</text>
+  <text class="lbl mono" id="s2b_vAMP" x="210" y="304" font-size="12.5">×1</text>
+  <text class="lbl" x="66" y="358" font-size="14" font-weight="700">ATP</text>
+  <text class="lbl" x="138" y="358" font-size="14" font-weight="700">ADP</text>
+  <text class="lbl" x="210" y="358" font-size="14" font-weight="700">AMP</text>
+  <text class="lbl" x="138" y="390" font-size="12">${t('s2_ec_f')}</text>
+  <text class="lbl" x="138" y="76" font-size="11.5" fill="var(--muted)">${t('s2_fold')}</text>
+  ${E('s2b_eAMP', 'M236 316 C 286 260, 320 236, 358 222', 'act', K)}
+  ${E('s2b_eLK', 'M338 117 L370 120', 'act', K)}
+  <g id="s2b_lkW">${BX('s2b_lk', 282, 104, 56, 26, 'LKB1', 'lkb1', 13)}${XX('s2b_lkX', 284, 102, 336, 132)}</g>
+  <rect class="glow" id="s2b_glow" x="354" y="74" width="222" height="164" rx="14" opacity="0"/>
+  <g class="clickable" data-g="ampk">
+    <rect class="box" x="360" y="80" width="210" height="60" rx="10"/>
+    <text class="lbl" x="476" y="98" font-size="13.5" font-weight="600">${t('s2_alpha')}</text>
+    <circle cx="382" cy="120" r="10" fill="var(--surface)" stroke="var(--off-ink)" stroke-width="1.6"/>
+    <text class="lbl-l mono" x="398" y="122" font-size="11.5">Thr172</text>
+    <rect class="box" x="360" y="146" width="210" height="24" rx="8"/>
+    <text class="lbl" x="465" y="158" font-size="13.5" font-weight="600">β</text>
+    <rect class="box" x="360" y="176" width="210" height="56" rx="10"/>
+    <text class="lbl" x="432" y="204" font-size="13.5" font-weight="600">${t('s2_gamma')}</text>
+    <circle id="s2b_pk" class="node off" cx="534" cy="204" r="19"/>
+    <text class="lbl mono" id="s2b_tok" x="534" y="204" font-size="11" font-weight="700">ATP</text>
+  </g>
+  ${PB('s2b_P', 382, 120)}
+  ${E('s2b_e1', 'M412 238 L342 296', 'inh', K)}
+  ${E('s2b_e2', 'M465 238 L433 296', 'inh', K)}
+  ${E('s2b_e3', 'M520 238 L533 296', 'act', K, 'dash')}
+  ${BX('s2b_acc', 300, 300, 66, 26, 'ACC', 'acc', 13)}${PB('s2b_pA', 366, 300)}
+  ${BX('s2b_mt', 386, 300, 94, 26, 'mTORC1', 'ampkmtor', 13)}
+  ${BX('s2b_ulk', 500, 300, 66, 26, 'ULK1', 'ulk1', 13)}${PB('s2b_pU', 566, 300)}
+  <text class="lbl" x="333" y="344" font-size="12">${t('s2_t_acc1')}</text><text class="lbl" x="333" y="361" font-size="12" fill="var(--good)">${t('s2_t_acc2')}</text>
+  <text class="lbl" x="433" y="344" font-size="12">${t('s2_t_mtor1')}</text><text class="lbl" x="433" y="361" font-size="12">${t('s2_t_mtor2')}</text>
+  <text class="lbl" x="533" y="344" font-size="12">${t('s2_t_ulk1')}</text><text class="lbl" x="533" y="361" font-size="12">${t('s2_t_ulk2')}</text>`;
+  $('ctrl' + K).innerHTML = sliderHTML('s2b_load', 's2_load', 0) + toggleHTML('s2b_lkb', 's2_lkb1', true);
+  $('take' + K).textContent = t('s2b_take');
+  const r0 = .1, P0 = adPool(r0);
+  function col(id, vid, f){
+    const unit = 24, h = Math.max(3, Math.min(10, f) * unit), c = $(id);
+    c.setAttribute('y', (340 - h).toFixed(1)); c.setAttribute('height', h.toFixed(1));
+    const v = $(vid); v.textContent = '×' + fmt(f, f >= 10 ? 0 : (f < 1.95 ? 2 : 1)); v.setAttribute('y', (Math.min(340 - h, 316) - 12).toFixed(1));
+  }
+  function update(){
+    const load = sv('s2b_load'), lkb = $('s2b_lkb').checked;
+    const P = adPool(r0 + .42 * load), fA = P.atp / P0.atp, fD = P.adp / P0.adp, fM = P.amp / P0.amp, ec = P.atp + .5 * P.adp;
+    const allo = H(P.ampAtp, .015, 2), act = lkb ? allo : .08 * allo, on = act > .5;
+    col('s2b_cATP', 's2b_vATP', fA); col('s2b_cADP', 's2b_vADP', fD); col('s2b_cAMP', 's2b_vAMP', fM);
+    const yA = Math.min(316, 340 - Math.min(10, fM) * 24); $('s2b_eAMP').setAttribute('d', `M236 ${yA.toFixed(1)} C 286 ${Math.min(yA + 40, 260).toFixed(1)}, 320 236, 358 222`);
+    setCls('s2b_pk', allo > .5 ? 'on' : 'off'); setTxt('s2b_tok', allo > .5 ? 'AMP' : 'ATP'); setEdge('s2b_eAMP', allo);
+    setOp('s2b_P', lkb && allo > .3 ? Math.min(1, allo * 1.1) : 0); setOp('s2b_glow', act * .9);
+    missing('s2b_lkW', !lkb); setOp('s2b_lkX', lkb ? 0 : 1); setEdge('s2b_eLK', lkb ? .3 + .7 * allo : 0);
+    setBoxState('s2b_lk', lkb ? 'on' : null);
+    ['s2b_e1', 's2b_e2', 's2b_e3'].forEach(id => setEdge(id, act));
+    [['s2b_acc', 's2b_pA', 'on', 'inh'], ['s2b_mt', null, 'on', 'inh'], ['s2b_ulk', 's2b_pU', null, null]].forEach(([b, p, rest, act]) => { setBoxState(b, on ? act : rest); if (p) setOp(p, on ? 1 : 0); });
+    $('reads' + K).innerHTML = readRow('ATP', t('s2_r_atp'), `<span class="v">${pct(fA)} %</span>`) +
+      readRow('AMP', t('s2_r_amp'), `<span class="v">×${fmt(fM, 1)}</span>`) +
+      meterRow(t('s2_r_ec'), ec, fmt(ec, 2)) + meterRow(t('s2_r_ampk'), act, pct(act) + ' %');
+    const k = allo < .35 ? 's2_c_rest' : (!lkb ? 's2_c_nolkb1' : 's2_c_on');
+    setCap(K, k, { atp: Math.max(1, Math.round((1 - fA) * 100)), amp: ruTimes(fM) });
+  }
+  wire(['s2b_load', 's2b_lkb'], update);
+  const set = (l, k) => { setSlider('s2b_load', l); $('s2b_lkb').checked = k; };
+  SCENES[K] = { update, poe: [
+    { n: 3, ok: 1, pre(){ set(0, true); }, apply(){ set(1, true); } },
+    { n: 3, ok: 1, pre(){ set(1, true); }, apply(){ set(1, false); } },
+    { n: 3, ok: 1, pre(){ set(0, true); }, apply(){ set(.8, true); } },
+  ] };
+})();
+
+(function(){
+  const K = '2a';
+  layout(K);
+  const TS = [0, 2 / 60, 10 / 60, 1, 3, 8, 24];
+  const chip = (id, x, y, w, label, g, eff, effC) => `${BX(id, x, y, w, 24, label, g, 12)}${PB(id + 'P', x + w, y)}<text class="lbl" id="${id}E" x="${x + w / 2}" y="${y + 38}" font-size="11.5" fill="var(--muted)">${t(eff)}</text>`;
+  $('svg' + K).innerHTML = defs(K) + `
+  <rect class="cyto" width="600" height="420"/>
+  <text class="lbl" x="82" y="22" font-size="12" font-weight="600">${t('s2a_in1')}</text>
+  <rect class="col col-atp" id="s2a_cATP" x="24" y="110" width="32" height="8" rx="3"/>
+  <rect class="col col-adp" id="s2a_cADP" x="66" y="110" width="32" height="8" rx="3"/>
+  <rect class="col col-amp" id="s2a_cAMP" x="108" y="110" width="32" height="8" rx="3"/>
+  <line x1="18" y1="118" x2="146" y2="118" stroke="var(--line)" stroke-width="2"/>
+  <line class="ref" x1="18" y1="110" x2="146" y2="110"/>
+  <text class="lbl" x="40" y="131" font-size="11.5" font-weight="700">ATP</text><text class="lbl" x="82" y="131" font-size="11.5" font-weight="700">ADP</text><text class="lbl" x="124" y="131" font-size="11.5" font-weight="700">AMP</text>
+  ${E('s2a_eAMP', 'M146 80 C 220 80, 260 80, 314 80', 'act', K)}
+  <text class="lbl" x="128" y="153" font-size="13" font-weight="700">Ca²⁺</text>
+  ${E('s2a_eCa0', 'M146 153 L174 153', 'act', K)}
+  ${BX('s2a_cam', 178, 140, 74, 26, 'CaMKK2', 'camkk2', 12)}
+  ${E('s2a_eCa', 'M252 153 C 290 153, 318 156, 346 156', 'act', K)}
+  <g id="s2a_lkW">${BX('s2a_lk', 186, 190, 56, 26, 'LKB1', 'lkb1', 12.5)}${XX('s2a_lkX', 188, 188, 240, 218)}</g>
+  ${E('s2a_eLK', 'M242 200 C 290 196, 318 176, 350 164', 'act', K)}
+  <ellipse class="lyso" cx="110" cy="440" rx="190" ry="100"/>
+  <text class="area area-lyso" x="104" y="398" text-anchor="middle">${t('lbl_lysosome')}</text>
+  <text class="lbl" x="70" y="276" font-size="11.5" font-weight="600">${t('s2a_in2')}</text>
+  ${BX('s2a_ald', 22, 290, 96, 26, t('s2a_ald'), 'aldolase', 11.5)}
+  ${BX('s2a_ax', 132, 306, 60, 26, 'AXIN', 'axin', 12)}
+  ${E('s2a_eAld', 'M118 306 L130 314', 'act', K)}
+  ${E('s2a_eAx', 'M166 306 C 172 262, 196 240, 210 220', 'act', K)}
+  <rect class="glow" id="s2a_glow" x="310" y="50" width="176" height="164" rx="14" opacity="0"/>
+  <g class="clickable" data-g="ampk">
+    <rect class="box" x="316" y="56" width="164" height="48" rx="10"/><text class="lbl" x="346" y="80" font-size="14" font-weight="700">γ</text>
+    <rect class="box" x="316" y="110" width="164" height="64" rx="10"/><text class="lbl" x="346" y="128" font-size="14" font-weight="700">α</text>
+    <circle cx="360" cy="156" r="10" fill="var(--surface)" stroke="var(--off-ink)" stroke-width="1.6"/><text class="lbl-l mono" x="376" y="158" font-size="11.5">Thr172</text>
+    <rect class="box" x="316" y="180" width="164" height="28" rx="8"/><text class="lbl" x="346" y="194" font-size="14" font-weight="700">β</text>
+    <circle id="s2a_pk" class="node off" cx="452" cy="80" r="17"/><text class="lbl mono" id="s2a_tok" x="452" y="80" font-size="10.5" font-weight="700">ATP</text>
+  </g>
+  ${XX('s2a_pkX', 438, 66, 466, 94)}
+  ${PB('s2a_P', 360, 156)}
+  <text class="lbl" x="398" y="40" font-size="14" font-weight="700">AMPK</text>
+  ${E('s2a_eOut', 'M398 214 L398 238', 'act', K)}
+  <text class="lbl-l" x="500" y="232" font-size="11.5" fill="var(--muted)">${t('s2a_row1')}</text>
+  ${chip('s2a_acc', 300, 244, 88, 'ACC', 'acc', 's2a_e_acc')}
+  ${chip('s2a_hmg', 398, 244, 88, 'HMGCR', 'hmgcr', 's2a_e_hmg')}
+  ${chip('s2a_tsc', 496, 244, 94, 'TSC2', 'tsc', 's2a_e_tsc')}
+  ${chip('s2a_rap', 496, 304, 94, 'Raptor', 'raptor', 's2a_e_rap')}
+  ${chip('s2a_ulk', 300, 304, 88, 'ULK1', 'ulk1', 's2a_e_ulk')}
+  ${chip('s2a_mff', 398, 304, 88, 'MFF', 'mff', 's2a_e_mff')}
+  <text class="lbl-l" x="512" y="378" font-size="11.5" fill="var(--muted)">${t('s2a_row2')}</text>
+  ${chip('s2a_tfe', 300, 364, 100, 'FNIP1→TFEB', 'tfeb', 's2a_e_tfe')}
+  ${chip('s2a_pgc', 410, 364, 88, 'PGC-1α', 'pgc1a', 's2a_e_pgc')}`;
+  $('ctrl' + K).innerHTML = sliderHTML('s2a_load', 's2_load', 0) + sliderHTML('s2a_glc', 's2a_glc', 100) + sliderHTML('s2a_ca', 's2a_ca', 0) +
+    `<div class="btns" style="gap:16px">${toggleHTML('s2a_lkb', 's2_lkb1', true)}${toggleHTML('s2a_gam', 's2a_gam', true)}</div>` +
+    `<div class="slider"><div class="row"><label for="s2a_t">${t('s2a_time')}</label><output id="s2a_tO"></output></div><input type="range" id="s2a_t" min="0" max="6" step="1" value="0"></div>`;
+  $('take' + K).textContent = t('s2a_take');
+  const r0 = .1, P0 = adPool(r0);
+  function col(id, f){ const h = Math.max(2, Math.min(10, f) * 8), c = $(id); c.setAttribute('y', (118 - h).toFixed(1)); c.setAttribute('height', h.toFixed(1)); }
+  function model(){
+    const load = sv('s2a_load'), glc = sv('s2a_glc'), ca = sv('s2a_ca'), lkb = $('s2a_lkb').checked, gam = $('s2a_gam').checked;
+    const ti = +$('s2a_t').value, th = TS[ti];
+    const P = adPool(r0 + .42 * load);
+    const allo = gam ? H(P.ampAtp, .015, 2) : 0;
+    const ampR = lkb ? allo : 0, lys = lkb ? 1 - Hn(glc, .35, 3) : 0, cam = Hn(ca, .45, 2);
+    const pT = clamp(1 - (1 - .9 * ampR) * (1 - .85 * lys) * (1 - .8 * cam));
+    const act = pT * (.7 + .3 * allo);   // AMP усиливает уже фосфорилированную AMPK; без AMP фосфо-Thr172 даёт бо́льшую часть активности
+    return { load, glc, ca, lkb, gam, ti, th, P, allo, ampR, lys, cam, pT, act, glcLow: 1 - Hn(glc, .35, 3) };
+  }
+  function update(){
+    const m = model(), on = m.act > .5;
+    $('s2a_tO').textContent = t('s2a_t' + m.ti);
+    col('s2a_cATP', m.P.atp / P0.atp); col('s2a_cADP', m.P.adp / P0.adp); col('s2a_cAMP', m.P.amp / P0.amp);
+    const amp = m.P.ampAtp > .03;
+    setCls('s2a_pk', m.allo > .5 ? 'on' : 'off'); setTxt('s2a_tok', amp && m.gam ? 'AMP' : 'ATP'); setOp('s2a_pkX', m.gam ? 0 : 1);
+    setEdge('s2a_eAMP', m.gam ? H(m.P.ampAtp, .015, 2) : 0);
+    setBoxState('s2a_cam', m.cam > .5 ? 'on' : null); setEdge('s2a_eCa0', m.cam); setEdge('s2a_eCa', m.cam);
+    missing('s2a_lkW', !m.lkb); setOp('s2a_lkX', m.lkb ? 0 : 1); setBoxState('s2a_lk', m.lkb ? 'on' : null);
+    setEdge('s2a_eLK', m.lkb ? Math.max(m.ampR, m.lys) : 0);
+    setBoxState('s2a_ald', m.glcLow > .5 ? 'on' : null); setBoxState('s2a_ax', m.lys > .5 ? 'on' : null);
+    setEdge('s2a_eAld', m.glcLow); setEdge('s2a_eAx', m.lys);
+    setOp('s2a_P', m.pT); setOp('s2a_glow', m.act * .9); setEdge('s2a_eOut', m.act);
+    const fast = on && m.ti >= 1;
+    [['s2a_acc', 'inh', fast], ['s2a_hmg', 'inh', fast], ['s2a_tsc', 'on', fast], ['s2a_rap', 'inh', fast], ['s2a_ulk', null, fast], ['s2a_mff', 'on', fast],
+     ['s2a_tfe', 'on', on && m.ti >= 3], ['s2a_pgc', 'on', on && m.ti >= 5]].forEach(([id, st, lit]) => {
+      setBoxState(id, lit ? st : null); setOp(id + 'P', lit && id !== 's2a_tfe' ? 1 : 0); $(id + 'E').style.fill = lit ? 'var(--ink)' : 'var(--muted)';
+      $(id + 'E').style.fontWeight = lit ? 700 : 400; });
+    const pr = b => `<span class="pill ${b ? 'p' : 'np'}">${t(b ? 'pill_on' : 'pill_off')}</span>`;
+    $('reads' + K).innerHTML = readRow('AMP/ATP', t('s2a_r_ratio'), `<span class="v">×${fmt(m.P.ampAtp / P0.ampAtp, 1)}</span>`) +
+      meterRow(t('s2a_r_t172'), m.pT, pct(m.pT) + ' %') + meterRow(t('s2_r_ampk'), m.act, pct(m.act) + ' %') +
+      readRow(t('s2a_rt1'), '', pr(m.ampR > .5)) + readRow(t('s2a_rt2'), '', pr(m.lys > .5)) + readRow(t('s2a_rt3'), '', pr(m.cam > .5));
+    let k;
+    const n = (m.ampR > .5) + (m.lys > .5) + (m.cam > .5);
+    if (!on){                                   // мишени не горят — подпись не должна говорить, что AMPK включилась
+      if (!m.lkb && m.cam <= .5 && (m.load >= .3 || m.glcLow > .5)) k = 's2a_c_nolkb';
+      else if (!m.gam && m.load >= .3 && m.lys <= .5 && m.cam <= .5) k = 's2a_c_gam';
+      else if (m.act < .15 && m.load < .3 && m.glcLow <= .5 && m.cam <= .5) k = 's2a_c_rest';
+      else k = 's2a_c_part';
+    } else if (n !== 1) k = 's2a_c_multi';
+    else if (m.cam > .5) k = m.lkb ? 's2a_c_ca' : 's2a_c_ca0';
+    else if (m.lys > .5) k = m.gam ? 's2a_c_glc' : 's2a_c_glc_gam';
+    else k = 's2a_c_amp';
+    setCap(K, k);
+  }
+  wire(['s2a_load', 's2a_glc', 's2a_ca', 's2a_lkb', 's2a_gam', 's2a_t'], update);
+  function st(o){
+    const d = { load: 0, glc: 1, ca: 0, lkb: true, gam: true, ti: 2 }; Object.assign(d, o);
+    setSlider('s2a_load', d.load); setSlider('s2a_glc', d.glc); setSlider('s2a_ca', d.ca);
+    $('s2a_lkb').checked = d.lkb; $('s2a_gam').checked = d.gam; $('s2a_t').value = d.ti;
+  }
+  SCENES[K] = { update, poe: [
+    { n: 3, ok: 1, pre(){ st({}); }, apply(){ st({ glc: 0 }); } },
+    { n: 3, ok: 1, pre(){ st({ gam: false }); }, apply(){ st({ gam: false, load: 1 }); } },
+    { n: 3, ok: 1, pre(){ st({ lkb: false }); }, apply(){ st({ lkb: false, ca: 1 }); } },
+    { n: 3, ok: 1, pre(){ st({ load: .9, ti: 1 }); }, apply(){ st({ load: .9, ti: 5 }); } },
+  ] };
+})();
+
+/* =====================================================================
+   Вопрос 3. ACC — малонил-CoA — CPT1: синтез или β-окисление
+   Общая схема: цитоплазма сверху, митохондрия снизу (наружная и внутренняя мембраны).
+   Карнитиновый челнок: ацил-CoA →(CPT1)→ ацилкарнитин →(CACT)→ матрикс →(CPT2)→ ацил-CoA → β-окисление.
+   3b — базовый: AMPK и цитрат;  3a — ткань, длина цепи, генотипы, этомоксир, мысленный опыт без торможения CPT1
+   ===================================================================== */
+function mitoSVG(K, adv){
+  const dia = (x, y) => `<rect x="${x - 5}" y="${y - 5}" width="10" height="10" rx="2" transform="rotate(45 ${x} ${y})" fill="var(--mal)" opacity="0"/>`;
+  const M1 = [[128, 162], [146, 172], [164, 160], [182, 170], [136, 188], [156, 194], [176, 186], [194, 198]];
+  const M2 = [[232, 214], [250, 206], [240, 224], [222, 222], [258, 222], [214, 210]];
+  return { M1, M2, html: defs(K) + `
+  <rect class="cyto" width="600" height="420"/>
+  <text class="area" x="16" y="24">${t('lbl_cytosol')}</text>
+  <rect class="mito" x="14" y="240" width="572" height="172" rx="56"/>
+  <rect class="mito2" x="30" y="284" width="540" height="116" rx="44"/>
+  <text class="lbl" x="584" y="232" font-size="11" fill="var(--muted)" style="text-anchor:end">${t('s3_omm')}</text>
+  <text class="lbl" x="560" y="270" font-size="11" fill="var(--muted)" style="text-anchor:end">${t('s3_imm')}</text>
+  <text class="area" x="58" y="376">${t('s3_matrix_lbl')}</text>
+  ${BX('s' + K + '_citB', 30, 40, 90, 26, t('s3_cit_lbl'), 'citrate', 12.5)}
+  ${adv ? `<text class="lbl-l" x="126" y="53" font-size="12" font-weight="600">${t('s3a_ins')}</text>` : ''}
+  ${E('s' + K + '_eC', 'M75 66 L75 92', 'act', K)}
+  ${BX('s' + K + '_a1', 44, 96, 62, 26, 'ACC1', 'acc1', 13)}${PB('s' + K + '_a1P', 106, 96)}
+  <text class="lbl mono" id="s${K}_ki1" x="24" y="109" font-size="10" font-weight="700" fill="var(--bad)" opacity="0">S79A</text>
+  <path id="s${K}_syn" class="flux" d="M75 124 L75 160" stroke="var(--mal)" stroke-width="2"/>
+  <text class="lbl-l" x="84" y="143" font-size="11.5" fill="var(--mal)" font-weight="600">${t('s3_mal')}</text>
+  ${BX('s' + K + '_fas', 44, 164, 62, 26, 'FASN', 'fasn', 13)}
+  <text class="lbl" x="75" y="206" font-size="12">${t('s3_fas')}</text>
+  <g id="s${K}_m1">${M1.map(([x, y]) => dia(x, y)).join('')}</g>
+  ${BX('s' + K + '_amp', 480, 30, 70, 26, 'AMPK', 'ampk', 13)}
+  ${E('s' + K + '_eA1', 'M480 43 C 360 43, 170 70, 110 104', 'inh', K, 'dash')}
+  ${E('s' + K + '_eA2', 'M500 56 C 440 130, 270 170, 210 226', 'inh', K, 'dash')}
+  <g id="s${K}_a2W">${BX('s' + K + '_a2', 150, 228, 64, 26, 'ACC2', 'acc2', 13)}${XX('s' + K + '_a2X', 152, 226, 212, 256)}</g>${PB('s' + K + '_a2P', 214, 228)}
+  <text class="lbl mono" id="s${K}_ki2" x="182" y="266" font-size="10" font-weight="700" fill="var(--bad)" opacity="0">S212A</text>
+  ${E('s' + K + '_eM', 'M214 241 L266 241', 'inh', K)}
+  <g id="s${K}_m2">${M2.map(([x, y]) => dia(x, y)).join('')}</g>
+  ${BX('s' + K + '_c1', 270, 228, 64, 26, 'CPT1', 'cpt1', 13)}
+  ${BX('s' + K + '_ca', 270, 272, 64, 26, 'CACT', 'cact', 13)}
+  ${BX('s' + K + '_c2', 340, 292, 64, 26, 'CPT2', 'cpt2', 13)}
+  <g id="s${K}_eto" class="fade" opacity="0"><rect x="262" y="206" width="80" height="18" rx="9" class="drug"/><text x="302" y="215.5" class="lbl" font-size="11" font-weight="700" style="fill:#fff">${t('s3a_eto_tag')}</text></g>
+  <path id="s${K}_ox" class="flux" d="M406 305 C 440 305, 452 340, 492 340" stroke="var(--acyl)" stroke-width="2"/>
+  <text class="lbl" x="470" y="300" font-size="12.5" font-weight="700">${t('s3_box')}</text>
+  <text class="lbl" id="s${K}_out" x="452" y="366" font-size="12">${t('s3_out')}</text>
+  <g id="s${K}_car"></g><g id="s${K}_pp"></g>` };
+}
+function mitoParticles(K, n){
+  const g = $('s' + K + '_pp'), car = $('s' + K + '_car'), P = [], C = [];
+  for (let i = 0; i < n; i++){
+    const c = document.createElementNS(NS, 'circle'); c.setAttribute('r', 5.5); g.appendChild(c);
+    P.push({ c, st: 'cyto', x: 210 + Math.random() * 240, y: 80 + Math.random() * 120, vx: (Math.random() - .5) * 30, vy: (Math.random() - .5) * 30, a: 1, kind: 'L', t: 0 });
+  }
+  function spawn(p, o){
+    p.st = 'cyto'; p.a = 1; p.kind = o.medium ? 'M' : 'L';
+    if (o.fromFAS && Math.random() < o.fromFAS){ p.x = 112; p.y = 178; p.vx = 40 + Math.random() * 20; p.vy = (Math.random() - .5) * 20; }
+    else { p.x = 220 + Math.random() * 230; p.y = 72 + Math.random() * 16; p.vx = (Math.random() - .5) * 30; p.vy = 14 + Math.random() * 16; }
+  }
+  function carnitine(){
+    const c = document.createElementNS(NS, 'circle'); c.setAttribute('r', 3.2); c.setAttribute('fill', 'none'); c.setAttribute('stroke', 'var(--muted)'); c.setAttribute('stroke-width', 1.6);
+    car.appendChild(c); C.push({ c, x: 290, y: 300, a: 1 });
+  }
+  function tick(dt, o){
+    for (const p of P){
+      if (p.st === 'cyto'){
+        p.x += p.vx * dt; p.y += p.vy * dt;
+        if (p.x < 200 && p.vx < 0 && p.y > 70) p.vx = Math.abs(p.vx);
+        if (p.x > 462) p.vx = -Math.abs(p.vx);
+        if (p.y < 70) p.vy = Math.abs(p.vy);
+        if (p.y > 206){
+          if (p.kind === 'L' && Math.abs(p.x - 302) < 28 && Math.random() < o.cpt1 * 6 * dt){ p.st = 'cpt1'; p.x = 302; }
+          else if (p.kind === 'M' && p.x > 380 && Math.random() < o.mcfa * 6 * dt){ p.st = 'mdown'; }
+          else if (p.y > 212){ p.y = 212; p.vy = -(10 + Math.random() * 20); p.vx = (Math.random() - .5) * 50; }
+        } else if (Math.random() < .6 * dt) p.vy += 14;
+      } else if (p.st === 'cpt1'){
+        p.y += 34 * dt; if (p.y > 254) p.kind = 'C';
+        if (p.y > 272){ p.st = 'cact'; }
+      } else if (p.st === 'cact'){
+        p.y += 30 * dt; if (p.y > 304){ p.st = 'mat'; carnitine(); }
+      } else if (p.st === 'mat'){
+        p.x += 50 * dt; p.y += (305 - p.y) * 3 * dt; if (p.x > 352) p.kind = 'L';
+        if (p.x > 404) p.st = 'box';
+      } else if (p.st === 'mdown'){
+        p.y += 40 * dt; if (p.y > 300){ p.st = 'box'; p.y = 305; }
+      } else if (p.st === 'box'){
+        p.x += 55 * dt; p.y += (340 - p.y) * 1.6 * dt; p.a -= .7 * dt;
+        if (p.a <= 0 || p.x > 500) spawn(p, o);
+      }
+      p.c.setAttribute('cx', p.x.toFixed(1)); p.c.setAttribute('cy', p.y.toFixed(1)); p.c.setAttribute('opacity', Math.max(0, p.a).toFixed(2));
+      p.c.setAttribute('fill', p.kind === 'C' ? 'var(--carn)' : p.kind === 'M' ? 'var(--aa)' : 'var(--acyl)');
+    }
+    for (let i = C.length - 1; i >= 0; i--){ const q = C[i]; q.y -= 26 * dt; q.a -= .9 * dt; q.c.setAttribute('cx', q.x); q.c.setAttribute('cy', q.y.toFixed(1)); q.c.setAttribute('opacity', Math.max(0, q.a).toFixed(2)); if (q.a <= 0){ q.c.remove(); C.splice(i, 1); } }
+  }
+  return { tick, respawnAll(o){ P.forEach(p => { if (p.st === 'cyto') p.kind = o.medium ? 'M' : 'L'; }); } };
+}
+function mitoLegend(adv){
+  return `<div class="legend"><span><i class="sw" style="background:var(--acyl)"></i>${t('s3_leg_acyl')}</span><span><i class="sw" style="background:var(--carn)"></i>${t('s3_leg_carn')}</span>` +
+    `<span><i class="sw" style="background:none;border:1.6px solid var(--muted);width:9px;height:9px"></i>${t('s3_leg_free')}</span>` +
+    `<span><i class="sw" style="background:var(--mal);border-radius:2px;transform:rotate(45deg) scale(.8)"></i>${t('s3_leg_mal')}</span>` +
+    (adv ? `<span><i class="sw" style="background:var(--aa)"></i>${t('s3_leg_mcfa')}</span>` : '') + `</div>`;
+}
+function mitoDraw(K, o){
+  const p = 's' + K;
+  const n1 = Math.round(o.mal1 * 8), n2 = Math.round(o.mal2 * 6);
+  $(p + '_m1').querySelectorAll('rect').forEach((r, i) => r.setAttribute('opacity', i < n1 ? .95 : 0));
+  $(p + '_m2').querySelectorAll('rect').forEach((r, i) => r.setAttribute('opacity', i < n2 ? .95 : 0));
+  setBoxState(p + '_citB', o.cit > .5 ? 'on' : null); setEdge(p + '_eC', o.cit);
+  setBoxState(p + '_a1', o.acc1 > .4 ? 'on' : 'inh'); setOp(p + '_a1P', o.p1 ? 1 : 0);
+  setBoxState(p + '_a2', o.acc2 > .4 ? 'on' : 'inh'); setOp(p + '_a2P', o.p2 ? 1 : 0);
+  setBoxState(p + '_amp', o.ampk > .5 ? 'on' : null); setEdge(p + '_eA1', o.ampkEff); setEdge(p + '_eA2', o.ampkEff);
+  setEdge(p + '_eM', o.inh);
+  setBoxState(p + '_c1', o.cpt1 > .5 ? 'on' : 'inh'); setBoxState(p + '_ca', o.oxL > .3 ? 'on' : null); setBoxState(p + '_c2', o.oxL > .3 ? 'on' : null);
+  setBoxState(p + '_fas', o.syn > .4 ? 'on' : null);
+  const s = $(p + '_syn'); s.setAttribute('stroke-width', (1.5 + 9 * o.syn).toFixed(1)); s.style.opacity = (.25 + .75 * o.syn).toFixed(2);
+  const x = $(p + '_ox'); x.setAttribute('stroke-width', (1.5 + 9 * o.ox).toFixed(1)); x.style.opacity = (.25 + .75 * o.ox).toFixed(2);
+}
+
+(function(){
+  const K = '3b';
+  layout(K);
+  const G = mitoSVG(K, false);
+  $('svg' + K).innerHTML = G.html;
+  $('ctrl' + K).innerHTML = sliderHTML('s3b_ampk', 's3_ampk', 10) + sliderHTML('s3b_cit', 's3_cit', 70) + mitoLegend(false);
+  $('take' + K).textContent = t('s3b_take');
+  const PP = mitoParticles(K, 14);
+  let O = { cpt1: 0, mcfa: 0 };
+  function update(){
+    const ampk = sv('s3b_ampk'), cit = sv('s3b_cit');
+    const acc = (.2 + .8 * cit) * (1 - .85 * ampk), mal = acc;
+    const inh = Math.pow(mal, 3) / (Math.pow(.3, 3) + Math.pow(mal, 3)), cpt1 = 1 - .9 * inh;
+    const ox = cpt1, syn = acc;
+    O = { cit, ampk, ampkEff: ampk, acc1: acc, acc2: acc, mal1: mal, mal2: mal, inh, cpt1, ox, oxL: ox, syn, p1: ampk > .5, p2: ampk > .5, mcfa: 0 };
+    mitoDraw(K, O);
+    $('reads' + K).innerHTML = meterRow(t('s3_r_acc'), acc, pct(acc) + ' %') + meterRow(t('s3_r_mal'), mal, pct(mal) + ' %') +
+      meterRow(t('s3_r_cpt'), cpt1, pct(cpt1) + ' %') + meterRow(t('s3_r_syn'), syn, pct(syn) + ' %') + meterRow(t('s3_r_ox'), ox, pct(ox) + ' %');
+    setCap(K, mal > .5 ? 's3_c_syn' : (mal < .25 ? (ampk > .5 ? 's3_c_ox' : 's3_c_ox_cit') : 's3_c_mid'));
+  }
+  wire(['s3b_ampk', 's3b_cit'], update);
+  const set = (a, c) => { setSlider('s3b_ampk', a); setSlider('s3b_cit', c); };
+  SCENES[K] = { update, decor: true, tick(dt){ PP.tick(dt, O); }, poe: [
+    { n: 3, ok: 1, pre(){ set(0, .8); }, apply(){ set(1, .8); } },
+    { n: 3, ok: 2, pre(){ set(1, .3); }, apply(){} },
+    { n: 3, ok: 0, pre(){ set(.1, .1); }, apply(){ set(.1, 1); } },
+  ] };
+})();
+
+(function(){
+  const K = '3a';
+  layout(K);
+  const G = mitoSVG(K, true);
+  $('svg' + K).innerHTML = G.html;
+  $('ctrl' + K).innerHTML = sliderHTML('s3a_fed', 's3a_fed', 80) + sliderHTML('s3a_ampk', 's3_ampk', 0) +
+    segHTML('s3a_tis', 'tis_t', [['liver', 'tis_liver'], ['muscle', 'tis_muscle']], 'liver') +
+    segHTML('s3a_ch', 'ch_t', [['long', 'ch_long'], ['medium', 'ch_medium']], 'long') +
+    segHTML('s3a_geno', 'geno3_t', [['wt', 'gt_wt'], ['acc2', 'gt_acc2'], ['ki', 'gt_ki'], ['eto', 'gt_eto']], 'wt') +
+    toggleHTML('s3a_fut', 's3a_fut', false) + mitoLegend(true);
+  $('take' + K).textContent = t('s3a_take');
+  const PP = mitoParticles(K, 14);
+  let O = { cpt1: 0, mcfa: 0 };
+  function update(){
+    const fed = sv('s3a_fed'), ampk = sv('s3a_ampk'), tis = segVal('s3a_tis'), ch = segVal('s3a_ch'), geno = segVal('s3a_geno'), fut = $('s3a_fut').checked;
+    const ampkEff = geno === 'ki' ? 0 : ampk;
+    const accAct = (.15 + .85 * fed) * (1 - .85 * ampkEff);
+    const acc1 = tis === 'liver' ? accAct : .15 * accAct, acc2 = geno === 'acc2' ? 0 : accAct;
+    const mal2 = clamp(.8 * acc2 + (tis === 'liver' ? .35 : .05) * acc1), mal1 = acc1;
+    const inh = fut ? 0 : Math.pow(mal2, 3) / (Math.pow(.3, 3) + Math.pow(mal2, 3));
+    const cpt1 = (geno === 'eto' ? .04 : 1) * (1 - .85 * inh);
+    const supply = .45 + .55 * (1 - fed);
+    const oxL = cpt1 * supply, mcfa = ch === 'medium' ? 1 : 0;
+    const ox = ch === 'medium' ? supply : oxL;
+    const syn = tis === 'liver' ? acc1 * (.3 + .7 * fed) : .1 * acc1;
+    const futile = Math.min(syn, oxL) * (ch === 'long' ? 1 : 0);
+    O = { cit: fed, ampk, ampkEff, acc1, acc2, mal1, mal2, inh, cpt1, ox, oxL, syn, p1: ampkEff > .5, p2: ampkEff > .5 && geno !== 'acc2', mcfa, medium: ch === 'medium', fromFAS: fut ? syn * .6 : 0 };
+    mitoDraw(K, O);
+    missing('s3a_a2W', geno === 'acc2'); setOp('s3a_a2X', geno === 'acc2' ? 1 : 0);
+    setOp('s3a_ki1', geno === 'ki' ? 1 : 0); setOp('s3a_ki2', geno === 'ki' ? 1 : 0); setOp('s3a_eto', geno === 'eto' ? 1 : 0);
+    setTxt('s3a_out', t(tis === 'liver' ? (fed < .5 ? 's3a_out_keto' : 's3a_out_liver') : 's3a_out_muscle'));
+    PP.respawnAll(O);
+    const prod = tis === 'liver' ? ox * (.25 + .75 * (1 - fed)) : ox;
+    $('reads' + K).innerHTML = meterRow(t('s3_r_acc'), accAct, pct(accAct) + ' %') + meterRow(t('s3a_r_mal2'), mal2, pct(mal2) + ' %') +
+      meterRow(t('s3_r_cpt'), cpt1, pct(cpt1) + ' %') + meterRow(t('s3_r_syn'), syn, pct(syn) + ' %') + meterRow(t('s3_r_ox'), ox, pct(ox) + ' %') +
+      meterRow(t(tis === 'liver' ? 's3a_r_keto' : 's3a_r_atp'), prod, pct(prod) + ' %') +
+      (fut ? meterRow(t('s3a_r_fut'), futile, pct(futile) + ' %') : '');
+    let k;
+    if (fut && futile > .2) k = 's3a_c_futile';
+    else if (geno === 'eto' && ch === 'long') k = 's3a_c_eto';
+    else if (ch === 'medium') k = tis === 'muscle' ? 's3a_c_mcfa_mus' : (geno === 'eto' ? 's3a_c_mcfa_eto' : 's3a_c_mcfa');
+    else if (geno === 'ki' && ampk > .5) k = 's3a_c_ki';
+    else if (geno === 'acc2' && fed > .5) k = tis === 'liver' ? 's3a_c_acc2_liv' : 's3a_c_acc2';
+    else if (oxL > .45) k = (tis === 'liver' && fed < .5) ? 's3a_c_keto' : 's3a_c_ox';
+    else if (syn > .4 && ampkEff <= .5) k = 's3a_c_syn';
+    else k = tis === 'muscle' && fed > .5 ? 's3a_c_mfed' : 's3a_c_mid';
+    setCap(K, k);
+  }
+  wire(['s3a_fed', 's3a_ampk', 's3a_tis', 's3a_ch', 's3a_geno', 's3a_fut'], update);
+  function st(o){
+    const d = { fed: .8, ampk: 0, tis: 'liver', ch: 'long', geno: 'wt', fut: false }; Object.assign(d, o);
+    setSlider('s3a_fed', d.fed); setSlider('s3a_ampk', d.ampk); segSet('s3a_tis', d.tis); segSet('s3a_ch', d.ch); segSet('s3a_geno', d.geno); $('s3a_fut').checked = d.fut;
+  }
+  SCENES[K] = { update, decor: true, tick(dt){ PP.tick(dt, O); }, poe: [
+    { n: 3, ok: 1, pre(){ st({ tis: 'muscle', fed: 1 }); }, apply(){ st({ tis: 'muscle', fed: 1, geno: 'acc2' }); } },
+    { n: 3, ok: 1, pre(){ st({ geno: 'ki', fed: .8 }); }, apply(){ st({ geno: 'ki', fed: .8, ampk: 1 }); } },
+    { n: 3, ok: 0, pre(){ st({ tis: 'liver', fed: 0 }); }, apply(){ st({ tis: 'liver', fed: 0, geno: 'eto' }); } },
+    { n: 3, ok: 1, pre(){ st({ tis: 'liver', fed: 0, geno: 'eto' }); }, apply(){ st({ tis: 'liver', fed: 0, geno: 'eto', ch: 'medium' }); } },
+    { n: 3, ok: 1, pre(){ st({ fed: 1 }); }, apply(){ st({ fed: 1, fut: true }); } },
+  ] };
+})();
+
+/* =====================================================================
+   Вопрос 4. Аутофагия → лизосомный гидролиз → повторная активация mTORC1
+   Общая модель во времени (часы). Параметры подобраны под порядок событий у Yu et al. 2010:
+   mTORC1 гаснет за ~0,5 ч, возвращается к ~3–5 ч, аутофагия максимальна к ~4–5 ч,
+   лизосом меньше всего к ~3 ч, восстановлены к ~8–12 ч. Числа условные.
+   4b — базовый: мультфильм + график;  4a — «измерь поток»: микроскоп mCherry-GFP-LC3, блот ± бафиломицин, мутанты
+   v2.1: у mTORC1 два выхода — чувствительный к рапамицину (S6K, восстановление лизосом) и устойчивый (ULK1 S757,
+   торможение аутофагии; Thoreen 2009, Kang 2013). Бафиломицин — вторая чашка: копия клетки за 2 ч до съёмки,
+   в которой ничего не переваривается; обе чашки измеряются в один момент.
+   ===================================================================== */
+const AUTO = { kb: .9, ks: 1.3, y: 4.5, ka: .7, kf: 1.44, kd: .235, c: 1.94, kr: .95, kbio: .036, tauA: 1.42, tauT: 2.4, alr: 2, kl: 2.5 };   // v2.1: подогнано под Yu 2010 (p-S6K подавлен к 2 ч, восстановлен к 6 ч; лизосом меньше всего около 3–4 ч)
+const AUTO_KEYS = ['t', 'E', 'AA', 'A', 'AP', 'AL', 'Lc', 'L', 'T', 'R', 'p62', 'M', 'Mres', 'Mr', 'form', 'fus', 'deg', 'dipped'];
+function autoCk(S){ const c = {}; AUTO_KEYS.forEach(k => c[k] = S[k]); return c; }
+function autoNew(o){
+  const S = Object.assign({ t: 0, E: 1, AA: 1, A: 0, AP: 0, AL: 0, Lc: 0, L: 1, T: 0, R: 1, p62: .5, M: 1, Mres: 1, Mr: 1, form: 0, fus: 0, deg: 0,
+    hist: [], marks: [], refeed: [], ev: [], ck: [], run: false, dipped: false, geno: 'wt', inter: 'none', block: false, baf: false, t0: null }, o || {});
+  if (!(o && o.raw)){                                        // сытая клетка в равновесии: идёт небольшая базальная аутофагия
+    for (let i = 0; i < 800; i++) autoStep(S, .005);
+    S.t = 0; S.dipped = false;
+  }
+  if (S.geno === 'atg7' && !(o && 'p62' in o)) S.p62 = .8;   // без ATG7 p62 повышен уже в сытости
+  S.ck.push(autoCk(S)); return S;
+}
+function autoStep(S, dt){
+  const P = AUTO, Mr = Math.min(1, Hn(S.AA, .45, 4));
+  let Mres = Mr;                                               // выход mTORC1, устойчивый к рапамицину (ULK1 S757)
+  if (S.geno === 'ampk' && !S.E && S.t0 != null) Mres *= 1 - .4 * clamp((S.t - S.t0 - 1) / 2);
+  let M = Mres;                                                // выход, чувствительный к рапамицину (S6K, восстановление лизосом)
+  if (S.inter === 'rapa' && S.t0 != null && S.t >= S.t0 + 2) M = .1 * Mres;
+  const block = (S.block || S.inter === 'prot' || S.baf) ? 1 : 0, atg = S.geno === 'atg7' ? 0 : 1;
+  const ka = P.ka * (S.geno === 'ampk' ? 1.4 : 1);
+  const deg = P.kd * S.AL * (1 - block), form = ka * S.A * S.R * atg;
+  const fusL = P.kf * S.L * S.AP, fusA = P.kf * S.AL / (1 + S.AL) * S.AP, fus = fusL + fusA;   // аутофагосомы сливаются с лизосомами и с уже готовыми аутолизосомами
+  const dAA = S.E * (P.kb + P.ks) - S.AA * (P.kb + P.ks * M) + P.y * deg - 20 * Math.max(0, S.AA - 1);   // избыток аминокислот окисляется
+  const dA = ((.05 + .95 * (1 - Mres)) - S.A) / P.tauA;   // небольшая базальная аутофагия идёт всегда
+  const dL = -P.c * fusL + P.kr * M * (1 - S.L) * (1 + P.alr * S.AL) + P.kbio * S.T * (1 - S.L);
+  const dT = ((1 - Mr) - S.T) / P.tauT;
+  const dp = .06 - S.p62 * (.12 + .3 * deg) * atg * (1 - block);
+  S.AA = Math.max(0, S.AA + dAA * dt); S.A = Math.max(0, S.A + dA * dt);
+  S.AP = Math.max(0, S.AP + (form - fus) * dt); S.AL = Math.max(0, S.AL + (fus - deg) * dt);
+  S.L = clamp(S.L + dL * dt, 0, 1.2); S.T = clamp(S.T + dT * dt); S.R = Math.max(0, S.R - .02 * deg * dt);
+  S.p62 = Math.max(0, S.p62 + dp * dt);
+  S.Lc = Math.max(0, S.Lc + (fus - P.kl * S.Lc * (1 - block)) * dt);   // LC3-II внутри аутолизосом: приходит со слиянием, разрушается протеазами
+  S.M = M; S.Mres = Mres; S.Mr = Mr; S.form = form; S.fus = fus; S.deg = deg; S.t += dt;
+  if (!S.E && M < .35) S.dipped = true;
+}
+function autoSnap(S){ return { t: S.t, AA: S.AA, M: S.M, form: S.form, deg: S.deg, L: S.L }; }
+function autoAdvance(S, hours){
+  let n = Math.ceil(hours / .005); const d = hours / n;
+  while (n-- > 0){
+    autoStep(S, d);
+    if (Math.abs(S.t * 20 - Math.round(S.t * 20)) < d * 20){ S.hist.push(autoSnap(S)); S.ck.push(autoCk(S)); }
+  }
+  S.hist.push(autoSnap(S));
+}
+function autoRunTo(S, h){ if (h > S.t) autoAdvance(S, h - S.t); }
+function autoStarve(S){ S.E = 0; S.dipped = false; S.marks.push(S.t); S.ev.push([S.t, 0]); if (S.t0 == null) S.t0 = S.t; }
+function autoFeed(S){ S.E = 1; S.refeed.push(S.t); S.ev.push([S.t, 1]); }
+/* повтор последних `hours` часов той же клетки из сохранённой точки: с бафиломицином (вторая чашка) или без него.
+   onStep(чашка, dt) вызывается на каждом шаге — так считаются вклады в прибавку LC3-II */
+function autoBranch(S, hours, baf, onStep){
+  const from = S.t - hours;
+  let c = S.ck[0];
+  for (const k of S.ck) if (k.t <= from + 1e-6) c = k; else break;
+  const B = Object.assign(autoNew({ geno: S.geno, inter: S.inter, block: S.block, t0: S.t0, raw: true }), c);
+  B.baf = baf; B.t0 = S.t0; B.bafFrom = B.t;
+  const ev = S.ev.slice().sort((a, b) => a[0] - b[0]);
+  for (const [et, e] of ev) if (et <= B.t + 1e-9) B.E = e;
+  let n = Math.ceil(Math.max(0, S.t - B.t) / .005); const d = n ? (S.t - B.t) / n : 0;
+  while (n-- > 0){
+    for (const [et, e] of ev) if (et > B.t + 1e-9 && et <= B.t + d + 1e-9) B.E = e;
+    if (onStep) onStep(B, d);
+    autoStep(B, d);
+  }
+  return B;
+}
+/* вторая чашка: та же клетка, но за `hours` до текущего момента в неё добавили бафиломицин */
+function autoTwin(S, hours){ return autoBranch(S, hours, true); }
+/* сколько LC3-II контрольная чашка переварила за те же часы (в единицах блота).
+   Прибавка с бафиломицином = это + LC3-II новых аутофагосом, образовавшихся во второй чашке сверх контроля */
+function autoDigested(S, hours){
+  let dig = 0;
+  autoBranch(S, hours, false, (C, d) => { const blk = (C.block || C.inter === 'prot') ? 1 : 0; dig += .5 * AUTO.kl * C.Lc * (1 - blk) * d; });
+  return dig;
+}
+function autoPlot(cv, S, adv){
+  const L = [
+    { color: '--aa', dash: [7, 5], data: S.hist.map(p => [p.t, p.AA]) },
+    { color: '--lyso', dash: [2, 4], data: S.hist.map(p => [p.t, p.L]) },
+    { color: '--on', data: S.hist.map(p => [p.t, p.deg]) },
+    { color: '--mtor', w: 3.4, data: S.hist.map(p => [p.t, p.M]) },
+  ];
+  if (adv) L.splice(2, 0, { color: '--tfeb', w: 2, data: S.hist.map(p => [p.t, p.form]) });
+  plotLines(cv, L, { xmax: 12, xstep: 2, xunit: t('s4_axis'), ymax: 1.2, yticks: [0, .5, 1], marks: S.marks.concat(S.refeed),
+    markLabels: S.marks.map(m => [m, t('s4_mk_starve')]).concat(S.refeed.map(m => [m, t('s4_mk_feed')])) });
+}
+/* время опыта: от начала и, если идёт голод, — сколько часов без аминокислот */
+function autoTimeText(S){
+  const last = S.marks[S.marks.length - 1];
+  return (!S.E && S.marks.length) ? t('s4_time2', { h: fmt(S.t, 1), s: fmt(S.t - last, 1) }) : t('s4_time', { h: fmt(S.t, 1) });
+}
+function autoLegend(adv){
+  return `<div class="legend"><span><i class="sw line" style="background:var(--mtor)"></i>${t(adv ? 's4a_l_mtor' : 's4_l_mtor')}</span>` +
+    (adv ? `<span><i class="sw line" style="background:var(--tfeb)"></i>${t('s4_l_form')}</span>` : '') +
+    `<span><i class="sw line" style="background:var(--on)"></i>${t('s4_l_auto')}</span>` +
+    `<span><i class="sw line" style="background:repeating-linear-gradient(90deg,var(--lyso) 0 3px,transparent 3px 6px)"></i>${t('s4_l_lyso')}</span>` +
+    `<span><i class="sw line" style="background:repeating-linear-gradient(90deg,var(--aa) 0 6px,transparent 6px 9px)"></i>${t('s4_l_aa')}</span></div>`;
+}
+function autoButtons(p){
+  return `<div class="btns"><button class="btn" id="${p}_play"></button><button class="btn ghost" id="${p}_feed"></button><button class="btn ghost" id="${p}_reset">${t('s4_reset')}</button></div>`;
+}
+
+(function(){
+  const K = '4b';
+  layout(K);
+  const LY = [[232, 352], [330, 318], [420, 356], [492, 300], [56, 378], [180, 398]];
+  const AU = [[220, 236], [306, 214], [394, 240], [252, 168], [470, 206], [350, 162], [170, 200], [440, 156]];
+  const AL = [[262, 300], [380, 290], [300, 384], [460, 250], [120, 236], [540, 360], [210, 290], [410, 196]];
+  const AA = [[190, 60], [230, 50], [170, 95], [210, 110], [60, 110], [100, 120], [140, 140], [60, 160], [110, 175], [40, 220], [40, 250], [270, 120], [380, 100], [400, 190], [300, 260], [270, 330], [370, 270], [450, 280], [200, 260], [150, 380]];
+  $('svg' + K).innerHTML = defs(K) + `
+  <rect class="cyto" width="600" height="420"/>
+  <circle class="nuc" cx="600" cy="0" r="140"/><circle class="nuc2" cx="600" cy="0" r="131"/>
+  <text class="area" x="544" y="30" text-anchor="middle">${t('lbl_nucleus')}</text>
+  <text class="area" x="16" y="26">${t('lbl_cytosol')}</text>
+  <g id="s4b_aa">${AA.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="4.5" fill="var(--aa)" class="aa-dot" opacity="0"/>`).join('')}</g>
+  <g id="s4b_ly">${LY.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="20" class="lyso-s" opacity="1"/>`).join('')}</g>
+  <g id="s4b_al">${AL.map(([x, y]) => `<g class="fade" opacity="0"><path class="alr" d="M${x + 14} ${y - 14} q 14 -10 24 -26" fill="none" stroke="var(--lyso)" stroke-width="3" stroke-linecap="round" opacity="0"/><circle cx="${x}" cy="${y}" r="21" class="lyso-s"/><circle cx="${x - 7}" cy="${y - 3}" r="4" fill="var(--off-ink)"/><circle cx="${x + 6}" cy="${y + 5}" r="3.2" fill="var(--off-ink)"/><circle cx="${x + 4}" cy="${y - 8}" r="2.6" fill="var(--off-ink)"/></g>`).join('')}</g>
+  <g id="s4b_ap">${AU.map(([x, y]) => `<g class="fade" opacity="0"><circle cx="${x}" cy="${y}" r="18" fill="var(--on-soft)" stroke="var(--on)" stroke-width="2.4"/><circle cx="${x}" cy="${y}" r="12" fill="none" stroke="var(--on)" stroke-width="1.6"/><circle cx="${x - 2}" cy="${y + 1}" r="4.5" fill="var(--off-ink)"/></g>`).join('')}</g>
+  <circle cx="130" cy="322" r="32" class="lyso-s"/>
+  <g id="s4b_mt" class="mov clickable" data-g="mtorc1">
+    <rect class="glow" id="s4b_glow" x="78" y="266" width="104" height="26" rx="10" opacity="0"/>
+    <rect class="mtor-body" x="78" y="266" width="104" height="26" rx="10"/>
+    <text class="lbl" x="130" y="279" font-size="14" font-weight="700">mTORC1</text>
+  </g>
+  <g id="s4b_tf" class="mov clickable" data-g="tfeb">
+    <rect class="tfeb-body" x="271" y="97" width="58" height="26" rx="13"/>
+    <text class="lbl" x="300" y="110" font-size="13.5" font-weight="700">TFEB</text>${PB('s4b_tfP', 329, 97)}
+  </g>`;
+  $('ctrl' + K).innerHTML = autoButtons('s4b') + toggleHTML('s4b_block', 's4_block', false) +
+    `<div class="timebox" id="s4b_time"></div><p class="small plotcap">${t('s4_plotcap')}</p><canvas class="plot" id="s4b_plot"></canvas>` + autoLegend() +
+    `<div class="legend"><span><i class="sw" style="background:var(--lyso-fill);border:2px solid var(--lyso)"></i>${t('s4_leg_lyso')}</span>` +
+    `<span><i class="sw" style="background:var(--on-soft);border:2px solid var(--on)"></i>${t('s4_leg_ap')}</span>` +
+    `<span><i class="sw" style="background:var(--lyso-fill);border:2px solid var(--lyso);box-shadow:inset 0 0 0 3px var(--off-ink)"></i>${t('s4_leg_al')}</span>` +
+    `<span><i class="sw" style="background:var(--aa);width:9px;height:9px"></i>${t('s4_leg_aa')}</span></div>`;
+  $('take' + K).textContent = t('s4b_take');
+  let S = autoNew(); S.hist.push(autoSnap(S));
+  function draw(){
+    $('s4b_time').textContent = autoTimeText(S);
+    $('s4b_play').textContent = t(S.run ? 's4_pause' : 's4_play');
+    $('s4b_feed').textContent = t(S.E ? 's4_starve' : 's4_feed');
+    const docked = S.M > .5;
+    move('s4b_mt', docked ? 0 : -30, docked ? 0 : -170); setOp('s4b_glow', S.M * .9);
+    const tn = S.T > .5; move('s4b_tf', tn ? 222 : 0, tn ? -62 : 0); setOp('s4b_tfP', tn ? 0 : 1);
+    const nAA = Math.round(Math.min(1.2, S.AA) / 1.2 * AA.length);
+    $('s4b_aa').querySelectorAll('circle').forEach((c, i) => c.setAttribute('opacity', i < nAA ? .9 : 0));
+    const nAP = Math.min(AU.length, Math.round(S.AP * 7)), nAL = Math.min(AL.length, Math.round(S.AL * 7));
+    $('s4b_ap').querySelectorAll(':scope > g').forEach((g, i) => g.setAttribute('opacity', i < nAP ? 1 : 0));
+    const alr = S.M > .5 && S.AL > .2 && !S.block;
+    $('s4b_al').querySelectorAll(':scope > g').forEach((g, i) => { g.setAttribute('opacity', i < nAL ? 1 : 0); g.querySelector('.alr').setAttribute('opacity', alr ? 1 : 0); });
+    const nL = Math.max(1, Math.min(LY.length, Math.round(S.L * LY.length)));
+    $('s4b_ly').querySelectorAll('circle').forEach((c, i) => c.setAttribute('opacity', i < nL ? 1 : .07));
+    const last = S.marks[S.marks.length - 1];
+    let k;
+    if (S.E && !S.marks.length) k = 's4_c_fed';
+    else if (S.E) k = 's4_c_refed';
+    else if (S.block && S.t - last > 1.05) k = 's4_c_block';
+    else if (!S.dipped) k = 's4_c_fall';
+    else if (S.M < .5 && S.t - last < 1.6) k = 's4_c_early';
+    else if (S.M < .5) k = 's4_c_auto';
+    else if (S.L < .8) k = 's4_c_react';
+    else k = 's4_c_done';
+    setCap(K, k);
+    $('reads' + K).innerHTML = meterRow(t('r_mtorc1'), S.M, pct(S.M) + ' %') + meterRow(t('s4_r_ap'), S.AP / 1.2, fmt(S.AP, 1)) +
+      meterRow(t('s4_r_al'), S.AL / 2, fmt(S.AL, 1)) + meterRow(t('s4_r_ly'), S.L, pct(S.L) + ' %');
+    autoPlot($('s4b_plot'), S);
+  }
+  function reset(){ S = autoNew({ block: $('s4b_block').checked }); S.hist.push(autoSnap(S)); draw(); }
+  $('s4b_play').onclick = () => { if (S.t >= 12) reset(); S.run = !S.run; draw(); };
+  $('s4b_feed').onclick = () => { if (S.E) autoStarve(S); else autoFeed(S); if (!S.run && S.t < 12) S.run = true; draw(); };
+  $('s4b_reset').onclick = reset;
+  $('s4b_block').onchange = () => { S.block = $('s4b_block').checked; draw(); };
+  let acc = 0;
+  function tick(dt){
+    if (!S.run) return;
+    autoAdvance(S, dt * .4);
+    if (S.t >= 12) S.run = false;
+    acc += dt; if (acc > .1 || !S.run){ acc = 0; draw(); }
+  }
+  const prep = (block, starveH) => { $('s4b_block').checked = block; S = autoNew({ block }); S.hist.push(autoSnap(S)); if (starveH != null){ autoStarve(S); autoRunTo(S, starveH); } };
+  SCENES[K] = { update: draw, tick, redraw: draw, poe: [
+    { n: 3, ok: 0, pre(){ prep(false); }, apply(){ autoStarve(S); autoRunTo(S, 1); } },
+    { n: 3, ok: 1, pre(){ prep(false, 1); }, apply(){ autoRunTo(S, 7); } },
+    { n: 3, ok: 1, pre(){ prep(true, 1); }, apply(){ autoRunTo(S, 7); } },
+    { n: 3, ok: 0, pre(){ prep(false, 3); }, apply(){ autoFeed(S); autoRunTo(S, 5); } },
+  ] };
+  draw();
+})();
+
+(function(){
+  const K = '4a';
+  layout(K);
+  let seed = 7; const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+  const pts = [];
+  while (pts.length < 90){
+    const x = 70 + rnd() * 460, y = 60 + rnd() * 300;
+    const inCell = Math.pow((x - 300) / 240, 2) + Math.pow((y - 210) / 160, 2) < .88;
+    const inNuc = Math.pow((x - 322) / 92, 2) + Math.pow((y - 200) / 70, 2) < 1.15;
+    if (inCell && !inNuc) pts.push([x, y]);
+  }
+  const YEL = '#F2D23A', RED = '#FF4D6A';
+  const dot = (x, y, col) => `<g opacity="0"><circle cx="${x}" cy="${y}" r="9" fill="${col}" opacity=".22"/><circle cx="${x}" cy="${y}" r="4.6" fill="${col}"/></g>`;
+  $('svg' + K).innerHTML = `
+  <rect width="600" height="420" fill="#0B0F14"/>
+  <ellipse cx="300" cy="210" rx="250" ry="170" fill="#121A22" stroke="#33414F" stroke-width="2"/>
+  <ellipse id="s4a_haze" cx="300" cy="210" rx="248" ry="168" fill="#C9D84A" opacity="0"/>
+  <ellipse cx="322" cy="200" rx="86" ry="64" fill="#080B0F" stroke="#26313C" stroke-width="2"/>
+  <text x="322" y="204" class="lbl" font-size="13" style="fill:#5E6D7C">${t('lbl_nucleus')}</text>
+  <g id="s4a_y">${pts.slice(0, 45).map(([x, y]) => dot(x, y, YEL)).join('')}</g>
+  <g id="s4a_r">${pts.slice(45).map(([x, y]) => dot(x, y, RED)).join('')}</g>
+  <text x="16" y="26" class="lbl-l mono" font-size="13" style="fill:#C7D0DA">mCherry-GFP-LC3</text>
+  <text x="584" y="26" class="lbl mono" id="s4a_clock" font-size="15" font-weight="700" style="fill:#F4F6F8;text-anchor:end"></text>
+  <text x="584" y="48" class="lbl mono" id="s4a_sinceL" font-size="12" font-weight="600" style="fill:#C7D0DA;text-anchor:end"></text>
+  <text x="584" y="68" class="lbl mono" id="s4a_bafL" font-size="12" font-weight="700" style="fill:#FF8A8A;text-anchor:end"></text>
+  <line x1="500" y1="398" x2="570" y2="398" stroke="#E8EDF2" stroke-width="4"/><text x="535" y="386" class="lbl" font-size="11" style="fill:#C7D0DA">10 ${t('um')}</text>
+  <circle cx="24" cy="384" r="5" fill="${YEL}"/><text x="36" y="384" class="lbl-l" id="s4a_yL" font-size="12" style="fill:#E8EDF2">${t('s4a_y')}</text>
+  <circle cx="24" cy="404" r="5" fill="${RED}"/><text x="36" y="404" class="lbl-l" id="s4a_rL" font-size="12" style="fill:#E8EDF2">${t('s4a_r')}</text>`;
+  $('ctrl' + K).innerHTML = autoButtons('s4a') +
+    segHTML('s4a_geno', 'geno_t', [['wt', 'gt_wt'], ['atg7', 'gt_atg7'], ['ampk', 'gt_ampk']], 'wt') +
+    segHTML('s4a_int', 'int_t', [['none', 'int_none'], ['prot', 'int_prot'], ['rapa', 'int_rapa']], 'none') +
+    toggleHTML('s4a_baf', 's4a_bafview', false) +
+    `<div class="timebox" id="s4a_time"></div><p class="small plotcap">${t('s4a_plotcap')}</p><canvas class="plot" id="s4a_plot"></canvas>` + autoLegend(true);
+  $('reads' + K).innerHTML = `<div id="s4a_now" style="display:grid;gap:7px"></div>
+    <div style="display:grid;gap:8px;margin-top:6px"><div class="label" style="margin:0">${t('blot_t4')}</div>
+    <div class="btns"><button class="btn" id="s4a_rec">${t('blot_rec4')}</button><button class="btn ghost" id="s4a_clr">${t('blot_clr')}</button></div>
+    <div id="s4a_blot"></div><div class="lanekey" id="s4a_key"></div><p class="small" style="margin:0">${t('blot_note4')}</p></div>`;
+  $('take' + K).textContent = t('s4a_take');
+  let S = autoNew(); S.hist.push(autoSnap(S));
+  let lanes = [], keys = [];
+  const BAF_H = 2;
+  /* показания одной чашки: LC3-II на мембранах аутофагосом и внутри аутолизосом (там его разрушают протеазы) */
+  function markers(C){
+    const atg = C.geno !== 'atg7';
+    const II = atg ? .12 + .5 * (C.AP + C.Lc) : 0;
+    return { I: atg ? clamp(1 - .45 * Math.min(1, II)) : 1, II, p62: C.p62, s6k: C.M, ulk: C.Mres };
+  }
+  function renderBlot(){
+    $('s4a_blot').innerHTML = blotHTML(['LC3-I', 'LC3-II', 'p62', 'p-S6K (T389)', 'p-ULK1 (S757)', t('b_actin')], lanes);
+    $('s4a_key').innerHTML = keys.map(k => `<span>${k}</span>`).join('');
+  }
+  function record(){
+    const B = autoTwin(S, BAF_H), a = markers(S), b = markers(B), last = S.marks[S.marks.length - 1];
+    const lab = S.E ? t(S.marks.length ? 'blot_refed' : 'blot_fed') : fmt(S.t - last, 1) + ' ' + t('h_short');
+    const h = S.E ? lab : t('blot_starved', { h: fmt(S.t - last, 1) });
+    const sc = v => clamp(v / 1.6);
+    lanes.push({ h1: lab, h2: '−Б', v: [a.I, sc(a.II), clamp(a.p62 / 1.2), a.s6k, a.ulk, .9] }, { h1: lab, h2: '+Б', v: [b.I, sc(b.II), clamp(b.p62 / 1.2), b.s6k, b.ulk, .9] });
+    const dII = Math.max(0, b.II - a.II), dig = Math.min(dII, autoDigested(S, S.t - B.bafFrom)), r2 = v => Math.round(v * 100) / 100;
+    keys.push(t(S.t - B.bafFrom < .1 ? 'blot_flux0' : (dII < .005 ? 'blot_flux_zero' : 'blot_flux'), { h, x: fmt(S.t - B.bafFrom, 1), d: fmt(r2(dII), 2), a: fmt(r2(dig), 2), b: fmt(Math.max(0, r2(dII) - r2(dig)), 2), g: t(S.geno === 'wt' ? 'gt_wt' : 'gt_' + S.geno), i: S.inter === 'none' ? t('int_none_k') : t('int_' + S.inter) }));
+    while (lanes.length > 8){ lanes.splice(0, 2); keys.shift(); }
+    renderBlot();
+  }
+  function draw(){
+    const baf = $('s4a_baf').checked, atg = S.geno !== 'atg7';
+    const C = baf ? autoTwin(S, BAF_H) : S, exp = baf ? S.t - C.bafFrom : 0;
+    $('s4a_time').textContent = autoTimeText(S);
+    $('s4a_clock').textContent = fmt(S.t, 1) + ' ' + t('h_short');
+    $('s4a_sinceL').textContent = (!S.E && S.marks.length) ? t('s4a_since', { s: fmt(S.t - S.marks[S.marks.length - 1], 1) }) : '';
+    setTxt('s4a_yL', t(baf ? 's4a_y_baf' : 's4a_y')); setTxt('s4a_rL', t(baf ? 's4a_r_baf' : 's4a_r'));
+    $('s4a_bafL').textContent = baf ? t('s4a_baf_on', { h: fmt(C.bafFrom, 1) }) : '';
+    $('s4a_play').textContent = t(S.run ? 's4_pause' : 's4_play');
+    $('s4a_feed').textContent = t(S.E ? 's4_starve' : 's4_feed');
+    let nY = 0, nR = 0;
+    if (atg){ nY = Math.min(45, Math.round(C.AP * 12) + 1); nR = Math.min(45, Math.round(C.AL * 12)); }
+    $('s4a_y').querySelectorAll(':scope > g').forEach((g, i) => g.setAttribute('opacity', i < nY ? 1 : 0));
+    $('s4a_r').querySelectorAll(':scope > g').forEach((g, i) => { g.setAttribute('opacity', i < nR ? 1 : 0); g.querySelectorAll('circle').forEach(c => c.setAttribute('fill', baf ? YEL : RED)); });
+    setOp('s4a_haze', atg ? .04 : .16);
+    const m = markers(C), yel = baf ? nY + nR : nY, red = baf ? 0 : nR;
+    $('s4a_now').innerHTML = readRow(t(baf ? 's4a_dish_baf' : 's4a_dish_ctrl'), '', '') +
+      readRow(t('s4a_ny'), '', `<span class="v">${yel}</span>`) + readRow(t('s4a_nr'), '', `<span class="v">${red}</span>`) +
+      meterRow(t('s4a_r_s6k'), C.M, pct(C.M) + ' %') + meterRow(t('s4a_r_ulk'), C.Mres, pct(C.Mres) + ' %') +
+      meterRow(t('s4_r_ly'), C.L, pct(C.L) + ' %') + meterRow('p62', m.p62 / 1.2, fmt(m.p62, 2));
+    const last = S.marks[S.marks.length - 1], sinceStarve = S.E ? 0 : S.t - last;
+    let k;
+    if (baf && atg && sinceStarve > 1.05 && S.inter === 'prot') k = 's4a_c_baf_prot';
+    else if (baf && atg && sinceStarve > 1.05) k = 's4a_c_baf';
+    else if (!S.marks.length) k = 's4a_c_fed';
+    else if (S.E) k = 's4a_c_refed';
+    else if (!atg) k = 's4a_c_atg7';
+    else if (S.inter === 'prot' && sinceStarve > 1.05) k = 's4a_c_prot';
+    else if (S.inter === 'rapa' && S.t0 != null && S.t >= S.t0 + 2 && S.Mres > .5) k = 's4a_c_rapa';
+    else if (S.geno === 'ampk' && sinceStarve > 2.05) k = 's4a_c_ampk';
+    else if (!S.dipped) k = 's4_c_fall';
+    else if (S.Mres < .5 && (sinceStarve < 2 || S.AP >= S.AL)) k = 's4a_c_early';
+    else if (S.Mres <= .7 && !(S.reacted && S.Mres > .5)) k = 's4a_c_peak';
+    else { k = 's4a_c_react'; S.reacted = true; }
+    setCap(K, k, { x: fmt(exp, 1) });
+    autoPlot($('s4a_plot'), S, true);
+  }
+  function reset(){ S = autoNew({ geno: segVal('s4a_geno'), inter: segVal('s4a_int') }); S.hist.push(autoSnap(S)); draw(); }
+  $('s4a_play').onclick = () => { if (S.t >= 12) reset(); S.run = !S.run; draw(); };
+  $('s4a_feed').onclick = () => { if (S.E) autoStarve(S); else autoFeed(S); if (!S.run && S.t < 12) S.run = true; draw(); };
+  $('s4a_reset').onclick = reset;
+  wire(['s4a_geno', 's4a_int'], reset);
+  $('s4a_baf').onchange = draw;
+  $('s4a_rec').onclick = record;
+  $('s4a_clr').onclick = () => { lanes = []; keys = []; renderBlot(); };
+  renderBlot();
+  let acc = 0;
+  function tick(dt){
+    if (!S.run) return;
+    autoAdvance(S, dt * .4);
+    if (S.t >= 12) S.run = false;
+    acc += dt; if (acc > .1 || !S.run){ acc = 0; draw(); }
+  }
+  function prep(o, h){
+    const d = Object.assign({ geno: 'wt', inter: 'none', baf: false }, o);
+    segSet('s4a_geno', d.geno); segSet('s4a_int', d.inter); $('s4a_baf').checked = d.baf;
+    S = autoNew({ geno: d.geno, inter: d.inter }); S.hist.push(autoSnap(S));
+    if (h != null){ autoStarve(S); autoRunTo(S, h); }
+  }
+  const clear = () => { lanes = []; keys = []; renderBlot(); };
+  SCENES[K] = { update: draw, tick, redraw: draw, poe: [
+    { n: 3, ok: 1, pre(){ clear(); prep({}); autoRunTo(S, 2); record(); autoStarve(S); autoRunTo(S, 6); }, apply(){ record(); } },
+    { n: 3, ok: 1, pre(){ clear(); prep({ inter: 'prot' }, 1); }, apply(){ autoRunTo(S, 4); } },
+    { n: 3, ok: 0, pre(){ prep({ inter: 'prot' }, 4); }, apply(){ $('s4a_baf').checked = true; } },
+    { n: 3, ok: 1, pre(){ clear(); prep({ inter: 'prot' }, 4); }, apply(){ record(); } },
+    { n: 3, ok: 0, pre(){ clear(); prep({ geno: 'atg7' }, 1); }, apply(){ autoRunTo(S, 6); record(); } },
+    { n: 3, ok: 1, pre(){ clear(); prep({ inter: 'rapa' }, 2); }, apply(){ autoRunTo(S, 8); record(); } },
+  ] };
+  draw();
+})();
+
+/* ---------- запуск ---------- */
+document.querySelectorAll('[data-t]').forEach(el => { el.textContent = t(el.dataset.t); });
+document.title = t('doc_title');
+/* версия на странице: по ней видно, что сохранённая копия устарела */
+document.querySelectorAll('.foot').forEach(f => { f.textContent = t('footer') + ' ' + t('version'); });
+/* студенческий вариант: без советов преподавателю, остаются только источники */
+if (STUDENT){ const d = document.querySelector('details.teacher'); if (d){ d.querySelectorAll('p').forEach(x => x.remove()); d.querySelector('summary').textContent = t('src_t_st'); } }
+/* подпись кафедры под каждой схемой: остаётся на любом снимке экрана */
+document.querySelectorAll('.stage svg').forEach(svg => {
+  svg.setAttribute('viewBox', '0 0 600 440');
+  const r = document.createElementNS(NS, 'rect');
+  r.setAttribute('x', '0'); r.setAttribute('y', '420'); r.setAttribute('width', '600'); r.setAttribute('height', '20'); r.setAttribute('fill', 'var(--surface)');
+  svg.appendChild(r);
+  const w = document.createElementNS(NS, 'text');
+  w.setAttribute('class', 'wm'); w.setAttribute('x', '594'); w.setAttribute('y', '430'); w.textContent = t('wm');
+  svg.appendChild(w);
+});
+initNav(); show();
+
+</script>
+
+</body>
+</html>

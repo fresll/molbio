@@ -89,7 +89,24 @@ h1{color:var(--u-ui-2)}
   </a>
 
   <p class="note">Удобнее всего открывать на компьютере или планшете. Все величины на схемах условные: это учебные модели.</p>
-  <footer class="foot">© 2026 Кафедра биологии и генетики, Медицинский университет Петровского. Учебные материалы курса «Молекулярная биология» (5–6 семестры). При использовании ссылка на кафедру обязательна.</footer>
+  <footer class="foot">© 2026 Кафедра биологии и генетики, Медицинский университет Петровского. Учебные материалы курса «Молекулярная биология» (5–6 семестры). При использовании ссылка на кафедру обязательна.
+<!--views:start-->
+<div id="gc-views" title="Всего просмотров страниц сайта" aria-label="Всего просмотров страниц сайта" style="display:none;justify-content:flex-end;align-items:center;gap:6px;margin-top:8px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+<span id="gc-views-n"></span>
+</div>
+<script>
+(function(){
+  var box=document.getElementById('gc-views'),n=document.getElementById('gc-views-n');
+  if(!box||!n||!window.fetch)return;
+  fetch('https://molbio.goatcounter.com/counter/TOTAL.json')
+    .then(function(r){return r.ok?r.json():Promise.reject();})
+    .then(function(d){if(d&&d.count){n.textContent=d.count;box.style.display='flex';}})
+    .catch(function(){});
+})();
+</script>
+<!--views:end-->
+</footer>
 </div>
 <!--stats:start-->
 <script data-goatcounter="https://molbio.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>

@@ -10,23 +10,59 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#EDF0F4;--surface:#FFFFFF;--ink:#15202B;--muted:#5A6676;--line:#D3DAE3;--accent:#0D6E73;--accent-soft:#D3ECEC}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0D1217;--surface:#151C23;--ink:#E4E9EF;--muted:#97A3B0;--line:#29333E;--accent:#33B6BB;--accent-soft:#123A3C;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0D1217;--surface:#151C23;--ink:#E4E9EF;--muted:#97A3B0;--line:#29333E;--accent:#33B6BB;--accent-soft:#123A3C;color-scheme:dark}
+:root{--bg:#EDF0F4;--surface:#FFFFFF;--surface-2:#F6F8FA;--ink:#15202B;--muted:#5A6676;--line:#D3DAE3;--mtor:#0D6E73;--mtor-soft:#D3ECEC;--warn:#B3261E;--p-ink:#1A1E23;--on:#DC930F;--on-line:#B06E05;
+--f-display:"Unbounded","Golos Text",system-ui,sans-serif;--f-body:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0D1217;--surface:#151C23;--surface-2:#1A222B;--ink:#E4E9EF;--muted:#97A3B0;--line:#29333E;--mtor:#33B6BB;--mtor-soft:#123A3C;--warn:#FF8A80;--on:#EFB13A;--on-line:#EFB13A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0D1217;--surface:#151C23;--surface-2:#1A222B;--ink:#E4E9EF;--muted:#97A3B0;--line:#29333E;--mtor:#33B6BB;--mtor-soft:#123A3C;--warn:#FF8A80;--on:#EFB13A;--on-line:#EFB13A;color-scheme:dark}
+/* акцент: при фирменном стиле берётся синий университета (--u-ui), без него — классический */
+:root{--acc:var(--u-ui,var(--mtor));--acc-soft:var(--u-soft,var(--mtor-soft));--acc-2:var(--u-red,var(--mtor))}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html,body{background:var(--bg);color:var(--ink)}
-body{margin:0;font-family:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:17px;line-height:1.45}
-.wrap{max-width:860px;margin:0 auto;padding:12px 16px 32px}
-.affil{margin:0 0 18px;padding:0 0 8px;border-bottom:2px solid var(--accent);color:var(--accent);font-size:15px;font-weight:600}
-h1{font-family:"Unbounded","Golos Text",system-ui,sans-serif;font-weight:600;font-size:clamp(22px,4vw,30px);margin:0 0 8px;text-wrap:balance}
+body{margin:0;font-family:var(--f-body);font-size:17px;line-height:1.45;-webkit-text-size-adjust:100%}
+a{color:var(--acc)}
+a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--on-line);outline-offset:2px;border-radius:4px}
+.affil{margin:0 0 18px;padding:0 0 8px;border-bottom:2px solid var(--mtor);color:var(--mtor);font-size:15px;font-weight:600;text-wrap:balance}
+h1{font-family:var(--f-display);font-weight:600;font-size:clamp(22px,4vw,30px);margin:0 0 8px;text-wrap:balance}
 .lead{color:var(--muted);margin:0 0 22px}
+.foot{margin-top:28px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.btn{font:inherit;font-weight:600;font-size:15px;border-radius:10px;padding:8px 13px;cursor:pointer;border:1.5px solid var(--acc);background:var(--acc);color:var(--u-on-ui,var(--surface));text-decoration:none;display:inline-block}
+.btn.ghost{background:transparent;color:var(--acc)}
+.crumb{font-size:15px;margin:0 0 14px}
+.crumb a{text-decoration:none;font-weight:600}
+.ver{font-size:13px;color:var(--muted);margin:22px 0 0}
+/* место для миниатюры раздела: рисунок появится после научного аудита и утверждения эскизов */
+.mini{margin:0;aspect-ratio:3/2;width:100%}
+.mini-box{height:100%;border:1.5px dashed var(--line);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--muted);font-size:13px;text-align:center;padding:8px;background:var(--surface)}
+.mini-box b{font-weight:600;color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{max-width:960px;margin:0 auto;padding:12px 16px 32px}
+.parts{list-style:none;margin:0 0 30px;padding:0;border-top:1px solid var(--line)}
+.part{display:grid;grid-template-columns:72px minmax(0,1fr) 220px;gap:6px 20px;align-items:start;padding:18px 0;border-bottom:1px solid var(--line)}
+.part .num{font-family:var(--f-display);font-weight:600;font-size:34px;line-height:1;color:var(--acc);padding-top:2px}
+.part .range{display:block;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.part h2{font-size:21px;line-height:1.25;margin:4px 0 6px;text-wrap:balance}
+.part h2 a{color:var(--ink);text-decoration:none}
+.part h2 a:hover{color:var(--acc);text-decoration:underline}
+.part p{margin:0 0 8px;color:var(--muted);font-size:15.5px}
+.part .go{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.part .mini{grid-column:3;grid-row:1}
+.semh{font-family:var(--f-display);font-weight:600;font-size:18px;margin:26px 0 4px}
+.semsub{font-size:14px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:16px 0 8px}
 .card{display:block;text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 12px}
 .card:hover,.card:focus-visible{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
 .card .n{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
 .card h2{font-size:20px;margin:4px 0 6px}
 .card p{margin:0;color:var(--muted);font-size:15.5px}
 .note{font-size:14.5px;color:var(--muted);margin:20px 0 0}
-.foot{margin-top:28px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+:root{--accent:#0D6E73;--accent-soft:#D3ECEC}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--accent:#33B6BB;--accent-soft:#123A3C}}
+:root[data-theme="dark"]{--accent:#33B6BB;--accent-soft:#123A3C}
+@media (max-width:720px){
+ .part{grid-template-columns:44px minmax(0,1fr)}
+ .part .num{font-size:26px}
+ .part .mini{grid-column:2;grid-row:auto;max-width:260px}
+}
 </style>
 <!--brand-univ:start-->
 <link rel="icon" type="image/png" href="data:image/png;base64,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">
@@ -50,62 +86,105 @@ h1{color:var(--u-ui-2)}
 <div class="wrap">
   <p class="affil">Кафедра биологии и генетики · Медицинский университет Петровского · курс «Молекулярная биология», 5–6 семестры</p>
   <h1>Интерактивные семинары</h1>
-  <p class="lead">Двигайте ползунки, меняйте условия и смотрите, что происходит в клетке. У каждого вопроса два уровня: базовый и продвинутый.</p>
+  <p class="lead">Курс состоит из четырёх разделов по шесть глав; каждый раздел завершается коллоквиумом. В семинарах можно двигать ползунки, менять условия и смотреть, что происходит в клетке. У каждого вопроса два уровня: базовый и продвинутый.</p>
 
+  <h2 class="sr">Разделы курса</h2>
+  <ol class="parts">
+  <li class="part" id="part-1">
+   <span class="num" aria-hidden="true">I</span>
+   <div>
+    <span class="range">Главы 1–6 · коллоквиум I</span>
+    <h2><a href="section-1.html">Раздел I. Организация, сигналы и геномный контекст</a></h2>
+    <p>Как локальные условия, молекулярные взаимодействия, сигнальные сети и организация генома определяют характер, длительность и устойчивость клеточных состояний.</p>
+    <p>Семинары 1–6 опубликованы.</p>
+    <div class="go"><a class="btn" href="section-1.html">Главы и семинары раздела I</a><a class="btn ghost" href="map-1.html">Системная карта коллоквиума I</a></div>
+   </div>
+   <figure class="mini" data-miniature="S1" data-section="I" data-state="placeholder" aria-label="Место для миниатюры раздела I"><div class="mini-box" aria-hidden="true"><b>Миниатюра раздела I</b><span>в подготовке</span></div></figure>
+  </li>
+  <li class="part" id="part-2">
+   <span class="num" aria-hidden="true">II</span>
+   <div>
+    <span class="range">Главы 7–12 · коллоквиум II</span>
+    <h2><a href="section-2.html">Раздел II. Ресурсы, митохондрии, стресс и контроль качества</a></h2>
+    <p>Ресурсные и энергетические ограничения, стрессовые программы и поддержание качества белков и органелл.</p>
+    <p>Семинары 7–10 опубликованы.</p>
+    <div class="go"><a class="btn" href="section-2.html">Главы и семинары раздела II</a></div>
+   </div>
+   <figure class="mini" data-miniature="S2" data-section="II" data-state="placeholder" aria-label="Место для миниатюры раздела II"><div class="mini-box" aria-hidden="true"><b>Миниатюра раздела II</b><span>в подготовке</span></div></figure>
+  </li>
+  <li class="part" id="part-3">
+   <span class="num" aria-hidden="true">III</span>
+   <div>
+    <span class="range">Главы 13–18 · коллоквиум III</span>
+    <h2><a href="section-3.html">Раздел III. Деление, судьба клетки и тканевая функция</a></h2>
+    <p>Регуляция пролиферации, переходы между клеточными состояниями и тканевые взаимодействия.</p>
+    <p>Семинары раздела готовятся.</p>
+    <div class="go"><a class="btn" href="section-3.html">Главы и семинары раздела III</a></div>
+   </div>
+   <figure class="mini" data-miniature="S3" data-section="III" data-state="placeholder" aria-label="Место для миниатюры раздела III"><div class="mini-box" aria-hidden="true"><b>Миниатюра раздела III</b><span>в подготовке</span></div></figure>
+  </li>
+  <li class="part" id="part-4">
+   <span class="num" aria-hidden="true">IV</span>
+   <div>
+    <span class="range">Главы 19–24 · коллоквиум IV</span>
+    <h2><a href="section-4.html">Раздел IV. Патологические состояния, их измерение и изменение</a></h2>
+    <p>Опухолевые и возрастные изменения, методы анализа клеточных состояний и проверка вмешательств.</p>
+    <p>Семинары раздела готовятся.</p>
+    <div class="go"><a class="btn" href="section-4.html">Главы и семинары раздела IV</a></div>
+   </div>
+   <figure class="mini" data-miniature="S4" data-section="IV" data-state="placeholder" aria-label="Место для миниатюры раздела IV"><div class="mini-box" aria-hidden="true"><b>Миниатюра раздела IV</b><span>в подготовке</span></div></figure>
+  </li>
+  </ol>
+
+  <h2 class="semh" id="seminars">Все семинары</h2>
+  <h3 class="semsub">Раздел I · семинары 1–6</h3>
   <a class="card" href="seminar-1.html">
     <div class="n">Семинар 1</div>
     <h2>Компартменты, локальные условия и обмен</h2>
     <p>мембранная компартментализация и локальные физико-химические условия · локальная концентрация и формирование внутриклеточного градиента · фосфоинозитиды как маркеры идентичности клеточных мембран · мембранные контактные сайты органелл без слияния мембран</p>
   </a>
-
   <a class="card" href="seminar-2.html">
     <div class="n">Семинар 2</div>
     <h2>Транспорт, сети органелл, конденсаты и полярность</h2>
     <p>направленный транспорт груза по цитоскелету · слияние и деление мембранных органелл: митохондрии как модель и границы обобщения · биомолекулярные конденсаты: сборка, динамика и критерии интерпретации · поддержание клеточной полярности направленным транспортом</p>
   </a>
-
   <a class="card" href="seminar-3.html">
     <div class="n">Семинар 3</div>
     <h2>Рецепция и молекулярные переключатели</h2>
     <p>активация β2-адренорецептора и зависимость ответа от клеточного контекста · обратимое фосфорилирование как молекулярный переключатель · цикл малой ГТФазы RAS · депо-зависимый вход Ca²⁺: система STIM–Orai</p>
   </a>
-
   <a class="card" href="seminar-4.html">
     <div class="n">Семинар 4</div>
     <h2>Динамика, обратные связи и интеграция сигналов</h2>
     <p>усиление и завершение сигнала в киназном каскаде · длительность активности ERK и выбор клеточного ответа · положительная и отрицательная обратная связь в адаптации к сигналу · перекрёстная регуляция в сети инсулин–PI3K–AKT–mTORC1–AMPK и селективная инсулинорезистентность</p>
   </a>
-
   <a class="card" href="seminar-5.html">
     <div class="n">Семинар 5</div>
     <h2>Нуклеосомы, ремоделирование и гистоны</h2>
     <p>нуклеосомная организация и доступность регуляторной ДНК · АТФ-зависимое ремоделирование нуклеосом · посттрансляционные модификации гистонов: ферменты установления и удаления метки и белки-эффекторы · гистоновые варианты и изменение свойств нуклеосомы</p>
   </a>
-
   <a class="card" href="seminar-6.html">
     <div class="n">Семинар 6</div>
     <h2>Метилирование ДНК, регуляторные элементы и память</h2>
     <p>установление и поддержание метилирования ДНК · избирательность контакта энхансера и промотора · регуляция FOXO сигналом инсулина · хроматиновая память и повторный сигнал</p>
   </a>
 
+  <h3 class="semsub">Раздел II · семинары 7–10</h3>
   <a class="card" href="seminar-7.html">
     <div class="n">Семинар 7</div>
     <h2>Регуляция метаболизма и аутофагии</h2>
     <p>mTORC1 на лизосоме · AMPK и энергия · синтез или окисление жирных кислот · аутофагия и повторная активация mTORC1</p>
   </a>
-
   <a class="card" href="seminar-8.html">
     <div class="n">Семинар 8</div>
     <h2>Метаболические потоки, биосинтез и редокс-состояние</h2>
     <p>аэробный гликолиз и лактат · ЦТК: катаплероз и анаплероз · метаболиты и хроматин · NADH/NAD⁺ и активные формы кислорода</p>
   </a>
-
   <a class="card" href="seminar-9.html">
     <div class="n">Семинар 9</div>
     <h2>Митохондрии как энергетический, сигнальный и генетический узел</h2>
     <p>хемиосмос и синтез ATP · мембранный потенциал: ATP, импорт белков, ионы · Ca²⁺ между ЭПР и митохондрией · два генома и гетероплазмия</p>
   </a>
-
   <a class="card" href="seminar-10.html">
     <div class="n">Семинар 10</div>
     <h2>Стрессовые программы</h2>

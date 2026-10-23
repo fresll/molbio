@@ -37,6 +37,7 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(22px,4vw,30px);m
 .mini-art{background:#fff;border:1px solid var(--line);border-radius:12px;padding:6px;line-height:0}
 .mini-art svg{display:block;width:100%;height:auto}
 .mini figcaption{font-size:13.5px;line-height:1.45;color:var(--muted);margin:8px 2px 0}
+.mini .mini-note{font-size:12.5px;line-height:1.35;color:var(--muted);margin:6px 2px 0}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .wrap{max-width:1040px;margin:0 auto;padding:12px 16px 32px}
 .head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px 28px;align-items:start;margin-bottom:8px}
@@ -99,7 +100,7 @@ input[type=range]{accent-color:var(--u-ui)}
 <body>
 <div class="wrap">
   <p class="affil">Кафедра биологии и генетики · Медицинский университет Петровского · курс «Молекулярная биология», 5–6 семестры</p>
-  <p class="crumb"><a href="index.html">← Все разделы и семинары</a></p>
+  <p class="crumb"><a href="index.html">← Все разделы</a></p>
   <div class="head">
    <div>
     <p class="kicker">Раздел IV · главы 19–24 · коллоквиум IV</p>
@@ -109,7 +110,7 @@ input[type=range]{accent-color:var(--u-ui)}
    <figure class="mini" data-miniature="S4" data-section="IV" data-variant="S4-C"><div class="mini-art"><svg aria-describedby="mcap4" viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Экспериментальный цикл: клон и его эволюция, теломеры и ткань измеряются; измерение служит основанием для вмешательства, которое меняет состав клона">
 <defs><marker id="m4a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#1F2A36"></path></marker><marker id="m4t" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M5 0 V10" stroke="#1F2A36" stroke-width="2.4"></path></marker></defs>
 <path d="M94 72 Q128 100 138 162" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m4a)"></path>
-<path d="M426 114 L426 190" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m4a)"></path>
+<path d="M426 114 L426 190" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m4t)"></path>
 <path d="M210 164 Q230 138 250 116" fill="none" stroke="#1F2A36" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#m4a)"></path>
 <path d="M388 192 Q370 150 346 116" fill="none" stroke="#1F2A36" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#m4a)"></path>
 <path d="M300 116 L300 202" fill="none" stroke="#1F2A36" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#m4a)"></path>
@@ -126,7 +127,7 @@ input[type=range]{accent-color:var(--u-ui)}
 <text x="426" y="106" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="12.5" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">21</tspan> Теломеры</text>
 <g transform="translate(426 210)"><line x1="-42" y1="16" x2="42" y2="16" stroke="#7A8696" stroke-width="1.8"></line><g fill="#fff" stroke="#1F2A36" stroke-width="1.6"><rect x="-40" y="-6" width="15" height="22" rx="3"></rect><rect x="-23" y="-6" width="15" height="22" rx="3"></rect><rect x="10" y="-14" width="17" height="30" rx="3" fill="#DCEBF5"></rect><rect x="29" y="-6" width="13" height="22" rx="3"></rect></g></g>
 <text x="426" y="260" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="12.5" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">22</tspan> Ткань</text>
-</svg></div><figcaption id="mcap4">Субклональный состав опухоли (19) меняется со временем (20); дисфункция теломер (21) ограничивает обновление ткани (22); измерение (23) описывает состав популяции и ткани и служит основанием для проверяемого вмешательства (24), которое меняет относительное представительство клеток.</figcaption></figure>
+</svg></div><figcaption id="mcap4">Субклональный состав опухоли (19) меняется со временем (20); дисфункция теломер (21) ограничивает обновление ткани (22); измерение (23; пунктир — измерение) описывает состав популяции и ткани и служит основанием для проверяемого вмешательства (24), которое меняет относительное представительство клеток.</figcaption></figure>
   </div>
   <ol class="chs">
   <li class="ch" id="ch19">
@@ -161,7 +162,7 @@ input[type=range]{accent-color:var(--u-ui)}
   </li>
   </ol>
   <nav class="others" aria-label="Другие разделы"><a class="btn ghost" href="section-1.html">Раздел I</a><a class="btn ghost" href="section-2.html">Раздел II</a><a class="btn ghost" href="section-3.html">Раздел III</a></nav>
-  <p class="ver">Версия 1.0, 23 октября 2026 г.</p>
+  <p class="ver">Версия 1.1, 23 октября 2026 г.</p>
   <footer class="foot">© 2026 Кафедра биологии и генетики, Медицинский университет Петровского. Учебные материалы курса «Молекулярная биология» (5–6 семестры). При использовании ссылка на кафедру обязательна.
 <!--views:start-->
 <div id="gc-views" title="Всего просмотров страниц сайта" aria-label="Всего просмотров страниц сайта" style="display:none;justify-content:flex-end;align-items:center;gap:6px;margin-top:8px">

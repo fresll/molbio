@@ -46,10 +46,12 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(22px,4vw,30px);m
 .mapentry{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:14px;padding:14px 18px;margin:8px 0 22px}
 .mapentry p{margin:0;max-width:62ch;color:var(--muted);font-size:15.5px}
 .mapentry h2{font-size:18px;margin:0 0 4px;color:var(--ink)}
-.chs{list-style:none;margin:0;padding:0}
-.ch{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 14px}
-.ch .n{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--acc)}
-.ch h2{font-size:20px;line-height:1.25;margin:4px 0 8px;text-wrap:balance}
+.sems{list-style:none;margin:0;padding:0}
+.sem{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 14px}
+.sem .n{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--acc)}
+.sem h2{font-size:20px;line-height:1.25;margin:4px 0 8px;text-wrap:balance}
+.sem h2 a{color:var(--ink);text-decoration:none}
+.sem h2 a:hover{color:var(--acc);text-decoration:underline}
 .sysq{margin:0 0 12px;padding:8px 12px;border-radius:10px;background:var(--surface-2);font-style:italic;color:var(--ink);font-size:15.5px}
 .sysq span{display:block;font-style:normal;font-size:12.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
 .qh{font-size:12.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
@@ -80,11 +82,19 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(22px,4vw,30px);m
 html,body{background:var(--u-bg)}
 .affil{display:flex;align-items:center;gap:10px}
 .affil::before{content:"";flex:none;width:30px;height:30px;background:url(data:image/png;base64,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) center/contain no-repeat}
-:root{--accent:var(--u-ui);--accent-soft:var(--u-soft)}
 .affil{color:var(--u-ui);border-bottom:3px solid var(--u-red)}
 h1{color:var(--u-ui-2)}
-.card{border-left:4px solid var(--u-blue)}
-.card:hover,.card:focus-visible{border-color:var(--u-ui);border-left-color:var(--u-red)}
+.tab[aria-selected="true"]{background:var(--u-ui);border-color:var(--u-ui);color:var(--u-on-ui)}
+.btn{background:var(--u-ui);border-color:var(--u-ui);color:var(--u-on-ui)}
+.btn.ghost{background:transparent;color:var(--u-ui)}
+.btn.warn{border-color:var(--on);background:var(--on);color:var(--p-ink)}
+.switch input:checked{background:var(--u-ui)}
+.seg button[aria-pressed="true"]{background:var(--u-ui-2);color:var(--u-on-ui)}
+input[type=range]{accent-color:var(--u-ui)}
+.meter i{background:var(--u-blue)}
+.cap{border-left-color:var(--u-red)}
+.take{border-color:var(--u-ui);background:var(--u-soft)}
+.take b{color:var(--u-ui)}
 .foot{border-top:2px solid var(--u-red)}
 </style>
 <!--brand-univ:end-->
@@ -95,7 +105,7 @@ h1{color:var(--u-ui-2)}
   <p class="crumb"><a href="index.html">← Все разделы</a></p>
   <div class="head">
    <div>
-    <p class="kicker">Раздел II · главы 7–12 · коллоквиум II</p>
+    <p class="kicker">Раздел II · семинары 7–12 · коллоквиум II</p>
     <h1>Ресурсы, митохондрии, стресс и контроль качества</h1>
     <p class="lead">Ресурсные и энергетические ограничения, стрессовые программы и поддержание качества белков и органелл.</p>
    </div>
@@ -123,73 +133,52 @@ h1{color:var(--u-ui-2)}
 </svg></div><figcaption id="mcap2">Метаболический поток (8) поставляет субстраты митохондрии (9); при снижении энергетического заряда (↓ATP, ↑AMP) активируется AMPK, которая тормозит mTORC1 на лизосоме (7); mTORC1 тормозит запуск аутофагии (фагофор) — одного из путей протеостаза (11), а при длительном голодании продукты лизосомной деградации вновь активируют mTORC1. Стрессовая программа (10; фосфорилирование eIF2α при интегрированном стрессовом ответе) повышает ёмкость протеостаза; митохондрия с утраченным мембранным потенциалом может удаляться селективной аутофагией (12), в культуре клеток — путём, зависимым от PINK1 и Parkin. Пунктирная стрелка — влияние при определённых условиях.</figcaption></figure>
   </div>
   <h2 class="semh" id="seminars">Семинары раздела II</h2>
-  <a class="card" href="seminar-7.html">
-    <div class="n">Семинар 7</div>
-    <h2>Интеграция сигналов о ресурсном состоянии: mTORC1, AMPK и лизосомная переработка</h2>
-    <p>mTORC1 на лизосоме · AMPK и энергия · синтез или окисление жирных кислот · аутофагия и повторная активация mTORC1</p>
-  </a>
-  <a class="card" href="seminar-8.html">
-    <div class="n">Семинар 8</div>
-    <h2>Метаболические потоки, биосинтез и редокс-состояние</h2>
-    <p>аэробный гликолиз и лактат · ЦТК: катаплероз и анаплероз · метаболиты и хроматин · NADH/NAD⁺ и активные формы кислорода</p>
-  </a>
-  <a class="card" href="seminar-9.html">
-    <div class="n">Семинар 9</div>
-    <h2>Митохондрии как энергетический, сигнальный и генетический узел</h2>
-    <p>хемиосмос и синтез ATP · мембранный потенциал: ATP, импорт белков, ионы · Ca²⁺ между ЭПР и митохондрией · два генома и гетероплазмия</p>
-  </a>
-  <a class="card" href="seminar-10.html">
-    <div class="n">Семинар 10</div>
-    <h2>Стрессовые программы</h2>
-    <p>интегрированный стрессовый ответ: eIF2α и ATF4 · три ветви UPR · KEAP1–NRF2 · кислород-зависимая деградация HIF-α</p>
-  </a>
-  <h2 class="semh" id="chapters">Главы и вопросы программы</h2>
-  <ol class="chs">
-  <li class="ch" id="ch7">
-   <div class="n">Глава 7 · семинар 7</div>
-   <h2>Интеграция сигналов о ресурсном состоянии: mTORC1, AMPK и лизосомная переработка</h2>
+  <ol class="sems">
+  <li class="sem" id="s7">
+   <div class="n">Семинар 7</div>
+   <h2><a href="seminar-7.html">Интеграция сигналов о ресурсном состоянии: mTORC1, AMPK и лизосомная переработка</a></h2>
    <h3 class="qh">Вопросы программы</h3>
    <ol class="qs"><li><span class="qn">7.1</span><a href="seminar-7.html#q1">Лизосомная активация mTORC1 при совпадении аминокислотного и ростового сигналов</a></li><li><span class="qn">7.2</span><a href="seminar-7.html#q2">AMPK как сенсор аденилатного энергетического заряда и переключатель клеточного бюджета</a></li><li><span class="qn">7.3</span><a href="seminar-7.html#q3">Переключение между синтезом и β-окислением жирных кислот через ACC, малонил-CoA и CPT1</a></li><li><span class="qn">7.4</span><a href="seminar-7.html#q4">Согласование аутофагии, лизосомного гидролиза и повторной активации mTORC1</a></li></ol>
    <a class="btn" href="seminar-7.html">Открыть семинар 7</a>
   </li>
-  <li class="ch" id="ch8">
-   <div class="n">Глава 8 · семинар 8</div>
-   <h2>Метаболические потоки, биосинтез и редокс-состояние</h2>
+  <li class="sem" id="s8">
+   <div class="n">Семинар 8</div>
+   <h2><a href="seminar-8.html">Метаболические потоки, биосинтез и редокс-состояние</a></h2>
    <h3 class="qh">Вопросы программы</h3>
    <ol class="qs"><li><span class="qn">8.1</span><a href="seminar-8.html#q1">Аэробный гликолиз (эффект Варбурга) как перераспределение углеродного и энергетического потоков</a></li><li><span class="qn">8.2</span><a href="seminar-8.html#q2">Цикл трикарбоновых кислот как источник восстановительных эквивалентов и биосинтетических предшественников: катаплероз и анаплероз</a></li><li><span class="qn">8.3</span><a href="seminar-8.html#q3">Ацетил-CoA, S-аденозилметионин и α-кетоглутарат как субстраты и косубстраты ферментов хроматина</a></li><li><span class="qn">8.4</span><a href="seminar-8.html#q4">Отношение NADH/NAD⁺ и переход активных форм кислорода от сигнальной функции к повреждению</a></li></ol>
    <a class="btn" href="seminar-8.html">Открыть семинар 8</a>
   </li>
-  <li class="ch" id="ch9">
-   <div class="n">Глава 9 · семинар 9</div>
-   <h2>Митохондрии как энергетический, сигнальный и генетический узел</h2>
+  <li class="sem" id="s9">
+   <div class="n">Семинар 9</div>
+   <h2><a href="seminar-9.html">Митохондрии как энергетический, сигнальный и генетический узел</a></h2>
    <h3 class="qh">Вопросы программы</h3>
    <ol class="qs"><li><span class="qn">9.1</span><a href="seminar-9.html#q1">Хемиосмотическое сопряжение переноса электронов и синтеза ATP</a></li><li><span class="qn">9.2</span><a href="seminar-9.html#q2">Мембранный потенциал внутренней мембраны как условие синтеза ATP, импорта белков и ионного транспорта</a></li><li><span class="qn">9.3</span><a href="seminar-9.html#q3">Передача Ca²⁺ в контактах ЭПР и митохондрии: от согласования метаболизма до перегрузки</a></li><li><span class="qn">9.4</span><a href="seminar-9.html#q4">Двойной генетический контроль дыхательной цепи и порог гетероплазмии мтДНК</a></li></ol>
    <a class="btn" href="seminar-9.html">Открыть семинар 9</a>
   </li>
-  <li class="ch" id="ch10">
-   <div class="n">Глава 10 · семинар 10</div>
-   <h2>Стрессовые программы</h2>
+  <li class="sem" id="s10">
+   <div class="n">Семинар 10</div>
+   <h2><a href="seminar-10.html">Стрессовые программы</a></h2>
    <h3 class="qh">Вопросы программы</h3>
    <ol class="qs"><li><span class="qn">10.1</span><a href="seminar-10.html#q1">Интегрированный стрессовый ответ: фосфорилирование eIF2α и избирательное усиление трансляции ATF4</a></li><li><span class="qn">10.2</span><a href="seminar-10.html#q2">Три ветви UPR при несоответствии белковой нагрузки и ёмкости ЭПР</a></li><li><span class="qn">10.3</span><a href="seminar-10.html#q3">KEAP1–NRF2: сенсор электрофилов на цистеиновых остатках и транскрипционная программа редокс-адаптации</a></li><li><span class="qn">10.4</span><a href="seminar-10.html#q4">Кислород-зависимая деградация HIF-α: пролилгидроксилазы PHD и убиквитинлигазный комплекс с pVHL</a></li></ol>
    <a class="btn" href="seminar-10.html">Открыть семинар 10</a>
   </li>
-  <li class="ch" id="ch11">
-   <div class="n">Глава 11</div>
+  <li class="sem" id="s11">
+   <div class="n">Семинар 11</div>
    <h2>Протеостаз, убиквитин-протеасомная система, ERAD и аутофагический поток</h2>
    <h3 class="qh">Вопросы программы</h3>
    <ol class="qs"><li><span class="qn">11.1</span><span>АТФ-зависимый цикл Hsp70 с J-доменным белком и фактором обмена нуклеотидов</span></li><li><span class="qn">11.2</span><span>Дегрон, каскад E1–E2–E3 и распознавание субстрата 26S-протеасомой</span></li><li><span class="qn">11.3</span><span>N-гликановый контроль сворачивания в ЭПР и ERAD дефектных гликопротеинов</span></li><li><span class="qn">11.4</span><span>Аутофагический поток от активации ULK1 до лизосомной деградации и его измерение</span></li></ol>
-   <span class="soon">Семинар в подготовке</span>
+   <span class="soon">Семинар готовится</span>
   </li>
-  <li class="ch" id="ch12">
-   <div class="n">Глава 12</div>
+  <li class="sem" id="s12">
+   <div class="n">Семинар 12</div>
    <h2>Селективная аутофагия и контроль качества органелл</h2>
    <h3 class="qh">Вопросы программы</h3>
    <ol class="qs"><li><span class="qn">12.1</span><span>Рецепторы селективной аутофагии как физический адаптер между убиквитинированным грузом и белками ATG8</span></li><li><span class="qn">12.2</span><span>PINK1 и Parkin: распознавание митохондрии с утраченным мембранным потенциалом</span></li><li><span class="qn">12.3</span><span>Ответ на повреждение лизосомной мембраны: ремонт, лизофагия и восстановление лизосомного пула</span></li><li><span class="qn">12.4</span><span>Выбор маршрута для повреждённого белка или органеллы между рефолдингом, протеасомой, ERAD и аутофагией</span></li></ol>
-   <span class="soon">Семинар в подготовке</span>
+   <span class="soon">Семинар готовится</span>
   </li>
   </ol>
   <nav class="others" aria-label="Другие разделы"><a class="btn ghost" href="section-1.html">Раздел I</a><a class="btn ghost" href="section-3.html">Раздел III</a><a class="btn ghost" href="section-4.html">Раздел IV</a></nav>
-  <p class="ver">Версия 1.1, 23 октября 2026 г.</p>
+  <p class="ver">Версия 1.2, 23 октября 2026 г.</p>
   <footer class="foot">© 2026 Кафедра биологии и генетики, Медицинский университет Петровского. Учебные материалы курса «Молекулярная биология» (5–6 семестры). При использовании ссылка на кафедру обязательна.
 <!--views:start-->
 <div id="gc-views" title="Всего просмотров страниц сайта" aria-label="Всего просмотров страниц сайта" style="display:none;justify-content:flex-end;align-items:center;gap:6px;margin-top:8px">

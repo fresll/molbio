@@ -59,6 +59,15 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(22px,4vw,30px);m
 .qs a:hover{text-decoration:underline}
 .soon{display:inline-block;font-size:13.5px;color:var(--muted);border:1px dashed var(--line);border-radius:8px;padding:4px 10px}
 .others{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 0}
+.semh{font-family:var(--f-display);font-weight:600;font-size:18px;margin:26px 0 10px}
+.card{display:block;text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 12px}
+.card:hover,.card:focus-visible{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+.card .n{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.card h2{font-size:20px;margin:4px 0 6px}
+.card p{margin:0;color:var(--muted);font-size:15.5px}
+:root{--accent:#0D6E73;--accent-soft:#D3ECEC}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--accent:#33B6BB;--accent-soft:#123A3C}}
+:root[data-theme="dark"]{--accent:#33B6BB;--accent-soft:#123A3C}
 @media (max-width:760px){.head{grid-template-columns:1fr}.head .mini{width:100%;max-width:440px}}
 </style>
 <!--brand-univ:start-->

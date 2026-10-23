@@ -259,7 +259,11 @@ const SRC = {
   Biggs1999: ['Biggs W. H. и др. 1999. Protein kinase B/Akt-mediated phosphorylation promotes nuclear exclusion of the winged helix transcription factor FKHR1. PNAS', '10.1073/pnas.96.13.7421'],
   Zhang2002: ['Zhang X. и др. 2002. Phosphorylation of serine 256 suppresses transactivation by FKHR (FOXO1) by multiple mechanisms. J Biol Chem', '10.1074/jbc.M208063200'],
   Zhao2004: ['Zhao X. и др. 2004. Multiple elements regulate nuclear/cytoplasmic shuttling of FOXO1. Biochem J', '10.1042/BJ20031450'],
-  Yalley2016: ['Yalley A. и др. 2016. Loss of interdependent binding by the FoxO1 and FoxA1/A2 forkhead transcription factors… at insulin-sensitive genes. J Biol Chem', '10.1074/jbc.M115.677583'],
+  Yalley2016: ['Yalley A. и др. 2016. Loss of interdependent binding by the FoxO1 and FoxA1/A2 forkhead transcription factors culminates in perturbation of active chromatin marks and binding of transcriptional regulators at insulin-sensitive genes. J Biol Chem', '10.1074/jbc.M115.677583'],
+  Brunet1999: ['Brunet A. и др. 1999. Akt promotes cell survival by phosphorylating and inhibiting a Forkhead transcription factor. Cell', '10.1016/s0092-8674(00)80595-4'],
+  Nakae1999: ['Nakae J., Park B. C., Accili D. 1999. Insulin stimulates phosphorylation of the forkhead transcription factor FKHR on serine 253 through a Wortmannin-sensitive pathway. J Biol Chem', '10.1074/jbc.274.23.15982'],
+  Humphrey2013: ['Humphrey S. J. и др. 2013. Dynamic adipocyte phosphoproteome reveals that Akt directly regulates mTORC2. Cell Metab', '10.1016/j.cmet.2013.04.010'],
+  Humphrey2015: ['Humphrey S. J., Azimifar S. B., Mann M. 2015. High-throughput phosphoproteomics reveals in vivo insulin signaling dynamics. Nat Biotechnol', '10.1038/nbt.3327'],
   Nakae2001: ['Nakae J. и др. 2001. The forkhead transcription factor Foxo1 (Fkhr) confers insulin sensitivity onto glucose-6-phosphatase expression. J Clin Invest', '10.1172/JCI12876'],
   Puigserver2003: ['Puigserver P. и др. 2003. Insulin-regulated hepatic gluconeogenesis through FOXO1–PGC-1α interaction. Nature', '10.1038/nature01667'],
   Matsumoto2007: ['Matsumoto M. и др. 2007. Impaired regulation of hepatic glucose production in mice lacking the forkhead transcription factor Foxo1 in liver. Cell Metab', '10.1016/j.cmet.2007.08.006'],
@@ -283,18 +287,18 @@ const PH = [
  {id: 'P1', short: 'Инсулин у рецептора', sig: 1, time: 'секунды',
   title: 'Инсулин связывается с рецептором',
   what: 'Инсулин из крови синусоида связывается с рецептором на синусоидальной поверхности гепатоцита; киназные домены рецептора фосфорилируют друг друга по тирозинам.',
-  how: 'Связывание меняет конформацию рецептора-тирозинкиназы; автофосфорилирование достигает максимума за секунды.',
+  how: 'Связывание меняет конформацию рецептора-тирозинкиназы; автофосфорилирование достигает максимума за секунды. В печени мыши in vivo многие участки фосфорилирования меняются уже через 15 с после введения инсулина.',
   next: 'Фосфотирозины рецептора привлекают адаптеры IRS1 и IRS2.',
   exp: 'Фосфоспецифический блот рецептора и IRS.',
-  st: 'F', src: ['Burchfield2025', 'Treyer2013'],
+  st: 'F', src: ['Burchfield2025', 'Humphrey2015', 'Treyer2013'],
   concepts: ['C4.akt'], edges: [], route: ['seminar-4-route.html#ns-insulin-akt', 'Семинар 4 · как инсулин активирует AKT'], sem: ['seminar-4.html#q4', 'Семинар 4, вопрос 4.4']},
- {id: 'P2', short: 'PIP₃ и активная AKT', sig: 1, time: '≈1 мин (T309) · ≈3 мин (S474)',
+ {id: 'P2', short: 'PIP₃ и активная AKT', sig: 1, time: '≈1 мин (T309) и ≈3 мин (S474) — по обзору фосфопротеомных данных',
   title: 'PI3K образует PIP₃, AKT активируется',
   what: 'В плазматической мембране появляется PIP₃; AKT, PDK1 и mTORC2 собираются у мембраны, AKT фосфорилирована по T309 и S474 (номера для AKT2 — основной изоформы в печени).',
   how: 'PI3K, связанная с IRS, фосфорилирует PI(4,5)P₂ до PIP₃. PH-домен AKT связывает PIP₃; PDK1 фосфорилирует T309, mTORC2 — S474.',
   next: 'Активная AKT фосфорилирует свои субстраты, в том числе FOXO1.',
   exp: 'Блот pAKT (S474, T309) и фосфорилирование субстрата AKT; сенсор PIP₃.',
-  st: 'F', src: ['Burchfield2025'],
+  st: 'F', src: ['Burchfield2025', 'Humphrey2013', 'Humphrey2015'],
   concepts: ['C1.pi', 'C4.akt'], edges: ['E062'], route: ['seminar-4-route.html#ns-insulin-akt', 'Семинар 4 · как инсулин активирует AKT'], sem: ['seminar-1.html#q3', 'Семинар 1, вопрос 1.3']},
  {id: 'P3', short: 'pFOXO1 уходит в цитоплазму', sig: 1, time: 'этап (без числа)',
   title: 'FOXO1 фосфорилирован, его доля в ядре уменьшается',
@@ -302,7 +306,7 @@ const PH = [
   how: 'Фосфат на S256 в ДНК-связывающем домене ослабляет связывание с ДНК; 14-3-3 и сигнал экспорта ускоряют CRM1-зависимый выход FOXO1 из ядра и ослабляют возвращение.',
   next: 'На промоторе G6PC остаётся меньше FOXO1.',
   exp: 'Иммунофлуоресценция FOXO1; фосфоспецифический блот pFOXO1 (T24, S256).',
-  st: 'F', src: ['Rena1999', 'Biggs1999', 'Zhang2002', 'Zhao2004', 'RodriguezColman2024'],
+  st: 'F', src: ['Rena1999', 'Nakae1999', 'Biggs1999', 'Brunet1999', 'Zhang2002', 'Zhao2004', 'RodriguezColman2024'],
   concepts: ['C4.akt', 'C6.foxo'], edges: ['E029'], route: ['seminar-6-route.html#ns-foxo-transport', 'Семинар 6 · фосфорилирование и распределение FOXO1'], sem: ['seminar-6.html#q3', 'Семинар 6, вопрос 6.3']},
  {id: 'P4', short: 'Промотор: меньше FOXO1 и FoxA', sig: 1, time: 'этап (без числа)',
   title: 'На промоторе G6PC меньше FOXO1, FoxA и РНК-полимеразы II',
@@ -363,15 +367,15 @@ const IV = {
   ctl: {label: 'Контроль', short: 'контроль', st: {occF: 'V', occA: 'V', pol: 'V', mrna: 'V'}, mod: s => s},
   pi3k: {label: 'Ингибитор PI3K (вортманнин)', short: 'ингибитор PI3K',
     why: 'PI3K не образует PIP₃, поэтому AKT не активируется и FOXO1 не фосфорилируется по её участкам. FOXO1 остаётся в ядре, и инсулин не подавляет синтез РНК G6PC, хотя рецептор активирован.',
-    st: {pip3: 'F', akt: 'F', pfoxo: 'F', nuc: 'V', occF: 'V', occA: 'V', pol: 'V', nrna: 'V', mrna: 'V'}, src: ['Rena1999', 'Burchfield2025'],
-    note: 'Отмена фосфорилирования FOXO1 вортманнином показана в клетках 293 (Rena 1999); для промотора G6PC это вывод.',
+    st: {pip3: 'F', akt: 'F', pfoxo: 'F', nuc: 'V', occF: 'V', occA: 'V', pol: 'V', nrna: 'V', mrna: 'V'}, src: ['Nakae1999', 'Rena1999', 'Burchfield2025'],
+    note: 'Вортманнин отменял фосфорилирование FOXO1 в ответ на инсулин в гепатоцитах мыши (линия, трансформированная SV40; Nakae 1999) и на IGF-1 в клетках 293 (Rena 1999). Распределение FOXO1 и транскрипция G6PC при этом — вывод.',
     mod: s => { s.pip3 = s.pip3.map(() => 0); s.akt = s.akt.map(() => 0); s.pfoxo = s.pfoxo.map(() => 0);
       ['nuc', 'occF', 'occA', 'pol', 'nrna', 'mrna'].forEach(k => s[k] = s[k].map(() => 3)); return s; }},
   ada: {label: 'FOXO1 без участков AKT (мутант ADA)', short: 'FOXO1-ADA',
     why: 'AKT активируется как в контроле, но не может фосфорилировать FOXO1 по заменённым остаткам. Мутантный FOXO1 не выводится из ядра в ответ на инсулин и продолжает активировать мишень.',
-    st: {pfoxo: 'F', nuc: 'F', occF: 'V', occA: 'V', pol: 'V', nrna: 'F', mrna: 'F'}, src: ['Nakae2001', 'Puigserver2003', 'Biggs1999'],
-    note: 'Мутант ADA: T24A, S253D, S316A (номера мыши); фосфомиметическая замена имитирует фосфат лишь отчасти. В гепатоцитах мутант, нечувствительный к инсулину, отменял подавление генов глюконеогенеза (Puigserver 2003).',
-    mod: s => { s.pfoxo = s.pfoxo.map(() => 0); ['nuc', 'occF', 'occA', 'pol', 'nrna', 'mrna'].forEach(k => s[k] = s[k].map(() => 3)); return s; }},
+    st: {pfoxo: 'F', nuc: 'F', occF: 'V', occA: 'V', pol: 'V', nrna: 'F', mrna: 'F'}, src: ['Nakae2001', 'Puigserver2003', 'Zhang2002', 'Yalley2016'],
+    note: 'Мутант ADA: T24A, S253D, S316A (номера мыши); по описанию Nakae 2001 он не выводится из ядра в ответ на инсулин и конститутивно активен. В гепатоцитах FOXO1, нечувствительный к инсулину, отменял подавление генов глюконеогенеза (Puigserver 2003). Замена S253D в ДНК-связывающем домене имитирует фосфат и может отчасти ослаблять связывание с ДНК (Zhang 2002; Yalley 2016), поэтому в модели связывание ADA — среднее.',
+    mod: s => { s.pfoxo = s.pfoxo.map(() => 0); s.occF = s.occF.map(() => 2); ['nuc', 'occA', 'pol', 'nrna', 'mrna'].forEach(k => s[k] = s[k].map(() => 3)); return s; }},
   foxa: {label: 'Снижение FoxA1/A2 (shRNA)', short: 'мало FoxA',
     why: 'FOXO1 в ядре, но связывается с промотором G6PC слабее: связывание FOXO1 и FoxA здесь взаимозависимо. Меньше РНК-полимеразы II — синтез РНК низкий уже при голодании.',
     st: {foxaP: 'F', occA: 'F', occF: 'F', pol: 'F', nuc: 'M', nrna: 'V', mrna: 'V'}, src: ['Yalley2016'],
@@ -386,7 +390,7 @@ const IV = {
   nocamp: {label: 'Без глюкагона и глюкокортикоида', short: 'нет фона голодания',
     why: 'FOXO1 в ядре и, по допущению модели, связан с промотором, но без cAMP–CREB и глюкокортикоидного входа синтез РНК G6PC низкий: на промоторе собирается меньше активаторов транскрипции.',
     st: {pcreb: 'F', pol: 'V', nrna: 'F', mrna: 'F', occF: 'M', occA: 'M'}, src: ['Nakae2001', 'Herzig2001', 'Matsumoto2007'],
-    note: 'Индукция G6pc глюкокортикоидом и cAMP показана в первичных гепатоцитах мыши (Nakae 2001); роль CREB — Herzig 2001. Сохранение связывания FOXO1 без этих входов не измерялось — допущение модели.',
+    note: 'Индукция G6p дексаметазоном и cAMP подробно охарактеризована в эпителиальных клетках почки; в первичных гепатоцитах мыши доминантно-негативный FOXO1 частично подавлял эту индукцию (Nakae 2001). Роль CREB в печени — Herzig 2001. Сохранение связывания FOXO1 без этих входов не измерялось — допущение модели.',
     mod: s => { s.pcreb = s.pcreb.map(() => 0); s.pol = s.pol.map(() => 1); s.nrna = s.nrna.map(() => 1); s.mrna = s.mrna.map(() => 1); return s; }}
 };
 const VARY = ['pi3k', 'ada', 'foxa', 'ire', 'nocamp'];
@@ -422,7 +426,7 @@ const TASKS = {
     causes: {foxa: 'Мало FoxA1/A2', ire: 'Изменён мотив IRE в промоторе G6PC', nocamp: 'Нет входа глюкагона и глюкокортикоида'},
     check: {foxa: 'Вернуть FoxA (экспрессия, устойчивая к shRNA): связывание FOXO1 и Pol II должно восстановиться (предсказание по Yalley 2016).',
       ire: 'Вернуть исходную последовательность мотива: FOXO1 снова связывается с промотором (предсказание).',
-      nocamp: 'Добавить аналог cAMP и глюкокортикоид: растут pCREB и синтез РНК G6PC при том же распределении FOXO1 (по Nakae 2001).'}}
+      nocamp: 'Добавить аналог cAMP и глюкокортикоид: растут pCREB и синтез РНК G6PC при том же распределении FOXO1 (по Nakae 2001). Оговорка: высокий сигнал ChIP FOXO1 в этом образце — допущение модели, в опыте его нужно измерить.'}}
 };
 /* ---------- связь с картой */
 const CONCEPT_PHASE = {'C1.pi': 2, 'C4.akt': 2, 'C6.foxo': 3, 'C5.access': 4, 'C5.pioneer': 4, 'C5.transcription': 5};
@@ -525,7 +529,7 @@ function signalLayer(s, cond) {
     const inNuc = i < nn; const [x, y] = inNuc ? NUC_SLOTS[i] : CYT_SLOTS[i];
     const atLocus = inNuc && i === 0;
     const vis = atLocus ? (s.occF >= 2 ? 1 : .0) : 1;
-    const ph = i >= 12 - nP || (!inNuc && nP > 0);
+    const ph = !inNuc && nP > 0;  /* фосфат рисуется на цитоплазматической фракции: в ядре удерживается и связывается преимущественно нефосфорилированный FOXO1 */
     const cup = ph && !inNuc;
     fx += `<g class="mol" style="transform:translate(${x}px,${y}px)" opacity="${atLocus && s.occF < 2 ? 0 : 1}">
       ${cup ? `<path d="M-13 3 q13 14 26 0" fill="none" stroke="${C.y1433}" stroke-width="4" stroke-linecap="round"/>` : ''}

@@ -137,6 +137,9 @@ dl.pass dd{margin:0}
 .rroute li{margin:0}
 .tomap{display:none;font:inherit;font-size:13px;font-weight:600;float:right;border:1px solid var(--line);background:var(--surface);color:var(--acc);border-radius:8px;padding:3px 8px;cursor:pointer}
 @media (max-width:980px){.tomap{display:inline-block}}
+.tocell{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;text-decoration:none;border:1.5px solid var(--acc);color:var(--acc);border-radius:8px;padding:4px 10px;margin:2px 0 8px}
+.tocell:hover{background:var(--acc-soft)}
+.cellbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:12px;padding:8px 14px;margin:0 0 12px;font-size:14.5px}
 .ver{font-size:13px;color:var(--muted);margin:22px 0 0}
 .mchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;font-size:13.5px;color:var(--muted);align-items:center}
 .mchip{font:inherit;font-size:13.5px;border:1px solid var(--acc);background:var(--surface);color:var(--acc);border-radius:8px;padding:2px 8px;cursor:pointer}
@@ -280,7 +283,7 @@ input[type=range]{accent-color:var(--u-ui)}
    <section class="task"><h2>Источники исследовательского режима</h2><ol class="srcs" id="labSrc"></ol></section>
   </div>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><marker id="mA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--ink)"/></marker></defs></svg>
-  <p class="ver">Версия 1.3, 23 октября 2026 г.</p>
+  <p class="ver">Версия 1.4, 23 октября 2026 г.</p>
   <footer class="foot">© 2026 Кафедра биологии и генетики, Медицинский университет Петровского. Учебные материалы курса «Молекулярная биология» (5–6 семестры). При использовании ссылка на кафедру обязательна.
 <!--views:start-->
 <div id="gc-views" title="Всего просмотров страниц сайта" aria-label="Всего просмотров страниц сайта" style="display:none;justify-content:flex-end;align-items:center;gap:6px;margin-top:8px">
@@ -319,6 +322,14 @@ const NONDIR = new Set(D.nondir), nd = e => NONDIR.has(e.ty);
 const sym = e => nd(e) ? '↔' : (e.sg === '-' ? '⊣' : '→'), symIn = e => nd(e) ? '↔' : (e.sg === '-' ? '⊢' : '←');
 const tyL = e => e.ty === 'feedback' ? (e.sg === '-' ? 'Отрицательная обратная связь (тормозит)' : 'Положительная обратная связь (поддерживает)') : (D.types[e.ty] || e.ty);
 const narrow = () => matchMedia('(max-width:980px)').matches;
+/* ---------- связь с интерактивной клеткой (cell-1.html, опыт S02): понятие/связь → этап опыта */
+const CELL_C = {'C1.pi': 'Фосфоинозитиды у рецептора инсулина', 'C4.akt': 'Активация AKT инсулином', 'C6.foxo': 'FOXO1 уходит из ядра', 'C5.access': 'Промотор G6PC', 'C5.pioneer': 'FoxA на промоторе G6PC', 'C5.transcription': 'Синтез новой РНК G6PC'};
+const CELL_E = {E062: 1, E029: 1, E042: 1, E032: 1, E043: 1, E035: 1};
+const QP = new URLSearchParams(location.search), FROMCELL = QP.get('from') === 'cell';
+const RET = (QP.get('ret') || '').replace(/[^A-Za-z0-9=&_.%-]/g, '');
+const cellHref = id => `cell-1.html?v=1&scenario=S02&mode=trace&focus=${encodeURIComponent(id)}`;
+const cellBtnC = id => CELL_C[id] ? `<a class="tocell" href="${cellHref(id)}">Посмотреть в клетке: ${esc(CELL_C[id])} →</a>` : '';
+const cellBtnE = id => CELL_E[id] ? `<a class="tocell" href="${cellHref(id)}">Проверить в опыте (клетка) →</a>` : '';
 
 /* ---------- колонки семинаров */
 function renderCols() {
@@ -393,7 +404,8 @@ function drawLinks(vis) {
   svg.innerHTML = out;
   svg.querySelectorAll('path.hit').forEach(p => p.addEventListener('click', () => selectEdge(p.dataset.e, true)));
 }
-function renderRouteDesc() { renderRouteDesc0(); const el = $('#rdesc'); el.hidden = !el.textContent.trim(); }  // пустую плашку не показывать (R59)
+function renderRouteDesc() { renderRouteDesc0(); const el = $('#rdesc');
+  if (S.route === 'foxo' && !S.c) el.insertAdjacentHTML('beforeend', ' <a class="tocell" href="cell-1.html?v=1&scenario=S02&mode=trace">Проследить маршрут в клетке →</a>'); el.hidden = !el.textContent.trim(); }  // пустую плашку не показывать (R59)
 function renderRouteDesc0() {
   const el = $('#rdesc');
   if (S.route && !S.c) { const r = D.routes.find(r => r.id === S.route);
@@ -424,7 +436,7 @@ function selectConcept(id, user) {
   const li = (e, isOut) => { const o = byC[isOut ? e.t : e.s];
     return `<li><button type="button" data-e="${e.id}" aria-pressed="false"><span class="dir">${isOut ? sym(e) : symIn(e)}</span>${esc(o.l)} <span class="muted">(гл. ${o.ch})</span>
       <span class="ty">${badge(e)}${esc(tyL(e))}</span></button></li>`; };
-  p.innerHTML = `${TOMAP}<p class="cap">Понятие · семинар ${c.ch}</p><h3>${esc(c.l)}</h3><p>${esc(c.s)}</p>
+  p.innerHTML = `${TOMAP}<p class="cap">Понятие · семинар ${c.ch}</p>${cellBtnC(c.id)}<h3>${esc(c.l)}</h3><p>${esc(c.s)}</p>
     <p class="cap">Вопросы программы</p><ul class="qlist">${c.q.map(q => { const x = qById[q]; return `<li>${x.n}.${x.k}. <a href="${x.href}">${esc(x.t)}</a></li>`; }).join('')}</ul>
     <p class="cap">Связи (${out.length + inn.length})</p>
     ${out.length + inn.length ? `<ul class="rel">${out.map(e => li(e, true)).join('')}${inn.map(e => li(e, false)).join('')}</ul>` : '<p class="muted">Связей нет.</p>'}`;
@@ -439,7 +451,7 @@ function selectEdge(id, user) {
   S.e = id; const e = byE[id]; const a = byC[e.s], b = byC[e.t];
   $$('.rel button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.e === id)));
   const src = e.src.map(k => { const v = D.ev[k]; return `<li>${esc(v.c)}. <a href="https://doi.org/${esc(v.d)}" rel="noopener">doi:${esc(v.d)}</a>${AUDIT ? ` <span class="o">(${esc(v.o)})</span>` : ''}</li>`; }).join('');
-  let h = `${TOMAP}<p class="cap">Паспорт связи ${e.id}</p><h3>${esc(a.l)} ${sym(e)} ${esc(b.l)}</h3>
+  let h = `${TOMAP}<p class="cap">Паспорт связи ${e.id}</p><h3>${esc(a.l)} ${sym(e)} ${esc(b.l)}</h3>${cellBtnE(e.id)}
    <p>${badge(e)}<span class="muted">${esc(tyL(e))}${e.sg === '-' && e.ty !== 'feedback' ? ' (тормозящее влияние)' : ''} · ${esc(D.statuses[e.st])}</span></p>
    <dl class="pass"><dt>Утверждение</dt><dd>${esc(e.l)}</dd>
    ${e.c ? `<dt>Условия и пределы вывода</dt><dd>${esc(e.c)}</dd>` : ''}
@@ -593,6 +605,17 @@ $('#iReset').onclick = () => { IS.clear(); I2 = null; invOrder = shuffle(INV); i
 $('#aReset').onclick = () => { AS = []; asmOrder = shuffle(ASM); renderAssemble(false); };
 if (AUDIT) { $('#auditbar').hidden = false; $('#aExport').onclick = exportAudit; $('#rejbox').hidden = false; }
 setMode('route');
+/* ---------- открытие по адресу: ?route=…&concept=…&edge=…; возврат к опыту в клетке (?from=cell&ret=…) */
+(function openFromURL() {
+  const r0 = QP.get('route'), c0 = QP.get('concept'), e0 = QP.get('edge');
+  if (r0 && D.routes.some(r => r.id === r0)) { const b = document.querySelector(`#routes button[data-r="${r0}"]`); if (b) b.click(); }
+  if (e0 && byE[e0]) { selectConcept(byE[e0].s, false); selectEdge(e0, false); }
+  else if (c0 && byC[c0]) selectConcept(c0, false);
+  if (FROMCELL) { const bar = document.createElement('div'); bar.className = 'cellbar';
+    bar.innerHTML = `<span>Вы пришли из опыта в интерактивной клетке.</span><a class="btn" href="cell-1.html?${esc(RET || 'v=1&scenario=S02')}">← Вернуться к опыту</a>`;
+    const cr = document.querySelector('.crumb'); cr.parentNode.insertBefore(bar, cr.nextSibling); }
+  if ((c0 || e0) && narrow()) { const tgt = e0 ? $('#epanel') : $('#cpanel'); if (tgt) setTimeout(() => tgt.scrollIntoView({block: 'start'}), 300); }
+})();
 let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(paint, 120); });
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(paint);
 </script>

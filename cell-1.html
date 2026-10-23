@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="Кафедра биологии и генетики · Медицинский университет Петровского · курс «Молекулярная биология», 5–6 семестры">
+<title>Интерактивная клетка · Раздел I · Молекулярная биология · Кафедра биологии и генетики, Медицинский университет Петровского</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
+<style>
+
+:root{--bg:#EDF0F4;--surface:#FFFFFF;--surface-2:#F6F8FA;--ink:#15202B;--muted:#5A6676;--line:#D3DAE3;--mtor:#0D6E73;--mtor-soft:#D3ECEC;--warn:#B3261E;--p-ink:#1A1E23;--on:#DC930F;--on-line:#B06E05;
+--f-display:"Unbounded","Golos Text",system-ui,sans-serif;--f-body:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0D1217;--surface:#151C23;--surface-2:#1A222B;--ink:#E4E9EF;--muted:#97A3B0;--line:#29333E;--mtor:#33B6BB;--mtor-soft:#123A3C;--warn:#FF8A80;--on:#EFB13A;--on-line:#EFB13A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0D1217;--surface:#151C23;--surface-2:#1A222B;--ink:#E4E9EF;--muted:#97A3B0;--line:#29333E;--mtor:#33B6BB;--mtor-soft:#123A3C;--warn:#FF8A80;--on:#EFB13A;--on-line:#EFB13A;color-scheme:dark}
+/* акцент: при фирменном стиле берётся синий университета (--u-ui), без него — классический */
+:root{--acc:var(--u-ui,var(--mtor));--acc-soft:var(--u-soft,var(--mtor-soft));--acc-2:var(--u-red,var(--mtor));--iv:#C2410C;--iv-soft:#FDE7DA}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--iv:#FB923C;--iv-soft:#3A2414}}
+:root[data-theme="dark"]{--iv:#FB923C;--iv-soft:#3A2414}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+.app>*{min-width:0}
+html,body{background:var(--bg);color:var(--ink)}
+body{margin:0;font-family:var(--f-body);font-size:15px;line-height:1.42;-webkit-text-size-adjust:100%}
+a{color:var(--acc)}
+a:focus-visible,button:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--on-line);outline-offset:2px;border-radius:4px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.btn{font:inherit;font-weight:600;font-size:14px;border-radius:9px;padding:6px 11px;cursor:pointer;border:1.5px solid var(--acc);background:var(--acc);color:var(--u-on-ui,var(--surface));text-decoration:none;display:inline-flex;align-items:center;gap:6px;line-height:1.2}
+.btn.ghost{background:transparent;color:var(--acc)}
+.btn.sm{font-size:13px;padding:4px 9px;border-radius:8px}
+.btn:disabled{opacity:.45;cursor:default}
+
+/* ---------- каркас: шапка / сцена+панель / шкала времени */
+.app{max-width:1440px;margin:0 auto;padding:6px 16px 10px;display:grid;grid-template-columns:minmax(0,1fr) 330px;grid-template-rows:auto minmax(0,1fr) auto;grid-template-areas:"top top" "stage side" "time side";gap:8px 14px;height:100vh;min-height:640px}
+.top{grid-area:top;display:flex;flex-direction:column;gap:4px}
+.affil{margin:0;padding:0 0 3px;border-bottom:2px solid var(--mtor);color:var(--mtor);font-size:12.5px;font-weight:600}
+.titlebar{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px}
+.crumb{font-size:13.5px;font-weight:600;text-decoration:none;white-space:nowrap}
+h1{font-family:var(--f-display);font-weight:600;font-size:17px;margin:0;line-height:1.2;color:var(--u-ui-2,var(--ink))}
+.ctx{font-size:12.5px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 9px;background:var(--surface)}
+.grow{flex:1}
+.tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:3px}
+.tab{font:inherit;font-size:13.5px;font-weight:600;border:0;background:transparent;color:var(--muted);border-radius:7px;padding:5px 10px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--acc);color:var(--u-on-ui,#fff)}
+.links{display:flex;gap:6px}
+
+.stage{grid-area:stage;display:flex;gap:10px;min-height:0}
+.canvas{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:12px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.canvas svg{width:100%;height:100%;display:block}
+.locus{width:288px;flex:none;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.locus svg{width:100%;height:100%;display:block}
+.stagehint{position:absolute;left:10px;top:8px;font-size:12.5px;color:#334;background:rgba(255,255,255,.88);border-radius:6px;padding:2px 7px;pointer-events:none}
+.legend{font-size:12px;color:#334;border-top:1px solid #DDE3EA;padding:6px 10px;display:flex;flex-wrap:wrap;gap:4px 12px;background:#fff}
+.legend span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.legend svg{width:30px;height:12px}
+
+/* ---------- боковая панель */
+.side{grid-area:side;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;overflow:auto;min-height:0}
+.side h2{font-size:16.5px;line-height:1.25;margin:2px 0 6px}
+.cap{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:10px 0 3px}
+.side p{margin:0 0 6px}
+.qa{margin:0;padding:0;list-style:none}
+.qa li{margin:0 0 7px}
+.qa b{display:block;font-size:12.5px;color:var(--acc);font-weight:700}
+.st{display:inline-block;font-size:11.5px;font-weight:700;border-radius:5px;padding:0 5px;margin-right:4px;border:1px solid currentColor;vertical-align:1px}
+.st.F{color:#0B6B3A}.st.V{color:#8A5A00}.st.M{color:#9A2C8E}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .st.F{color:#5BD08F}:root:not([data-theme="light"]) .st.V{color:#F2C14E}:root:not([data-theme="light"]) .st.M{color:#E69ADF}}
+.time{font-size:12.5px;color:var(--muted)}
+.go{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 2px}
+.src{font-size:12.5px;color:var(--muted);margin:4px 0 0;padding-left:16px}
+.src li{margin:0 0 3px}
+.why{font-size:13.5px;background:var(--surface-2);border-left:3px solid var(--acc-2);border-radius:6px;padding:6px 9px;margin:6px 0}
+.diff{font-size:13.5px;margin:4px 0 0;padding-left:16px}
+.diff li{margin:0 0 3px}
+.ivlist{display:flex;flex-direction:column;gap:5px;margin:4px 0 6px}
+.ivlist label{display:flex;gap:7px;align-items:flex-start;font-size:13.5px;border:1px solid var(--line);border-radius:8px;padding:5px 8px;cursor:pointer;background:var(--surface)}
+.ivlist label:has(input:checked){border-color:var(--iv);background:var(--iv-soft)}
+.ivlist input{margin-top:3px;accent-color:var(--iv)}
+.muted{color:var(--muted)}
+details.more{margin:8px 0 0;font-size:13.5px}
+details.more summary{cursor:pointer;font-weight:600;color:var(--acc)}
+
+/* ---------- найти причину */
+.obs{background:var(--iv-soft);border:1px solid var(--iv);border-radius:9px;padding:7px 10px;font-size:14px;margin:4px 0 8px}
+.meth{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:4px 0}
+.meth button{font:inherit;font-size:12.5px;text-align:left;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:5px 7px;cursor:pointer;line-height:1.25}
+.meth button[aria-pressed="true"]{border-color:var(--acc);background:var(--acc-soft)}
+.res{margin:6px 0;border:1px solid var(--line);border-radius:9px;padding:6px 8px;background:var(--surface-2)}
+.res h3{font-size:13px;margin:0 0 3px}
+.res svg{width:100%;height:auto;display:block;background:#fff;border-radius:6px}
+.res p{font-size:12.5px;margin:4px 0 0;color:var(--muted)}
+.hyp{display:flex;flex-direction:column;gap:5px;margin:4px 0}
+.hyp button{font:inherit;font-size:13.5px;text-align:left;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 8px;cursor:pointer}
+.hyp button.ok{border-color:#0B6B3A;background:#E3F4EA;color:#0B3B22}
+.hyp button.no{border-color:var(--warn);background:#FBE7E6;color:#5A1410}
+.verdict{font-size:14px;border-radius:8px;padding:7px 9px;margin:6px 0;background:var(--surface-2);border-left:4px solid var(--acc)}
+.mscheme{background:#fff;border:1px solid var(--line);border-radius:8px;padding:4px;margin:4px 0}
+.mscheme svg{width:100%;height:auto;display:block}
+
+/* ---------- шкала времени */
+.timebar{grid-area:time;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px 10px 6px}
+.trow{display:flex;align-items:center;gap:8px}
+.ctrls{display:flex;gap:4px;flex:none}
+.ctrls button{font:inherit;width:32px;height:30px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:15px;line-height:1}
+.ctrls button[aria-pressed="true"]{background:var(--acc);color:var(--u-on-ui,#fff);border-color:var(--acc)}
+.phases{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:3px;flex:1;min-width:0}
+.ph{font:inherit;font-size:12px;line-height:1.15;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:7px;padding:3px 4px;cursor:pointer;text-align:left;min-height:34px;overflow:hidden}
+.ph .n{display:block;font-size:10.5px;color:var(--muted);font-weight:700}
+.ph[aria-current="step"]{background:var(--acc);border-color:var(--acc);color:var(--u-on-ui,#fff)}
+.ph[aria-current="step"] .n{color:inherit;opacity:.85}
+.ph.sig{box-shadow:inset 0 -3px 0 var(--acc-2)}
+.tracks{display:grid;grid-template-columns:150px minmax(0,1fr);gap:1px 8px;margin-top:5px;align-items:center}
+.tracks select{font:inherit;font-size:12.5px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);padding:1px 3px;width:100%}
+.tracks svg{width:100%;height:24px;display:block}
+.tkey{display:flex;gap:12px;font-size:12px;color:var(--muted);margin-top:3px;flex-wrap:wrap}
+.tkey i{display:inline-block;width:18px;height:0;border-top:2.5px solid var(--acc);vertical-align:middle;margin-right:4px}
+.tkey i.d{border-top:2.5px dashed var(--iv)}
+
+/* ---------- сцена: интерактивные объекты */
+.hot{cursor:pointer}
+.hot:focus-visible{outline:none}
+.hot:focus-visible .hl,.hot:hover .hl{stroke:#E6A100;stroke-width:3}
+.mol{transition:transform .9s cubic-bezier(.4,0,.2,1),opacity .6s}
+.fade{transition:opacity .6s}
+@media (prefers-reduced-motion: reduce){.mol,.fade{transition:none}}
+
+.below{max-width:1440px;margin:0 auto;padding:0 16px 24px}
+.below .foot{margin-top:6px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.ver{font-size:12.5px;color:var(--muted);margin:8px 0 0}
+.about{font-size:14px;color:var(--muted);max-width:90ch}
+.about h2{font-size:16px;color:var(--ink);margin:14px 0 4px}
+
+/* ---------- узкие экраны */
+@media (max-width:1100px){
+ .app{height:auto;min-height:0;grid-template-columns:minmax(0,1fr);grid-template-areas:"top" "stage" "time" "side"}
+ .stage{flex-direction:column}
+ .canvas{aspect-ratio:860/560}
+ .locus{width:100%}
+ #locus{aspect-ratio:330/300}
+ .side{overflow:visible}
+}
+@media (max-width:640px){
+ .app{padding:6px 10px 10px}
+ h1{font-size:16.5px}
+ .phases{display:flex;overflow-x:auto;scroll-snap-type:x mandatory}
+ .ph{flex:0 0 96px;scroll-snap-align:start}
+ .tracks{grid-template-columns:110px minmax(0,1fr)}
+ .canvas{flex-direction:column;aspect-ratio:auto}
+ .canvas svg{aspect-ratio:860/560;height:auto}
+ .stagehint{font-size:11.5px}
+ .meth{grid-template-columns:1fr}
+}
+</style>
+<!--brand-univ:start-->
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<style id="brand-univ">
+:root{--u-blue:#0090D0;--u-red:#E62E29;--u-ui:#006CA3;--u-ui-2:#00507A;--u-soft:#E2F0F8;--u-on-ui:#FFFFFF;--u-bg:#EEF2F6}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--u-blue:#3DB0E6;--u-red:#FF5A52;--u-ui:#3DB0E6;--u-ui-2:#7CCAF0;--u-soft:#0E2B3B;--u-on-ui:#0D1217;--u-bg:#0D1217}}
+:root[data-theme="dark"]{--u-blue:#3DB0E6;--u-red:#FF5A52;--u-ui:#3DB0E6;--u-ui-2:#7CCAF0;--u-soft:#0E2B3B;--u-on-ui:#0D1217;--u-bg:#0D1217}
+html,body{background:var(--u-bg)}
+.affil{display:flex;align-items:center;gap:10px}
+.affil::before{content:"";flex:none;width:30px;height:30px;background:url(data:image/png;base64,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) center/contain no-repeat}
+.affil{color:var(--u-ui);border-bottom:3px solid var(--u-red)}
+h1{color:var(--u-ui-2)}
+.tab[aria-selected="true"]{background:var(--u-ui);border-color:var(--u-ui);color:var(--u-on-ui)}
+.btn{background:var(--u-ui);border-color:var(--u-ui);color:var(--u-on-ui)}
+.btn.ghost{background:transparent;color:var(--u-ui)}
+.btn.warn{border-color:var(--on);background:var(--on);color:var(--p-ink)}
+.switch input:checked{background:var(--u-ui)}
+.seg button[aria-pressed="true"]{background:var(--u-ui-2);color:var(--u-on-ui)}
+input[type=range]{accent-color:var(--u-ui)}
+.meter i{background:var(--u-blue)}
+.cap{border-left-color:var(--u-red)}
+.take{border-color:var(--u-ui);background:var(--u-soft)}
+.take b{color:var(--u-ui)}
+.foot{border-top:2px solid var(--u-red)}
+</style>
+<!--brand-univ:end-->
+<style>.affil::before{width:20px!important;height:20px!important}.affil{border-bottom-width:2px!important}h1{color:var(--u-ui-2,var(--ink))}</style>
+</head>
+<body>
+<div class="app">
+ <header class="top">
+  <p class="affil">Кафедра биологии и генетики · Медицинский университет Петровского · курс «Молекулярная биология», 5–6 семестры</p>
+  <div class="titlebar">
+   <a class="crumb" href="section-1.html">← Раздел I</a>
+   <h1>Клетка: от инсулина до гена G6PC</h1>
+   <span class="ctx" title="Сквозная клетка курса — гепатоцит; данные из других клеточных систем подписаны в источниках">гепатоцит</span>
+   <span class="grow"></span>
+   <div class="tabs" role="tablist" aria-label="Режим работы">
+    <button type="button" class="tab" role="tab" data-mode="trace">Проследить</button>
+    <button type="button" class="tab" role="tab" data-mode="vary">Изменить условия</button>
+    <button type="button" class="tab" role="tab" data-mode="find">Найти причину</button>
+   </div>
+   <div class="links"><a class="btn ghost sm" href="map-1.html?route=foxo">Системная карта</a><button type="button" class="btn ghost sm" id="bLink">Ссылка на опыт</button></div>
+  </div>
+ </header>
+ <main class="stage" aria-label="Клетка и промотор гена-мишени">
+  <div class="canvas"><div id="cell" style="width:100%;height:100%"></div><span class="stagehint" id="hint"></span>
+  </div>
+  <div class="locus"><div id="locus" style="flex:1;min-height:0"></div>
+   <div class="legend" aria-label="Условные обозначения">
+    <span><svg viewBox="0 0 30 12"><path d="M2 6h22" stroke="#1D4ED8" stroke-width="2"/><path d="M22 2l6 4l-6 4z" fill="#1D4ED8"/><circle cx="12" cy="6" r="4" fill="#E11D48"/></svg>фосфорилирование (катализ)</span>
+    <span><svg viewBox="0 0 30 12"><path d="M2 6h22" stroke="#7C3AED" stroke-width="2" stroke-dasharray="3 3"/><path d="M22 2l6 4l-6 4z" fill="#7C3AED"/></svg>перемещение молекулы</span>
+    <span><svg viewBox="0 0 30 12"><ellipse cx="15" cy="6" rx="9" ry="5" fill="#7C3AED"/></svg>FOXO1</span>
+    <span><svg viewBox="0 0 30 12"><path d="M5 3q10 10 20 0" fill="none" stroke="#CA8A04" stroke-width="3"/></svg>14-3-3</span>
+    <span><svg viewBox="0 0 30 12"><circle cx="15" cy="6" r="5" fill="#E11D48"/></svg>фосфат</span>
+    <span><svg viewBox="0 0 30 12"><path d="M3 8q4-6 8 0t8 0t8 0" fill="none" stroke="#DC2626" stroke-width="2"/></svg>РНК G6PC</span>
+   </div>
+  </div>
+ </main>
+ <aside class="side" id="side" aria-live="polite"></aside>
+ <section class="timebar" aria-label="Шкала этапов опыта">
+  <div class="trow">
+   <div class="ctrls"><button type="button" id="bReset" aria-label="К началу опыта" title="К началу опыта">⟲</button><button type="button" id="bPrev" aria-label="Предыдущий этап">◀</button><button type="button" id="bPlay" aria-label="Воспроизвести этапы">▶</button><button type="button" id="bNext" aria-label="Следующий этап">▶▶</button></div>
+   <div class="phases" id="phases"></div>
+  </div>
+  <div class="tracks" id="tracks"></div>
+  <div class="tkey" id="tkey"><span><i></i>контроль</span><span id="kIv"><i class="d"></i><span id="kIvT"></span></span><span>красная полоса под этапом — инсулин присутствует</span><span>шкала качественная: нет · низкий · средний · высокий</span></div>
+ </section>
+</div>
+<div class="below">
+ <div class="about">
+  <h2>Как устроен опыт</h2>
+  <p>Опыт показывает одну и ту же клетку печени — гепатоцит — в трёх режимах. «Проследить»: путь сигнала инсулина от рецептора до промотора гена G6PC по этапам. «Изменить условия»: одно вмешательство в сравнении с контролем. «Найти причину»: состояние образца скрыто, причину ищут по результатам выбранных измерений.</p>
+  <p>Уровни величин качественные; числа приведены только там, где они взяты из первоисточника. У каждого состояния модели есть статус: <span class="st F">Ф</span> измерено в указанной системе, <span class="st V">В</span> вывод из измеренного, <span class="st M">М</span> допущение учебной модели. Часть данных получена в клетках гепатомы HepG2 и перенесена на гепатоцит как допущение.</p>
+  <p>Следующие опыты раздела I готовятся: длительность сигнала ERK, кальций и NFAT, локальный cAMP, доставка и полярность, сеть AKT–mTORC1–AMPK, выбор локуса, память ответа.</p>
+ </div>
+ <p class="ver">Версия 0.1 (черновик для проверки), 23 октября 2026 г.</p>
+ <footer class="foot">© 2026 Кафедра биологии и генетики, Медицинский университет Петровского. Учебные материалы курса «Молекулярная биология» (5–6 семестры). При использовании ссылка на кафедру обязательна.
+<!--views:start-->
+<div id="gc-views" title="Всего просмотров страниц сайта" aria-label="Всего просмотров страниц сайта" style="display:none;justify-content:flex-end;align-items:center;gap:6px;margin-top:8px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+<span id="gc-views-n"></span>
+</div>
+<script>
+(function(){
+  var box=document.getElementById('gc-views'),n=document.getElementById('gc-views-n');
+  if(!box||!n||!window.fetch)return;
+  fetch('https://molbio.goatcounter.com/counter/TOTAL.json')
+    .then(function(r){return r.ok?r.json():Promise.reject();})
+    .then(function(d){if(d&&d.count){n.textContent=d.count;box.style.display='flex';}})
+    .catch(function(){});
+})();
+</script>
+<!--views:end-->
+</footer>
+</div>
+
+<script>
+/* Данные сценария S02 (гепатоцит, инсулин → AKT → FOXO1 → промотор G6PC). Научный паспорт: science/S02_passport.md.
+   Уровни 0–3 — качественная шкала («нет/следы», «низкий», «средний», «высокий»), а не концентрации. */
+const LV = ['нет или следы', 'низкий', 'средний', 'высокий'];
+const SRC = {
+  Burchfield2025: ['Burchfield J. G., Diaz-Vegas A., James D. E. 2025. The insulin signalling network. Nat Metab', '10.1038/s42255-025-01349-z'],
+  Rena1999: ['Rena G. и др. 1999. Phosphorylation of the transcription factor forkhead family member FKHR by protein kinase B. J Biol Chem', '10.1074/jbc.274.24.17179'],
+  Biggs1999: ['Biggs W. H. и др. 1999. Protein kinase B/Akt-mediated phosphorylation promotes nuclear exclusion of the winged helix transcription factor FKHR1. PNAS', '10.1073/pnas.96.13.7421'],
+  Zhang2002: ['Zhang X. и др. 2002. Phosphorylation of serine 256 suppresses transactivation by FKHR (FOXO1) by multiple mechanisms. J Biol Chem', '10.1074/jbc.M208063200'],
+  Zhao2004: ['Zhao X. и др. 2004. Multiple elements regulate nuclear/cytoplasmic shuttling of FOXO1. Biochem J', '10.1042/BJ20031450'],
+  Yalley2016: ['Yalley A. и др. 2016. Loss of interdependent binding by the FoxO1 and FoxA1/A2 forkhead transcription factors… at insulin-sensitive genes. J Biol Chem', '10.1074/jbc.M115.677583'],
+  Nakae2001: ['Nakae J. и др. 2001. The forkhead transcription factor Foxo1 (Fkhr) confers insulin sensitivity onto glucose-6-phosphatase expression. J Clin Invest', '10.1172/JCI12876'],
+  Puigserver2003: ['Puigserver P. и др. 2003. Insulin-regulated hepatic gluconeogenesis through FOXO1–PGC-1α interaction. Nature', '10.1038/nature01667'],
+  Matsumoto2007: ['Matsumoto M. и др. 2007. Impaired regulation of hepatic glucose production in mice lacking the forkhead transcription factor Foxo1 in liver. Cell Metab', '10.1016/j.cmet.2007.08.006'],
+  Herzig2001: ['Herzig S. и др. 2001. CREB regulates hepatic gluconeogenesis through the coactivator PGC-1. Nature', '10.1038/35093131'],
+  RodriguezColman2024: ['Rodriguez-Colman M. J., Dansen T. B., Burgering B. M. T. 2024. FOXO transcription factors as mediators of stress adaptation. Nat Rev Mol Cell Biol', '10.1038/s41580-023-00649-0'],
+  Treyer2013: ['Treyer A., Müsch A. 2013. Hepatocyte polarity. Compr Physiol', '10.1002/cphy.c120009'],
+  Hall2000: ['Hall R. K. и др. 2000. Regulation of phosphoenolpyruvate carboxykinase and insulin-like growth factor-binding protein-1 gene expression by insulin. The role of winged helix/forkhead proteins. J Biol Chem', '10.1074/jbc.M004898200']
+};
+const STL = {F: ['Ф', 'Измерено в указанной системе'], V: ['В', 'Вывод из измеренного'], M: ['М', 'Допущение учебной модели']};
+
+/* ---------- этапы опыта */
+const PH = [
+ {id: 'P0', short: 'Исходно: голодание', sig: 0, time: 'до инсулина',
+  title: 'Голодание: FOXO1 в ядре, ген G6PC транскрибируется',
+  what: 'FOXO1 находится преимущественно в ядре и вместе с FoxA1/A2 связан с промотором G6PC; идёт синтез РНК G6PC.',
+  how: 'Глюкагон (через cAMP и CREB) и глюкокортикоиды поддерживают транскрипцию генов глюконеогенеза. AKT неактивна, поэтому экспорт FOXO1 из ядра слабый.',
+  next: 'Связывание FOXO1 с промотором — одно из условий синтеза РНК G6PC, но не единственное.',
+  exp: 'Иммунофлуоресценция FOXO1; ChIP FOXO1 и FoxA на промоторе; метка новосинтезированной РНК.',
+  st: 'F', src: ['Matsumoto2007', 'Yalley2016', 'Herzig2001', 'Treyer2013'],
+  concepts: ['C6.foxo', 'C5.transcription'], edges: ['E043'], route: ['seminar-6-route.html#ns-foxo-binding', 'Семинар 6 · от локализации к синтезу РНК'], sem: ['seminar-6.html#q3', 'Семинар 6, вопрос 6.3']},
+ {id: 'P1', short: 'Инсулин у рецептора', sig: 1, time: 'секунды',
+  title: 'Инсулин связывается с рецептором',
+  what: 'Инсулин из крови синусоида связывается с рецептором на синусоидальной поверхности гепатоцита; киназные домены рецептора фосфорилируют друг друга по тирозинам.',
+  how: 'Связывание меняет конформацию рецептора-тирозинкиназы; автофосфорилирование достигает максимума за секунды.',
+  next: 'Фосфотирозины рецептора привлекают адаптеры IRS1 и IRS2.',
+  exp: 'Фосфоспецифический блот рецептора и IRS.',
+  st: 'F', src: ['Burchfield2025', 'Treyer2013'],
+  concepts: ['C4.akt'], edges: [], route: ['seminar-4-route.html#ns-insulin-akt', 'Семинар 4 · как инсулин активирует AKT'], sem: ['seminar-4.html#q4', 'Семинар 4, вопрос 4.4']},
+ {id: 'P2', short: 'PIP₃ и активная AKT', sig: 1, time: '≈1 мин (T309) · ≈3 мин (S474)',
+  title: 'PI3K образует PIP₃, AKT активируется',
+  what: 'В плазматической мембране появляется PIP₃; AKT, PDK1 и mTORC2 собираются у мембраны, AKT фосфорилирована по T309 и S474 (номера для AKT2 — основной изоформы в печени).',
+  how: 'PI3K, связанная с IRS, фосфорилирует PI(4,5)P₂ до PIP₃. PH-домен AKT связывает PIP₃; PDK1 фосфорилирует T309, mTORC2 — S474.',
+  next: 'Активная AKT фосфорилирует свои субстраты, в том числе FOXO1.',
+  exp: 'Блот pAKT (S474, T309) и фосфорилирование субстрата AKT; сенсор PIP₃.',
+  st: 'F', src: ['Burchfield2025'],
+  concepts: ['C1.pi', 'C4.akt'], edges: ['E062'], route: ['seminar-4-route.html#ns-insulin-akt', 'Семинар 4 · как инсулин активирует AKT'], sem: ['seminar-1.html#q3', 'Семинар 1, вопрос 1.3']},
+ {id: 'P3', short: 'pFOXO1 уходит в цитоплазму', sig: 1, time: 'этап (без числа)',
+  title: 'FOXO1 фосфорилирован, его доля в ядре уменьшается',
+  what: 'FOXO1 фосфорилирован по трём остаткам (у человека T24, S256, S319) и связан с белками 14-3-3; его доля в ядре уменьшается, но не до нуля.',
+  how: 'Фосфат на S256 в ДНК-связывающем домене ослабляет связывание с ДНК; 14-3-3 и сигнал экспорта ускоряют CRM1-зависимый выход FOXO1 из ядра и ослабляют возвращение.',
+  next: 'На промоторе G6PC остаётся меньше FOXO1.',
+  exp: 'Иммунофлуоресценция FOXO1; фосфоспецифический блот pFOXO1 (T24, S256).',
+  st: 'F', src: ['Rena1999', 'Biggs1999', 'Zhang2002', 'Zhao2004', 'RodriguezColman2024'],
+  concepts: ['C4.akt', 'C6.foxo'], edges: ['E029'], route: ['seminar-6-route.html#ns-foxo-transport', 'Семинар 6 · фосфорилирование и распределение FOXO1'], sem: ['seminar-6.html#q3', 'Семинар 6, вопрос 6.3']},
+ {id: 'P4', short: 'Промотор: меньше FOXO1 и FoxA', sig: 1, time: 'этап (без числа)',
+  title: 'На промоторе G6PC меньше FOXO1, FoxA и РНК-полимеразы II',
+  what: 'На промоторе меньше FOXO1; вместе с ним уходят FoxA1/A2 и РНК-полимераза II, ацетилирование H3K27 снижается.',
+  how: 'FOXO1 и FoxA1/A2 связываются с этим промотором взаимозависимо: снижение одного уменьшает связывание другого (клетки гепатомы HepG2, снижение FOXO1 через shRNA). Для действия инсулина это вывод по аналогии.',
+  next: 'Реже начинается транскрипция G6PC.',
+  exp: 'ChIP FOXO1, FoxA, РНК-полимеразы II и H3K27ac на промоторе G6PC.',
+  st: 'V', src: ['Yalley2016'],
+  concepts: ['C5.access', 'C5.pioneer', 'C6.foxo'], edges: ['E042', 'E032'], route: ['seminar-6-route.html#ns-foxo-binding', 'Семинар 6 · от локализации к синтезу РНК'], sem: ['seminar-5.html#q1', 'Семинар 5, вопрос 5.1']},
+ {id: 'P5', short: 'Меньше новой РНК', sig: 1, time: 'этап (без числа)',
+  title: 'Синтез новой РНК G6PC снижен',
+  what: 'Новых транскриптов G6PC образуется меньше; суммарное количество мРНК пока почти не изменилось.',
+  how: 'Скорость синтеза падает вслед за уходом факторов с промотора, а уже синтезированная мРНК исчезает только по мере распада.',
+  next: 'Позже уменьшается количество мРНК, а затем фермента.',
+  exp: 'Метка новосинтезированной РНК (4sU или EU) за заданное окно в сравнении с ОТ-ПЦР суммарной мРНК.',
+  st: 'F', src: ['Nakae2001', 'Puigserver2003', 'Matsumoto2007'],
+  concepts: ['C5.transcription'], edges: ['E043', 'E035'], route: ['seminar-6-route.html#ns-foxo-measure', 'Семинар 6 · как проверить звено регуляции FOXO'], sem: ['seminar-6.html#q3', 'Семинар 6, вопрос 6.3']},
+ {id: 'P6', short: 'Меньше мРНК', sig: 1, time: 'позже (зависит от распада мРНК)',
+  title: 'Суммарная мРНК G6PC снижается',
+  what: 'Количество мРНК G6PC уменьшается.',
+  how: 'При сниженном синтезе мРНК продолжает распадаться; скорость снижения определяется временем полужизни мРНК — в модели оно не задано.',
+  next: 'Меньше синтезируется глюкозо-6-фосфатазы.',
+  exp: 'ОТ-ПЦР суммарной мРНК в нескольких временных точках.',
+  st: 'V', src: ['Nakae2001'],
+  concepts: ['C5.transcription'], edges: ['E043'], route: ['seminar-6-route.html#ns-foxo-measure', 'Семинар 6 · как проверить звено регуляции FOXO'], sem: ['seminar-6.html#q3', 'Семинар 6, вопрос 6.3']},
+ {id: 'P7', short: 'Инсулин удалён', sig: 0, time: 'этап (без числа)',
+  title: 'Инсулин удалён: AKT выключается',
+  what: 'Фосфорилирование AKT и FOXO1 снижается.',
+  how: 'Тирозинфосфатазы (например PTP1B) дефосфорилируют рецептор и IRS, PTEN удаляет 3-фосфат PIP₃, протеинфосфатазы PP2A и PHLPP дефосфорилируют AKT.',
+  next: 'FOXO1 перестаёт фосфорилироваться по участкам AKT.',
+  exp: 'Блот pAKT и pFOXO1 в нескольких точках после отмывки инсулина.',
+  st: 'F', src: ['Burchfield2025'],
+  concepts: ['C4.akt'], edges: ['E062'], route: ['seminar-4-route.html#ns-insulin-akt', 'Семинар 4 · как инсулин активирует AKT'], sem: ['seminar-4.html#q1', 'Семинар 4, вопрос 4.1']},
+ {id: 'P8', short: 'FOXO1 вернулся', sig: 0, time: 'этап (без числа)',
+  title: 'FOXO1 возвращается в ядро, синтез РНК восстанавливается',
+  what: 'Доля FOXO1 в ядре растёт, FOXO1 и FoxA снова на промоторе, синтез РНК G6PC восстанавливается; мРНК постепенно накапливается.',
+  how: 'Без фосфорилирования по участкам AKT экспорт ослабевает; ядерное накопление может быть простым следствием прекращения экспорта.',
+  next: 'Ответ обратим: в этой модели после снятия сигнала не остаётся изменённого состояния — памяти нет.',
+  exp: 'Иммунофлуоресценция FOXO1 и новосинтезированная РНК после отмывки.',
+  st: 'V', src: ['RodriguezColman2024'],
+  concepts: ['C6.foxo'], edges: ['E029'], route: ['seminar-6-route.html#ns-foxo-transport', 'Семинар 6 · фосфорилирование и распределение FOXO1'], sem: ['seminar-6.html#q4', 'Семинар 6, вопрос 6.4']}
+];
+
+/* ---------- переменные модели */
+const VARS = {
+  ins: 'Инсулин у рецептора', pip3: 'PIP₃ в мембране', akt: 'pAKT (S474)', pfoxo: 'pFOXO1 (T24)', nuc: 'FOXO1 в ядре',
+  occF: 'FOXO1 на промоторе', occA: 'FoxA на промоторе', pol: 'Pol II на промоторе', nrna: 'Новая РНК G6PC', mrna: 'Суммарная мРНК G6PC',
+  foxaP: 'Белок FoxA2 (общий)', pcreb: 'pCREB (S133)'
+};
+const TRACKVARS = ['akt', 'pfoxo', 'nuc', 'occF', 'occA', 'pol', 'nrna', 'mrna'];
+const CTL = {
+  ins:  [0,1,1,1,1,1,1,0,0], pip3: [0,1,3,3,3,3,3,0,0], akt: [0,0,3,3,3,3,3,1,0], pfoxo: [0,0,0,3,3,3,3,1,0],
+  nuc:  [3,3,3,1,1,1,1,2,3], occF: [3,3,3,2,1,1,1,1,3], occA: [3,3,3,3,1,1,1,1,3], pol: [3,3,3,3,1,1,1,1,3],
+  nrna: [3,3,3,3,2,1,1,1,3], mrna: [3,3,3,3,3,3,1,1,2], foxaP: [3,3,3,3,3,3,3,3,3], pcreb: [3,3,3,3,3,3,3,3,3]
+};
+/* вмешательства: функция изменяет копию контроля; st — статус каждой изменённой величины */
+const IV = {
+  ctl: {label: 'Контроль', short: 'контроль', st: {occF: 'V', occA: 'V', pol: 'V', mrna: 'V'}, mod: s => s},
+  pi3k: {label: 'Ингибитор PI3K (вортманнин)', short: 'ингибитор PI3K',
+    why: 'PI3K не образует PIP₃, поэтому AKT не активируется и FOXO1 не фосфорилируется по её участкам. FOXO1 остаётся в ядре, и инсулин не подавляет синтез РНК G6PC, хотя рецептор активирован.',
+    st: {pip3: 'F', akt: 'F', pfoxo: 'F', nuc: 'V', occF: 'V', occA: 'V', pol: 'V', nrna: 'V', mrna: 'V'}, src: ['Rena1999', 'Burchfield2025'],
+    note: 'Отмена фосфорилирования FOXO1 вортманнином показана в клетках 293 (Rena 1999); для промотора G6PC это вывод.',
+    mod: s => { s.pip3 = s.pip3.map(() => 0); s.akt = s.akt.map(() => 0); s.pfoxo = s.pfoxo.map(() => 0);
+      ['nuc', 'occF', 'occA', 'pol', 'nrna', 'mrna'].forEach(k => s[k] = s[k].map(() => 3)); return s; }},
+  ada: {label: 'FOXO1 без участков AKT (мутант ADA)', short: 'FOXO1-ADA',
+    why: 'AKT активируется как в контроле, но не может фосфорилировать FOXO1 по заменённым остаткам. Мутантный FOXO1 не выводится из ядра в ответ на инсулин и продолжает активировать мишень.',
+    st: {pfoxo: 'F', nuc: 'F', occF: 'V', occA: 'V', pol: 'V', nrna: 'F', mrna: 'F'}, src: ['Nakae2001', 'Puigserver2003', 'Biggs1999'],
+    note: 'Мутант ADA: T24A, S253D, S316A (номера мыши); фосфомиметическая замена имитирует фосфат лишь отчасти. В гепатоцитах мутант, нечувствительный к инсулину, отменял подавление генов глюконеогенеза (Puigserver 2003).',
+    mod: s => { s.pfoxo = s.pfoxo.map(() => 0); ['nuc', 'occF', 'occA', 'pol', 'nrna', 'mrna'].forEach(k => s[k] = s[k].map(() => 3)); return s; }},
+  foxa: {label: 'Снижение FoxA1/A2 (shRNA)', short: 'мало FoxA',
+    why: 'FOXO1 в ядре, но связывается с промотором G6PC слабее: связывание FOXO1 и FoxA здесь взаимозависимо. Меньше РНК-полимеразы II — синтез РНК низкий уже при голодании.',
+    st: {foxaP: 'F', occA: 'F', occF: 'F', pol: 'F', nuc: 'M', nrna: 'V', mrna: 'V'}, src: ['Yalley2016'],
+    note: 'Снижение связывания FOXO1 и Pol II при нокдауне FoxA1 измерено в клетках HepG2 (Yalley 2016). Независимость распределения FOXO1 от FoxA — допущение модели.',
+    mod: s => { s.foxaP = s.foxaP.map(() => 0); s.occA = s.occA.map(() => 1); s.occF = s.occF.map(v => Math.min(v, 1));
+      s.pol = s.pol.map(() => 1); s.nrna = s.nrna.map(() => 1); s.mrna = s.mrna.map(() => 1); return s; }},
+  ire: {label: 'Замена мотива IRE в промоторе G6PC', short: 'мотив IRE изменён',
+    why: 'FOXO1 в ядре, но не находит мотив на этом промоторе. Поскольку связывание FOXO1 и FoxA взаимозависимо, ослабевает и связывание FoxA; синтез РНК низкий.',
+    st: {occF: 'V', occA: 'V', pol: 'V', nrna: 'V', mrna: 'V'}, src: ['Yalley2016', 'Hall2000'],
+    note: 'Вывод из опытов Yalley 2016 (взаимозависимое, вероятно кооперативное связывание на ДНК промотора IGFBP1). В репортёрных опытах ответ IRE на инсулин мог требовать и другого белка (Hall 2000).',
+    mod: s => { s.occF = s.occF.map(() => 1); s.occA = s.occA.map(() => 1); s.pol = s.pol.map(() => 1); s.nrna = s.nrna.map(() => 1); s.mrna = s.mrna.map(() => 1); return s; }},
+  nocamp: {label: 'Без глюкагона и глюкокортикоида', short: 'нет фона голодания',
+    why: 'FOXO1 в ядре и, по допущению модели, связан с промотором, но без cAMP–CREB и глюкокортикоидного входа синтез РНК G6PC низкий: на промоторе собирается меньше активаторов транскрипции.',
+    st: {pcreb: 'F', pol: 'V', nrna: 'F', mrna: 'F', occF: 'M', occA: 'M'}, src: ['Nakae2001', 'Herzig2001', 'Matsumoto2007'],
+    note: 'Индукция G6pc глюкокортикоидом и cAMP показана в первичных гепатоцитах мыши (Nakae 2001); роль CREB — Herzig 2001. Сохранение связывания FOXO1 без этих входов не измерялось — допущение модели.',
+    mod: s => { s.pcreb = s.pcreb.map(() => 0); s.pol = s.pol.map(() => 1); s.nrna = s.nrna.map(() => 1); s.mrna = s.mrna.map(() => 1); return s; }}
+};
+const VARY = ['pi3k', 'ada', 'foxa', 'ire', 'nocamp'];
+function model(cond) { const s = {}; for (const k in CTL) s[k] = CTL[k].slice(); return IV[cond].mod(s); }
+function stOf(cond, k) { return (IV[cond].st && IV[cond].st[k]) || (IV.ctl.st[k]) || 'F'; }
+
+/* ---------- методы (виртуальная лаборатория) */
+const METH = {
+  blot_pakt:  {l: 'Блот: pAKT (S474)', kind: 'blot', v: 'akt', q: 'Активирована ли AKT?', lim: 'Относительный сигнал, нормированный на общий AKT; pAKT не доказывает фосфорилирование конкретного субстрата.'},
+  blot_pfoxo: {l: 'Блот: pFOXO1 (T24)', kind: 'blot', v: 'pfoxo', q: 'Фосфорилирован ли FOXO1 по участку AKT?', lim: 'Антитело узнаёт фосфо-T24; у мутанта с заменой T24A сигнала нет независимо от активности AKT.'},
+  if_foxo:    {l: 'Иммунофлуоресценция FOXO1', kind: 'if', v: 'nuc', q: 'Где находится FOXO1?', lim: 'Показывает распределение белка, но не связывание с ДНК; отношение ядро/цитоплазма не равно доле всех молекул в ядре.'},
+  chip_foxo:  {l: 'ChIP: FOXO1 на промоторе', kind: 'chip', v: 'occF', q: 'Связан ли FOXO1 с промотором G6PC?', lim: 'Относительное обогащение на участке, а не доля занятых копий.'},
+  chip_foxa:  {l: 'ChIP: FoxA на промоторе', kind: 'chip', v: 'occA', q: 'Связан ли FoxA с промотором?', lim: 'Относительное обогащение; не различает FoxA1 и FoxA2 без специфичного антитела.'},
+  chip_pol:   {l: 'ChIP: Pol II на промоторе', kind: 'chip', v: 'pol', q: 'Собирается ли транскрипционный комплекс?', lim: 'Pol II на промоторе может быть приостановлена; синтез РНК измеряют отдельно.'},
+  newrna:     {l: 'Новая РНК G6PC (метка 4sU)', kind: 'rna', v: 'nrna', q: 'Сколько РНК синтезировано за окно метки?', lim: 'Показывает синтез за окно метки, а не суммарное количество мРНК.'},
+  mrna:       {l: 'Суммарная мРНК G6PC (ОТ-ПЦР)', kind: 'rna', v: 'mrna', q: 'Сколько мРНК в клетке сейчас?', lim: 'Зависит от синтеза и распада; отстаёт от изменения синтеза.'},
+  blot_foxa:  {l: 'Блот: общий FoxA2', kind: 'blot', v: 'foxaP', q: 'Сколько белка FoxA в клетке?', lim: 'Количество белка ничего не говорит о связывании с конкретным участком.'},
+  blot_pcreb: {l: 'Блот: pCREB (S133)', kind: 'blot', v: 'pcreb', q: 'Работает ли вход cAMP–PKA–CREB?', lim: 'Фосфорилирование CREB необходимо, но не достаточно для активации мишени.'},
+  seq:        {l: 'Секвенирование промотора G6PC', kind: 'seq', v: null, q: 'Не изменена ли последовательность мотива?', lim: 'Последовательность показывает, есть ли мотив, но не то, связан ли он.'}
+};
+/* ---------- задачи «Найти причину» */
+const TASKS = {
+  T1: {title: 'Инсулин не подавил G6PC?', phase: 5,
+    obs: 'Через короткое время после добавления инсулина количество мРНК G6PC в образце (ОТ-ПЦР) не отличается от уровня без инсулина. Почему?',
+    lanes: [['Без инсулина', 'ctl', 0], ['Контроль + инсулин', 'ctl', 5], ['Образец + инсулин', '*', 5]],
+    causes: {pi3k: 'В среде остался ингибитор PI3K', ada: 'В клетках экспрессирован FOXO1 без участков AKT (ADA)', ctl: 'Сигнал работает; измерен не тот показатель или слишком рано'},
+    check: {pi3k: 'Отмыть ингибитор и снова дать инсулин: pAKT растёт, FOXO1 уходит из ядра, синтез новой РНК G6PC снижается (предсказание).',
+      ada: 'Заменить мутант ADA на FOXO1 дикого типа: подавление инсулином возвращается (мутант, нечувствительный к инсулину, отменял подавление в гепатоцитах — Puigserver 2003).',
+      ctl: 'Измерить новосинтезированную РНК за окно после инсулина либо суммарную мРНК в более поздней точке: синтез уже снижен, мРНК снизится позже.'}},
+  T2: {title: 'FOXO1 в ядре, а синтез РНК низкий?', phase: 0,
+    obs: 'При голодании FOXO1 в образце преимущественно в ядре (иммунофлуоресценция), а синтез новой РНК G6PC низкий. Почему?',
+    lanes: [['Контроль (голодание)', 'ctl', 0], ['Образец (голодание)', '*', 0]],
+    causes: {foxa: 'Мало FoxA1/A2', ire: 'Изменён мотив IRE в промоторе G6PC', nocamp: 'Нет входа глюкагона и глюкокортикоида'},
+    check: {foxa: 'Вернуть FoxA (экспрессия, устойчивая к shRNA): связывание FOXO1 и Pol II должно восстановиться (предсказание по Yalley 2016).',
+      ire: 'Вернуть исходную последовательность мотива: FOXO1 снова связывается с промотором (предсказание).',
+      nocamp: 'Добавить аналог cAMP и глюкокортикоид: растут pCREB и синтез РНК G6PC при том же распределении FOXO1 (по Nakae 2001).'}}
+};
+/* ---------- связь с картой */
+const CONCEPT_PHASE = {'C1.pi': 2, 'C4.akt': 2, 'C6.foxo': 3, 'C5.access': 4, 'C5.pioneer': 4, 'C5.transcription': 5};
+const EDGE_PHASE = {E062: 2, E029: 3, E042: 4, E032: 4, E043: 5, E035: 5};
+const CLABEL = {'C1.pi': 'Фосфоинозитиды', 'C4.akt': 'PI3K–AKT', 'C6.foxo': 'FOXO: локализация и связывание', 'C5.access': 'Доступность хроматина', 'C5.pioneer': 'Пионерные факторы', 'C5.transcription': 'Транскрипция гена-мишени'};
+
+/* Сцена гепатоцита (viewBox 0 0 860 560) и увеличение промотора G6PC (viewBox 0 0 330 300).
+   Анатомия — спокойный ориентир; маршрут сигнала рисуется отдельным слоем по состоянию модели. */
+const NS = 'http://www.w3.org/2000/svg';
+const C = {mem: '#B9A58A', cyto: '#FFF8EE', nb: '#F3EEE6', nuc: '#EEF1F8', env: '#7C8AA5', mito: '#E9D3C2', mitoS: '#B4806A',
+  er: '#9BB0C9', gly: '#C9B27C', blood: '#FBEDEC', endo: '#C98E8E', can: '#E6EFD4', canS: '#8BA35A',
+  sig: '#1D4ED8', pip: '#15803D', akt: '#1D4ED8', foxo: '#7C3AED', foxa: '#0F766E', pol: '#374151', rna: '#DC2626', p: '#E11D48', y1433: '#CA8A04', ins: '#B45309', lab: '#475569'};
+
+function anatomy() {
+  const micro = (y0, dy) => { let d = ''; for (let x = 142; x <= 718; x += 13) d += `M${x} ${y0}v${dy}`; return d; };
+  const mitos = [[190,140,-25],[232,402,15],[330,432,-8],[612,136,20],[700,214,-60],[688,368,45],[590,446,5],[160,300,75],[470,452,-15],[640,300,80]];
+  const mito = ([x, y, a]) => `<g transform="translate(${x} ${y}) rotate(${a})"><ellipse rx="27" ry="12" fill="${C.mito}" stroke="${C.mitoS}" stroke-width="1.4"/><path d="M-18 -5 q4 8 8 0 t8 0 t8 0 t8 0" fill="none" stroke="${C.mitoS}" stroke-width="1"/></g>`;
+  const gly = (x, y) => { let s = ''; [[0,0],[6,3],[-5,4],[2,-6],[-7,-3],[8,-4],[0,8]].forEach(([dx, dy]) => s += `<circle cx="${x + dx}" cy="${y + dy}" r="2.4" fill="${C.gly}"/>`); return s; };
+  const er = () => { let s = ''; [128, 140, 152].forEach(r => { const a0 = -50 * Math.PI / 180, a1 = 15 * Math.PI / 180;
+      const p = a => [500 + r * Math.cos(a), 285 + r * Math.sin(a)];
+      const [x0, y0] = p(a0), [x1, y1] = p(a1); s += `<path d="M${x0} ${y0} A${r} ${r} 0 0 1 ${x1} ${y1}" fill="none" stroke="${C.er}" stroke-width="3" stroke-linecap="round"/>`;
+      for (let a = a0 + .08; a < a1; a += .14) { const [x, y] = p(a); s += `<circle cx="${x}" cy="${y}" r="1.6" fill="#5C6F89"/>`; } }); return s; };
+  const pores = () => { let s = ''; for (let a = 0; a < 360; a += 30) { const r = a * Math.PI / 180;
+      s += `<rect x="-4" y="-5" width="8" height="10" fill="${C.nuc}" transform="translate(${500 + 100 * Math.cos(r)} ${285 + 100 * Math.sin(r)}) rotate(${a})"/>`; } return s; };
+  return `
+  <rect x="0" y="0" width="860" height="560" fill="#FFFFFF"/>
+  <rect x="0" y="0" width="860" height="58" fill="${C.blood}"/><rect x="0" y="502" width="860" height="58" fill="${C.blood}"/>
+  <line x1="0" y1="61" x2="860" y2="61" stroke="${C.endo}" stroke-width="5" stroke-dasharray="64 9"/>
+  <line x1="0" y1="499" x2="860" y2="499" stroke="${C.endo}" stroke-width="5" stroke-dasharray="64 9"/>
+  <text x="848" y="22" class="lb" text-anchor="end">Синусоид (кровь)</text>
+  <text x="848" y="40" class="lbs" text-anchor="end">ниже — эндотелий с фенестрами и пространство Диссе</text>
+  <text x="12" y="548" class="lb" font-weight="600">Синусоид</text>
+  <polygon points="0,90 130,90 60,280 130,470 0,470" fill="${C.nb}"/>
+  <polygon points="730,90 860,90 860,470 730,470 800,280" fill="${C.nb}"/>
+  <text transform="translate(26 400) rotate(-90)" class="lbs">соседний гепатоцит</text>
+  <text transform="translate(842 200) rotate(90)" class="lbs">соседний гепатоцит</text>
+  <polygon points="130,90 730,90 800,280 730,470 130,470 60,280" fill="${C.cyto}" stroke="${C.mem}" stroke-width="2.6"/>
+  <path d="${micro(90, -8)}${micro(470, 8)}" stroke="${C.mem}" stroke-width="2.2" stroke-linecap="round"/>
+  <g><circle cx="96" cy="186" r="13" fill="${C.can}" stroke="${C.canS}" stroke-width="1.6"/><path d="M89 181h14M89 186h14M89 191h14" stroke="${C.canS}" stroke-width="1"/>
+     <path d="M106 160l8 3M80 210l8 3" stroke="#334155" stroke-width="3"/>
+     <circle cx="764" cy="374" r="13" fill="${C.can}" stroke="${C.canS}" stroke-width="1.6"/><path d="M757 369h14M757 374h14M757 379h14" stroke="${C.canS}" stroke-width="1"/>
+     <path d="M776 348l-8 3M750 398l-8 3" stroke="#334155" stroke-width="3"/></g>
+  <text x="8" y="132" class="lbs">желчный</text><text x="8" y="146" class="lbs">каналец</text>
+  <path d="M58 150 L84 176" stroke="${C.lab}" stroke-width="1"/>
+  ${mitos.map(mito).join('')}
+  ${er()}
+  ${gly(222, 250)}${gly(262, 332)}${gly(206, 360)}${gly(642, 424)}${gly(566, 122)}
+  <g stroke="#B08BB5" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M150 205 q12 -10 24 0"/><path d="M148 214 q14 -11 28 0"/><path d="M150 223 q12 -10 24 0"/></g>
+  <circle cx="178" cy="262" r="7" fill="#9CA3AF"/><circle cx="252" cy="188" r="6" fill="#9CA3AF"/><circle cx="716" cy="300" r="6" fill="#9CA3AF"/>
+  <circle cx="500" cy="285" r="100" fill="${C.nuc}" stroke="${C.env}" stroke-width="3"/>
+  <circle cx="500" cy="285" r="93" fill="none" stroke="${C.env}" stroke-width="1"/>
+  ${pores()}
+  <circle cx="535" cy="246" r="19" fill="#D9DEEC"/>
+  <text x="560" y="214" class="lb">ядро</text>
+  <text x="664" y="262" class="lbs">ЭПР</text>
+  <text x="642" y="114" class="lbs">митохондрия</text>
+  <text x="190" y="388" class="lbs">гликоген</text>
+  <text x="132" y="196" class="lbs" text-anchor="end"></text>
+  <text x="152" y="244" class="lbs">Гольджи</text>
+  <text x="680" y="456" class="lbs" text-anchor="end"></text>
+  <text x="430" y="492" class="lbs" text-anchor="middle">синусоидальная (базолатеральная) поверхность гепатоцита</text>`;
+}
+
+/* позиции молекул FOXO1: первые — ядерные места (0 — у промотора G6PC), затем цитоплазматические */
+const NUC_SLOTS = [[478,316],[448,256],[468,236],[515,300],[560,288],[548,334],[505,366],[456,350],[430,300],[578,250],[500,212],[585,325]];
+const CYT_SLOTS = [[384,178],[418,210],[346,216],[392,250],[330,268],[282,232],[256,300],[302,336],[352,374],[408,404],[272,168],[432,150]];
+
+function signalLayer(s, cond) {
+  const L = [];
+  const on = s.ins > 0;
+  /* инсулин в синусоиде */
+  [[120,30],[256,34],[420,26],[600,32],[752,28]].forEach(([x, y], i) => L.push(`<g class="fade" opacity="${on ? 1 : .0}"><circle cx="${x}" cy="${y}" r="6" fill="${C.ins}"/></g>`));
+  if (on) L.push(`<circle cx="300" cy="70" r="6.5" fill="${C.ins}"/><text x="132" y="35" class="lbs" fill="${C.ins}" font-weight="600">инсулин</text>`);
+  /* рецептор инсулина (α2β2, схематично) */
+  const rc = on ? C.sig : '#94A3B8';
+  L.push(`<g class="hot" data-ph="1" tabindex="0" role="button" aria-label="Рецептор инсулина: этап 1">
+    <rect class="hl" x="286" y="64" width="28" height="60" fill="transparent" stroke="none"/>
+    <path d="M292 66 v52 M308 66 v52" stroke="${rc}" stroke-width="5" stroke-linecap="round"/>
+    <path d="M292 72 q8 -10 16 0" fill="none" stroke="${rc}" stroke-width="3"/>
+    ${on ? `<circle cx="286" cy="112" r="5" fill="${C.p}"/><circle cx="314" cy="112" r="5" fill="${C.p}"/><text x="286" y="115.5" class="pp">P</text><text x="314" y="115.5" class="pp">P</text>` : ''}
+    <text x="280" y="134" class="lbs" fill="${rc}" text-anchor="end">рецептор</text><text x="280" y="148" class="lbs" fill="${rc}" text-anchor="end">инсулина</text></g>`);
+  /* IRS–PI3K и PIP₃ */
+  if (s.pip3 > 0) L.push(`<g><ellipse cx="300" cy="132" rx="15" ry="8" fill="#93C5FD" stroke="${C.sig}"/><text x="300" y="135.5" class="tiny" text-anchor="middle">PI3K</text></g>`);
+  let pip = ''; for (let x = 322; x <= 404; x += 9) pip += `<circle cx="${x}" cy="93" r="3.4" fill="${s.pip3 >= 2 ? C.pip : '#CBD5E1'}"/>`;
+  L.push(`<g class="hot" data-ph="2" tabindex="0" role="button" aria-label="PIP₃ в мембране: этап 2">${pip}<rect class="hl" x="316" y="86" width="94" height="14" fill="transparent" stroke="none" rx="4"/>
+    <text x="410" y="112" class="lbs" fill="${s.pip3 >= 2 ? C.pip : '#94A3B8'}">PIP₃</text></g>`);
+  if (s.pip3 >= 2) L.push(arrow(312, 128, 336, 100, C.sig, 'cat'));
+  /* AKT */
+  const ak = s.akt >= 2;
+  L.push(`<g class="hot" data-ph="2" tabindex="0" role="button" aria-label="AKT: этап 2">
+    <circle class="hl" cx="${ak ? 362 : 372}" cy="${ak ? 116 : 150}" r="15" fill="${ak ? '#DBEAFE' : '#F1F5F9'}" stroke="${ak ? C.akt : '#94A3B8'}" stroke-width="2"/>
+    <text x="${ak ? 362 : 372}" y="${ak ? 120 : 154}" class="tiny" text-anchor="middle" font-weight="700" fill="${ak ? C.akt : '#64748B'}">AKT</text>
+    ${ak ? `<circle cx="378" cy="106" r="5" fill="${C.p}"/><text x="378" y="109.5" class="pp">P</text><circle cx="380" cy="126" r="5" fill="${C.p}"/><text x="380" y="129.5" class="pp">P</text>` : ''}</g>`);
+  if (s.pip3 >= 2) L.push(arrow(366, 98, 364, 102, C.pip, 'none'));
+  /* FOXO1: распределение и фосфорилирование */
+  const nn = [1, 3, 7, 10][s.nuc];
+  const nP = s.pfoxo >= 2 ? 12 : (s.pfoxo === 1 ? 5 : 0);
+  let fx = '';
+  for (let i = 0; i < 12; i++) {
+    const inNuc = i < nn; const [x, y] = inNuc ? NUC_SLOTS[i] : CYT_SLOTS[i];
+    const atLocus = inNuc && i === 0;
+    const vis = atLocus ? (s.occF >= 2 ? 1 : .0) : 1;
+    const ph = i >= 12 - nP || (!inNuc && nP > 0);
+    const cup = ph && !inNuc;
+    fx += `<g class="mol" style="transform:translate(${x}px,${y}px)" opacity="${atLocus && s.occF < 2 ? 0 : 1}">
+      ${cup ? `<path d="M-13 3 q13 14 26 0" fill="none" stroke="${C.y1433}" stroke-width="4" stroke-linecap="round"/>` : ''}
+      <ellipse rx="10" ry="6.5" fill="${C.foxo}" opacity=".9"/>
+      ${ph ? `<circle cx="9" cy="-6" r="4.3" fill="${C.p}"/><text x="9" y="-3" class="pp" style="font-size:6.5px">P</text>` : ''}</g>`;
+  }
+  L.push(`<g class="hot" data-ph="3" tabindex="0" role="button" aria-label="FOXO1: этап 3">${fx}</g>`);
+  L.push(`<text x="330" y="196" class="lbs" fill="${C.foxo}" font-weight="600">FOXO1</text>`);
+  if (s.pfoxo >= 2 && s.nuc <= 1) L.push(`<text x="244" y="206" class="lbs" fill="${C.y1433}" font-weight="600">14-3-3</text>`);
+  /* AKT → FOXO1 (катализ) и перенос через пору */
+  if (s.akt >= 2 && s.pfoxo >= 2) L.push(arrow(372, 132, 390, 168, C.akt, 'cat'));
+  if (s.nuc <= 2 && s.pfoxo >= 1) L.push(`<path d="M404 286 C 380 280 372 262 392 252" fill="none" stroke="${C.foxo}" stroke-width="2" stroke-dasharray="3 4" marker-end="url(#mvF)"/>`);
+  if (s.nuc >= 2 && s.pfoxo <= 1 && s.ins === 0 && s.akt <= 1) L.push(`<path d="M380 250 C 372 270 380 284 402 290" fill="none" stroke="${C.foxo}" stroke-width="2" stroke-dasharray="3 4" marker-end="url(#mvF)"/>`);
+  /* маркер промотора G6PC */
+  L.push(`<g class="hot" data-ph="4" tabindex="0" role="button" aria-label="Промотор G6PC: этап 4">
+    <rect class="hl" x="452" y="322" width="62" height="22" rx="6" fill="#FFFFFF" stroke="#1F2937" stroke-width="1.6"/>
+    <text x="483" y="337" class="tiny" text-anchor="middle" font-weight="700">G6PC</text>
+    ${[0, 1, 2].map(i => i < s.nrna ? `<path d="M${506 + i * 0} ${330} q${8 + i * 3} ${-10 - i * 6} ${18 + i * 4} ${-6 - i * 8}" fill="none" stroke="${C.rna}" stroke-width="2"/>` : '').join('')}</g>`);
+  /* мРНК в цитоплазме */
+  let mr = ''; const mp = [[620,380],[650,330],[600,410],[668,404],[628,352],[690,330]];
+  for (let i = 0; i < [0, 2, 4, 6][s.mrna]; i++) { const [x, y] = mp[i]; mr += `<path d="M${x} ${y} q5 -6 10 0 t10 0 t10 0" fill="none" stroke="${C.rna}" stroke-width="1.8" opacity=".75"/>`; }
+  L.push(`<g class="fade">${mr}</g>`);
+  if (s.mrna > 0) L.push(`<text x="612" y="474" class="lbs" fill="${C.rna}">мРНК G6PC</text>`);
+  return L.join('');
+}
+function arrow(x1, y1, x2, y2, col, kind) {
+  if (kind === 'none') return '';
+  const mk = kind === 'cat' ? 'url(#catA)' : 'url(#infA)';
+  return `<path d="M${x1} ${y1} L${x2} ${y2}" stroke="${col}" stroke-width="2.2" marker-end="${mk}"/>` +
+    (kind === 'cat' ? `<circle cx="${(x1 + x2) / 2 + 7}" cy="${(y1 + y2) / 2}" r="5" fill="${C.p}"/><text x="${(x1 + x2) / 2 + 7}" y="${(y1 + y2) / 2 + 3.5}" class="pp">P</text>` : '');
+}
+const DEFS = `<defs>
+  <marker id="catA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1D4ED8"/></marker>
+  <marker id="infA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#334155"/></marker>
+  <marker id="mvF" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#7C3AED"/></marker>
+</defs>
+<style>.lb{font:600 15px 'Golos Text',system-ui,sans-serif;fill:#334155}.lbs{font:13.5px 'Golos Text',system-ui,sans-serif;fill:#475569}.tiny{font:11px 'Golos Text',system-ui,sans-serif;fill:#1F2937}.pp{font:700 7.5px system-ui,sans-serif;fill:#fff;text-anchor:middle}</style>`;
+
+function cellSVG(s, cond, bare) {
+  return `<svg viewBox="0 0 860 560" xmlns="${NS}" role="img" aria-labelledby="cellT"><title id="cellT">Гепатоцит: путь сигнала инсулина к гену G6PC</title>${DEFS}${anatomy()}${bare ? '' : signalLayer(s, cond)}</svg>`;
+}
+
+/* ---------- увеличение промотора */
+function meter(x, y, lv, col, label) {
+  let s = `<text x="${x}" y="${y + 10}" class="lbs">${label}</text>`;
+  for (let i = 0; i < 3; i++) s += `<rect x="${x + 150 + i * 22}" y="${y}" width="19" height="12" rx="2" fill="${i < lv ? col : '#E5E7EB'}"/>`;
+  return s + `<text x="${x + 222}" y="${y + 10}" class="tiny">${['нет', 'низк.', 'сред.', 'выс.'][lv]}</text>`;
+}
+function locusSVG(s, cond) {
+  const nucl = (x, ac) => `<ellipse cx="${x}" cy="150" rx="26" ry="19" fill="#E2E8F0" stroke="#64748B"/>
+     <path d="M${x - 30} 150 q8 -26 30 -22 q24 4 30 22" fill="none" stroke="#1F2937" stroke-width="2"/>
+     ${ac ? `<path d="M${x - 6} 131 v-14 h14 v8 h-14" fill="#16A34A" stroke="#16A34A"/><text x="${x + 1}" y="${126}" class="pp" style="font-size:7px">ac</text>` : ''}`;
+  const op = lv => [0, .35, .7, 1][lv];
+  let rna = '';
+  for (let i = 0; i < s.nrna; i++) rna += `<path d="M${238 + i * 4} ${130 - i * 3} q12 -16 26 -12 t26 -14" fill="none" stroke="${C.rna}" stroke-width="2.4"/>`;
+  return `<svg viewBox="0 0 330 300" xmlns="${NS}" role="img" aria-labelledby="locT"><title id="locT">Промотор G6PC: связывание факторов и синтез РНК</title>${DEFS}
+  <rect width="330" height="300" fill="#fff"/>
+  <text x="12" y="22" class="lb">Промотор G6PC · увеличение</text>
+  <text x="12" y="40" class="lbs">взаимное расположение элементов условное</text>
+  <line x1="6" y1="150" x2="324" y2="150" stroke="#1F2937" stroke-width="3"/>
+  ${nucl(34, s.pol >= 2)}${nucl(298, s.pol >= 2)}
+  <rect x="86" y="144" width="40" height="12" fill="#C4B5FD" stroke="${C.foxo}"/><text x="106" y="174" class="tiny" text-anchor="middle">IRE</text>
+  <rect x="138" y="144" width="38" height="12" fill="#99F6E4" stroke="${C.foxa}"/><text x="157" y="174" class="tiny" text-anchor="middle">мотив FoxA</text>
+  <path d="M232 150 v-20 h16" fill="none" stroke="#1F2937" stroke-width="2" marker-end="url(#infA)"/><text x="232" y="172" class="tiny" text-anchor="middle">начало</text><text x="232" y="184" class="tiny" text-anchor="middle">транскрипции</text>
+  <g class="fade" opacity="${op(s.occF)}"><ellipse cx="106" cy="128" rx="20" ry="13" fill="${C.foxo}"/><text x="106" y="132" class="pp" style="font-size:9px">FOXO1</text></g>
+  <g class="fade" opacity="${op(s.occA)}"><ellipse cx="157" cy="128" rx="19" ry="13" fill="${C.foxa}"/><text x="157" y="132" class="pp" style="font-size:9px">FoxA</text></g>
+  <g class="fade" opacity="${op(s.pol)}"><ellipse cx="214" cy="124" rx="24" ry="18" fill="${C.pol}"/><text x="214" y="128" class="pp" style="font-size:9px">Pol II</text></g>
+  <g class="fade">${rna}</g>${s.nrna ? `<text x="270" y="92" class="tiny" fill="${C.rna}">новая РНК</text>` : ''}
+  ${meter(12, 206, s.occF, C.foxo, 'FOXO1 на IRE')}
+  ${meter(12, 226, s.occA, C.foxa, 'FoxA на промоторе')}
+  ${meter(12, 246, s.pol, C.pol, 'Pol II на промоторе')}
+  ${meter(12, 266, s.nrna, C.rna, 'Синтез новой РНК')}
+  <text x="12" y="292" class="tiny" fill="#64748B">шкала качественная; строки между собой не сравнивают</text></svg>`;
+}
+
+/* ---------- схемы методов (каждый метод описан схемой) */
+const MSCHEME = {
+  blot: `<svg viewBox="0 0 320 96"><style>.t{font:11px 'Golos Text',sans-serif;fill:#334155}</style>
+    <rect x="6" y="18" width="70" height="56" rx="6" fill="#F1F5F9" stroke="#94A3B8"/><text x="41" y="12" class="t" text-anchor="middle">лизат клеток</text>
+    <path d="M80 46h22" stroke="#334155" marker-end="url(#a)"/><rect x="106" y="16" width="70" height="62" fill="#F8FAFC" stroke="#94A3B8"/>
+    <rect x="114" y="30" width="16" height="5" fill="#334155"/><rect x="138" y="30" width="16" height="5" fill="#94A3B8"/><rect x="114" y="56" width="16" height="5" fill="#334155"/><rect x="138" y="56" width="16" height="5" fill="#334155"/>
+    <text x="141" y="12" class="t" text-anchor="middle">электрофорез, перенос</text>
+    <path d="M180 46h22" stroke="#334155" marker-end="url(#a)"/><path d="M214 30 l10 14 l10 -14 M224 44 v22" stroke="#7C3AED" stroke-width="3" fill="none"/><circle cx="224" cy="68" r="4" fill="#E11D48"/>
+    <text x="270" y="40" class="t" text-anchor="middle">антитело к</text><text x="270" y="54" class="t" text-anchor="middle">фосфоостатку</text><text x="270" y="72" class="t" text-anchor="middle">→ полоса</text>
+    <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#334155"/></marker></defs></svg>`,
+  if: `<svg viewBox="0 0 320 96"><style>.t{font:11px 'Golos Text',sans-serif;fill:#334155}</style>
+    <ellipse cx="60" cy="50" rx="50" ry="34" fill="#EDE9FE" stroke="#7C3AED"/><circle cx="66" cy="52" r="17" fill="#7C3AED"/><text x="60" y="94" class="t" text-anchor="middle">FOXO1 в ядре</text>
+    <ellipse cx="180" cy="50" rx="50" ry="34" fill="#C4B5FD" stroke="#7C3AED"/><circle cx="186" cy="52" r="17" fill="#EDE9FE" stroke="#7C3AED"/><text x="180" y="94" class="t" text-anchor="middle">FOXO1 в цитоплазме</text>
+    <text x="276" y="36" class="t" text-anchor="middle">антитело +</text><text x="276" y="50" class="t" text-anchor="middle">флуорофор;</text><text x="276" y="64" class="t" text-anchor="middle">ядро/цитоплазма</text></svg>`,
+  chip: `<svg viewBox="0 0 320 96"><style>.t{font:11px 'Golos Text',sans-serif;fill:#334155}</style>
+    <path d="M6 54h60" stroke="#1F2937" stroke-width="3"/><ellipse cx="34" cy="44" rx="10" ry="7" fill="#7C3AED"/><text x="36" y="80" class="t" text-anchor="middle">сшивка белок–ДНК</text>
+    <path d="M74 54h14" stroke="#334155" marker-end="url(#b)"/><path d="M96 54h18M120 54h18" stroke="#1F2937" stroke-width="3"/><ellipse cx="104" cy="44" rx="8" ry="6" fill="#7C3AED"/><text x="118" y="80" class="t" text-anchor="middle">фрагменты</text>
+    <path d="M146 54h14" stroke="#334155" marker-end="url(#b)"/><path d="M172 30 l8 12 l8 -12 M180 42 v6" stroke="#0F766E" stroke-width="3" fill="none"/><ellipse cx="180" cy="54" rx="8" ry="6" fill="#7C3AED"/><path d="M168 62h24" stroke="#1F2937" stroke-width="3"/><text x="180" y="80" class="t" text-anchor="middle">осаждение антителом</text>
+    <path d="M206 54h14" stroke="#334155" marker-end="url(#b)"/><rect x="232" y="40" width="10" height="26" fill="#0F766E"/><rect x="250" y="56" width="10" height="10" fill="#94A3B8"/><text x="270" y="30" class="t" text-anchor="middle">ПЦР участка</text><text x="270" y="80" class="t" text-anchor="middle">обогащение / IgG</text>
+    <defs><marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#334155"/></marker></defs></svg>`,
+  rna: `<svg viewBox="0 0 320 96"><style>.t{font:11px 'Golos Text',sans-serif;fill:#334155}</style>
+    <rect x="6" y="20" width="120" height="16" rx="4" fill="#FEE2E2" stroke="#DC2626"/><text x="66" y="32" class="t" text-anchor="middle">окно метки 4sU</text>
+    <path d="M10 60 q10 -8 20 0 t20 0" fill="none" stroke="#DC2626" stroke-width="2.4"/><path d="M60 60 q10 -8 20 0 t20 0" fill="none" stroke="#9CA3AF" stroke-width="2.4"/><text x="66" y="84" class="t" text-anchor="middle">новая (метка) и старая РНК</text>
+    <path d="M136 54h18" stroke="#334155" marker-end="url(#c)"/>
+    <text x="236" y="34" class="t" text-anchor="middle">выделить меченую → синтез за окно</text><text x="236" y="64" class="t" text-anchor="middle">вся РНК (ОТ-ПЦР) → суммарное</text><text x="236" y="78" class="t" text-anchor="middle">количество (синтез и распад)</text>
+    <defs><marker id="c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#334155"/></marker></defs></svg>`,
+  seq: `<svg viewBox="0 0 320 70"><style>.t{font:11px 'Golos Text',sans-serif;fill:#334155}.m{font:600 13px ui-monospace,monospace}</style>
+    <text x="10" y="22" class="t">ДНК промотора → ПЦР → секвенирование; сравнение с исходной последовательностью</text>
+    <path d="M10 44h300" stroke="#1F2937" stroke-width="3"/><rect x="110" y="37" width="60" height="14" fill="#C4B5FD" stroke="#7C3AED"/><text x="140" y="64" class="t" text-anchor="middle">участок мотива IRE: исходный или изменённый</text></svg>`
+};
+
+/* Логика страницы «Интерактивная клетка · раздел I». Состояние опыта отделено от отрисовки; URL — контракт ТЗ (v=1). */
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"]/g, m => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[m]));
+const MODES = {trace: 'Проследить', vary: 'Изменить условия', find: 'Найти причину'};
+const S = {mode: 'trace', ph: 0, iv: 'pi3k', showCtl: false, tracks: ['akt', 'nuc', 'nrna'], task: 'T1', seed: 0, done: [], guess: null, playing: false, focus: null};
+const M = {}; Object.keys(IV).forEach(k => M[k] = model(k));
+const st = k => `<span class="st ${k}" title="${STL[k][1]}">${STL[k][0]}</span>`;
+const srcList = keys => `<ol class="src">${keys.map(k => `<li>${esc(SRC[k][0])}. <a href="https://doi.org/${SRC[k][1]}" rel="noopener">doi:${SRC[k][1]}</a></li>`).join('')}</ol>`;
+const stateAt = (cond, ph) => { const o = {}; for (const k in M[cond]) o[k] = M[cond][k][ph]; return o; };
+
+/* ---------- URL: чтение и запись */
+function readURL() {
+  const p = new URLSearchParams(location.search);
+  if (MODES[p.get('mode')]) S.mode = p.get('mode');
+  const ph = +p.get('stage'); if (Number.isInteger(ph) && ph >= 0 && ph < PH.length) S.ph = ph;
+  if (VARY.includes(p.get('iv'))) S.iv = p.get('iv');
+  if (TASKS[p.get('task')]) S.task = p.get('task');
+  const sd = +p.get('seed'); if (Number.isInteger(sd) && sd >= 0) S.seed = sd; else S.seed = Math.floor(Math.random() * 9973);
+  S.showCtl = p.get('cmp') === '1';
+  const f = p.get('focus');
+  if (f && CONCEPT_PHASE[f] !== undefined) { S.focus = f; if (!p.has('stage')) S.ph = CONCEPT_PHASE[f]; }
+  else if (f && EDGE_PHASE[f] !== undefined) { S.focus = f; if (!p.has('stage')) S.ph = EDGE_PHASE[f]; }
+  else if (f) note(`Объект «${esc(f)}» в этом опыте не показан; открыт исходный этап.`);
+  const sc = p.get('scenario'); if (sc && sc !== 'S02') note(`Опыт ${esc(sc)} ещё готовится; открыт опыт S02.`);
+}
+function query() {
+  const p = new URLSearchParams({v: 1, scenario: 'S02', mode: S.mode});
+  if (S.mode !== 'find') p.set('stage', S.ph);
+  if (S.mode === 'vary') { p.set('iv', S.iv); if (S.showCtl) p.set('cmp', 1); }
+  if (S.mode === 'find') { p.set('task', S.task); p.set('seed', S.seed); }
+  return p.toString();
+}
+function writeURL(push) { const u = location.pathname + '?' + query(); if (push) history.pushState(null, '', u); else history.replaceState(null, '', u); }
+let noteMsg = ''; function note(m) { noteMsg = m; }
+const ret = () => encodeURIComponent(query());
+const mapHref = (kind, id) => `map-1.html?${kind}=${id}&route=foxo&from=cell&ret=${ret()}`;
+
+/* ---------- отрисовка */
+function render() {
+  $$('.tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.mode === S.mode)));
+  renderScene(); renderPhases(); renderTracks(); renderSide();
+}
+function sceneCond() { return S.mode === 'vary' && !S.showCtl ? S.iv : 'ctl'; }
+function renderScene() {
+  const hint = $('#hint');
+  if (S.mode === 'find' && !solved()) {
+    const s = {ins: 0, pip3: 0, akt: 0, pfoxo: 0, nuc: 3, occF: 0, occA: 0, pol: 0, nrna: 0, mrna: 0};
+    $('#cell').innerHTML = cellSVG(s, 'ctl', true).replace('</svg>', `<rect x="0" y="0" width="860" height="560" fill="#fff" opacity=".55"/><text x="430" y="290" text-anchor="middle" style="font:600 22px 'Golos Text',sans-serif;fill:#334155">Состояние образца скрыто</text><text x="430" y="318" text-anchor="middle" style="font:15px 'Golos Text',sans-serif;fill:#475569">выберите измерения в панели справа</text></svg>`);
+    $('#locus').innerHTML = `<svg viewBox="0 0 330 300"><rect width="330" height="300" fill="#fff"/><text x="165" y="150" text-anchor="middle" style="font:15px 'Golos Text',sans-serif;fill:#475569">Промотор образца: скрыто</text></svg>`;
+    hint.textContent = 'Найти причину · ' + TASKS[S.task].title; return;
+  }
+  const cond = S.mode === 'find' ? trueCause() : sceneCond();
+  const ph = S.mode === 'find' ? TASKS[S.task].phase : S.ph;
+  const s = stateAt(cond, ph);
+  $('#cell').innerHTML = cellSVG(s, cond); $('#locus').innerHTML = locusSVG(s, cond);
+  hint.textContent = `${PH[ph].id.replace('P', 'Этап ')} · ${PH[ph].short}` + (cond !== 'ctl' ? ` · ${IV[cond].short}` : (S.mode === 'vary' ? ' · контроль' : ''));
+  $$('#cell .hot').forEach(g => { const go = () => { if (S.mode !== 'find') setPh(+g.dataset.ph); };
+    g.addEventListener('click', go); g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } }); });
+}
+function renderPhases() {
+  const dis = S.mode === 'find';
+  $('#phases').innerHTML = PH.map((p, i) => `<button type="button" class="ph${p.sig ? ' sig' : ''}" data-i="${i}" ${i === S.ph && !dis ? 'aria-current="step"' : ''} ${dis ? 'disabled' : ''}><span class="n">${i}</span>${esc(p.short)}</button>`).join('');
+  $$('#phases .ph').forEach(b => b.onclick = () => setPh(+b.dataset.i));
+  $$('.ctrls button').forEach(b => b.disabled = dis);
+  $('#bPlay').setAttribute('aria-pressed', String(S.playing)); $('#bPlay').textContent = S.playing ? '❚❚' : '▶';
+  $('#bPlay').setAttribute('aria-label', S.playing ? 'Пауза' : 'Воспроизвести этапы');
+}
+function renderTracks() {
+  const box = $('#tracks'); const key = $('#tkey');
+  if (S.mode === 'find') { box.innerHTML = '<p class="muted" style="grid-column:1/-1;margin:2px 0;font-size:13px">Шкала показателей скрыта: в этом режиме данные получают только выбранными методами.</p>'; key.hidden = true; return; }
+  key.hidden = false; $('#kIv').hidden = S.mode !== 'vary'; $('#kIvT').textContent = IV[S.iv].short;
+  box.innerHTML = S.tracks.map((v, ti) => `<select aria-label="Показатель ${ti + 1}" data-t="${ti}">${TRACKVARS.map(k => `<option value="${k}" ${k === v ? 'selected' : ''}>${VARS[k]}</option>`).join('')}</select>${trackSVG(v)}`).join('');
+  $$('#tracks select').forEach(sel => sel.onchange = () => { S.tracks[+sel.dataset.t] = sel.value; renderTracks(); });
+}
+function trackSVG(v) {
+  const X = i => 50 + i * 100, Y = lv => 21 - lv * 6;
+  const path = arr => arr.map((lv, i) => `${i ? 'L' : 'M'}${X(i) - 50} ${Y(lv)} L${X(i) + 50} ${Y(lv)}`).join(' ');
+  let s = `<svg viewBox="0 0 900 24" preserveAspectRatio="none" aria-label="${esc(VARS[v])}: ${M.ctl[v].map(l => LV[l]).join(', ')}">`;
+  s += `<rect x="${X(S.ph) - 50}" y="0" width="100" height="24" fill="var(--acc-soft)"/>`;
+  for (let i = 1; i < 9; i++) s += `<line x1="${i * 100}" y1="0" x2="${i * 100}" y2="24" stroke="var(--line)" stroke-width="1" vector-effect="non-scaling-stroke"/>`;
+  s += `<path d="${path(M.ctl[v])}" fill="none" stroke="var(--acc)" stroke-width="2.5" vector-effect="non-scaling-stroke"/>`;
+  if (S.mode === 'vary') s += `<path d="${path(M[S.iv][v])}" fill="none" stroke="var(--iv)" stroke-width="2.5" stroke-dasharray="6 4" vector-effect="non-scaling-stroke" transform="translate(0 1.5)"/>`;
+  return s + '</svg>';
+}
+function links(p) {
+  const cs = p.concepts.map(c => `<a class="btn ghost sm" href="${mapHref('concept', c)}" title="Понятие на системной карте">${esc(CLABEL[c] || c)}</a>`).join('');
+  const es = p.edges.map(e => `<a class="btn ghost sm" href="${mapHref('edge', e)}" title="Паспорт связи на карте">Паспорт ${e}</a>`).join('');
+  return `<p class="cap">Связи на карте</p><div class="go">${cs}${es}</div>
+   <p class="cap">Разобрать механизм</p><div class="go"><a class="btn ghost sm" href="${p.route[0]}">${esc(p.route[1])}</a><a class="btn ghost sm" href="${p.sem[0]}">Задания: ${esc(p.sem[1])}</a></div>`;
+}
+function renderSide() {
+  const el = $('#side'); let h = noteMsg ? `<p class="why">${noteMsg}</p>` : '';
+  if (S.mode === 'trace') {
+    const p = PH[S.ph];
+    h += `<p class="cap">Этап ${S.ph} из 8 · <span class="time">${esc(p.time)}</span></p><h2>${esc(p.title)}</h2>
+     <p>${st(p.st)}<span class="muted" style="font-size:13px">${STL[p.st][1]}</span></p>
+     <ul class="qa"><li><b>Что изменилось здесь?</b>${esc(p.what)}</li><li><b>За счёт какого процесса?</b>${esc(p.how)}</li>
+     <li><b>На что это влияет дальше?</b>${esc(p.next)}</li><li><b>Каким опытом это увидеть?</b>${esc(p.exp)}</li></ul>
+     ${links(p)}<details class="more"><summary>Источники этапа</summary>${srcList(p.src)}</details>
+     ${S.ph === 0 ? '<p class="why" style="margin-top:10px">Шагайте по этапам кнопками внизу или ▶. Нажатие на рецептор, AKT, FOXO1 или промотор G6PC на рисунке открывает его этап.</p>' : ''}`;
+  } else if (S.mode === 'vary') {
+    const iv = IV[S.iv], p = PH[S.ph], a = stateAt('ctl', S.ph), b = stateAt(S.iv, S.ph);
+    const diff = Object.keys(VARS).filter(k => a[k] !== b[k]);
+    h += `<p class="cap">Одно изменённое условие, остальное как в контроле</p>
+     <div class="ivlist" role="radiogroup" aria-label="Вмешательство">${VARY.map(k => `<label><input type="radio" name="iv" value="${k}" ${k === S.iv ? 'checked' : ''}><span>${esc(IV[k].label)}</span></label>`).join('')}</div>
+     <p class="why">${esc(iv.why)}</p>
+     <p class="cap">Этап ${S.ph}: ${esc(p.short)}</p>
+     ${diff.length ? `<ul class="diff">${diff.map(k => `<li>${st(stOf(S.iv, k))}<b>${VARS[k]}</b>: ${LV[b[k]]} <span class="muted">(контроль: ${LV[a[k]]})</span></li>`).join('')}</ul>` : '<p class="muted">На этом этапе образец не отличается от контроля.</p>'}
+     <label style="display:flex;gap:7px;align-items:center;font-size:13.5px;margin:8px 0"><input type="checkbox" id="cmp" ${S.showCtl ? 'checked' : ''}> Показать на рисунке контроль</label>
+     <p class="muted" style="font-size:13px">${esc(iv.note)}</p>
+     <details class="more"><summary>Источники вмешательства</summary>${srcList(iv.src)}</details>
+     <details class="more"><summary>Что происходит в контроле на этом этапе</summary><p style="margin-top:6px">${esc(p.what)}</p>${links(p)}</details>`;
+  } else h += findPanel();
+  el.innerHTML = h; noteMsg = '';
+  $$('input[name=iv]').forEach(r => r.onchange = () => { S.iv = r.value; writeURL(false); render(); });
+  const c = $('#cmp'); if (c) c.onchange = () => { S.showCtl = c.checked; writeURL(false); renderScene(); };
+  bindFind();
+}
+
+/* ---------- «Найти причину» */
+function trueCause() { const ks = Object.keys(TASKS[S.task].causes); return ks[S.seed % ks.length]; }
+function readout(m, cond, ph) {
+  const d = METH[m];
+  if (d.kind === 'seq') return cond === 'ire' ? 1 : 0;
+  return M[cond][d.v][ph];
+}
+function laneVals(m) { const T = TASKS[S.task]; return T.lanes.map(([l, c, ph]) => readout(m, c === '*' ? trueCause() : c, ph)); }
+function consistent() {
+  const T = TASKS[S.task], tc = trueCause();
+  return Object.keys(T.causes).filter(c => S.done.every(m => readout(m, c, T.phase) === readout(m, tc, T.phase)));
+}
+function solved() { return S.mode === 'find' && S.guess === trueCause() && consistent().length === 1; }
+function resultSVG(m) {
+  const d = METH[m], T = TASKS[S.task], vals = laneVals(m), n = vals.length, W = 300, lw = W / n;
+  const lab = T.lanes.map((l, i) => `<text x="${10 + lw * i + lw / 2}" y="${d.kind === 'blot' ? 96 : 96}" text-anchor="middle" style="font:11px 'Golos Text',sans-serif;fill:#334155">${esc(l[0])}</text>`).join('');
+  let g = '';
+  if (d.kind === 'blot') vals.forEach((v, i) => { const x = 10 + lw * i + lw / 2;
+    g += `<rect x="${x - 26}" y="22" width="52" height="11" rx="3" fill="#111827" opacity="${[0.04, .3, .62, .95][v]}"/><rect x="${x - 26}" y="54" width="52" height="11" rx="3" fill="#111827" opacity=".85"/>`; });
+  if (d.kind === 'blot') g += `<text x="4" y="16" style="font:10.5px 'Golos Text',sans-serif;fill:#475569">${esc(d.l.replace('Блот: ', ''))}</text><text x="4" y="50" style="font:10.5px 'Golos Text',sans-serif;fill:#475569">общий белок (контроль нанесения)</text>`;
+  if (d.kind === 'if') vals.forEach((v, i) => { const x = 10 + lw * i + lw / 2; const nuc = [.2, .35, .7, .95][v], cyt = [.9, .75, .4, .18][v];
+    g += `<ellipse cx="${x}" cy="44" rx="${Math.min(46, lw / 2 - 4)}" ry="30" fill="#7C3AED" opacity="${cyt}" stroke="#7C3AED"/><circle cx="${x + 4}" cy="46" r="15" fill="#7C3AED" opacity="${nuc}" stroke="#fff" stroke-width="1.5"/>`; });
+  if (d.kind === 'chip' || d.kind === 'rna') { vals.forEach((v, i) => { const x = 10 + lw * i + lw / 2; const h = [4, 20, 42, 64][v];
+      g += `<rect x="${x - 18}" y="${78 - h}" width="36" height="${h}" fill="${d.kind === 'chip' ? '#0F766E' : '#DC2626'}"/>`; });
+    g += `<line x1="8" y1="78" x2="${W + 8}" y2="78" stroke="#334155"/><text x="4" y="12" style="font:10.5px 'Golos Text',sans-serif;fill:#475569">${d.kind === 'chip' ? 'отн. обогащение на промоторе G6PC' : 'отн. количество'}</text>`; }
+  if (d.kind === 'seq') vals.forEach((v, i) => { const x = 10 + lw * i + lw / 2;
+    g += `<path d="M${x - 40} 44h80" stroke="#1F2937" stroke-width="3"/><rect x="${x - 14}" y="37" width="28" height="14" fill="${v ? '#FDE68A' : '#C4B5FD'}" stroke="${v ? '#B45309' : '#7C3AED'}"/><text x="${x}" y="72" text-anchor="middle" style="font:11px 'Golos Text',sans-serif;fill:${v ? '#B45309' : '#334155'}">${v ? 'мотив изменён' : 'мотив исходный'}</text>`; });
+  return `<svg viewBox="0 0 320 104">${g}${lab}</svg>`;
+}
+function findPanel() {
+  const T = TASKS[S.task], cons = consistent(), done = solved();
+  let h = `<div class="go" role="group" aria-label="Задача">${Object.entries(TASKS).map(([k, t]) => `<button type="button" class="btn sm ${k === S.task ? '' : 'ghost'}" data-task="${k}">${esc(t.title)}</button>`).join('')}</div>
+   <div class="obs"><b>Наблюдение.</b> ${esc(T.obs)}</div>
+   <p class="cap">Измерения (образец сравнивается с контролем)</p>
+   <div class="meth">${Object.entries(METH).map(([k, d]) => `<button type="button" data-m="${k}" aria-pressed="${S.done.includes(k)}" title="${esc(d.q)}">${esc(d.l)}</button>`).join('')}</div>`;
+  h += S.done.slice().reverse().map(m => { const d = METH[m];
+    return `<div class="res"><h3>${esc(d.l)}</h3>${resultSVG(m)}<p>${esc(d.lim)}</p><details class="more"><summary>Схема метода</summary><div class="mscheme">${MSCHEME[d.kind]}</div></details></div>`; }).join('');
+  h += `<p class="cap">Объяснение</p><div class="hyp">${Object.entries(T.causes).map(([k, t]) => `<button type="button" data-h="${k}" class="${S.guess === k ? (k === trueCause() && cons.length === 1 ? 'ok' : (cons.includes(k) ? '' : 'no')) : ''}">${esc(t)}</button>`).join('')}
+   <button type="button" data-h="none" class="${S.guess === 'none' ? (cons.length > 1 ? 'ok' : 'no') : ''}">Данных пока недостаточно</button></div>`;
+  if (S.guess) h += `<div class="verdict">${verdict(cons)}</div>`;
+  if (done) h += `<p class="why"><b>Проверка вмешательством.</b> ${esc(T.check[trueCause()])}</p><p class="muted" style="font-size:13px">Рисунок слева теперь показывает состояние образца.</p>`;
+  h += `<div class="go" style="margin-top:8px"><button type="button" class="btn ghost sm" id="newS">Новый образец</button></div>`;
+  return h;
+}
+function verdict(cons) {
+  const T = TASKS[S.task], tc = trueCause(), g = S.guess;
+  const names = ks => ks.map(k => `«${T.causes[k]}»`).join(', ');
+  if (!S.done.length) return 'Сначала получите данные: выберите хотя бы одно измерение.';
+  if (g === 'none') return cons.length > 1 ? `Верно: полученные данные одинаково совместимы с объяснениями ${names(cons)}. Выберите измерение, которое их различит.` : 'Данных уже достаточно: остаётся одно объяснение, совместимое со всеми результатами.';
+  if (!cons.includes(g)) { const m = S.done.find(m => readout(m, g, T.phase) !== readout(m, tc, T.phase));
+    return `Это объяснение противоречит результату: «${METH[m].l}» в этом случае дал бы другой результат. Сравните образец с контролем ещё раз.`; }
+  if (cons.length > 1) return `Данные совместимы с этим объяснением, но не доказывают его: так же хорошо они объясняются ${names(cons.filter(k => k !== g))}. Какое измерение различит эти варианты?`;
+  return '<b>Причина установлена:</b> только это объяснение согласуется со всеми полученными результатами.';
+}
+function bindFind() {
+  $$('[data-task]').forEach(b => b.onclick = () => { S.task = b.dataset.task; S.done = []; S.guess = null; writeURL(false); render(); });
+  $$('[data-m]').forEach(b => b.onclick = () => { const m = b.dataset.m; if (!S.done.includes(m)) S.done.push(m); renderSide(); });
+  $$('[data-h]').forEach(b => b.onclick = () => { S.guess = b.dataset.h; renderSide(); renderScene(); });
+  const n = $('#newS'); if (n) n.onclick = () => { S.seed = Math.floor(Math.random() * 9973); S.done = []; S.guess = null; writeURL(false); render(); };
+}
+
+/* ---------- управление временем */
+let timer = null;
+function setPh(i) { S.ph = Math.max(0, Math.min(PH.length - 1, i)); writeURL(false); renderScene(); renderPhases(); renderTracks(); renderSide(); }
+function play() { S.playing = !S.playing; clearInterval(timer);
+  if (S.playing) { if (S.ph >= PH.length - 1) setPh(0); timer = setInterval(() => { if (S.ph >= PH.length - 1) { S.playing = false; clearInterval(timer); renderPhases(); return; } setPh(S.ph + 1); }, 2600); }
+  renderPhases(); }
+function setMode(m) { S.mode = m; S.playing = false; clearInterval(timer); S.done = []; S.guess = null; writeURL(true); render(); }
+
+/* ---------- запуск */
+readURL();
+$$('.tab').forEach(t => t.onclick = () => setMode(t.dataset.mode));
+$('#bPrev').onclick = () => setPh(S.ph - 1); $('#bNext').onclick = () => setPh(S.ph + 1); $('#bPlay').onclick = play;
+$('#bReset').onclick = () => { S.playing = false; clearInterval(timer); setPh(0); };
+$('#bLink').onclick = () => { const u = location.href; (navigator.clipboard ? navigator.clipboard.writeText(u) : Promise.reject()).then(() => { $('#bLink').textContent = 'Ссылка скопирована'; setTimeout(() => $('#bLink').textContent = 'Ссылка на опыт', 1800); }, () => prompt('Ссылка на опыт:', u)); };
+document.addEventListener('keydown', e => { if (e.target.closest('input,select,textarea') || S.mode === 'find') return;
+  if (e.key === 'ArrowRight') { setPh(S.ph + 1); } else if (e.key === 'ArrowLeft') { setPh(S.ph - 1); } });
+addEventListener('popstate', () => { readURL(); render(); });
+writeURL(false); render();
+
+</script>
+<!--stats:start-->
+<script data-goatcounter="https://molbio.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<!--stats:end-->
+</body>
+</html>

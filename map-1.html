@@ -32,9 +32,11 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(22px,4vw,30px);m
 .crumb a{text-decoration:none;font-weight:600}
 .ver{font-size:13px;color:var(--muted);margin:22px 0 0}
 /* место для миниатюры раздела: рисунок появится после научного аудита и утверждения эскизов */
-.mini{margin:0;aspect-ratio:3/2;width:100%}
-.mini-box{height:100%;border:1.5px dashed var(--line);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--muted);font-size:13px;text-align:center;padding:8px;background:var(--surface)}
-.mini-box b{font-weight:600;color:var(--muted)}
+.mini{margin:0;width:100%}
+/* рисунок всегда на белом поле: цвета знаков рассчитаны на светлый фон, в тёмной теме тоже */
+.mini-art{background:#fff;border:1px solid var(--line);border-radius:12px;padding:6px;line-height:0}
+.mini-art svg{display:block;width:100%;height:auto}
+.mini figcaption{font-size:13.5px;line-height:1.45;color:var(--muted);margin:8px 2px 0}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 :root{--edge:#3F4B5A;--good:#1E7848}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--edge:#AEB8C4;--good:#4FC58C}}

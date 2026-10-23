@@ -32,12 +32,15 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(22px,4vw,30px);m
 .crumb a{text-decoration:none;font-weight:600}
 .ver{font-size:13px;color:var(--muted);margin:22px 0 0}
 /* место для миниатюры раздела: рисунок появится после научного аудита и утверждения эскизов */
-.mini{margin:0;aspect-ratio:3/2;width:100%}
-.mini-box{height:100%;border:1.5px dashed var(--line);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--muted);font-size:13px;text-align:center;padding:8px;background:var(--surface)}
-.mini-box b{font-weight:600;color:var(--muted)}
+.mini{margin:0;width:100%}
+/* рисунок всегда на белом поле: цвета знаков рассчитаны на светлый фон, в тёмной теме тоже */
+.mini-art{background:#fff;border:1px solid var(--line);border-radius:12px;padding:6px;line-height:0}
+.mini-art svg{display:block;width:100%;height:auto}
+.mini figcaption{font-size:13.5px;line-height:1.45;color:var(--muted);margin:8px 2px 0}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .wrap{max-width:1040px;margin:0 auto;padding:12px 16px 32px}
 .head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px 28px;align-items:start;margin-bottom:8px}
+.head .mini{width:400px}
 .kicker{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);margin:0 0 6px}
 .mapentry{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:14px;padding:14px 18px;margin:8px 0 22px}
 .mapentry p{margin:0;max-width:62ch;color:var(--muted);font-size:15.5px}
@@ -56,7 +59,7 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(22px,4vw,30px);m
 .qs a:hover{text-decoration:underline}
 .soon{display:inline-block;font-size:13.5px;color:var(--muted);border:1px dashed var(--line);border-radius:8px;padding:4px 10px}
 .others{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 0}
-@media (max-width:760px){.head{grid-template-columns:1fr}.head .mini{max-width:420px}}
+@media (max-width:760px){.head{grid-template-columns:1fr}.head .mini{width:100%;max-width:440px}}
 </style>
 <!--brand-univ:start-->
 <link rel="icon" type="image/png" href="data:image/png;base64,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">
@@ -94,12 +97,33 @@ input[type=range]{accent-color:var(--u-ui)}
     <h1>Деление, судьба клетки и тканевая функция</h1>
     <p class="lead">Регуляция пролиферации, переходы между клеточными состояниями и тканевые взаимодействия.</p>
    </div>
-   
+   <figure class="mini" data-miniature="S3" data-section="III" data-variant="S3-C"><div class="mini-art"><svg aria-describedby="mcap3" viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ложе ткани: ниша и матрикс внизу как основание, над ними клеточные состояния, вверху повреждение ДНК и его исходы">
+<defs><marker id="m3a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#1F2A36"></path></marker><marker id="m3t" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M5 0 V10" stroke="#1F2A36" stroke-width="2.4"></path></marker></defs>
+<rect x="16" y="222" width="448" height="94" rx="14" fill="#F4F8FB" stroke="none"></rect>
+<path d="M190 236 Q150 210 106 170" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m3a)"></path>
+<path d="M196 46 Q140 60 108 120" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m3t)"></path>
+<path d="M284 44 L370 44" fill="none" stroke="#1F2A36" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#m3a)"></path>
+<path d="M282 50 C 340 50 332 100 364 124" fill="none" stroke="#1F2A36" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#m3a)"></path>
+<path d="M336 204 Q313 220 290 236" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m3a)"></path>
+<path d="M240 236 L240 208" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m3a)"></path>
+<g transform="translate(240 44)"><path d="M-40 -5 H-8 M-40 5 H-8 M8 -5 H40 M8 5 H40" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><path d="M-8 -5 l-3 10 M8 -5 l3 10" stroke="#E62E29" stroke-width="1.8" stroke-linecap="round"></path><line x1="0" y1="2" x2="0" y2="-24" stroke="#1F2A36" stroke-width="1.6"></line><path d="M0 -24 L14 -19 L0 -14 z" fill="#006CA3"></path></g>
+<text x="240" y="74" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="12.5" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">14</tspan> Повреждение ДНК</text>
+<g transform="translate(400 44)"><path d="M-24 -6 C -24 -26 20 -28 24 -8 C 28 10 12 24 -4 22 C -20 20 -24 10 -24 -6 z" fill="#fff" stroke="#1F2A36" stroke-width="1.8"></path><g fill="#fff" stroke="#1F2A36" stroke-width="1.6"><circle cx="-26" cy="-20" r="6"></circle><circle cx="26" cy="12" r="6.5"></circle><circle cx="-14" cy="26" r="5.5"></circle></g><g fill="#006CA3"><circle cx="-4" cy="-4" r="4"></circle><circle cx="6" cy="2" r="3.2"></circle><circle cx="-2" cy="8" r="3"></circle></g></g>
+<text x="400" y="94" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="12.5" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">15</tspan> Регулируемая<tspan x="400" dy="15">гибель</tspan></text>
+<g transform="translate(80 148)"><path d="M0 -22 A 22 22 0 1 1 -21 7" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round"></path><path d="M-26 1 l5 7 l6 -5" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><line x1="14" y1="-26" x2="22" y2="-12" stroke="#006CA3" stroke-width="3.2" stroke-linecap="round"></line><circle r="5" fill="#DCEBF5" stroke="#1F2A36" stroke-width="1.4"></circle></g>
+<text x="80" y="198" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="12.5" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">13</tspan> Клеточный<tspan x="80" dy="15">цикл</tspan></text>
+<g transform="translate(240 146)"><rect x="-11" y="-26" width="22" height="50" rx="6" fill="#fff" stroke="#1F2A36" stroke-width="1.8"></rect><path d="M-7 -26 V-33 M-2 -26 V-33 M3 -26 V-33 M8 -26 V-33" stroke="#1F2A36" stroke-width="1.4" stroke-linecap="round"></path><ellipse cx="0" cy="12" rx="6" ry="7" fill="#006CA3"></ellipse></g>
+<text x="240" y="196" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="12.5" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">17</tspan> Дифференцировка</text>
+<g transform="translate(400 148)"><ellipse rx="34" ry="17" fill="#DCEBF5" stroke="#1F2A36" stroke-width="1.8"></ellipse><ellipse cx="-6" rx="9" ry="7" fill="#fff" stroke="#1F2A36" stroke-width="1.5"></ellipse><g fill="#006CA3"><circle cx="-26" cy="-26" r="2.6"></circle><circle cx="2" cy="-30" r="2.6"></circle><circle cx="28" cy="-24" r="2.6"></circle><circle cx="40" cy="-6" r="2.6"></circle></g><path d="M-20 -16 L-24 -22 M2 -18 L2 -25 M22 -14 L26 -20" stroke="#006CA3" stroke-width="1.4" stroke-linecap="round"></path></g>
+<text x="400" y="198" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="12.5" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">16</tspan> Сенесценция</text>
+<g transform="translate(240 262)"><path d="M-40 14 C -20 4 0 24 40 10 M-40 22 C -10 30 10 12 40 24" stroke="#7A8696" stroke-width="2" fill="none" stroke-linecap="round"></path><path d="M-30 30 L30 4" stroke="#7A8696" stroke-width="1.4"></path><path d="M-24 6 C -24 -24 24 -24 24 6 z" fill="#DCEBF5" stroke="#1F2A36" stroke-width="1.8"></path><circle cx="0" cy="-6" r="6" fill="#fff" stroke="#1F2A36" stroke-width="1.4"></circle></g>
+<text x="240" y="312" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="12.5" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">18</tspan> Ниша и матрикс</text>
+</svg></div><figcaption id="mcap3">Сигналы ниши и матрикса (18) поддерживают прохождение клеточного цикла (13) и влияют на дифференцировку (17); повреждение ДНК (14) останавливает клеточный цикл и при определённых условиях ведёт к регулируемой гибели (15) или сенесценции (16); факторы, секретируемые сенесцентными клетками, меняют тканевое окружение.</figcaption></figure>
   </div>
   <ol class="chs">
   <li class="ch" id="ch13">
    <div class="n">Глава 13</div>
-   <h2>Пролиферация как разрешённое состояние клетки</h2>
+   <h2>Контроль входа в клеточный цикл: точка рестрикции, CDK и квиесценция</h2>
    <span class="soon">Семинар в подготовке</span>
   </li>
   <li class="ch" id="ch14">

@@ -51,7 +51,7 @@ h1{font-family:var(--f-display);font-weight:600;font-size:17px;margin:0;line-hei
 .canvas svg{width:100%;height:100%;display:block}
 .locus{width:288px;flex:none;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
 .locus svg{width:100%;height:100%;display:block}
-.stagehint{position:absolute;left:10px;top:8px;font-size:12.5px;color:#334;background:rgba(255,255,255,.88);border-radius:6px;padding:2px 7px;pointer-events:none}
+.stagehint{position:absolute;right:10px;bottom:8px;font-size:12.5px;color:#334;background:rgba(255,255,255,.88);border-radius:6px;padding:2px 7px;pointer-events:none}
 .legend{font-size:12px;color:#334;border-top:1px solid #DDE3EA;padding:6px 10px;display:flex;flex-wrap:wrap;gap:4px 12px;background:#fff}
 .legend span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
 .legend svg{width:30px;height:12px}
@@ -234,7 +234,7 @@ input[type=range]{accent-color:var(--u-ui)}
   <p>Все механизмы разбираются в одной и той же клетке печени — гепатоците. У каждого пункта три режима. «Проследить»: путь воздействия по этапам. «Изменить условия»: одно вмешательство в сравнении с контролем. «Найти причину»: состояние образца скрыто, причину ищут по результатам выбранных измерений. Если механизм изучен в другой клетке, это подписано как «окно в другую клетку».</p>
   <p>Уровни величин качественные; числа приведены только там, где они взяты из первоисточника. У каждого состояния модели есть статус: <span class="st F">Ф</span> измерено в указанной системе, <span class="st V">В</span> вывод из измеренного, <span class="st M">М</span> допущение учебной модели. Система, в которой получены данные, указана в паспорте каждого этапа.</p>
  </div>
- <p class="ver">Версия 2.2, 24 октября 2026 г.</p>
+ <p class="ver">Версия 2.3, 24 октября 2026 г.</p>
  <footer class="foot">© 2026 Кафедра биологии и генетики, Медицинский университет Петровского. Учебные материалы курса «Молекулярная биология» (5–6 семестры). При использовании ссылка на кафедру обязательна.
 <!--views:start-->
 <div id="gc-views" title="Всего просмотров страниц сайта" aria-label="Всего просмотров страниц сайта" style="display:none;justify-content:flex-end;align-items:center;gap:6px;margin-top:8px">
@@ -358,9 +358,11 @@ function cellSVG(layer, bare) {
   return `<svg viewBox="0 0 860 560" xmlns="${NS}" role="img" aria-labelledby="cellT"><title id="cellT">Гепатоцит</title>${DEFS}${anatomy()}${bare ? '' : layer}</svg>`;
 }
 function meter(x, y, lv, col, label) {
-  let s = `<text x="${x}" y="${y + 10}" class="lbs">${label}</text>`;
-  for (let i = 0; i < 3; i++) s += `<rect x="${x + 150 + i * 22}" y="${y}" width="19" height="12" rx="2" fill="${i < lv ? col : '#E5E7EB'}"/>`;
-  return s + `<text x="${x + 222}" y="${y + 10}" class="tiny">${['нет', 'низк.', 'сред.', 'выс.'][lv]}</text>`;
+  /* подпись не длиннее 166 единиц: длинную сжимаем по ширине, чтобы она не заходила на шкалу */
+  const long = String(label).replace(/<[^>]+>/g, '').length > 22;
+  let s = `<text x="${x}" y="${y + 10}" class="lbs"${long ? ' textLength="164" lengthAdjust="spacingAndGlyphs"' : ''}>${label}</text>`;
+  for (let i = 0; i < 3; i++) s += `<rect x="${x + 172 + i * 22}" y="${y}" width="19" height="12" rx="2" fill="${i < lv ? col : '#E5E7EB'}"/>`;
+  return s + `<text x="${x + 243}" y="${y + 10}" class="tiny">${['нет', 'низк.', 'сред.', 'выс.'][lv]}</text>`;
 }
 const MSCHEME = {
   blot: `<svg viewBox="0 0 320 96"><style>.t{font:11px 'Golos Text',sans-serif;fill:#334155}</style>
@@ -661,7 +663,7 @@ function layer(s, cond) {
     ${kin(422, 134, 17, 'RAF', rafOn, '#0E7490')}${kin(404, 198, 17, 'MEK', mekOn, '#0369A1')}
     <circle class="hl" cx="344" cy="238" r="18" fill="${s.perk ? K.erk : '#F1F5F9'}" fill-opacity="${[1, .4, .75, 1][s.perk]}" stroke="${s.perk ? K.erk : K.grey}" stroke-width="2"/>
     <text x="344" y="242" class="tiny" text-anchor="middle" font-weight="700" style="fill:${s.perk ? '#fff' : '#64748B'}">ERK</text>
-    ${erkOn ? P(330, 222) + P(328, 254) : ''}
+    ${erkOn ? P(330, 222) + P(361, 252) : ''}
     ${s.fb >= 2 ? P(440, 120, 4.5) : ''}</g>`);
   if (rasOn) L.push(`<path d="M350 112 L401 128" stroke="#475569" stroke-width="2" marker-end="url(#S01-act)"/>`);
   if (rafOn) L.push(arrow(418, 153, 409, 178, '#0E7490', 'cat'));
@@ -676,7 +678,7 @@ function layer(s, cond) {
     L.push(`<g class="hot" data-ph="4" tabindex="0" role="button" aria-label="Отрицательная обратная связь: этап 4" opacity="${op}">
       <path class="hl" d="M328 226 Q 294 196 292 ${on ? 146 : 202}" fill="none" stroke="${K.inh}" stroke-width="2.2" stroke-dasharray="5 3" marker-end="url(#S01-inh)"/>
       <path d="M362 232 Q 462 210 438 152" fill="none" stroke="${K.inh}" stroke-width="2.2" stroke-dasharray="5 3" marker-end="url(#S01-inh)"/>
-      <text x="460" y="152" class="lbs" style="fill:${K.inh}" font-weight="600">торможение</text></g>`);
+      <text x="472" y="176" class="lbs" style="fill:${K.inh}" font-weight="600">торможение</text></g>`);
   }
   /* DUSP */
   if (s.dusp > 0) {
@@ -699,7 +701,7 @@ function layer(s, cond) {
     slots.slice(0, n).forEach(([x, y]) => { f += `<g transform="translate(${x} ${y})"><ellipse rx="9" ry="6" fill="${K.fos}" opacity="${s.fosp === 1 ? .45 : .95}" stroke="${cond === 'def' ? K.inh : 'none'}" stroke-width="1.5"/>
       ${s.fosp >= 2 ? `<circle cx="8" cy="-6" r="3.6" fill="${C.p}"/>` : ''}${s.pfos >= 2 ? `<circle cx="-8" cy="-6" r="3.6" fill="${C.p}"/>` : ''}</g>`; });
     L.push(`<g class="hot" data-ph="5" tabindex="0" role="button" aria-label="Белок c-Fos: этап 5">${f}<rect class="hl" x="482" y="304" width="92" height="36" fill="transparent" stroke="none"/></g>
-      <text x="522" y="294" class="lbs" style="fill:${K.fos}" font-weight="600">c-Fos</text>`);
+      <text x="536" y="298" class="lbs" style="fill:${K.fos}" font-weight="600">c-Fos</text>`);
   }
   /* мишень AP-1 */
   L.push(`<g class="hot" data-ph="6" tabindex="0" role="button" aria-label="Ген-мишень AP-1: этап 6">
@@ -907,14 +909,14 @@ const CONCEPT_PHASE = {'C1.pi': 2, 'C4.akt': 2, 'C6.foxo': 3, 'C5.access': 4, 'C
 const EDGE_PHASE = {E062: 2, E029: 3, E042: 4, E032: 4, E043: 5, E035: 5};
 const CLABEL = {'C1.pi': 'Фосфоинозитиды', 'C4.akt': 'PI3K–AKT', 'C6.foxo': 'FOXO: локализация и связывание', 'C5.access': 'Доступность хроматина', 'C5.pioneer': 'Пионерные факторы', 'C5.transcription': 'Транскрипция гена-мишени'};
 
-const NUC_SLOTS = [[478,316],[448,256],[468,236],[515,300],[560,288],[548,334],[505,366],[456,350],[430,300],[578,250],[500,212],[585,325]];
+const NUC_SLOTS = [[482,306],[448,256],[468,236],[515,300],[560,288],[548,334],[505,366],[438,352],[430,300],[578,250],[500,212],[585,325]];
 const CYT_SLOTS = [[384,178],[418,210],[346,216],[392,250],[330,268],[282,232],[256,300],[302,336],[352,374],[408,404],[272,168],[432,150]];
 
 function signalLayer(s, cond) {  /* слой механизма поверх общего гепатоцита */
   const L = [];
   const on = s.ins > 0;
   /* инсулин в синусоиде */
-  [[120,30],[256,34],[420,26],[600,32],[752,28]].forEach(([x, y], i) => L.push(`<g class="fade" opacity="${on ? 1 : .0}"><circle cx="${x}" cy="${y}" r="6" fill="${C.ins}"/></g>`));
+  [[40,30],[256,34],[420,26],[214,22],[350,22]].forEach(([x, y], i) => L.push(`<g class="fade" opacity="${on ? 1 : .0}"><circle cx="${x}" cy="${y}" r="6" fill="${C.ins}"/></g>`));
   if (on) L.push(`<circle cx="300" cy="70" r="6.5" fill="${C.ins}"/><text x="132" y="35" class="lbs" fill="${C.ins}" font-weight="600">инсулин</text>`);
   /* рецептор инсулина (α2β2, схематично) */
   const rc = on ? C.sig : '#94A3B8';
@@ -923,7 +925,7 @@ function signalLayer(s, cond) {  /* слой механизма поверх о�
     <path d="M292 66 v52 M308 66 v52" stroke="${rc}" stroke-width="5" stroke-linecap="round"/>
     <path d="M292 72 q8 -10 16 0" fill="none" stroke="${rc}" stroke-width="3"/>
     ${on ? `<circle cx="286" cy="112" r="5" fill="${C.p}"/><circle cx="314" cy="112" r="5" fill="${C.p}"/><text x="286" y="115.5" class="pp">P</text><text x="314" y="115.5" class="pp">P</text>` : ''}
-    <text x="280" y="134" class="lbs" fill="${rc}" text-anchor="end">рецептор</text><text x="280" y="148" class="lbs" fill="${rc}" text-anchor="end">инсулина</text></g>`);
+    <text x="282" y="77" class="lbs" fill="${rc}" text-anchor="end">рецептор инсулина</text></g>`);
   /* IRS–PI3K и PIP₃ */
   if (s.pip3 > 0) L.push(`<g><ellipse cx="300" cy="132" rx="15" ry="8" fill="#93C5FD" stroke="${C.sig}"/><text x="300" y="135.5" class="tiny" text-anchor="middle">PI3K</text></g>`);
   let pip = ''; for (let x = 322; x <= 404; x += 9) pip += `<circle cx="${x}" cy="93" r="3.4" fill="${s.pip3 >= 2 ? C.pip : '#CBD5E1'}"/>`;
@@ -954,7 +956,7 @@ function signalLayer(s, cond) {  /* слой механизма поверх о�
   }
   L.push(`<g class="hot" data-ph="3" tabindex="0" role="button" aria-label="FOXO1: этап 3">${fx}</g>`);
   L.push(`<text x="330" y="196" class="lbs" fill="${C.foxo}" font-weight="600">FOXO1</text>`);
-  if (s.pfoxo >= 2 && s.nuc <= 1) L.push(`<text x="244" y="206" class="lbs" fill="${C.y1433}" font-weight="600">14-3-3</text>`);
+  if (s.pfoxo >= 2 && s.nuc <= 1) L.push(`<text x="244" y="214" class="lbs" fill="${C.y1433}" font-weight="600">14-3-3</text>`);
   /* AKT → FOXO1 (катализ) и перенос через пору */
   if (s.akt >= 2 && s.pfoxo >= 2) L.push(arrow(372, 132, 390, 168, C.akt, 'cat'));
   if (s.nuc <= 2 && s.pfoxo >= 1) L.push(`<path d="M404 286 C 380 280 372 262 392 252" fill="none" stroke="${C.foxo}" stroke-width="2" stroke-dasharray="3 4" marker-end="url(#mvF)"/>`);
@@ -968,7 +970,7 @@ function signalLayer(s, cond) {  /* слой механизма поверх о�
   let mr = ''; const mp = [[620,380],[650,330],[600,410],[668,404],[628,352],[690,330]];
   for (let i = 0; i < [0, 2, 4, 6][s.mrna]; i++) { const [x, y] = mp[i]; mr += `<path d="M${x} ${y} q5 -6 10 0 t10 0 t10 0" fill="none" stroke="${C.rna}" stroke-width="1.8" opacity=".75"/>`; }
   L.push(`<g class="fade">${mr}</g>`);
-  if (s.mrna > 0) L.push(`<text x="612" y="474" class="lbs" fill="${C.rna}">мРНК G6PC</text>`);
+  if (s.mrna > 0) L.push(`<text x="640" y="456" class="lbs" fill="${C.rna}">мРНК G6PC</text>`);
   return L.join('');
 }
 function locusSVG(s, cond) {
@@ -977,7 +979,7 @@ function locusSVG(s, cond) {
      ${ac ? `<path d="M${x - 6} 131 v-14 h14 v8 h-14" fill="#16A34A" stroke="#16A34A"/><text x="${x + 1}" y="${126}" class="pp" style="font-size:7px">ac</text>` : ''}`;
   const op = lv => [0, .35, .7, 1][lv];
   let rna = '';
-  for (let i = 0; i < s.nrna; i++) rna += `<path d="M${238 + i * 4} ${130 - i * 3} q12 -16 26 -12 t26 -14" fill="none" stroke="${C.rna}" stroke-width="2.4"/>`;
+  for (let i = 0; i < s.nrna; i++) rna += `<path d="M${256 + i * 4} ${128 - i * 3} q6 -18 18 -24 t16 -22" fill="none" stroke="${C.rna}" stroke-width="2.4"/>`;
   return `<svg viewBox="0 0 330 300" xmlns="${NS}" role="img" aria-labelledby="locT"><title id="locT">Промотор G6PC: связывание факторов и синтез РНК</title>${DEFS}
   <rect width="330" height="300" fill="#fff"/>
   <text x="12" y="22" class="lb">Промотор G6PC · увеличение</text>
@@ -990,7 +992,7 @@ function locusSVG(s, cond) {
   <g class="fade" opacity="${op(s.occF)}"><ellipse cx="106" cy="128" rx="20" ry="13" fill="${C.foxo}"/><text x="106" y="132" class="pp" style="font-size:9px">FOXO1</text></g>
   <g class="fade" opacity="${op(s.occA)}"><ellipse cx="157" cy="128" rx="19" ry="13" fill="${C.foxa}"/><text x="157" y="132" class="pp" style="font-size:9px">FoxA</text></g>
   <g class="fade" opacity="${op(s.pol)}"><ellipse cx="214" cy="124" rx="24" ry="18" fill="${C.pol}"/><text x="214" y="128" class="pp" style="font-size:9px">Pol II</text></g>
-  <g class="fade">${rna}</g>${s.nrna ? `<text x="270" y="92" class="tiny" fill="${C.rna}">новая РНК</text>` : ''}
+  <g class="fade">${rna}</g>${s.nrna ? `<text x="234" y="80" class="tiny" text-anchor="end" fill="${C.rna}">новая РНК</text>` : ''}
   ${meter(12, 206, s.occF, C.foxo, 'FOXO1 на IRE')}
   ${meter(12, 226, s.occA, C.foxa, 'FoxA на промоторе')}
   ${meter(12, 246, s.pol, C.pol, 'Pol II на промоторе')}
@@ -1216,14 +1218,14 @@ const EDGE_PHASE = {E016: 3, E065: 4, E017: 5, E018: 6, E019: 6, E036: 6};
 const CLABEL = {'C1.compartment': 'Компартмент (депо ЭПР)', 'C3.plc': 'PLC–IP₃', 'C1.microdomain': 'Кальциевый микродомен', 'C2.contacts': 'Контакты органелл (ЭПР–ПМ)', 'C3.stim': 'STIM–Orai', 'C3.phospho': 'Обратимое фосфорилирование', 'C3.nfat': 'NFAT', 'C5.transcription': 'Транскрипция гена-мишени'};
 
 const NUC = [[500,252],[468,300],[534,296],[500,332],[542,258]];
-const CYT = [[432,350],[398,330],[454,384],[478,356],[410,400]];
+const CYT = [[380,350],[352,328],[372,392],[408,404],[342,372]];
 
 function signalLayer(s, cond) {
   const L = [];
   const on = s.ag > 0;
   const clustered = s.stim >= 2, oraiOpen = s.orai >= 2, hasCa = s.erca >= 2;
   /* агонист в синусоиде */
-  [[150,30],[300,34],[470,28],[640,32]].forEach(([x, y]) => L.push(`<circle cx="${x}" cy="${y}" r="5.5" fill="${on ? C.ins : '#E2E8F0'}"/>`));
+  [[40,30],[100,24],[250,30],[330,24]].forEach(([x, y]) => L.push(`<circle cx="${x}" cy="${y}" r="5.5" fill="${on ? C.ins : '#E2E8F0'}"/>`));
   if (on) L.push(`<text x="150" y="50" class="lbs" fill="${C.ins}" font-weight="600">вазопрессин (V1a) / α1</text>`);
   /* рецептор + Gq */
   const rc = on ? C.sig : '#94A3B8';
@@ -1231,29 +1233,29 @@ function signalLayer(s, cond) {
     <rect class="hl" x="362" y="62" width="40" height="46" rx="5" fill="transparent"/>
     <path d="M372 66 v30 M392 66 v30" stroke="${rc}" stroke-width="5" stroke-linecap="round"/>
     ${on ? `<circle cx="382" cy="104" r="9" fill="#C7D2FE" stroke="${C.sig}"/><text x="382" y="107.5" class="tiny" text-anchor="middle">Gq</text>` : ''}
-    <text x="408" y="86" class="lbs" fill="${rc}">рецептор</text><text x="408" y="100" class="lbs" fill="${rc}">(V1a / α1)</text></g>`);
+    <text x="408" y="114" class="lbs" fill="${rc}">рецептор</text><text x="408" y="128" class="lbs" fill="${rc}">(V1a / α1)</text></g>`);
   /* PLCβ и IP₃ */
   if (s.plc > 0) {
     L.push(`<g class="hot" data-ph="2" tabindex="0" role="button" aria-label="Фосфолипаза Cβ и IP₃: этап 2">
       <rect class="hl" x="362" y="116" width="40" height="22" rx="5" fill="transparent"/>
       <ellipse cx="382" cy="126" rx="19" ry="9" fill="#DDD6FE" stroke="${nfatCol}"/><text x="382" y="129.5" class="tiny" text-anchor="middle">PLCβ</text>`);
     if (s.ip3 >= 2) {
-      [[432,152],[476,176],[520,196]].forEach(([x, y]) => L.push(`<circle cx="${x}" cy="${y}" r="4" fill="${ipCol}"/>`));
-      L.push(`<path d="M400 134 Q 486 176 576 212" fill="none" stroke="${ipCol}" stroke-width="1.5" stroke-dasharray="3 4"/><text x="452" y="150" class="lbs" fill="${ipCol}">IP₃</text>`);
+      [[452,148],[500,158],[540,166]].forEach(([x, y]) => L.push(`<circle cx="${x}" cy="${y}" r="4" fill="${ipCol}"/>`));
+      L.push(`<path d="M400 134 Q 492 146 582 178" fill="none" stroke="${ipCol}" stroke-width="1.5" stroke-dasharray="3 4"/><text x="462" y="174" class="lbs" fill="${ipCol}">IP₃</text>`);
     }
     L.push(`</g>`);
   }
   /* перинуклеарный ЭПР: IP₃-рецептор, депо, выход Ca²⁺ */
   const ip3rOpen = s.ip3 >= 2 && s.erca < 3;
   L.push(`<g class="hot" data-ph="3" tabindex="0" role="button" aria-label="Выход Ca²⁺ из ЭПР через IP₃-рецептор: этап 3">
-    <rect class="hl" x="556" y="190" width="78" height="66" rx="6" fill="transparent"/>
-    <path d="M582 206 v16 M596 206 v16" stroke="${ip3rOpen ? ipCol : '#94A3B8'}" stroke-width="4" stroke-linecap="round"/>
-    <text x="589" y="202" class="tiny" text-anchor="middle">IP₃R</text>`);
+    <rect class="hl" x="576" y="160" width="66" height="56" rx="6" fill="transparent"/>
+    <path d="M586 172 v16 M598 172 v16" stroke="${ip3rOpen ? ipCol : '#94A3B8'}" stroke-width="4" stroke-linecap="round"/>
+    <text x="606" y="166" class="tiny">IP₃R</text>`);
   const nStore = [0,1,2,4][s.erca];
-  const stPts = [[614,210],[626,224],[608,234],[622,244]];
+  const stPts = [[604,190],[614,198],[612,210],[624,214]];
   for (let i = 0; i < nStore; i++) { const [x, y] = stPts[i]; L.push(`<circle cx="${x}" cy="${y}" r="3.5" fill="${caCol}" opacity=".85"/>`); }
-  L.push(`<text x="566" y="252" class="lbs" fill="${C.lab}">депо ЭПР</text>`);
-  if (ip3rOpen && s.cyca > 0) { L.push(`<path d="M580 214 h-24" stroke="${caCol}" stroke-width="2"/><circle cx="560" cy="214" r="3.5" fill="${caCol}"/><circle cx="548" cy="208" r="3.5" fill="${caCol}"/>`); }
+  L.push(`<text x="640" y="182" class="lbs" fill="${C.lab}">депо ЭПР</text>`);
+  if (ip3rOpen && s.cyca > 0) { L.push(`<path d="M584 176 L566 160" stroke="${caCol}" stroke-width="2"/><circle cx="562" cy="156" r="3.5" fill="${caCol}"/><circle cx="574" cy="150" r="3.5" fill="${caCol}"/>`); }
   L.push(`</g>`);
   /* контакт ЭПР–плазматическая мембрана: STIM1 и Orai1 */
   L.push(`<g class="hot" data-ph="5" tabindex="0" role="button" aria-label="Orai1 и вход Ca²⁺: этап 5">
@@ -1269,11 +1271,11 @@ function signalLayer(s, cond) {
   const stimX = clustered ? [220,234,248] : [190,236,286], topY = clustered ? 100 : 126;
   stimX.forEach(x => { L.push(`<path d="M${x} 152 v-${152 - topY}" stroke="${stimCol}" stroke-width="4" stroke-linecap="round"/>
     <circle cx="${x}" cy="160" r="4" fill="${hasCa ? '#99F6E4' : '#CBD5E1'}" stroke="${stimCol}"/>${hasCa ? `<circle cx="${x}" cy="160" r="2" fill="${caCol}"/>` : ''}`); });
-  if (clustered) L.push(`<text x="234" y="${topY - 6}" class="tiny" text-anchor="middle" fill="${stimCol}">STIM1 (кластер)</text><text x="234" y="120" class="tiny" text-anchor="middle" fill="${C.lab}">зазор 10–25 нм</text>`);
-  else L.push(`<text x="236" y="172" class="tiny" text-anchor="middle" fill="${stimCol}">STIM1 (димеры)</text>`);
+  if (clustered) L.push(`<text x="210" y="110" class="tiny" text-anchor="end" fill="${stimCol}">STIM1 (кластер)</text><text x="260" y="114" class="tiny" fill="${C.lab}">зазор 10–25 нм</text>`);
+  else L.push(`<text x="236" y="180" class="tiny" text-anchor="middle" fill="${stimCol}">STIM1 (димеры)</text>`);
   L.push(`</g>`);
   /* свободный Ca²⁺ в цитозоле */
-  const nCy = [0,2,4,7][s.cyca]; const cyPts = [[300,124],[332,150],[300,186],[340,200],[290,228],[348,236],[312,256]];
+  const nCy = [0,2,4,7][s.cyca]; const cyPts = [[300,190],[336,172],[290,226],[344,206],[318,246],[360,240],[300,262]];
   for (let i = 0; i < nCy; i++) { const [x, y] = cyPts[i]; L.push(`<circle cx="${x}" cy="${y}" r="3" fill="${caCol}" opacity=".8"/>`); }
   /* кальциневрин и NFAT */
   const canOn = s.can >= 2;
@@ -1282,12 +1284,13 @@ function signalLayer(s, cond) {
     <ellipse cx="322" cy="300" rx="24" ry="12" fill="${canOn ? '#F5D0FE' : '#F1F5F9'}" stroke="${canOn ? canCol : '#94A3B8'}"/>
     <text x="322" y="303.5" class="tiny" text-anchor="middle" fill="${canOn ? canCol : '#64748B'}">кальциневрин</text>
     ${canOn ? `<text x="322" y="286" class="tiny" text-anchor="middle" fill="${canCol}">Ca²⁺–кальмодулин</text>` : ''}`);
-  if (canOn) L.push(arrow(336, 304, 428, 344, canCol, 'inf'));
+  if (canOn) L.push(arrow(342, 308, 368, 336, canCol, 'inf'));
   const nn = s.nnfat >= 3 ? 5 : (s.nnfat >= 2 ? 3 : 0);
   for (let i = 0; i < 5; i++) { const inNuc = i < nn, [x, y] = inNuc ? NUC[i] : CYT[i]; const ph = !inNuc && s.pnfat >= 2;
     L.push(`<g style="transform:translate(${x}px,${y}px)"><ellipse rx="12" ry="7.5" fill="${nfatCol}" opacity=".92"/><text y="3" class="pp" style="font-size:7px">NFAT</text>${ph ? `<circle cx="11" cy="-7" r="4" fill="${C.p}"/><text x="11" y="-4" class="pp" style="font-size:6px">P</text>` : ''}</g>`); }
-  if (s.nnfat > 0) L.push(`<path d="M456 356 C 486 338 484 316 502 300" fill="none" stroke="${nfatCol}" stroke-width="2" stroke-dasharray="3 4" marker-end="url(#mvF)"/>`);
-  L.push(`<text x="398" y="428" class="lbs" fill="${nfatCol}" font-weight="600">NFAT</text></g>`);
+  if (nn > 0) L.push(canOn ? `<path d="M398 352 C 420 340 436 330 456 318" fill="none" stroke="${nfatCol}" stroke-width="2" stroke-dasharray="3 4" marker-end="url(#mvF)"/>`
+    : `<path d="M440 316 C 424 326 412 334 396 346" fill="none" stroke="${nfatCol}" stroke-width="2" stroke-dasharray="3 4" marker-end="url(#mvF)"/>`);
+  L.push(`<text x="420" y="432" class="lbs" fill="${nfatCol}" font-weight="600">NFAT</text></g>`);
   return L.join('');
 }
 function contactSVG(s, cond) {
@@ -1304,8 +1307,8 @@ function contactSVG(s, cond) {
   <rect width="330" height="300" fill="#fff"/>
   <text x="12" y="22" class="lb">Контакт ЭПР–плазматическая мембрана</text>
   <rect x="0" y="48" width="330" height="7" fill="${C.mem}"/><text x="318" y="68" class="tiny" text-anchor="end">плазматическая</text><text x="318" y="80" class="tiny" text-anchor="end">мембрана</text>
-  <rect x="0" y="150" width="330" height="7" fill="${erCol}"/><text x="12" y="146" class="tiny">мембрана ЭПР · просвет ниже</text>
-  <path d="M308 55 v95" stroke="#64748B" stroke-width="1" stroke-dasharray="2 3"/><text x="304" y="104" class="tiny" text-anchor="end">10–25 нм</text>
+  <rect x="0" y="150" width="330" height="7" fill="${erCol}"/><text x="318" y="146" class="tiny" text-anchor="end">мембрана ЭПР</text><text x="12" y="176" class="tiny">просвет ЭПР</text>
+  <path d="M324 55 v95" stroke="#64748B" stroke-width="1" stroke-dasharray="2 3"/><text x="304" y="104" class="tiny" text-anchor="end">10–25 нм</text>
   ${st}
   <text x="170" y="44" class="tiny" text-anchor="middle" fill="${oraiOpen ? oraiCol : '#64748B'}" font-weight="700">Orai1</text>
   ${clustered ? `<text x="140" y="112" class="tiny" text-anchor="end" fill="${stimCol}">STIM1 (кластер)</text>` : `<text x="166" y="110" class="tiny" text-anchor="middle" fill="${stimCol}">STIM1 (димеры)</text>`}
@@ -1567,14 +1570,14 @@ const EDGE_PHASE = {E014: 1, E050: 1, E067: 2, E005: 4, E002: 6};
 const CLABEL = {'C3.receptor': 'Рецептор и окружение', 'C3.gpcr': 'GPCR и тип G-белка', 'C3.gs': 'Gs–cAMP–PKA', 'C1.cooperativity': 'Порог и кооперативность', 'C3.phospho': 'Обратимое фосфорилирование', 'C1.local_conc': 'Локальная концентрация', 'C1.microdomain': 'Микродомен cAMP'};
 
 const col = {camp: '#0891B2', pka: '#2563EB', glu: '#B45309', creb: '#7C3AED', akap: '#0F766E', glc: '#CA8A04', phos: '#B45309'};
-const CAMP_SLOTS = [[334,150],[362,138],[304,162],[388,166],[346,184],[406,150],[372,120],[330,118],[398,190],[288,150],[410,172],[356,206]];
+const CAMP_SLOTS = [[340,150],[366,140],[312,172],[388,166],[346,184],[406,150],[380,132],[356,124],[398,190],[332,196],[410,172],[364,206]];
 
 function signalLayer(s, cond) {
   const L = [];
   const on = s.glu > 0;
   /* глюкагон в синусоиде */
-  [[130,30],[260,34],[430,26],[610,32],[756,28]].forEach(([x, y]) => L.push(`<circle cx="${x}" cy="${y}" r="6" fill="${col.glu}" opacity="${on ? 1 : 0}"/>`));
-  if (on) L.push(`<text x="140" y="34" class="lbs" fill="${col.glu}" font-weight="600">глюкагон</text>`);
+  [[124,38],[178,26],[222,44],[296,30],[356,42]].forEach(([x, y]) => L.push(`<circle cx="${x}" cy="${y}" r="6" fill="${col.glu}" opacity="${on ? 1 : 0}"/>`));
+  if (on) L.push(`<text x="20" y="36" class="lbs" fill="${col.glu}" font-weight="600">глюкагон</text>`);
   /* рецептор глюкагона (7TM) */
   const rc = s.ract >= 2 ? C.sig : (on ? '#64748B' : '#94A3B8');
   L.push(`<g class="hot" data-ph="1" tabindex="0" role="button" aria-label="Рецептор глюкагона: этап 1">
@@ -1586,20 +1589,20 @@ function signalLayer(s, cond) {
   L.push(`<g class="hot" data-ph="1" tabindex="0" role="button" aria-label="β2-адренорецептор: окно в другую клетку, этап 1">
     <rect class="hl" x="372" y="62" width="26" height="46" fill="transparent" stroke="none" rx="5"/>
     <path d="M378 66 v42 M386 66 v42 M394 66 v42" stroke="#B9A5C9" stroke-width="3.4" stroke-linecap="round" stroke-dasharray="3 3"/>
-    <text x="402" y="86" class="tiny" fill="#8B7CA6">β2-АР</text><text x="402" y="100" class="tiny" fill="#8B7CA6">окно</text></g>`);
+    <text x="404" y="120" class="lbs" fill="#8B7CA6">β2-АР (окно)</text></g>`);
   /* Gs и аденилатциклаза */
-  if (s.ract >= 2) L.push(`<g><ellipse cx="300" cy="128" rx="15" ry="8" fill="#BFDBFE" stroke="${C.sig}"/><text x="300" y="131.5" class="tiny" text-anchor="middle">Gαs·GTP</text></g>`);
+  if (s.ract >= 2) L.push(`<g><ellipse cx="304" cy="146" rx="20" ry="8" fill="#BFDBFE" stroke="${C.sig}"/><text x="304" y="149.5" class="tiny" text-anchor="middle">Gαs·GTP</text></g>`);
   const ac = s.ac > 0;
   L.push(`<g class="hot" data-ph="2" tabindex="0" role="button" aria-label="Аденилатциклаза: этап 2">
     <rect class="hl" x="322" y="84" width="20" height="18" rx="4" fill="${ac ? '#DBEAFE' : '#F1F5F9'}" stroke="${ac ? C.sig : '#94A3B8'}" stroke-width="1.6"/>
-    <text x="332" y="120" class="lbs" fill="${ac ? C.sig : '#94A3B8'}" text-anchor="middle">АЦ</text></g>`);
-  if (s.ract >= 2) L.push(arrow(312, 124, 334, 102, C.sig, 'inf'));
+    <text x="346" y="104" class="lbs" fill="${ac ? C.sig : '#94A3B8'}">АЦ</text></g>`);
+  if (s.ract >= 2) L.push(arrow(312, 138, 330, 104, C.sig, 'inf'));
   /* cAMP в цитоплазме */
   const nC = [0, 3, 7, 12][s.camp];
   let cs = '';
   for (let i = 0; i < nC; i++) { const [x, y] = CAMP_SLOTS[i]; cs += `<circle cx="${x}" cy="${y}" r="4" fill="${col.camp}"/>`; }
   L.push(`<g class="hot" data-ph="3" tabindex="0" role="button" aria-label="cAMP: этап 3">${cs}<rect class="hl" x="282" y="110" width="138" height="104" rx="8" fill="transparent" stroke="none"/>
-    ${s.camp > 0 ? `<text x="414" y="138" class="lbs" fill="${col.camp}">cAMP</text>` : ''}</g>`);
+    ${s.camp > 0 ? `<text x="266" y="210" class="lbs" fill="${col.camp}">cAMP</text>` : ''}</g>`);
   if (s.ac > 0 && s.camp >= 1) L.push(arrow(332, 100, 348, 134, col.camp, 'cat'));
   /* PKA у мишени */
   const pkaOn = s.pka >= 2;
@@ -1609,17 +1612,17 @@ function signalLayer(s, cond) {
       ? `<circle cx="252" cy="296" r="11" fill="#DBEAFE" stroke="${col.pka}" stroke-width="2"/><text x="252" y="300" class="tiny" text-anchor="middle" font-weight="700" fill="${col.pka}">C</text>
          <circle cx="278" cy="300" r="11" fill="#DBEAFE" stroke="${col.pka}" stroke-width="2"/><text x="278" y="304" class="tiny" text-anchor="middle" font-weight="700" fill="${col.pka}">C</text>`
       : `<rect x="242" y="286" width="42" height="24" rx="8" fill="#F1F5F9" stroke="#94A3B8"/><text x="263" y="302" class="tiny" text-anchor="middle" fill="#64748B">R₂C₂</text>`}
-    <text x="238" y="330" class="lbs" fill="${pkaOn ? col.pka : '#64748B'}" text-anchor="start">PKA</text></g>`);
-  if (s.akap >= 2) L.push(`<path d="M236 300 q-10 6 -10 18" fill="none" stroke="${col.akap}" stroke-width="3" stroke-linecap="round"/><text x="206" y="330" class="tiny" fill="${col.akap}">AKAP</text>`);
+    <text x="294" y="304" class="lbs" fill="${pkaOn ? col.pka : '#64748B'}">PKA</text></g>`);
+  if (s.akap >= 2) L.push(`<path d="M236 300 q-10 6 -10 18" fill="none" stroke="${col.akap}" stroke-width="3" stroke-linecap="round"/><text x="184" y="336" class="lbs" fill="${col.akap}">AKAP</text>`);
   /* гликогенфосфорилаза a у гликогена */
   const pA = s.phos > 0;
   L.push(`<g class="hot" data-ph="5" tabindex="0" role="button" aria-label="Гликогенфосфорилаза: этап 5">
-    <rect class="hl" x="196" y="236" width="56" height="26" rx="8" fill="transparent" stroke="none"/>
-    <ellipse cx="224" cy="250" rx="15" ry="9" fill="${pA ? col.phos : '#E2E8F0'}" stroke="${pA ? '#92400E' : '#94A3B8'}"/>
-    <text x="224" y="253.5" class="tiny" text-anchor="middle" fill="${pA ? '#fff' : '#64748B'}" font-weight="600">${pA ? 'a' : 'b'}</text>
-    ${pA ? `<circle cx="238" cy="242" r="4.4" fill="${C.p}"/><text x="238" y="245" class="pp">P</text>` : ''}
-    <text x="196" y="230" class="lbs" fill="${pA ? '#92400E' : '#64748B'}">фосфорилаза ${pA ? 'a' : 'b'}</text></g>`);
-  if (pkaOn && s.phk >= 2) L.push(arrow(262, 300, 240, 262, col.pka, 'cat'));
+    <rect class="hl" x="218" y="244" width="40" height="26" rx="8" fill="transparent" stroke="none"/>
+    <ellipse cx="238" cy="257" rx="15" ry="9" fill="${pA ? col.phos : '#E2E8F0'}" stroke="${pA ? '#92400E' : '#94A3B8'}"/>
+    <text x="238" y="260.5" class="tiny" text-anchor="middle" fill="${pA ? '#fff' : '#64748B'}" font-weight="600">${pA ? 'a' : 'b'}</text>
+    ${pA ? `<circle cx="253" cy="249" r="4.4" fill="${C.p}"/><text x="253" y="252" class="pp">P</text>` : ''}
+    <text x="222" y="238" class="lbs" fill="${pA ? '#92400E' : '#64748B'}">фосфорилаза ${pA ? 'a' : 'b'}</text></g>`);
+  if (pkaOn && s.phk >= 2) L.push(arrow(262, 300, 244, 270, col.pka, 'cat'));
   if (pA) { for (let i = 0; i < [0, 1, 2, 3][s.phos]; i++) L.push(`<circle cx="${250 + i * 9}" cy="${356 + (i % 2) * 6}" r="2.6" fill="${col.glc}"/>`); }
   /* CREB в ядре */
   const cON = s.pcreb > 0;
@@ -1629,29 +1632,29 @@ function signalLayer(s, cond) {
     ${cON ? `<circle cx="472" cy="304" r="4.4" fill="${C.p}"/><text x="472" y="307" class="pp">P</text>` : ''}</g>`);
   if (pkaOn && cON) L.push(arrow(300, 240, 444, 306, col.pka, 'cat'));
   /* выход глюкозы в синусоид */
-  if (s.gluc > 0) { const gp = [[668, 458], [680, 484], [694, 512]];
-    L.push(`<path d="M660 440 L700 524" stroke="${col.glc}" stroke-width="1.6" stroke-dasharray="3 4" marker-end="url(#infA)"/>`);
+  if (s.gluc > 0) { const gp = [[176, 456], [184, 482], [192, 510]];
+    L.push(`<path d="M170 436 L198 528" stroke="${col.glc}" stroke-width="1.6" stroke-dasharray="3 4" marker-end="url(#infA)"/>`);
     for (let i = 0; i < [0, 1, 2, 3][s.gluc]; i++) L.push(`<circle cx="${gp[i][0]}" cy="${gp[i][1]}" r="4.2" fill="${col.glc}"/>`);
-    L.push(`<text x="712" y="532" class="lbs" fill="${col.glc}" font-weight="600">глюкоза</text>`); }
+    L.push(`<text x="206" y="524" class="lbs" fill="${col.glc}" font-weight="600">глюкоза</text>`); }
   return L.join('');
 }
 function zoomSVG(s, cond) {
   const op = lv => [0.08, .4, .7, 1][lv];
   const srcOn = s.ac > 0, wide = s.campN >= 3 && s.pp < 2;
   /* облако cAMP у мембраны: радиус зависит от локального cAMP и активности ФДЭ */
-  const r = 26 + s.campN * 18 + (s.pp < 2 ? 18 : 0);
+  const r = 18 + s.campN * 14 + (s.pp < 2 ? 12 : 0);
   let pde = '';
-  [[70,96],[150,70],[230,96],[270,120]].forEach(([x, y]) => pde += `<g opacity="${s.pp >= 2 ? 1 : .3}"><path d="M${x - 7} ${y} l7 10 l7 -10" fill="none" stroke="#0F766E" stroke-width="3"/><text x="${x}" y="${y - 6}" class="tiny" fill="#0F766E" text-anchor="middle">ФДЭ</text></g>`);
+  [[52,104],[52,150],[284,104],[284,150]].forEach(([x, y]) => pde += `<g opacity="${s.pp >= 2 ? 1 : .3}"><path d="M${x - 7} ${y} l7 10 l7 -10" fill="none" stroke="#0F766E" stroke-width="3"/><text x="${x}" y="${y - 6}" class="tiny" fill="#0F766E" text-anchor="middle">ФДЭ</text></g>`);
   return `<svg viewBox="0 0 330 300" xmlns="${NS}" role="img" aria-labelledby="zT"><title id="zT">Микродомен cAMP у мишени</title>${DEFS}
    <rect width="330" height="300" fill="#fff"/>
    <text x="12" y="22" class="lb">Микродомен cAMP · увеличение</text>
    <text x="12" y="40" class="lbs">взаимное расположение условное</text>
-   <line x1="0" y1="60" x2="330" y2="60" stroke="${C.mem}" stroke-width="4"/>
-   <rect x="150" y="52" width="26" height="14" rx="3" fill="${srcOn ? '#DBEAFE' : '#F1F5F9'}" stroke="${srcOn ? C.sig : '#94A3B8'}"/><text x="163" y="48" class="tiny" text-anchor="middle">АЦ (источник)</text>
+   <line x1="0" y1="72" x2="330" y2="72" stroke="${C.mem}" stroke-width="4"/>
+   <rect x="150" y="64" width="26" height="16" rx="3" fill="${srcOn ? '#DBEAFE' : '#F1F5F9'}" stroke="${srcOn ? C.sig : '#94A3B8'}"/><text x="184" y="60" class="tiny">АЦ (источник)</text>
    <circle cx="163" cy="118" r="${r}" fill="${col.camp}" opacity="${0.06 + s.campN * 0.06}"/>
    ${s.campN > 0 ? `<text x="163" y="122" class="tiny" text-anchor="middle" fill="#0E7490">cAMP локально</text>` : ''}
    ${pde}
-   <g opacity="${s.akap >= 2 ? 1 : .25}"><path d="M120 150 q6 -12 20 -12 h8" fill="none" stroke="${col.akap}" stroke-width="3"/><text x="118" y="150" class="tiny" fill="${col.akap}" text-anchor="end">AKAP</text>
+   <g opacity="${s.akap >= 2 ? 1 : .25}"><path d="M112 168 q8 -22 32 -22" fill="none" stroke="${col.akap}" stroke-width="3"/><text x="106" y="182" class="tiny" fill="${col.akap}" text-anchor="end">AKAP</text>
      <circle cx="156" cy="146" r="11" fill="#DBEAFE" stroke="${col.pka}" stroke-width="2"/><text x="156" y="150" class="tiny" text-anchor="middle" font-weight="700" fill="${col.pka}">PKA</text></g>
    <rect x="182" y="138" width="54" height="18" rx="4" fill="${s.phos >= 2 ? col.phos : '#E2E8F0'}" stroke="#92400E"/><text x="209" y="151" class="tiny" text-anchor="middle" fill="${s.phos >= 2 ? '#fff' : '#64748B'}">мишень</text>
    ${s.phos >= 2 && s.akap >= 2 ? `<circle cx="232" cy="138" r="4.4" fill="${C.p}"/><text x="232" y="141" class="pp">P</text>` : ''}
@@ -1697,25 +1700,25 @@ Object.assign(SRC, {
 Object.assign(MSCHEME, {
   mtstain: `<svg viewBox="0 0 320 96"><style>.t{font:11px 'Golos Text',sans-serif;fill:#334155}</style>
     <rect x="6" y="14" width="140" height="68" rx="6" fill="#F8FAFC" stroke="#94A3B8"/>
-    <g stroke="#64748B" stroke-width="1.4" fill="none"><path d="M24 70 q30 -40 54 -52"/><path d="M30 74 q40 -34 92 -40"/><path d="M20 58 q36 -22 100 -30"/><path d="M26 44 q30 -14 60 -28"/></g>
+    <g stroke="#64748B" stroke-width="1.4" fill="none"><path fill="none" d="M24 70 q30 -40 54 -52"/><path fill="none" d="M30 74 q40 -34 92 -40"/><path fill="none" d="M20 58 q36 -22 100 -30"/><path fill="none" d="M26 44 q30 -14 60 -28"/></g>
     <circle cx="26" cy="72" r="3" fill="#0F766E"/><text x="76" y="12" class="t" text-anchor="middle">сеть есть (контроль)</text>
     <rect x="174" y="14" width="140" height="68" rx="6" fill="#F8FAFC" stroke="#94A3B8"/>
-    <g stroke="#CBD5E1" stroke-width="1.4"><path d="M196 40 l10 6"/><path d="M230 60 l9 5"/><path d="M250 34 l8 6"/><path d="M210 70 l7 5"/></g>
+    <g stroke="#CBD5E1" stroke-width="1.4"><path fill="none" d="M196 40 l10 6"/><path fill="none" d="M230 60 l9 5"/><path fill="none" d="M250 34 l8 6"/><path fill="none" d="M210 70 l7 5"/></g>
     <text x="244" y="12" class="t" text-anchor="middle">сеть разобрана</text>
     <text x="160" y="92" class="t" text-anchor="middle">антитело к тубулину → видна или нет сеть микротрубочек</text></svg>`,
   pisensor: `<svg viewBox="0 0 320 96"><style>.t{font:11px 'Golos Text',sans-serif;fill:#334155}</style>
-    <path d="M10 60 h150" stroke="#15803D" stroke-width="4"/><text x="84" y="80" class="t" text-anchor="middle">мембрана с PI3P</text>
+    <path fill="none" d="M10 60 h150" stroke="#15803D" stroke-width="4"/><text x="84" y="80" class="t" text-anchor="middle">мембрана с PI3P</text>
     <circle cx="60" cy="52" r="4" fill="#15803D"/><circle cx="96" cy="52" r="4" fill="#15803D"/>
     <path d="M52 52 l8 -14 l8 14" fill="none" stroke="#1D4ED8" stroke-width="3"/><text x="60" y="30" class="t" text-anchor="middle">FYVE</text>
-    <path d="M166 54 h20" stroke="#334155" marker-end="url(#sq)"/>
+    <path fill="none" d="M166 54 h20" stroke="#334155" marker-end="url(#sq)"/>
     <text x="256" y="40" class="t" text-anchor="middle">сенсор (домен +</text><text x="256" y="54" class="t" text-anchor="middle">флуоресцентный белок)</text><text x="256" y="68" class="t" text-anchor="middle">садится, где есть липид</text>
     <defs><marker id="sq" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#334155"/></marker></defs></svg>`,
   surflabel: `<svg viewBox="0 0 320 96"><style>.t{font:11px 'Golos Text',sans-serif;fill:#334155}</style>
-    <path d="M10 30 h150" stroke="#B9A58A" stroke-width="4"/><text x="84" y="20" class="t" text-anchor="middle">поверхность клетки</text>
+    <path fill="none" d="M10 30 h150" stroke="#B9A58A" stroke-width="4"/><text x="84" y="20" class="t" text-anchor="middle">поверхность клетки</text>
     <rect x="40" y="22" width="9" height="7" fill="#1D4ED8"/><rect x="92" y="22" width="9" height="7" fill="#1D4ED8"/><rect x="128" y="22" width="9" height="7" fill="#1D4ED8"/>
     <circle cx="44" cy="46" r="5" fill="none" stroke="#DC2626" stroke-width="2"/><circle cx="96" cy="46" r="5" fill="none" stroke="#DC2626" stroke-width="2"/>
     <text x="84" y="70" class="t" text-anchor="middle">антитело к белку снаружи (мечение поверхности)</text>
-    <path d="M168 40 h20" stroke="#334155" marker-end="url(#sl)"/>
+    <path fill="none" d="M168 40 h20" stroke="#334155" marker-end="url(#sl)"/>
     <text x="256" y="38" class="t" text-anchor="middle">считают метку только</text><text x="256" y="52" class="t" text-anchor="middle">на выбранной мембране</text>
     <defs><marker id="sl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#334155"/></marker></defs></svg>`,
   cargoloc: `<svg viewBox="0 0 320 96"><style>.t{font:11px 'Golos Text',sans-serif;fill:#334155}</style>
@@ -1723,7 +1726,7 @@ Object.assign(MSCHEME, {
     <circle cx="48" cy="44" r="13" fill="#ECFCCB" stroke="#15803D" stroke-width="2"/><circle cx="46" cy="44" r="3" fill="#1D4ED8"/><circle cx="53" cy="48" r="3" fill="#1D4ED8"/>
     <circle cx="108" cy="44" r="13" fill="#FEF3C7" stroke="#B45309" stroke-width="2"/><circle cx="108" cy="44" r="3" fill="#1D4ED8"/>
     <text x="48" y="92" class="t" text-anchor="middle">EEA1</text><text x="108" y="92" class="t" text-anchor="middle">Rab11</text>
-    <path d="M156 46 h20" stroke="#334155" marker-end="url(#cl)"/>
+    <path fill="none" d="M156 46 h20" stroke="#334155" marker-end="url(#cl)"/>
     <text x="250" y="30" class="t" text-anchor="middle">груз метят антителом,</text><text x="250" y="44" class="t" text-anchor="middle">компартмент — маркером;</text><text x="250" y="58" class="t" text-anchor="middle">считают груз, совпавший</text><text x="250" y="72" class="t" text-anchor="middle">с маркером</text>
     <defs><marker id="cl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#334155"/></marker></defs></svg>`
 });
@@ -1880,23 +1883,23 @@ function drawLayer(s, cond) {
   const CT = '#64748B';   /* микротрубочки */
   /* микротрубочки: минус-концы у апикального полюса (левый каналец), плюс-концы к базолатеральной мембране */
   const mtOn = s.mt > 0;
-  const tracks = [[120, 180, 300, 100], [124, 190, 362, 134], [118, 196, 250, 104], [128, 200, 320, 300]];
+  const tracks = [[120, 180, 300, 100], [124, 190, 362, 134], [118, 196, 262, 110]];
   let mtS = '';
   tracks.forEach(([x1, y1, x2, y2]) => {
-    if (mtOn) mtS += `<path d="M${x1} ${y1} L${x2} ${y2}" stroke="${CT}" stroke-width="1.6" opacity=".6"/>`;
-    else { const mx = (x1 + x2) / 2, my = (y1 + y2) / 2; mtS += `<path d="M${x1} ${y1} L${(x1 + mx) / 2} ${(y1 + my) / 2}" stroke="#CBD5E1" stroke-width="1.6" stroke-dasharray="3 5"/><path d="M${(mx + x2) / 2} ${(my + y2) / 2} L${x2} ${y2}" stroke="#CBD5E1" stroke-width="1.6" stroke-dasharray="3 5"/>`; }
+    if (mtOn) mtS += `<path fill="none" d="M${x1} ${y1} L${x2} ${y2}" stroke="${CT}" stroke-width="1.6" opacity=".6"/>`;
+    else { const mx = (x1 + x2) / 2, my = (y1 + y2) / 2; mtS += `<path fill="none" d="M${x1} ${y1} L${(x1 + mx) / 2} ${(y1 + my) / 2}" stroke="#CBD5E1" stroke-width="1.6" stroke-dasharray="3 5"/><path fill="none" d="M${(mx + x2) / 2} ${(my + y2) / 2} L${x2} ${y2}" stroke="#CBD5E1" stroke-width="1.6" stroke-dasharray="3 5"/>`; }
   });
-  L.push(`<g class="hot" data-ph="2" tabindex="0" role="button" aria-label="Микротрубочки и перенос: этап 2"><rect class="hl" x="112" y="96" width="268" height="120" fill="transparent" rx="8"/>${mtS}<text x="252" y="258" class="lbs" fill="${mtOn ? CT : '#94A3B8'}" text-anchor="middle">${mtOn ? 'микротрубочки' : 'микротрубочки разобраны'}</text></g>`);
+  L.push(`<g class="hot" data-ph="2" tabindex="0" role="button" aria-label="Микротрубочки и перенос: этап 2"><rect class="hl" x="112" y="96" width="268" height="120" fill="transparent" rx="8"/>${mtS}<text x="372" y="126" class="lbs" fill="${mtOn ? CT : '#94A3B8'}" text-anchor="middle">${mtOn ? 'микротрубочки' : 'микротрубочки разобраны'}</text></g>`);
   /* метки мембран (Q03): PI(4,5)P₂ на синусоидальной поверхности */
   L.push(`<g class="hot" data-ph="0" tabindex="0" role="button" aria-label="Метки мембран: этап 0"><rect class="hl" x="246" y="70" width="156" height="22" fill="transparent" rx="5"/>
     ${[262, 290, 318].map(x => `<rect x="${x}" y="84" width="8" height="6" fill="${s.pi45 > 0 ? CM : '#CBD5E1'}"/>`).join('')}
-    <text x="400" y="90" class="lbs" fill="${CM}" text-anchor="end">PI(4,5)P₂</text></g>`);
+    <text x="400" y="80" class="lbs" fill="${CM}" text-anchor="end">PI(4,5)P₂</text></g>`);
   /* Гольджи: новый груз */
   L.push(`<g class="hot" data-ph="1" tabindex="0" role="button" aria-label="Новый белок в Гольджи: этап 1"><rect class="hl" x="188" y="196" width="60" height="30" fill="transparent" rx="5"/>
     ${s.golgi > 0 ? dots(206, 210, DOTN(s.golgi), CA, 3) : ''}<text x="222" y="232" class="lbs" fill="${CA}">груз в Гольджи</text></g>`);
   /* пузырёк к базолатеральной мембране */
   if (s.vbaso > 0 && mtOn) { L.push(`<g>${dots(252, 150, Math.min(DOTN(s.vbaso), 2), CA, 3.4)}<circle cx="252" cy="150" r="12" fill="none" stroke="${CA}" stroke-width="1.4" stroke-dasharray="3 3"/></g>`);
-    L.push(`<path d="M214 202 L298 106" stroke="${C.foxo}" stroke-width="1.8" stroke-dasharray="3 4" marker-end="url(#mvF)" opacity=".8"/>`); }
+    L.push(`<path fill="none" d="M214 202 L298 106" stroke="${C.foxo}" stroke-width="1.8" stroke-dasharray="3 4" marker-end="url(#mvF)" opacity=".8"/>`); }
   /* новый белок на синусоидальной (базолатеральной) мембране */
   L.push(`<g class="hot" data-ph="1" tabindex="0" role="button" aria-label="Синусоидальная мембрана: этап 1"><rect class="hl" x="256" y="86" width="110" height="16" fill="transparent" rx="4"/>
     ${s.baso > 0 ? [270, 298, 326, 352].slice(0, DOTN(s.baso)).map(x => `<rect x="${x}" y="88" width="7" height="8" rx="1.5" fill="${CA}"/>`).join('') : ''}</g>`);
@@ -1905,14 +1908,14 @@ function drawLayer(s, cond) {
     <circle cx="344" cy="152" r="17" fill="#ECFCCB" stroke="${s.pi3p > 0 ? CM : '#CBD5E1'}" stroke-width="2"/>
     ${s.pi3p > 0 ? `<circle cx="330" cy="140" r="3" fill="${CM}"/><circle cx="359" cy="142" r="3" fill="${CM}"/>` : ''}
     ${s.ee > 0 ? dots(344, 154, Math.min(DOTN(s.ee), 4), CA, 3) : ''}
-    <text x="344" y="188" class="lbs" text-anchor="middle" fill="${s.pi3p > 0 ? CM : '#94A3B8'}">ранняя эндосома · PI3P</text></g>`);
+    <text x="366" y="158" class="lbs" fill="${s.pi3p > 0 ? CM : '#94A3B8'}">ранняя эндосома · PI3P</text></g>`);
   /* субапикальный Rab11-компартмент (у апикального полюса) */
-  L.push(`<g class="hot" data-ph="4" tabindex="0" role="button" aria-label="Субапикальный компартмент: этап 4"><circle class="hl" cx="150" cy="158" r="20" fill="transparent"/>
-    <circle cx="150" cy="158" r="15" fill="#FEF3C7" stroke="${s.rab11 > 0 ? CR : '#CBD5E1'}" stroke-width="2"/>
-    ${s.rab11 > 0 ? `<circle cx="139" cy="148" r="3" fill="${CR}"/><circle cx="162" cy="149" r="3" fill="${CR}"/>` : ''}
-    ${s.sac > 0 ? dots(150, 160, Math.min(DOTN(s.sac), 4), CA, 3) : ''}
-    <text x="170" y="174" class="lbs" fill="${s.rab11 > 0 ? CR : '#94A3B8'}">Rab11-компартмент</text></g>`);
-  if (s.sac > 0 || s.apic > 0) L.push(`<path d="M138 166 C 122 176 112 182 104 186" stroke="${C.foxo}" stroke-width="1.8" stroke-dasharray="3 4" marker-end="url(#mvF)" opacity=".8"/>`);
+  L.push(`<g class="hot" data-ph="4" tabindex="0" role="button" aria-label="Субапикальный компартмент: этап 4"><circle class="hl" cx="128" cy="150" r="20" fill="transparent"/>
+    <circle cx="128" cy="150" r="15" fill="#FEF3C7" stroke="${s.rab11 > 0 ? CR : '#CBD5E1'}" stroke-width="2"/>
+    ${s.rab11 > 0 ? `<circle cx="117" cy="140" r="3" fill="${CR}"/><circle cx="140" cy="141" r="3" fill="${CR}"/>` : ''}
+    ${s.sac > 0 ? dots(128, 152, Math.min(DOTN(s.sac), 4), CA, 3) : ''}
+    <text x="112" y="114" class="lbs" fill="${s.rab11 > 0 ? CR : '#94A3B8'}">Rab11-компартмент</text></g>`);
+  if (s.sac > 0 || s.apic > 0) L.push(`<path fill="none" d="M120 163 C 114 170 110 174 106 177" stroke="${C.foxo}" stroke-width="1.8" stroke-dasharray="3 4" marker-end="url(#mvF)" opacity=".8"/>`);
   /* канальцевая (апикальная) мембрана — левый каналец (96,186) */
   L.push(`<g class="hot" data-ph="5" tabindex="0" role="button" aria-label="Канальцевая мембрана: этап 5"><circle class="hl" cx="96" cy="186" r="19" fill="transparent"/>
     ${s.apic > 0 ? [[80, 176], [84, 200], [108, 198], [110, 176]].slice(0, DOTN(s.apic)).map(([x, y]) => `<rect x="${x}" y="${y}" width="7" height="8" rx="1.5" fill="${CA}"/>`).join('') : ''}</g>`);
@@ -1928,13 +1931,13 @@ function zoomSVG(s, cond) {
    <text x="12" y="22" class="lb">Апикальный домен · увеличение</text>
    <text x="12" y="40" class="lbs">взаимное расположение условное</text>
    <circle cx="86" cy="120" r="40" fill="#E6EFD4" stroke="#8BA35A" stroke-width="2"/>
-   <text x="86" y="124" class="tiny" text-anchor="middle">просвет канальца</text>
+   <text x="86" y="117" class="tiny" text-anchor="middle">просвет</text><text x="86" y="131" class="tiny" text-anchor="middle">канальца</text>
    ${dom}${nw}
    <circle cx="232" cy="110" r="18" fill="#FEF3C7" stroke="${s.rab11 > 0 ? CR : '#CBD5E1'}" stroke-width="2"/>
    ${s.sac > 0 ? `<circle cx="232" cy="110" r="3.2" fill="${CA}"/><circle cx="240" cy="115" r="3.2" fill="${CA}"/>` : ''}
    <text x="232" y="146" class="lbs" text-anchor="middle" fill="${s.rab11 > 0 ? CR : '#94A3B8'}">Rab11-компартмент</text>
-   ${s.sac > 0 && s.apic > 0 ? `<path d="M214 104 C 180 92 150 92 128 98" stroke="${C.foxo}" stroke-width="2" stroke-dasharray="3 4" marker-end="url(#mvF)"/>` : ''}
-   <g class="hot" data-ph="6" tabindex="0" role="button" aria-label="Поддержание домена: этап 6"><rect class="hl" x="84" y="156" width="150" height="38" fill="transparent" rx="5"/><path d="M92 158 C 108 176 126 182 140 184" stroke="#9333EA" stroke-width="1.8" stroke-dasharray="2 3" marker-end="url(#mvF)"/><text x="146" y="190" class="lbs" fill="#9333EA">эндоцитоз</text></g>
+   ${s.sac > 0 && s.apic > 0 ? `<path fill="none" d="M214 104 C 180 92 150 92 128 98" stroke="${C.foxo}" stroke-width="2" stroke-dasharray="3 4" marker-end="url(#mvF)"/>` : ''}
+   <g class="hot" data-ph="6" tabindex="0" role="button" aria-label="Поддержание домена: этап 6"><rect class="hl" x="84" y="156" width="150" height="38" fill="transparent" rx="5"/><path fill="none" d="M92 158 C 108 176 126 182 140 184" stroke="#9333EA" stroke-width="1.8" stroke-dasharray="2 3" marker-end="url(#mvF)"/><text x="146" y="190" class="lbs" fill="#9333EA">эндоцитоз</text></g>
    ${meter(12, 206, s.apic, CA, 'новый белок (каналец)')}
    ${meter(12, 226, s.domain, CD, 'резидентный домен')}
    ${meter(12, 246, s.sac, CR, 'субапик. компартмент')}
@@ -1949,8 +1952,8 @@ return {id: 'S05', order: 2, title: 'доставка груза и два до�
   draw: drawLayer, zoom: zoomSVG,
   legend: [['<rect x="8" y="3" width="7" height="7" rx="1.5" fill="#1D4ED8"/>', 'новый апикальный белок (груз)'],
     ['<rect x="8" y="4" width="7" height="5" fill="#15803D"/>', 'фосфоинозитид — метка мембраны'],
-    ['<path d="M2 9 L28 3" stroke="#64748B" stroke-width="1.6"/>', 'микротрубочка — путь переноса'],
-    ['<path d="M2 6h20" stroke="#7C3AED" stroke-width="1.8" stroke-dasharray="3 3"/><path d="M22 2l6 4l-6 4z" fill="#7C3AED"/>', 'перемещение груза'],
+    ['<path fill="none" d="M2 9 L28 3" stroke="#64748B" stroke-width="1.6"/>', 'микротрубочка — путь переноса'],
+    ['<path fill="none" d="M2 6h20" stroke="#7C3AED" stroke-width="1.8" stroke-dasharray="3 3"/><path d="M22 2l6 4l-6 4z" fill="#7C3AED"/>', 'перемещение груза'],
     ['<circle cx="15" cy="6" r="5" fill="#FEF3C7" stroke="#B45309"/>', 'эндосома / субапик. компартмент']]};
 })();
 
@@ -3013,10 +3016,10 @@ function signalLayer(s, cond) {
       L.push(`<text x="512" y="140" class="lbs" fill="${C.sig}">IP₃</text>`); } }
   /* ЭПР-депо с Ca²⁺ (локальный просвет на дуге ЭПР анатомии) */
   L.push(`<g class="hot" data-ph="2" tabindex="0" role="button" aria-label="Выход Ca²⁺ из ЭПР: этап 2">
-    <path class="hl" d="M600 186 q36 -6 48 28 q6 22 -14 32" fill="transparent" stroke="none"/>
-    <path d="M600 190 q40 -4 48 26" fill="none" stroke="${C.er}" stroke-width="7" stroke-linecap="round"/>
-    ${caDots(618, 198, s.erca >= 2 ? 3 : 1, 3, CA)}
-    <rect x="${ERX - 3}" y="${ERY - 7}" width="6" height="14" fill="${s.ip3 >= 2 ? C.sig : '#94A3B8'}"/><text x="${ERX - 2}" y="${ERY + 26}" class="tiny" text-anchor="middle">IP₃R</text></g>`);
+    <path class="hl" d="M608 184 q34 -6 42 30 q4 20 -14 30" fill="transparent" stroke="none"/>
+    <path d="M610 188 q34 -4 40 26" fill="none" stroke="${C.er}" stroke-width="7" stroke-linecap="round"/>
+    ${caDots(626, 196, s.erca >= 2 ? 3 : 1, 3, CA)}
+    <rect x="${ERX - 3}" y="${ERY - 7}" width="6" height="14" fill="${s.ip3 >= 2 ? C.sig : '#94A3B8'}"/></g>`);
   if (s.mdca >= 1) L.push(`<path d="M${ERX + 6} ${ERY} L${GAP[0] - 6} ${ERY}" fill="none" stroke="${CA}" stroke-width="2" stroke-dasharray="3 3" marker-end="url(#S09-ca)"/>`);
   /* зазор-контакт и микродомен */
   L.push(`<g class="hot" data-ph="3" tabindex="0" role="button" aria-label="Микродомен на контакте: этап 3">
@@ -3024,19 +3027,18 @@ function signalLayer(s, cond) {
     <line x1="${ERX + 8}" y1="${ERY - 12}" x2="${MITX - 26}" y2="${ERY - 12}" stroke="#64748B" stroke-width="1.4" stroke-dasharray="2 3"/>
     <line x1="${ERX + 8}" y1="${ERY + 12}" x2="${MITX - 26}" y2="${ERY + 12}" stroke="#64748B" stroke-width="1.4" stroke-dasharray="2 3"/>
     ${caDots(GAP[0], ERY, [0, 2, 4, 6][s.mdca], 3.2, CA)}
-    <text x="${GAP[0] + 2}" y="${ERY - 22}" class="tiny" text-anchor="middle">контакт</text></g>`);
+    <path d="M688 174 L656 204" fill="none" stroke="#64748B" stroke-width="1"/><text x="684" y="170" class="lbs">контакт</text></g>`);
   /* VDAC / MCU и матрикс митохондрии */
   const dp = s.dpsi;
   L.push(`<g class="hot" data-ph="4" tabindex="0" role="button" aria-label="Вход через MCU: этап 4">
     <ellipse class="hl" cx="${MITX}" cy="${MITY}" rx="30" ry="15" fill="transparent" stroke="none"/>
     <rect x="${MITX - 28}" y="${MITY - 6}" width="6" height="12" fill="${C.sig}"/>
-    <rect x="${MITX - 19}" y="${MITY - 5}" width="6" height="10" fill="${dp > 0 ? C.sig : '#94A3B8'}"/>
-    ${dp > 0 ? `<text x="${MITX - 2}" y="${MITY + 30}" class="tiny" fill="${C.mitoS}" text-anchor="middle">VDAC·MCU · Δψ</text>` : `<text x="${MITX - 2}" y="${MITY + 30}" class="tiny" fill="#94A3B8" text-anchor="middle">VDAC·MCU · Δψ снят</text>`}</g>`);
+    <rect x="${MITX - 19}" y="${MITY - 5}" width="6" height="10" fill="${dp > 0 && cond !== 'mcu' ? C.sig : '#94A3B8'}"/></g>`);
   if (s.mca >= 1 && dp > 0) L.push(`<path d="M${MITX - 22} ${MITY} L${MITX - 4} ${MITY}" fill="none" stroke="${CA}" stroke-width="2" marker-end="url(#S09-ca)"/>`);
   L.push(`<g class="hot" data-ph="5" tabindex="0" role="button" aria-label="Условия матрикса: этап 5">
     ${s.ndh >= 2 ? `<ellipse cx="${MITX + 6}" cy="${MITY}" rx="${10 + s.ndh * 3}" ry="${5 + s.ndh}" fill="${C.y1433}" opacity="${0.12 + s.ndh * 0.06}"/>` : ''}
     ${caDots(MITX + 6, MITY, [0, 1, 3, 5][s.mca], 2.8, CA)}
-    ${s.ndh >= 2 ? `<text x="${MITX + 40}" y="${MITY + 8}" class="tiny" fill="${C.y1433}">NAD(P)H ↑</text>` : ''}</g>`);
+    ${s.ndh >= 2 ? `<text x="684" y="152" class="tiny" fill="${C.y1433}">NAD(P)H ↑</text>` : ''}</g>`);
   /* сеть митохондрий (отдельный показатель, свободный участок над ядром) */
   const frag = s.netw <= 1;
   let net = `<text x="300" y="138" class="lbs" fill="${C.mitoS}">сеть митохондрий</text>`;
@@ -3056,7 +3058,7 @@ function contactSVG(s, cond) {
   <text x="12" y="22" class="lb">Контакт ЭПР–митохондрия · увеличение</text>
   <text x="12" y="40" class="lbs">зазор 10–30 нм; мембраны не сливаются</text>
   <!-- ЭПР слева -->
-  <rect x="8" y="60" width="70" height="150" rx="10" fill="#E6EDF5" stroke="${C.er}" stroke-width="2"/>
+  <rect x="8" y="60" width="70" height="136" rx="10" fill="#E6EDF5" stroke="${C.er}" stroke-width="2"/>
   <text x="43" y="54" class="tiny" text-anchor="middle">просвет ЭПР</text>
   ${caDots(40, 110, [0, 3, 4, 6][s.erca >= 0 ? s.erca : 3], 3.4, CA)}
   <rect x="74" y="120" width="10" height="30" fill="${s.ip3 >= 2 ? C.sig : '#94A3B8'}"/><text x="60" y="170" class="tiny" text-anchor="middle">IP₃R</text>
@@ -3066,11 +3068,11 @@ function contactSVG(s, cond) {
   ${caDots(118, 135, [0, 2, 4, 6][s.mdca], 3.6, CA)}
   <text x="118" y="178" class="tiny" text-anchor="middle">микродомен</text><text x="118" y="191" class="tiny" text-anchor="middle">Ca²⁺</text>
   <!-- митохондрия справа: две мембраны -->
-  <rect x="158" y="60" width="150" height="150" rx="12" fill="${C.mito}" stroke="${C.mitoS}" stroke-width="2"/>
-  <rect x="172" y="74" width="122" height="122" rx="10" fill="#F3E3D6" stroke="${C.mitoS}" stroke-width="1.4"/>
+  <rect x="158" y="60" width="150" height="136" rx="12" fill="${C.mito}" stroke="${C.mitoS}" stroke-width="2"/>
+  <rect x="172" y="74" width="122" height="108" rx="10" fill="#F3E3D6" stroke="${C.mitoS}" stroke-width="1.4"/>
   <rect x="150" y="120" width="12" height="30" fill="${C.sig}"/><text x="156" y="55" class="tiny" text-anchor="middle">VDAC ↓</text>
-  <rect x="166" y="124" width="12" height="22" fill="${s.dpsi > 0 ? C.sig : '#94A3B8'}"/><text x="184" y="108" class="tiny">MCU + MICU1</text>
-  <text x="300" y="70" class="tiny" text-anchor="end">${s.dpsi > 0 ? 'Δψ: матрикс −' : 'Δψ снят'}</text>
+  <rect x="166" y="124" width="12" height="22" fill="${s.dpsi > 0 && cond !== 'mcu' ? C.sig : '#94A3B8'}"/><text x="184" y="108" class="tiny">MCU + MICU1</text>
+  <text x="308" y="55" class="tiny" text-anchor="end">${s.dpsi > 0 ? 'Δψ: матрикс −' : 'Δψ снят'}</text>
   ${s.mca >= 1 && s.dpsi > 0 ? `<path d="M150 135 L182 135" stroke="${CA}" stroke-width="2.4" marker-end="url(#S09-caz)"/>` : ''}
   ${caDots(236, 130, [0, 1, 3, 5][s.mca], 3.2, CA)}
   ${s.ndh >= 2 ? `<ellipse cx="236" cy="150" rx="${18 + s.ndh * 4}" ry="${10 + s.ndh * 2}" fill="${C.y1433}" opacity="${0.1 + s.ndh * 0.05}"/><text x="236" y="152" class="tiny" text-anchor="middle">NAD(P)H ↑</text>` : '<text x="236" y="152" class="tiny" text-anchor="middle">матрикс</text>'}
@@ -3078,7 +3080,7 @@ function contactSVG(s, cond) {
   ${meter(12, 232, s.mca, C.mitoS, 'Ca²⁺ в матриксе')}
   ${meter(12, 252, s.ndh, C.y1433, 'NAD(P)H')}
   ${meter(12, 272, s.dpsi, C.sig, 'Δψ (TMRM)')}
-  <text x="12" y="294" class="tiny" fill="#64748B">шкала качественная; строки между собой не сравнивают</text></svg>`;
+  <text x="12" y="294" class="tiny" fill="#64748B">шкала качественная, строки не сравнимы</text></svg>`;
 }
 
 return {id: 'S09', order: 1, title: 'митохондрии и контакты органелл', q: 'Что превращает выход Ca²⁺ в сигнал митохондрии?',
@@ -3286,15 +3288,15 @@ const CONCEPT_PHASE = {'C2.condensates': 3, 'C1.local_conc': 4};
 const EDGE_PHASE = {E012: 4};
 const CLABEL = {'C2.condensates': 'Биомолекулярные конденсаты', 'C1.local_conc': 'Локальная концентрация'};
 
-const GC = [300, 338];                 /* центр стресс-гранулы */
-const DIFF = [[196,150],[238,186],[180,232],[250,258],[172,300],[214,332],[262,300],[158,360],[232,392],[286,230],[320,180],[150,196]];
+const GC = [306, 338];                 /* центр стресс-гранулы */
+const DIFF = [[214,176],[232,214],[180,232],[250,262],[196,292],[214,332],[262,300],[158,360],[240,370],[286,230],[320,180],[206,198]];
 
 function signalLayer(s, cond) {  /* слой механизма поверх общего гепатоцита */
   const L = [];
   const on = s.stress > 0;
   L.push(`<defs><marker id="S10-ex" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0F766E"/></marker></defs>`);
   /* арсенит (окислительный стресс) в крови синусоида */
-  [[118,30],[250,34],[402,26],[560,32]].forEach(([x, y]) => L.push(`<g opacity="${on ? 1 : 0}"><circle cx="${x}" cy="${y}" r="5.2" fill="${C.ins}"/></g>`));
+  [[112,30],[290,22],[350,44],[560,22]].forEach(([x, y]) => L.push(`<g opacity="${on ? 1 : 0}"><circle cx="${x}" cy="${y}" r="5.2" fill="${C.ins}"/></g>`));
   if (on) L.push(`<text x="126" y="34" class="lbs" fill="${C.ins}" font-weight="600">окислительный стресс</text>`);
   /* рибосомы / полисомы на мРНК (трансляция) — в свободной цитоплазме над ядром */
   const ribN = s.polys;                   /* сколько рибосом на нити */
@@ -3314,7 +3316,7 @@ function signalLayer(s, cond) {  /* слой механизма поверх о�
   /* диффузный G3BP1 */
   const dop = [.0, .3, .6, .9][s.g3bpC];
   if (dop > 0) { let d = ''; for (let i = 0; i < 12; i++) { const [x, y] = DIFF[i]; d += `<circle cx="${x}" cy="${y}" r="3" fill="${C.foxo}" opacity="${dop}"/>`; }
-    L.push(`<g>${d}</g><text x="150" y="420" class="lbs" fill="${C.foxo}">G3BP1 (диффузный)</text>`); }
+    L.push(`<g>${d}</g><text x="150" y="450" class="lbs" fill="${C.foxo}">G3BP1 (диффузный)</text>`); }
   /* стресс-гранула: ядра + оболочка; обмен (FRAP) или твёрдоподобность */
   const r = [0, 10, 16, 22][s.gran];
   if (r > 0) {
@@ -3332,21 +3334,21 @@ function signalLayer(s, cond) {  /* слой механизма поверх о�
     /* обмен молекул с окружением (жидкоподобное поведение) */
     if (liquid) [0, 1, 2, 3].forEach(k => { const a = k * Math.PI / 2 + 0.6; const x1 = GC[0] + (r + 2) * Math.cos(a), y1 = GC[1] + (r + 2) * Math.sin(a), x2 = GC[0] + (r + 16) * Math.cos(a), y2 = GC[1] + (r + 16) * Math.sin(a);
       L.push(`<path d="M${x1} ${y1}L${x2} ${y2}" stroke="#0F766E" stroke-width="1.8" marker-start="url(#S10-ex)" marker-end="url(#S10-ex)"/>`); });
-    L.push(`<text x="${GC[0]}" y="${GC[1] + r + 22}" class="lbs" text-anchor="middle" fill="${C.foxo}" font-weight="600">${s.mature >= 2 ? 'твёрдоподобный фокус' : 'стресс-гранула'}</text>`);
-    if (liquid) L.push(`<text x="${GC[0] + r + 20}" y="${GC[1] - r}" class="tiny" fill="#0F766E">обмен с окружением</text>`);
+    L.push(`<text x="${GC[0] - r + 4}" y="${GC[1] + r + 27}" class="lbs" fill="${C.foxo}" font-weight="600">${s.mature >= 2 ? 'твёрдоподобный фокус' : 'стресс-гранула'}</text>`);
+    if (liquid) L.push(`<text x="${GC[0] + r + 22}" y="${GC[1] - 2}" class="tiny" fill="#0F766E">обмен с</text><text x="${GC[0] + r + 22}" y="${GC[1] + 10}" class="tiny" fill="#0F766E">окружением</text>`);
   }
   return L.join('');
 }
 function granSVG(s, cond) {
   const op = lv => [0, .35, .7, 1][lv];
-  const r = [8, 30, 44, 56][s.gran];
-  const cx = 150, cy = 150;
+  const r = [8, 24, 34, 44][s.gran];
+  const cx = 150, cy = 128;
   const liquid = s.exch >= 2;
   let mol = '';
   if (s.gran > 0) { const n = 6 + s.enrich * 4; for (let i = 0; i < n; i++) { const a = i * 2.4, rr = r * (0.25 + 0.6 * ((i % 5) / 5));
       mol += `<circle cx="${cx + rr * Math.cos(a)}" cy="${cy + rr * Math.sin(a)}" r="4.5" fill="${C.foxo}"/><path d="M${cx + rr * Math.cos(a) + 5} ${cy + rr * Math.sin(a)} q4 -5 8 0" fill="none" stroke="${C.rna}" stroke-width="1.6"/>`; } }
   let exarr = '';
-  if (s.gran > 0 && liquid) for (let k = 0; k < 6; k++) { const a = k * Math.PI / 3 + 0.4; const x1 = cx + (r + 3) * Math.cos(a), y1 = cy + (r + 3) * Math.sin(a), x2 = cx + (r + 24) * Math.cos(a), y2 = cy + (r + 24) * Math.sin(a);
+  if (s.gran > 0 && liquid) for (let k = 0; k < 6; k++) { const a = k * Math.PI / 3 + 0.4; const x1 = cx + (r + 3) * Math.cos(a), y1 = cy + (r + 3) * Math.sin(a), x2 = cx + (r + 18) * Math.cos(a), y2 = cy + (r + 18) * Math.sin(a);
     exarr += `<path d="M${x1} ${y1}L${x2} ${y2}" stroke="#0F766E" stroke-width="2" marker-start="url(#S10-ex2)" marker-end="url(#S10-ex2)"/>`; }
   const matHatch = s.mature >= 2 ? `<path d="M${cx - r} ${cy}h${2 * r}M${cx} ${cy - r}v${2 * r}M${cx - r * 0.7} ${cy - r * 0.7}l${1.4 * r} ${1.4 * r}M${cx + r * 0.7} ${cy - r * 0.7}l${-1.4 * r} ${1.4 * r}" stroke="#4C1D95" stroke-width="1.6" opacity=".75"/>` : '';
   return `<svg viewBox="0 0 330 300" xmlns="${NS}" role="img" aria-labelledby="granT"><title id="granT">Стресс-гранула: обмен с окружением и материальное состояние</title>${DEFS}
@@ -3356,7 +3358,7 @@ function granSVG(s, cond) {
   <text x="12" y="40" class="lbs">яркий фокус сам по себе ничего не доказывает</text>
   ${s.gran > 0 ? `<circle cx="${cx}" cy="${cy}" r="${r + 10}" fill="${C.foxo}" opacity="${op(s.enrich) * 0.18}"/>
   <circle cx="${cx}" cy="${cy}" r="${r}" fill="${C.foxo}" opacity="0.3" stroke="${C.foxo}" stroke-opacity=".5"/>${matHatch}${mol}${exarr}
-  ${liquid ? `<text x="${cx + r + 18}" y="${cy - r + 6}" class="tiny" fill="#0F766E">обмен молекул</text>` : (s.mature >= 2 ? `<text x="${cx + r + 10}" y="${cy}" class="tiny" fill="#4C1D95">медленный обмен</text>` : '')}` : `<text x="150" y="150" text-anchor="middle" class="lbs">видимого фокуса нет</text>`}
+  ${liquid ? `<text x="${cx + r + 26}" y="${cy + 4}" class="tiny" fill="#0F766E">обмен молекул</text>` : (s.mature >= 2 ? `<text x="${cx + r + 10}" y="${cy}" class="tiny" fill="#4C1D95">медленный обмен</text>` : '')}` : `<text x="150" y="128" text-anchor="middle" class="lbs">видимого фокуса нет</text>`}
   ${meter(12, 206, s.gran, C.foxo, 'Видимые фокусы')}
   ${meter(12, 226, s.exch, '#0F766E', 'Обмен (FRAP)')}
   ${meter(12, 246, s.synth, C.ins, 'Синтез белка')}

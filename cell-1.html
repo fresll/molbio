@@ -165,6 +165,10 @@ details.more summary{cursor:pointer;font-weight:600;color:var(--acc)}
 .sclist .muted{font-size:12.5px}
 body.overview .tabs,body.overview .ctrls,body.overview #bLink{visibility:hidden}
 body.overview .legend{display:none}
+.abbr{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;margin:6px 0 0;font-size:13px}
+.abbr dt{font-weight:700;color:var(--acc);white-space:nowrap}
+.abbr dd{margin:0;color:var(--ink)}
+.abbr .flash{background:var(--on);color:var(--p-ink);border-radius:4px}
 </style>
 <!--brand-univ:start-->
 <link rel="icon" type="image/png" href="data:image/png;base64,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">
@@ -234,7 +238,7 @@ input[type=range]{accent-color:var(--u-ui)}
   <p>Все механизмы разбираются в одной и той же клетке печени — гепатоците. У каждого пункта три режима. «Проследить»: путь воздействия по этапам. «Изменить условия»: одно вмешательство в сравнении с контролем. «Найти причину»: состояние образца скрыто, причину ищут по результатам выбранных измерений. Если механизм изучен в другой клетке, это подписано как «окно в другую клетку».</p>
   <p>Уровни величин качественные; числа приведены только там, где они взяты из первоисточника. У каждого состояния модели есть статус: <span class="st F">Ф</span> измерено в указанной системе, <span class="st V">В</span> вывод из измеренного, <span class="st M">М</span> допущение учебной модели. Система, в которой получены данные, указана в паспорте каждого этапа.</p>
  </div>
- <p class="ver">Версия 2.3, 24 октября 2026 г.</p>
+ <p class="ver">Версия 2.4, 24 октября 2026 г.</p>
  <footer class="foot">© 2026 Кафедра биологии и генетики, Медицинский университет Петровского. Учебные материалы курса «Молекулярная биология» (5–6 семестры). При использовании ссылка на кафедру обязательна.
 <!--views:start-->
 <div id="gc-views" title="Всего просмотров страниц сайта" aria-label="Всего просмотров страниц сайта" style="display:none;justify-content:flex-end;align-items:center;gap:6px;margin-top:8px">
@@ -3673,6 +3677,106 @@ return {id: 'S11', order: 10, title: 'метилирование ДНК и эн�
     ['<path d="M3 9q5-6 10 0t10 0" fill="none" stroke="#DC2626" stroke-width="2"/>', 'новая РНК мишени']]};
 })();
 
+/* Расшифровка сокращений на рисунках: показываются только те, что видны на текущем рисунке; нажатие на сокращение открывает расшифровку. */
+const ABBR = [
+ ['ЭПР', 'эндоплазматический ретикулум (эндоплазматическая сеть)'],
+ ['IP₃R', 'рецептор инозитолтрисфосфата — Ca²⁺-канал мембраны ЭПР', 'IP₃R|IP3R'],
+ ['IP₃', 'инозитол-1,4,5-трисфосфат — вторичный посредник, открывает IP₃R', 'IP₃(?!R)|IP3(?!R)'],
+ ['PLC', 'фосфолипаза C: расщепляет PI(4,5)P₂ на IP₃ и диацилглицерол', 'PLCβ?|PLC'],
+ ['GRP75', 'митохондриальный шаперон, сопрягающий IP₃R и VDAC'],
+ ['VDAC', 'потенциал-зависимый анионный канал наружной мембраны митохондрий'],
+ ['MCU', 'митохондриальный Ca²⁺-унипортер — канал внутренней мембраны митохондрий'],
+ ['MICU1', 'регуляторная субъединица MCU, задающая порог открытия'],
+ ['NAD(P)H', 'восстановленные NADH и NADPH', 'NAD\\(P\\)H|NAD'],
+ ['TMRM', 'тетраметилродамина метиловый эфир — краситель, накапливающийся в митохондриях пропорционально мембранному потенциалу'],
+ ['Δψ', 'мембранный потенциал внутренней мембраны митохондрий', 'Δψ'],
+ ['PI(4,5)P₂', 'фосфатидилинозитол-4,5-бисфосфат', 'PI\\(4,5\\)P₂|PIP₂'],
+ ['PI3P', 'фосфатидилинозитол-3-фосфат — метка ранних эндосом'],
+ ['PI4P', 'фосфатидилинозитол-4-фосфат'],
+ ['PIP₃', 'фосфатидилинозитол-3,4,5-трисфосфат', 'PIP₃|PIP3'],
+ ['PI3K', 'фосфоинозитид-3-киназа'],
+ ['Rab11', 'малая ГТФаза рециклирующих (субапикальных) эндосом'],
+ ['G3BP1', 'РНК-связывающий белок — основной каркасный белок стресс-гранул'],
+ ['FRAP', 'восстановление флуоресценции после фотообесцвечивания — метод оценки обмена молекул'],
+ ['eIF2α', 'α-субъединица фактора инициации трансляции 2; eIF2α-P — фосфорилированная форма, тормозит инициацию', 'eIF2α|eIF2|IF2α'],
+ ['РНП', 'рибонуклеопротеиновые комплексы (мРНК с белками)'],
+ ['АЦ', 'аденилатциклаза — синтезирует cAMP из ATP'],
+ ['ФДЭ', 'фосфодиэстераза — гидролизует cAMP до AMP'],
+ ['cAMP', 'циклический аденозинмонофосфат — вторичный посредник', 'cAMP'],
+ ['AMP', 'аденозинмонофосфат', 'AMP(?!K)'],
+ ['PKA', 'протеинкиназа A, активируется cAMP'],
+ ['R₂C₂', 'неактивная PKA: две регуляторные (R) и две каталитические (C) субъединицы', 'R₂C₂'],
+ ['AKAP', 'белок, закрепляющий PKA в определённом месте клетки'],
+ ['CREB', 'транскрипционный фактор, связывающийся с cAMP-зависимым элементом промотора'],
+ ['Gαs', 'α-субъединица стимулирующего G-белка (Gs)', 'Gαs|Gs'],
+ ['GTP / GDP', 'гуанозинтрифосфат / гуанозиндифосфат; с GTP малые ГТФазы и Gα активны', 'GTP|GDP'],
+ ['β2-АР', 'β2-адренорецептор', 'β2-АР'],
+ ['V1a', 'рецептор вазопрессина типа V1a'],
+ ['STIM1', 'сенсор Ca²⁺ в мембране ЭПР; при опустошении депо открывает Orai1'],
+ ['Orai1', 'Ca²⁺-канал плазматической мембраны, открываемый STIM1'],
+ ['NFAT', 'ядерный фактор активированных T-клеток — транскрипционный фактор, переходящий в ядро после дефосфорилирования'],
+ ['EGFR', 'рецептор эпидермального фактора роста (тирозинкиназа)'],
+ ['EGF', 'эпидермальный фактор роста', 'EGF(?!R)'],
+ ['GRB2', 'адаптерный белок, связывающий рецептор с SOS1'],
+ ['SOS1', 'фактор обмена гуаниновых нуклеотидов: переводит RAS-GDP в RAS-GTP'],
+ ['RAS', 'малая ГТФаза; активна в форме RAS-GTP'],
+ ['RAF, MEK, ERK', 'протеинкиназы каскада MAPK: RAF фосфорилирует MEK, MEK — ERK', 'RAF|MEK|ERK'],
+ ['DUSP', 'фосфатазы двойной специфичности: дефосфорилируют ERK'],
+ ['AP-1', 'транскрипционный фактор — димер белков семейств Fos и Jun'],
+ ['IRS1', 'субстрат рецептора инсулина 1 — адаптер, привлекающий PI3K'],
+ ['AKT', 'протеинкиназа B'],
+ ['TSC2', 'белок комплекса туберозного склероза; ГТФаза-активирующий белок для RHEB'],
+ ['RHEB', 'малая ГТФаза; RHEB-GTP активирует mTORC1'],
+ ['GAP', 'белок, ускоряющий гидролиз GTP малой ГТФазой (переводит её в неактивную форму)'],
+ ['mTORC1', 'комплекс 1 киназы mTOR (мишени рапамицина)', 'mTORC1|TORC1'],
+ ['Rag', 'Rag-ГТФазы: привлекают mTORC1 к лизосоме при наличии аминокислот'],
+ ['AMPK', 'AMP-активируемая протеинкиназа'],
+ ['S6K', 'киназа рибосомного белка S6'],
+ ['4E-BP1', 'белок, связывающий фактор инициации eIF4E; при фосфорилировании освобождает его', '4E-BP1|E-BP1'],
+ ['SREBP-1c', 'транскрипционный фактор генов синтеза жирных кислот'],
+ ['FOXO1', 'транскрипционный фактор семейства forkhead box O'],
+ ['PEPCK', 'фосфоенолпируваткарбоксикиназа — фермент глюконеогенеза'],
+ ['G6PC', 'каталитическая субъединица глюкозо-6-фосфатазы — фермент глюконеогенеза'],
+ ['IRE', 'элемент ответа на инсулин — участок промотора, связывающий FOXO1'],
+ ['FoxA', 'пионерные транскрипционные факторы FoxA1/FoxA2'],
+ ['Pol II', 'РНК-полимераза II', 'Pol II|II'],
+ ['14-3-3', 'белки, связывающие фосфорилированные белки (здесь — фосфо-FOXO1)'],
+ ['H1', 'линкерный гистон'],
+ ['H3K27ac', 'ацетилированный лизин 27 гистона H3 — метка активных энхансеров и промоторов'],
+ ['H2A.Z', 'вариант гистона H2A', 'H2A\\.Z|H2A'],
+ ['SWI/SNF', 'АТФ-зависимый комплекс ремоделирования нуклеосом'],
+ ['BRD', 'белок с бромодоменом, узнающий ацетилированный лизин'],
+ ['CpG', 'динуклеотид цитозин–гуанин; цитозин в нём может быть метилирован'],
+ ['DNMT3A/3B', 'ДНК-метилтрансферазы, устанавливающие метилирование заново', 'DNMT3A/3B|DNMT3'],
+ ['DNMT1', 'ДНК-метилтрансфераза, поддерживающая метилирование после репликации'],
+ ['UHRF1', 'белок, узнающий полуметилированные CpG и привлекающий DNMT1'],
+ ['TET', 'диоксигеназы, окисляющие 5-метилцитозин (путь удаления метки)'],
+ ['CAR', 'конститутивный андростановый рецептор — ядерный рецептор гепатоцита'],
+ ['Cyp2b10', 'ген цитохрома P450 2B10 мыши — мишень CAR', 'Cyp2[Bb]10'],
+ ['H3K4me3', 'триметилированный лизин 4 гистона H3 (на рисунке — K4)', 'H3K4me3|K4'],
+ ['H3K9me3', 'триметилированный лизин 9 гистона H3 (на рисунке — K9)', 'H3K9me3|K9'],
+ ['ASC-2', 'коактиватор ядерных рецепторов (метилтрансферазный комплекс H3K4)'],
+ ['JMJD2d', 'гистоновая деметилаза, снимающая H3K9me3']
+].map(([t, d, re]) => [t, d, new RegExp('(?<![A-Za-zА-Яа-яЁё0-9])(?:' + (re || t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')) + ')(?![a-zа-яё])')]);
+function svgTexts() { return [...document.querySelectorAll('#cell svg text, #locus svg text')]; }
+function fillAbbr() {
+  const box = document.getElementById('abbrbox'); if (!box) return;
+  const txt = svgTexts().map(t => t.textContent).join(' | ') + ' | ' + ((document.querySelector('.legend') || {}).textContent || '');
+  const found = ABBR.filter(a => a[2].test(txt));
+  box.hidden = !found.length;
+  document.getElementById('abbrlist').innerHTML = found.map(([t, d]) => `<dt data-ab="${t}">${t}</dt><dd>${d}</dd>`).join('');
+  svgTexts().forEach(el => { const a = ABBR.find(x => x[2].test(el.textContent)); if (!a || el.dataset.ab) return;
+    el.dataset.ab = a[0]; el.style.cursor = 'help'; el.style.pointerEvents = 'all';
+    const tt = document.createElementNS('http://www.w3.org/2000/svg', 'title'); tt.textContent = `${a[0]} — ${a[1]}`; el.prepend(tt);
+    el.addEventListener('click', ev => { ev.stopPropagation(); box.open = true; const dt = box.querySelector(`dt[data-ab="${CSS.escape(a[0])}"]`);
+      if (dt) { box.querySelectorAll('.flash').forEach(x => x.classList.remove('flash')); dt.classList.add('flash'); dt.nextElementSibling.classList.add('flash'); dt.scrollIntoView({block: 'nearest', behavior: 'smooth'}); } }); });
+}
+/* рисунок перерисовывается в разных местах логики — следим за изменениями и обновляем список */
+let abbrT = null;
+const abbrObs = new MutationObserver(() => { clearTimeout(abbrT); abbrT = setTimeout(fillAbbr, 30); });
+document.addEventListener('DOMContentLoaded', () => {}, {once: true});
+['#cell', '#locus'].forEach(s => { const n = document.querySelector(s); if (n) abbrObs.observe(n, {childList: true}); });
+
 /* Логика страницы «Интерактивная клетка · раздел I». Несколько механизмов в одной клетке (реестр SC).
    Состояние страницы отделено от отрисовки; URL — контракт ТЗ (v=1): scenario, mode, stage, iv, cmp, task, seed, focus. */
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
@@ -3841,12 +3945,13 @@ function renderSide() {
      <details class="more"><summary>Источники вмешательства</summary>${srcList(iv.src)}</details>
      <details class="more"><summary>Что происходит в контроле на этом этапе</summary><p style="margin-top:6px">${esc(p.what)}</p>${links(p)}</details>`;
   } else h += findPanel();
+  h += `<details class="more abbrbox" id="abbrbox" open><summary>Сокращения на рисунке</summary><dl class="abbr" id="abbrlist"></dl><p class="muted" style="font-size:12px;margin:2px 0 0">Нажмите на сокращение на рисунке — его расшифровка подсветится здесь.</p></details>`;
   el.innerHTML = h; noteMsg = '';
   $$('input[name=iv]').forEach(r => r.onchange = () => { S.iv = r.value; writeURL(false); render(); });
   const c = $('#cmp'); if (c) c.onchange = () => { S.showCtl = c.checked; writeURL(false); renderScene(); };
   $$('[data-open]').forEach(b => b.onclick = () => openScenario(b.dataset.open));
   $$('[data-openf]').forEach(b => b.onclick = () => { const f = S.focusCands.f; openScenario(b.dataset.openf); S.ph = focusPh(S.sc, f); writeURL(false); render(); });
-  bindFind();
+  bindFind(); fillAbbr();
 }
 
 /* ---------- «Найти причину» */

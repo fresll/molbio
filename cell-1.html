@@ -201,14 +201,14 @@ input[type=range]{accent-color:var(--u-ui)}
    <a class="crumb" href="index.html">← Все разделы</a><a class="crumb" href="section-1.html">Раздел I</a>
    <h1>Клетка: <span id="h1t"></span></h1>
    <span class="ctx" id="ctx" title="Сквозная клетка курса — гепатоцит; данные из других клеточных систем подписаны">гепатоцит</span>
-   <label class="scpick"><span class="sr">Опыт</span><select id="scSel"></select></label>
+   <label class="scpick"><span class="sr">Механизм</span><select id="scSel"></select></label>
    <span class="grow"></span>
    <div class="tabs" role="tablist" aria-label="Режим работы">
     <button type="button" class="tab" role="tab" data-mode="trace">Проследить</button>
     <button type="button" class="tab" role="tab" data-mode="vary">Изменить условия</button>
     <button type="button" class="tab" role="tab" data-mode="find">Найти причину</button>
    </div>
-   <div class="links"><a class="btn ghost sm" href="map-1.html">Системная карта</a><button type="button" class="btn ghost sm" id="bLink">Ссылка на опыт</button></div>
+   <div class="links"><a class="btn ghost sm" href="map-1.html">Системная карта</a><button type="button" class="btn ghost sm" id="bLink">Ссылка на эту страницу</button></div>
   </div>
  </header>
  <main class="stage" aria-label="Клетка и промотор гена-мишени">
@@ -219,9 +219,9 @@ input[type=range]{accent-color:var(--u-ui)}
   </div>
  </main>
  <aside class="side" id="side" aria-live="polite"></aside>
- <section class="timebar" aria-label="Шкала этапов опыта">
+ <section class="timebar" aria-label="Шкала этапов">
   <div class="trow">
-   <div class="ctrls"><button type="button" id="bReset" aria-label="К началу опыта" title="К началу опыта">⟲</button><button type="button" id="bPrev" aria-label="Предыдущий этап">◀</button><button type="button" id="bPlay" aria-label="Воспроизвести этапы">▶</button><button type="button" id="bNext" aria-label="Следующий этап">▶▶</button></div>
+   <div class="ctrls"><button type="button" id="bReset" aria-label="К первому этапу" title="К первому этапу">⟲</button><button type="button" id="bPrev" aria-label="Предыдущий этап">◀</button><button type="button" id="bPlay" aria-label="Воспроизвести этапы">▶</button><button type="button" id="bNext" aria-label="Следующий этап">▶▶</button></div>
    <div class="phases" id="phases"></div>
   </div>
   <div class="tracks" id="tracks"></div>
@@ -230,11 +230,11 @@ input[type=range]{accent-color:var(--u-ui)}
 </div>
 <div class="below">
  <div class="about">
-  <h2>Как устроены опыты</h2>
-  <p>Все опыты идут в одной и той же клетке печени — гепатоците. У каждого опыта три режима. «Проследить»: путь воздействия по этапам. «Изменить условия»: одно вмешательство в сравнении с контролем. «Найти причину»: состояние образца скрыто, причину ищут по результатам выбранных измерений. Если механизм изучен в другой клетке, это подписано как «окно в другую клетку».</p>
+  <h2>Как устроена клетка</h2>
+  <p>Все механизмы разбираются в одной и той же клетке печени — гепатоците. У каждого пункта три режима. «Проследить»: путь воздействия по этапам. «Изменить условия»: одно вмешательство в сравнении с контролем. «Найти причину»: состояние образца скрыто, причину ищут по результатам выбранных измерений. Если механизм изучен в другой клетке, это подписано как «окно в другую клетку».</p>
   <p>Уровни величин качественные; числа приведены только там, где они взяты из первоисточника. У каждого состояния модели есть статус: <span class="st F">Ф</span> измерено в указанной системе, <span class="st V">В</span> вывод из измеренного, <span class="st M">М</span> допущение учебной модели. Система, в которой получены данные, указана в паспорте каждого этапа.</p>
  </div>
- <p class="ver">Версия 2.0, 24 октября 2026 г.</p>
+ <p class="ver">Версия 2.1, 24 октября 2026 г.</p>
  <footer class="foot">© 2026 Кафедра биологии и генетики, Медицинский университет Петровского. Учебные материалы курса «Молекулярная биология» (5–6 семестры). При использовании ссылка на кафедру обязательна.
 <!--views:start-->
 <div id="gc-views" title="Всего просмотров страниц сайта" aria-label="Всего просмотров страниц сайта" style="display:none;justify-content:flex-end;align-items:center;gap:6px;margin-top:8px">
@@ -570,7 +570,7 @@ const IV = {
 };
 const VARY = ['short', 'mek', 'ras61', 'nofb', 'def'];
 const METH = {
-  trace_ktr: {l: 'Репортёр ERK-KTR: активность во времени', kind: 'trace', v: 'perk', trace: true, scheme: 'S01ktr', col: '#0B5E8E', ylab: 'активность ERK в клетке по этапам опыта',
+  trace_ktr: {l: 'Репортёр ERK-KTR: активность во времени', kind: 'trace', v: 'perk', trace: true, scheme: 'S01ktr', col: '#0B5E8E', ylab: 'активность ERK в клетке по этапам',
     q: 'Как менялась активность ERK во времени?', lim: 'Показывает кинетику в отдельных живых клетках по переходу репортёра из ядра в цитоплазму; вклад других киназ проверяют ингибитором MEK.'},
   blot_perk: {l: 'Блот: pERK (T202/Y204)', kind: 'blot', v: 'perk', band: 'pERK (T202/Y204)', load: 'общая ERK',
     q: 'Фосфорилирована ли ERK сейчас?', lim: 'Одна точка времени и среднее по миллионам клеток; фосфорилирование не равно каталитической активности.'},
@@ -726,10 +726,10 @@ function zoomSVG(s, cond) {
   const lg = `<path d="M14 192h18" stroke="${K.erk}" stroke-width="2.6"/><text x="36" y="196" class="tiny">pERK</text>
     <path d="M84 192h18" stroke="${K.fos}" stroke-width="2.4"/><text x="106" y="196" class="tiny">белок c-Fos</text>
     ${cond !== 'ctl' ? `<path d="M186 192h18" stroke="#94A3B8" stroke-width="2" stroke-dasharray="5 4"/><text x="208" y="196" class="tiny">pERK в контроле</text>` : ''}`;
-  return `<svg viewBox="0 0 330 300" xmlns="${NS}" role="img" aria-labelledby="s01zT"><title id="s01zT">Профиль активности ERK и количество белка c-Fos по этапам опыта</title>${DEFS}
+  return `<svg viewBox="0 0 330 300" xmlns="${NS}" role="img" aria-labelledby="s01zT"><title id="s01zT">Профиль активности ERK и количество белка c-Fos по этапам</title>${DEFS}
   <rect width="330" height="300" fill="#fff"/>
   <text x="12" y="22" class="lb">Профиль сигнала ERK</text>
-  <text x="12" y="40" class="lbs">по этапам опыта; выделен текущий</text>
+  <text x="12" y="40" class="lbs">по этапам; выделен текущий</text>
   ${g}${lg}
   ${meter(12, 208, s.rasgtp, K.ras, 'RAS-GTP')}
   ${meter(12, 227, s.perk, K.erk, 'pERK')}
@@ -1181,7 +1181,7 @@ const IV = {
 const VARY = ['thaps', 'u73122', 'noca', 'orai', 'csa'];
 const METH = {
   fura:    {l: 'Fura-2: Ca²⁺ в цитозоле (во времени)', kind: 'trace', trace: true, v: 'cyca', q: 'Выходит ли Ca²⁺ на стойкое плато?',
-    lim: 'Показывает цитозольный Ca²⁺, не различая источник: выход из депо и вход извне дают один сигнал.', scheme: 'fura', col: caCol, ylab: 'Ca²⁺ в цитозоле (этапы опыта)'},
+    lim: 'Показывает цитозольный Ca²⁺, не различая источник: выход из депо и вход извне дают один сигнал.', scheme: 'fura', col: caCol, ylab: 'Ca²⁺ в цитозоле (по этапам)'},
   erca:    {l: 'Сенсор Ca²⁺ в просвете ЭПР', kind: 'bar', v: 'erca', q: 'Опустошено ли депо?',
     lim: 'Показывает Ca²⁺ в депо, а не вход извне.', scheme: 'ersensor', col: stimCol, ylab: 'Ca²⁺ в депо (отн.)'},
   extca:   {l: 'Ca²⁺ в наружной среде', kind: 'bar', f: c => c === 'noca' ? 0 : 3, q: 'Есть ли Ca²⁺ снаружи?',
@@ -2004,7 +2004,7 @@ const PH = [
  {id: 'P0', short: 'Исходно: голодание', sig: 0, time: 'до инсулина',
   title: 'Голодание: mTORC1 неактивен, AMPK активна',
   what: 'Инсулина нет; из-за высокого отношения AMP и ADP к ATP активна AMPK; mTORC1 на лизосоме неактивен; синтез белка и липогенез идут слабо.',
-  how: 'Без инсулина AKT неактивна, комплекс TSC удерживает RHEB в GDP-форме, и mTORC1 не активируется даже на лизосоме. FOXO1 в ядре поддерживает гены глюконеогенеза (это разобрано в опыте S02).',
+  how: 'Без инсулина AKT неактивна, комплекс TSC удерживает RHEB в GDP-форме, и mTORC1 не активируется даже на лизосоме. FOXO1 в ядре поддерживает гены глюконеогенеза (это разобрано в механизме «от инсулина до гена G6PC»).',
   next: 'Появление инсулина включит ветвь AKT.',
   exp: 'Блот p-S6K (T389) и p-AMPK (T172); ОТ-ПЦР мРНК SREBP-1c и PEPCK.',
   st: 'F', src: ['Inoki2003', 'Gwinn2008'],
@@ -2012,7 +2012,7 @@ const PH = [
  {id: 'P1', short: 'Инсулин → активная AKT', sig: 1, time: 'минуты',
   title: 'Инсулин связывается с рецептором, AKT активируется',
   what: 'Инсулин из крови синусоида связывается с рецептором; через IRS1/IRS2, PI3K и PIP₃ активируется AKT. FOXO1 смещается в цитоплазму, подавление глюконеогенеза идёт по ветви FOXO1.',
-  how: 'Детали активации AKT (рецептор → IRS → PI3K → PIP₃ → PDK1 и mTORC2) и ветвь FOXO1 разобраны в опыте S02; здесь AKT — общий вход сети.',
+  how: 'Детали активации AKT (рецептор → IRS → PI3K → PIP₃ → PDK1 и mTORC2) и ветвь FOXO1 разобраны в механизме «от инсулина до гена G6PC»; здесь AKT — общий вход сети.',
   next: 'Активная AKT фосфорилирует TSC2 — так открывается вход к mTORC1. Ослабление AMPK на этом этапе — вывод: торможение AMPKα1 киназой AKT показано в клетках HEK293 и опухолевых линиях без PTEN (Hawley 2014).',
   exp: 'Блот p-AKT (S474 у AKT2 — основной изоформы печени; у AKT1 — S473) и фосфорилирования субстрата AKT.',
   st: 'F', src: ['Humphrey2015', 'Manning2002', 'Inoki2002', 'Hawley2014'],
@@ -2225,7 +2225,7 @@ function signalLayer(s, cond) {
     <text x="333" y="390" class="lbs" text-anchor="middle" fill="${srOn ? K.sr : '#94A3B8'}">мРНК SREBP-1c → липогенез</text></g>`);
   /* ветвь FOXO1 → глюконеогенез (ссылка на S02) */
   L.push(`<g opacity=".92"><path d="M400 172 C 430 196 436 224 428 246" fill="none" stroke="${K.fx}" stroke-width="1.8" stroke-dasharray="2 3"/><path d="M425 240 l2 10 l7 -8 z" fill="${K.fx}"/>
-    <text x="175" y="444" class="lbs" fill="${K.fx}">ветвь FOXO1 → глюконеогенез (опыт S02)</text>
+    <text x="175" y="444" class="lbs" fill="${K.fx}">ветвь FOXO1 → глюконеогенез (механизм 8)</text>
     <text x="175" y="460" class="tiny" fill="${K.fx}">мРНК PEPCK ${s.pepck <= 1 ? 'подавлена' : 'не подавлена'}</text></g>`);
   return L.join('');
 }
@@ -3364,7 +3364,7 @@ function granSVG(s, cond) {
   <text x="12" y="292" class="tiny" fill="#64748B">шкала качественная; строки между собой не сравнивают</text></svg>`;
 }
 
-return {id: 'S10', order: 3, title: 'яркий фокус — ещё не функция', q: 'Что доказывает яркий фокус белка в клетке?',
+return {id: 'S10', kind: 'exp', order: 3, title: 'яркий фокус — ещё не функция', q: 'Что доказывает яркий фокус белка в клетке?',
   sem: 'семинар 2 (вопрос 2.3)', input: 'окислительный стресс присутствует', route: null, marker: [300, 338],
   zoomTitle: 'Стресс-гранула', hidden: 'Образец: природа фокуса скрыта',
   PH, VARS, TRACKVARS, defTracks: ['synth', 'gran', 'exch'], CTL, IV, VARY, METH, TASKS, CONCEPT_PHASE, EDGE_PHASE, CLABEL,
@@ -3676,6 +3676,7 @@ return {id: 'S11', order: 10, title: 'метилирование ДНК и эн�
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const esc = s => String(s).replace(/[&<>"]/g, m => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[m]));
 const MODES = {trace: 'Проследить', vary: 'Изменить условия', find: 'Найти причину'};
+const KIND = id => SC[id].kind === 'exp' ? 'Эксперимент' : 'Механизм';
 const ORDER = Object.values(SC).sort((a, b) => a.order - b.order).map(x => x.id);
 const S = {sc: null, mode: 'trace', ph: 0, iv: null, showCtl: false, tracks: [], task: null, seed: 0, done: [], guess: null, playing: false};
 let X = null, M = {};
@@ -3697,11 +3698,11 @@ function useScenario(id) {
 function readURL() {
   const p = new URLSearchParams(location.search);
   let sc = p.get('scenario'); const f = p.get('focus');
-  if (sc && !SC[sc]) { note(`Опыт ${esc(sc)} ещё готовится; открыт обзор опытов.`); sc = null; }
+  if (sc && !SC[sc]) { note(`Раздел клетки ${esc(sc)} ещё готовится; открыт обзор.`); sc = null; }
   S.focusCands = null;
   if (!sc && f) { const cand = ORDER.filter(id => SC[id].CONCEPT_PHASE[f] !== undefined || SC[id].EDGE_PHASE[f] !== undefined);
     if (cand.length === 1) sc = cand[0]; else if (cand.length > 1) S.focusCands = {f, ids: cand};
-    else note(`Объект «${esc(f)}» в опытах клетки пока не показан; открыт обзор опытов.`); }
+    else note(`Объект «${esc(f)}» в клетке пока не показан; открыт обзор.`); }
   S.mode = MODES[p.get('mode')] ? p.get('mode') : 'trace';
   S.ph = 0; S.iv = p.get('iv'); S.task = p.get('task');
   useScenario(sc);
@@ -3711,7 +3712,7 @@ function readURL() {
   S.showCtl = p.get('cmp') === '1';
   if (f && X.CONCEPT_PHASE[f] !== undefined) { if (!p.has('stage')) S.ph = X.CONCEPT_PHASE[f]; }
   else if (f && X.EDGE_PHASE[f] !== undefined) { if (!p.has('stage')) S.ph = X.EDGE_PHASE[f]; }
-  else if (f) note(`Объект «${esc(f)}» в этом опыте не показан; открыт исходный этап.`);
+  else if (f) note(`Объект «${esc(f)}» здесь не показан; открыт исходный этап.`);
 }
 function query() {
   if (!X) return 'v=1';
@@ -3730,7 +3731,7 @@ const mapHref = (kind, id) => `map-1.html?${kind}=${id}${X && X.route ? '&route=
 function render() {
   document.body.classList.toggle('overview', !X);
   $('#scSel').value = S.sc || '';
-  $('#h1t').textContent = X ? X.title : 'опыты раздела I';
+  $('#h1t').textContent = X ? X.title : 'механизмы раздела I';
   $('#ctx').textContent = X ? (X.ctx || 'гепатоцит') : 'гепатоцит';
   $$('.tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.mode === S.mode)));
   $('#legend').innerHTML = X ? X.legend.map(([g, l]) => `<span><svg viewBox="0 0 30 12">${g}</svg>${esc(l)}</span>`).join('') : '';
@@ -3742,10 +3743,10 @@ function renderScene() {
   const hint = $('#hint');
   if (!X) {
     const mk = ORDER.map((id, i) => { const [x, y] = SC[id].marker;
-      return `<g class="hot" data-sc="${id}" tabindex="0" role="button" aria-label="Опыт ${i + 1}: ${esc(SC[id].title)}"><circle class="hl" cx="${x}" cy="${y}" r="15" fill="#0B5E8E" stroke="#fff" stroke-width="2.5"/><text x="${x}" y="${y + 5}" text-anchor="middle" style="font:700 14px 'Golos Text',sans-serif;fill:#fff">${i + 1}</text></g>`; }).join('');
+      return `<g class="hot" data-sc="${id}" tabindex="0" role="button" aria-label="${KIND(id)} ${i + 1}: ${esc(SC[id].title)}"><circle class="hl" cx="${x}" cy="${y}" r="15" fill="#0B5E8E" stroke="#fff" stroke-width="2.5"/><text x="${x}" y="${y + 5}" text-anchor="middle" style="font:700 14px 'Golos Text',sans-serif;fill:#fff">${i + 1}</text></g>`; }).join('');
     $('#cell').innerHTML = cellSVG(mk, false);
     $('#locus').innerHTML = overviewZoom();
-    hint.textContent = 'Обзор: номера на клетке — места, где начинаются опыты';
+    hint.textContent = 'Обзор: номера на клетке — места, где разбираются механизмы';
     $$('#cell .hot').forEach(g => { const go = () => openScenario(g.dataset.sc);
       g.addEventListener('click', go); g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } }); });
     return;
@@ -3765,10 +3766,10 @@ function renderScene() {
 }
 function overviewZoom() {
   return `<svg viewBox="0 0 330 300"><rect width="330" height="300" fill="#fff"/>
-   <text x="14" y="26" class="lb" style="font:600 15px 'Golos Text',sans-serif;fill:#334155">Одна клетка — много опытов</text>
+   <text x="14" y="26" class="lb" style="font:600 15px 'Golos Text',sans-serif;fill:#334155">Одна клетка — много механизмов</text>
    <foreignObject x="10" y="36" width="312" height="260"><div xmlns="http://www.w3.org/1999/xhtml" style="font:13px/1.4 'Golos Text',sans-serif;color:#334155">
    Гепатоцит — сквозная клетка курса: в нём работают все механизмы раздела, а в следующих разделах он будет делиться, стареть и меняться при болезни.
-   Если механизм изучен в другой клетке, опыт открывает подписанное «окно в другую клетку».<br><br>Выберите опыт: номер на рисунке или список справа.</div></foreignObject></svg>`;
+   Если механизм изучен в другой клетке, это подписано как «окно в другую клетку».<br><br>Выберите номер на рисунке или пункт в списке справа.</div></foreignObject></svg>`;
 }
 function renderPhases() {
   const dis = S.mode === 'find' || !X;
@@ -3808,11 +3809,11 @@ function windowNote(p) { return p.win ? `<p class="win"><b>Окно в друг�
 function focusPh(id, f) { const x = SC[id]; return x.CONCEPT_PHASE[f] !== undefined ? x.CONCEPT_PHASE[f] : x.EDGE_PHASE[f]; }
 function overviewSide() {
   const fc = S.focusCands, lab = fc ? (fc.ids.map(id => SC[id].CLABEL[fc.f]).find(Boolean) || fc.f) : '';
-  return (fc ? `<p class="cap">Выбранное на карте</p><h2>«${esc(lab)}» показано в нескольких опытах</h2>
-   <ol class="sclist">${fc.ids.map(id => `<li><button type="button" data-openf="${id}"><b>${esc(SC[id].q)}</b><span class="muted">${esc(SC[id].title)} · этап ${focusPh(id, fc.f)}: ${esc(SC[id].PH[focusPh(id, fc.f)].short)}</span></button></li>`).join('')}</ol>` : '') +
-  `<p class="cap">Опыты раздела I</p><h2>Одна клетка, разные вопросы</h2>
-   <p class="muted" style="font-size:13.5px">Каждый опыт — вопрос к одной и той же клетке. Порядок — по семинарам; любой опыт можно открыть отдельно.</p>
-   <ol class="sclist">${ORDER.map((id, i) => `<li><button type="button" data-open="${id}"><span class="n">${i + 1}</span><b>${esc(SC[id].q)}</b><span class="muted">${esc(SC[id].title)} · ${esc(SC[id].sem)}</span></button></li>`).join('')}</ol>`;
+  return (fc ? `<p class="cap">Выбранное на карте</p><h2>«${esc(lab)}» разбирается в нескольких местах</h2>
+   <ol class="sclist">${fc.ids.map(id => `<li><button type="button" data-openf="${id}"><b>${esc(SC[id].q)}</b><span class="muted">${KIND(id)}: ${esc(SC[id].title)} · этап ${focusPh(id, fc.f)}: ${esc(SC[id].PH[focusPh(id, fc.f)].short)}</span></button></li>`).join('')}</ol>` : '') +
+  `<p class="cap">Механизмы раздела I</p><h2>Одна клетка, разные вопросы</h2>
+   <p class="muted" style="font-size:13.5px">Каждый пункт — вопрос к одной и той же клетке: как работает механизм или что доказывает эксперимент. Порядок — по семинарам; любой пункт можно открыть отдельно.</p>
+   <ol class="sclist">${ORDER.map((id, i) => `<li><button type="button" data-open="${id}"><span class="n">${i + 1}</span><b>${esc(SC[id].q)}</b><span class="muted">${KIND(id)}: ${esc(SC[id].title)} · ${esc(SC[id].sem)}</span></button></li>`).join('')}</ol>`;
 }
 function renderSide() {
   const el = $('#side'); let h = noteMsg ? `<p class="why">${noteMsg}</p>` : '';
@@ -3875,7 +3876,7 @@ function resultSVG(m) {
   if (d.kind === 'trace') { const sub = 6; T.lanes.forEach(([l, c], i) => { const arr = M[laneCond(c)][d.v], x0 = 10 + lw * i + 6, w = lw - 12, k = w / arr.length;
       const p = arr.map((lv, j) => `${j ? 'L' : 'M'}${x0 + j * k} ${74 - lv * 18} L${x0 + (j + 1) * k} ${74 - lv * 18}`).join(' ');
       g += `<rect x="${x0}" y="14" width="${w}" height="62" fill="#F8FAFC" stroke="#E2E8F0"/><path d="${p}" fill="none" stroke="${col}" stroke-width="2.2"/>`; });
-    g += TX(4, 10, esc(d.ylab || 'сигнал во времени (этапы опыта)'), 'start'); }
+    g += TX(4, 10, esc(d.ylab || 'сигнал во времени (по этапам)'), 'start'); }
   return `<svg viewBox="0 0 320 104">${g}${lab}</svg>`;
 }
 function findPanel() {
@@ -3922,13 +3923,13 @@ function openScenario(id) { stop(); S.focusCands = null; S.mode = 'trace'; S.ph 
   useScenario(id || null); S.seed = Math.floor(Math.random() * 9973); writeURL(true); render(); scrollTo(0, 0); }
 
 /* ---------- запуск */
-$('#scSel').innerHTML = '<option value="">Обзор опытов</option>' + ORDER.map((id, i) => `<option value="${id}">${i + 1}. ${esc(SC[id].title)}</option>`).join('');
+$('#scSel').innerHTML = '<option value="">Обзор механизмов</option>' + ORDER.map((id, i) => `<option value="${id}">${i + 1}. ${KIND(id) === 'Механизм' ? '' : KIND(id) + ': '}${esc(SC[id].title)}</option>`).join('');
 $('#scSel').onchange = e => openScenario(e.target.value);
 readURL();
 $$('.tab').forEach(t => t.onclick = () => setMode(t.dataset.mode));
 $('#bPrev').onclick = () => setPh(S.ph - 1); $('#bNext').onclick = () => setPh(S.ph + 1); $('#bPlay').onclick = play;
 $('#bReset').onclick = () => { stop(); setPh(0); };
-$('#bLink').onclick = () => { const u = location.href; (navigator.clipboard ? navigator.clipboard.writeText(u) : Promise.reject()).then(() => { $('#bLink').textContent = 'Ссылка скопирована'; setTimeout(() => $('#bLink').textContent = 'Ссылка на опыт', 1800); }, () => prompt('Ссылка на опыт:', u)); };
+$('#bLink').onclick = () => { const u = location.href; (navigator.clipboard ? navigator.clipboard.writeText(u) : Promise.reject()).then(() => { $('#bLink').textContent = 'Ссылка скопирована'; setTimeout(() => $('#bLink').textContent = 'Ссылка на эту страницу', 1800); }, () => prompt('Ссылка на эту страницу:', u)); };
 document.addEventListener('keydown', e => { if (e.target.closest('input,select,textarea') || S.mode === 'find' || !X) return;
   if (e.key === 'ArrowRight') { setPh(S.ph + 1); } else if (e.key === 'ArrowLeft') { setPh(S.ph - 1); } });
 addEventListener('popstate', () => { stop(); readURL(); render(); });

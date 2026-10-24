@@ -234,7 +234,7 @@ input[type=range]{accent-color:var(--u-ui)}
   <p>Все механизмы разбираются в одной и той же клетке печени — гепатоците. У каждого пункта три режима. «Проследить»: путь воздействия по этапам. «Изменить условия»: одно вмешательство в сравнении с контролем. «Найти причину»: состояние образца скрыто, причину ищут по результатам выбранных измерений. Если механизм изучен в другой клетке, это подписано как «окно в другую клетку».</p>
   <p>Уровни величин качественные; числа приведены только там, где они взяты из первоисточника. У каждого состояния модели есть статус: <span class="st F">Ф</span> измерено в указанной системе, <span class="st V">В</span> вывод из измеренного, <span class="st M">М</span> допущение учебной модели. Система, в которой получены данные, указана в паспорте каждого этапа.</p>
  </div>
- <p class="ver">Версия 2.1, 24 октября 2026 г.</p>
+ <p class="ver">Версия 2.2, 24 октября 2026 г.</p>
  <footer class="foot">© 2026 Кафедра биологии и генетики, Медицинский университет Петровского. Учебные материалы курса «Молекулярная биология» (5–6 семестры). При использовании ссылка на кафедру обязательна.
 <!--views:start-->
 <div id="gc-views" title="Всего просмотров страниц сайта" aria-label="Всего просмотров страниц сайта" style="display:none;justify-content:flex-end;align-items:center;gap:6px;margin-top:8px">
@@ -281,8 +281,8 @@ const SRC = {
 };
 const STL = {F: ['Ф', 'Измерено в указанной системе'], V: ['В', 'Вывод из измеренного'], M: ['М', 'Допущение учебной модели']};
 
-/* ---------- этапы опыта */
-const SC = {};  /* реестр опытов: SC[id] = {...} */
+/* ---------- этапы механизма */
+const SC = {};  /* реестр механизмов: SC[id] = {...} */
 /* Сцена гепатоцита (viewBox 0 0 860 560) и увеличение промотора G6PC (viewBox 0 0 330 300).
    Анатомия — спокойный ориентир; маршрут сигнала рисуется отдельным слоем по состоянию модели. */
 const NS = 'http://www.w3.org/2000/svg';
@@ -392,7 +392,7 @@ const MSCHEME = {
     <path d="M10 44h300" stroke="#1F2937" stroke-width="3"/><rect x="110" y="37" width="60" height="14" fill="#C4B5FD" stroke="#7C3AED"/><text x="140" y="64" class="t" text-anchor="middle">участок мотива IRE: исходный или изменённый</text></svg>`
 };
 
-/* Опыт S01: гепатоцит, EGF → EGFR → RAS-GTP → RAF–MEK–ERK → обратные связи → c-Fos (считывание длительности) → AP-1.
+/* S01: гепатоцит, EGF → EGFR → RAS-GTP → RAF–MEK–ERK → обратные связи → c-Fos (считывание длительности) → AP-1.
    Научный паспорт: science/S01_passport.md */
 Object.assign(SRC, {
   Talarmin1999: ['Talarmin H. и др. 1999. The mitogen-activated protein kinase kinase/extracellular signal-regulated kinase cascade activation is a key signalling pathway involved in the regulation of G1 phase progression in proliferating hepatocytes. Mol Cell Biol', '10.1128/MCB.19.9.6003'],
@@ -751,7 +751,7 @@ return {id: 'S01', order: 6, title: 'длительность сигнала ERK
     ['<path d="M3 8q4-6 8 0t8 0t8 0" fill="none" stroke="#DC2626" stroke-width="2"/>', 'РНК']]};
 })();
 
-/* Опыт S02: гепатоцит, инсулин → AKT → FOXO1 → промотор G6PC. Научный паспорт: science/S02_passport.md */
+/* S02: гепатоцит, инсулин → AKT → FOXO1 → промотор G6PC. Научный паспорт: science/S02_passport.md */
 SC.S02 = (() => {
 const PH = [
  {id: 'P0', short: 'Исходно: голодание', sig: 0, time: 'до инсулина',
@@ -863,7 +863,7 @@ const IV = {
   ire: {label: 'Замена мотива IRE в промоторе G6PC', short: 'мотив IRE изменён',
     why: 'FOXO1 в ядре, но не находит мотив на этом промоторе. Поскольку связывание FOXO1 и FoxA взаимозависимо, ослабевает и связывание FoxA; синтез РНК низкий.',
     st: {occF: 'V', occA: 'V', pol: 'V', nrna: 'V', mrna: 'V'}, src: ['Yalley2016', 'Hall2000'],
-    note: 'Вывод из опытов Yalley 2016 (взаимозависимое, вероятно кооперативное связывание на ДНК промотора IGFBP1). В репортёрных опытах ответ IRE на инсулин мог требовать и другого белка (Hall 2000).',
+    note: 'Вывод из экспериментов Yalley 2016 (взаимозависимое, вероятно кооперативное связывание на ДНК промотора IGFBP1). В репортёрных экспериментах ответ IRE на инсулин мог требовать и другого белка (Hall 2000).',
     mod: s => { s.occF = s.occF.map(() => 1); s.occA = s.occA.map(() => 1); s.pol = s.pol.map(() => 1); s.nrna = s.nrna.map(() => 1); s.mrna = s.mrna.map(() => 1); return s; }},
   nocamp: {label: 'Без глюкагона и глюкокортикоида', short: 'нет фона голодания',
     why: 'FOXO1 в ядре и, по допущению модели, связан с промотором, но без cAMP–CREB и глюкокортикоидного входа синтез РНК G6PC низкий: на промоторе собирается меньше активаторов транскрипции.',
@@ -900,7 +900,7 @@ const TASKS = {
     causes: {foxa: 'Мало FoxA1/A2', ire: 'Изменён мотив IRE в промоторе G6PC', nocamp: 'Нет входа глюкагона и глюкокортикоида'},
     check: {foxa: 'Вернуть FoxA (экспрессия, устойчивая к shRNA): связывание FOXO1 и Pol II должно восстановиться (предсказание по Yalley 2016).',
       ire: 'Вернуть исходную последовательность мотива: FOXO1 снова связывается с промотором (предсказание).',
-      nocamp: 'Добавить аналог cAMP и глюкокортикоид: растут pCREB и синтез РНК G6PC при том же распределении FOXO1 (по Nakae 2001). Оговорка: высокий сигнал ChIP FOXO1 в этом образце — допущение модели, в опыте его нужно измерить.'}}
+      nocamp: 'Добавить аналог cAMP и глюкокортикоид: растут pCREB и синтез РНК G6PC при том же распределении FOXO1 (по Nakae 2001). Оговорка: высокий сигнал ChIP FOXO1 в этом образце — допущение модели, в эксперименте его нужно измерить.'}}
 };
 /* ---------- связь с картой */
 const CONCEPT_PHASE = {'C1.pi': 2, 'C4.akt': 2, 'C6.foxo': 3, 'C5.access': 4, 'C5.pioneer': 4, 'C5.transcription': 5};
@@ -910,7 +910,7 @@ const CLABEL = {'C1.pi': 'Фосфоинозитиды', 'C4.akt': 'PI3K–AKT',
 const NUC_SLOTS = [[478,316],[448,256],[468,236],[515,300],[560,288],[548,334],[505,366],[456,350],[430,300],[578,250],[500,212],[585,325]];
 const CYT_SLOTS = [[384,178],[418,210],[346,216],[392,250],[330,268],[282,232],[256,300],[302,336],[352,374],[408,404],[272,168],[432,150]];
 
-function signalLayer(s, cond) {  /* слой опыта поверх общего гепатоцита */
+function signalLayer(s, cond) {  /* слой механизма поверх общего гепатоцита */
   const L = [];
   const on = s.ins > 0;
   /* инсулин в синусоиде */
@@ -1009,7 +1009,7 @@ return {id: 'S02', order: 8, title: 'от инсулина до гена G6PC', 
     ['<ellipse cx="15" cy="6" rx="9" ry="5" fill="#7C3AED"/>', 'FOXO1'], ['<path d="M5 3q10 10 20 0" fill="none" stroke="#CA8A04" stroke-width="3"/>', '14-3-3'],
     ['<circle cx="15" cy="6" r="5" fill="#E11D48"/>', 'фосфат'], ['<path d="M3 8q4-6 8 0t8 0t8 0" fill="none" stroke="#DC2626" stroke-width="2"/>', 'РНК G6PC']]};
 })();
-/* Опыт S03: гепатоцит, депо Ca²⁺ и вход Ca²⁺ извне (вазопрессин/α1 → PLCβ → IP₃ → выход из ЭПР →
+/* S03: гепатоцит, депо Ca²⁺ и вход Ca²⁺ извне (вазопрессин/α1 → PLCβ → IP₃ → выход из ЭПР →
    STIM1–Orai1 → вход Ca²⁺ → кальциневрин → NFAT). Научный паспорт: science/S03_passport.md */
 Object.assign(SRC, {
   Thomas1984: ['Thomas A. P., Alexander J., Williamson J. R. 1984. Relationship between inositol polyphosphate production and the increase of cytosolic free Ca2+ induced by vasopressin in isolated hepatocytes. J Biol Chem', '10.1016/S0021-9258(18)91052-5'],
@@ -1328,7 +1328,7 @@ return {id: 'S03', order: 5, title: 'депо Ca²⁺ и вход извне', q
     ['<path d="M2 6h20" stroke="#9333EA" stroke-width="2"/><path d="M20 2l6 4l-6 4z" fill="#334155"/>', 'влияние (дефосфорилирование)']]};
 })();
 
-/* Опыт S04: гепатоцит, глюкагон → Gs → аденилатциклаза → cAMP → PKA → гликогенолиз и CREB.
+/* S04: гепатоцит, глюкагон → Gs → аденилатциклаза → cAMP → PKA → гликогенолиз и CREB.
    Тема «cAMP: один рецептор — разный ответ». Научный паспорт: science/S04_passport.md */
 Object.assign(SRC, {
   WeisKobilka2018: ['Weis W. I., Kobilka B. K. 2018. The molecular basis of G protein-coupled receptor activation. Annu Rev Biochem', '10.1146/annurev-biochem-060614-033910'],
@@ -1559,7 +1559,7 @@ const TASKS = {
     causes: {forskolin: 'Активирована аденилатциклаза (форсколин), киназная ветвь поднята', okadaic: 'Подавлена фосфатаза (окадаиковая кислота)', camp_an: 'Добавлен проникающий аналог cAMP'},
     check: {forskolin: 'cAMP (FRET) повышен и PKA активна без глюкагона — аденилатциклаза активирована форсколином в обход рецептора. Это эффект без занятости рецептора (Seamon 1981).',
       okadaic: 'cAMP и PKA не повышены, а фосфо-форма высокая — подавлена фосфатаза. Доля фосфо-белка задаётся парой киназа–фосфатаза: рост фосфорилирования не доказывает активацию киназы (Pugazhenthi 1993; Toth 1989).',
-      camp_an: 'PKA активна, а FRET-сенсор эндогенного cAMP низкий — в клетку добавлен проникающий аналог cAMP, который активирует PKA в обход рецептора (Staddon, Hansford 1989). Что сенсор не регистрирует аналог — допущение модели (М); в опыте это проверяют калибровкой сенсора.'}}
+      camp_an: 'PKA активна, а FRET-сенсор эндогенного cAMP низкий — в клетку добавлен проникающий аналог cAMP, который активирует PKA в обход рецептора (Staddon, Hansford 1989). Что сенсор не регистрирует аналог — допущение модели (М); в эксперименте это проверяют калибровкой сенсора.'}}
 };
 /* ---------- связь с картой */
 const CONCEPT_PHASE = {'C3.receptor': 1, 'C3.gpcr': 1, 'C3.gs': 2, 'C1.cooperativity': 4, 'C3.phospho': 5, 'C1.local_conc': 6, 'C1.microdomain': 6};
@@ -1675,7 +1675,7 @@ return {id: 'S04', order: 4, title: 'один рецептор — разный 
     ['<circle cx="15" cy="6" r="5" fill="#CA8A04"/>', 'глюкоза']]};
 })();
 
-/* Опыт S05: гепатоцит, доставка нового апикального белка и поддержание двух мембранных доменов.
+/* S05: гепатоцит, доставка нового апикального белка и поддержание двух мембранных доменов.
    Покрывает Q03 (фосфоинозитиды — метки мембран), Q05 (транспорт груза по цитоскелету), Q08 (полярность доставкой).
    Научный паспорт: science/S05_passport.md */
 Object.assign(SRC, {
@@ -1954,8 +1954,8 @@ return {id: 'S05', order: 2, title: 'доставка груза и два до�
     ['<circle cx="15" cy="6" r="5" fill="#FEF3C7" stroke="#B45309"/>', 'эндосома / субапик. компартмент']]};
 })();
 
-/* Опыт S06: гепатоцит, сеть инсулин–AKT–mTORC1–AMPK. Узел mTORC1 на лизосоме, ветвление выходов,
-   отрицательная обратная связь S6K → IRS1. Ветвь FOXO1 (глюконеогенез) показана в опыте S02 — здесь только ссылка.
+/* S06: гепатоцит, сеть инсулин–AKT–mTORC1–AMPK. Узел mTORC1 на лизосоме, ветвление выходов,
+   отрицательная обратная связь S6K → IRS1. Ветвь FOXO1 (глюконеогенез) показана в механизме S02 — здесь только ссылка.
    Научный паспорт: science/S06_passport.md */
 Object.assign(SRC, {
   Manning2002: ['Manning B. D. и др. 2002. Identification of the tuberous sclerosis complex-2 tumor suppressor gene product tuberin as a target of the phosphoinositide 3-kinase/Akt pathway. Mol Cell', '10.1016/s1097-2765(02)00568-3'],
@@ -2156,7 +2156,7 @@ const CONCEPT_PHASE = {'C4.ampk': 0, 'C4.akt': 1, 'C4.mtor': 3, 'C1.compartment'
 const EDGE_PHASE = {E063: 0, E062: 1, E068: 1, E027: 2, E070: 5, E028: 6};
 const CLABEL = {'C4.akt': 'PI3K–AKT', 'C4.mtor': 'mTORC1', 'C1.compartment': 'Компартмент (лизосома)', 'C4.sir': 'Селективная инсулинорезистентность', 'C4.ampk': 'AMPK'};
 
-/* ---------- слой опыта поверх гепатоцита */
+/* ---------- слой механизма поверх гепатоцита */
 function signalLayer(s, cond) {
   const L = [];
   const on = s.ins > 0;
@@ -2265,7 +2265,7 @@ return {id: 'S06', order: 7, title: 'сеть инсулин–AKT–mTORC1–AM
     ['<path d="M3 8q4-6 8 0t8 0" fill="none" stroke="#DC2626" stroke-width="2"/>', 'мРНК']]};
 })();
 
-/* Опыт S07: гепатоцит, энхансер печёночного гена — почему изменяется именно этот участок ДНК.
+/* S07: гепатоцит, энхансер печёночного гена — почему изменяется именно этот участок ДНК.
    Пионер FoxA → доступность → АТФ-ремоделер → H3K27ac → вариант H2A.Z → транскрипция. Паспорт: science/S07_passport.md */
 Object.assign(SRC, {
   Luger1997: ['Luger K. и др. 1997. Crystal structure of the nucleosome core particle at 2.8 Å resolution. Nature', '10.1038/38444'],
@@ -2538,7 +2538,7 @@ return {id: 'S07', order: 9, title: 'почему меняется именно 
     ['<circle cx="15" cy="6" r="5" fill="#0891B2"/>', 'H2A.Z']]};
 })();
 
-/* Опыт S08: гепатоцит, память ответа. Однократная активация CAR → стойкие метки на локусе Cyp2B10 →
+/* S08: гепатоцит, память ответа. Однократная активация CAR → стойкие метки на локусе Cyp2B10 →
    усиленный ответ на повторный сигнал. Научный паспорт: science/S08_passport.md */
 Object.assign(SRC, {
   Chen2012: ['Chen W.-D. и др. 2012. Neonatal activation of the nuclear receptor CAR results in epigenetic memory and permanent change of drug metabolism in mouse liver. Hepatology', '10.1002/hep.25766'],
@@ -2761,7 +2761,7 @@ return {id: 'S08', order: 11, title: 'что осталось после сиг�
     ['<path d="M3 8q4-6 8 0t8 0t8 0" fill="none" stroke="#DC2626" stroke-width="2"/>', 'РНК Cyp2B10']]};
 })();
 
-/* Опыт S09: гепатоцит, вазопрессин → IP₃ → выход Ca²⁺ из ЭПР → микродомен на контакте ЭПР–митохондрия → MCU → матрикс.
+/* S09: гепатоцит, вазопрессин → IP₃ → выход Ca²⁺ из ЭПР → микродомен на контакте ЭПР–митохондрия → MCU → матрикс.
    Отдельно: равновесие слияния и деления сети митохондрий. Научный паспорт: science/S09_passport.md */
 Object.assign(SRC, {
   Woods1986: ['Woods N. M., Cuthbertson K. S. R., Cobbold P. H. 1986. Repetitive transient rises in cytoplasmic free calcium in hormone-stimulated hepatocytes. Nature', '10.1038/319600a0'],
@@ -3094,7 +3094,7 @@ return {id: 'S09', order: 1, title: 'митохондрии и контакты 
     ['<ellipse cx="15" cy="6" rx="12" ry="4" fill="#E9D3C2" stroke="#B4806A"/>', 'митохондрия / сеть']]};
 })();
 
-/* Опыт S10: гепатоцит, окислительный стресс → остановка инициации трансляции → стресс-гранула (конденсат G3BP1).
+/* S10: гепатоцит, окислительный стресс → остановка инициации трансляции → стресс-гранула (конденсат G3BP1).
    Главная идея — критерии интерпретации: яркий фокус ≠ жидкая фаза ≠ функция. Научный паспорт: science/S10_passport.md */
 Object.assign(SRC, {
   Banani2017: ['Banani S. F. и др. 2017. Biomolecular condensates: organizers of cellular biochemistry. Nat Rev Mol Cell Biol', '10.1038/nrm.2017.7'],
@@ -3234,7 +3234,7 @@ const IV = {
     note: 'В клетках U-2 OS без G3BP1 и G3BP2 стресс-гранулы не образуются, а подавление синтеза белка при арсените такое же, как в обычных клетках (Kedersha 2016). Это показывает, что гранула не нужна для остановки трансляции.',
     mod: s => { s.g3bpT = s.g3bpT.map(() => 0); s.g3bpC = s.g3bpC.map(() => 0); ['gran', 'enrich', 'exch'].forEach(k => s[k] = s[k].map(() => 0)); return s; }},
   hex: {label: 'Обработка 1,6-гександиолом', short: '1,6-гександиол',
-    why: 'Видимые фокусы частично растворяются, но этот опыт ничего не доказывает: 1,6-гександиол неизбирателен — он подавляет киназы и фосфатазы, меняет мембраны и сам способен вызывать гранулоподобные сборки.',
+    why: 'Видимые фокусы частично растворяются, но этот эксперимент ничего не доказывает: 1,6-гександиол неизбирателен — он подавляет киназы и фосфатазы, меняет мембраны и сам способен вызывать гранулоподобные сборки.',
     st: {gran: 'V', enrich: 'V', exch: 'M'}, src: ['Duster2021', 'Wheeler2016', 'Gorsheneva2024'],
     note: 'Растворение фокусов 1,6-гександиолом не доказывает фазового разделения. По Düster 2021 киназы и фосфатазы угнетаются уже при 1 %, а в концентрациях 5–10 %, которыми растворяют капли, подавление почти полное. По Wheeler 2016 1,6-гександиол (3,5 %) сам вызывает сборку гранул и фосфорилирование eIF2α в клетках HeLa и U-2 OS; проницаемость мембран он также меняет (Горшенева 2024). Уровни в модели условны — важно, что результат не истолковывается.',
     mod: s => { s.gran = s.gran.map(v => Math.min(v, 1)); s.enrich = s.enrich.map(v => Math.min(v, 1)); s.exch = s.exch.map(v => v ? 1 : 0); return s; }},
@@ -3289,7 +3289,7 @@ const CLABEL = {'C2.condensates': 'Биомолекулярные конденс
 const GC = [300, 338];                 /* центр стресс-гранулы */
 const DIFF = [[196,150],[238,186],[180,232],[250,258],[172,300],[214,332],[262,300],[158,360],[232,392],[286,230],[320,180],[150,196]];
 
-function signalLayer(s, cond) {  /* слой опыта поверх общего гепатоцита */
+function signalLayer(s, cond) {  /* слой механизма поверх общего гепатоцита */
   const L = [];
   const on = s.stress > 0;
   L.push(`<defs><marker id="S10-ex" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0F766E"/></marker></defs>`);
@@ -3377,7 +3377,7 @@ return {id: 'S10', kind: 'exp', order: 3, title: 'яркий фокус — ещ
     ['<path d="M3 2l10 8M13 2l-10 8" stroke="#4C1D95" stroke-width="1.6"/>', 'твёрдоподобное состояние']]};
 })();
 
-/* Опыт S11: гепатоцит, печёночный энхансер и его ген-мишень — установление и поддержание метилирования ДНК
+/* S11: гепатоцит, печёночный энхансер и его ген-мишень — установление и поддержание метилирования ДНК
    и избирательность энхансер–промотор. Научный паспорт: science/S11_passport.md */
 Object.assign(SRC, {
   Okano1999: ['Okano M. и др. 1999. DNA methyltransferases Dnmt3a and Dnmt3b are essential for de novo methylation and mammalian development. Cell', '10.1016/s0092-8674(00)81656-6'],
@@ -3671,8 +3671,8 @@ return {id: 'S11', order: 10, title: 'метилирование ДНК и эн�
     ['<path d="M3 9q5-6 10 0t10 0" fill="none" stroke="#DC2626" stroke-width="2"/>', 'новая РНК мишени']]};
 })();
 
-/* Логика страницы «Интерактивная клетка · раздел I». Несколько опытов в одной клетке (реестр SC).
-   Состояние опыта отделено от отрисовки; URL — контракт ТЗ (v=1): scenario, mode, stage, iv, cmp, task, seed, focus. */
+/* Логика страницы «Интерактивная клетка · раздел I». Несколько механизмов в одной клетке (реестр SC).
+   Состояние страницы отделено от отрисовки; URL — контракт ТЗ (v=1): scenario, mode, stage, iv, cmp, task, seed, focus. */
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const esc = s => String(s).replace(/[&<>"]/g, m => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[m]));
 const MODES = {trace: 'Проследить', vary: 'Изменить условия', find: 'Найти причину'};
@@ -3911,7 +3911,7 @@ function bindFind() {
   const n = $('#newS'); if (n) n.onclick = () => { S.seed = Math.floor(Math.random() * 9973); S.done = []; S.guess = null; writeURL(false); render(); };
 }
 
-/* ---------- управление временем и опытами */
+/* ---------- управление временем и механизмами */
 let timer = null;
 function stop() { S.playing = false; clearInterval(timer); }
 function setPh(i) { if (!X) return; S.ph = Math.max(0, Math.min(X.PH.length - 1, i)); writeURL(false); renderScene(); renderPhases(); renderTracks(); renderSide(); }

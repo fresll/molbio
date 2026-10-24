@@ -323,13 +323,15 @@ const sym = e => nd(e) ? '↔' : (e.sg === '-' ? '⊣' : '→'), symIn = e => nd
 const tyL = e => e.ty === 'feedback' ? (e.sg === '-' ? 'Отрицательная обратная связь (тормозит)' : 'Положительная обратная связь (поддерживает)') : (D.types[e.ty] || e.ty);
 const narrow = () => matchMedia('(max-width:980px)').matches;
 /* ---------- связь с интерактивной клеткой (cell-1.html, опыт S02): понятие/связь → этап опыта */
-const CELL_C = {'C1.pi': 'Фосфоинозитиды у рецептора инсулина', 'C4.akt': 'Активация AKT инсулином', 'C6.foxo': 'FOXO1 уходит из ядра', 'C5.access': 'Промотор G6PC', 'C5.pioneer': 'FoxA на промоторе G6PC', 'C5.transcription': 'Синтез новой РНК G6PC'};
-const CELL_E = {E062: 1, E029: 1, E042: 1, E032: 1, E043: 1, E035: 1};
+const CELL_C = {"C1.compartment": ["S09", "S03", "S06"], "C2.network": ["S09"], "C1.local_conc": ["S09", "S10", "S04"], "C1.microdomain": ["S09", "S04", "S03"], "C2.contacts": ["S09", "S03"], "C1.pi": ["S05", "S02"], "C2.transport": ["S05"], "C2.traffic": ["S05"], "C2.address": ["S05"], "C2.polarity": ["S05"], "C2.condensates": ["S10"], "C3.receptor": ["S04", "S01"], "C3.gpcr": ["S04"], "C3.gs": ["S04"], "C1.cooperativity": ["S04"], "C3.phospho": ["S04", "S03"], "C3.plc": ["S03"], "C3.stim": ["S03"], "C3.nfat": ["S03"], "C5.transcription": ["S03", "S01", "S02", "S07", "S11"], "C3.ras": ["S01"], "C4.mapk": ["S01"], "C4.negative": ["S01"], "C4.duration": ["S01"], "C4.cfos": ["S01"], "C4.adaptation": ["S01"], "C4.ampk": ["S06"], "C4.akt": ["S06", "S02"], "C4.mtor": ["S06"], "C4.sir": ["S06"], "C6.foxo": ["S02"], "C5.access": ["S02", "S07"], "C5.pioneer": ["S02", "S07"], "C5.nucleosome": ["S07"], "C5.remodeler": ["S07"], "C5.marks": ["S07", "S11", "S08"], "C5.variants": ["S07"], "C6.topology": ["S11"], "C6.enhancer": ["S11"], "C6.dnmt": ["S11"], "C6.maintenance": ["S11", "S08"], "C6.memory": ["S08"]};
+const CELL_E = {"E064": ["S09"], "E002": ["S09", "S04"], "E016": ["S09", "S03"], "E010": ["S09"], "E006": ["S09"], "E060": ["S05"], "E007": ["S05"], "E008": ["S05"], "E061": ["S05"], "E011": ["S05"], "E012": ["S10"], "E014": ["S04"], "E050": ["S04"], "E067": ["S04"], "E005": ["S04"], "E065": ["S03"], "E017": ["S03"], "E018": ["S03"], "E019": ["S03"], "E036": ["S03"], "E020": ["S01"], "E021": ["S01"], "E037": ["S01"], "E022": ["S01"], "E023": ["S01"], "E026": ["S01"], "E069": ["S01"], "E063": ["S06"], "E062": ["S06", "S02"], "E068": ["S06"], "E027": ["S06"], "E070": ["S06"], "E028": ["S06"], "E029": ["S02"], "E042": ["S02"], "E032": ["S02", "S07"], "E043": ["S02"], "E035": ["S02", "S07"], "E030": ["S07"], "E031": ["S07"], "E034": ["S07", "S08"], "E033": ["S07"], "E040": ["S11"], "E066": ["S11"], "E041": ["S11"], "E038": ["S11"], "E039": ["S11", "S08"], "E054": ["S08"], "E047": ["S08"]};
+const CELL_R = {foxo: 'S02', calcium: 'S03', erk: 'S01', memory: 'S08'};
 const QP = new URLSearchParams(location.search), FROMCELL = QP.get('from') === 'cell';
 const RET = (QP.get('ret') || '').replace(/[^A-Za-z0-9=&_.%-]/g, '');
-const cellHref = id => `cell-1.html?v=1&scenario=S02&mode=trace&focus=${encodeURIComponent(id)}`;
-const cellBtnC = id => CELL_C[id] ? `<a class="tocell" href="${cellHref(id)}">Посмотреть в клетке: ${esc(CELL_C[id])} →</a>` : '';
-const cellBtnE = id => CELL_E[id] ? `<a class="tocell" href="${cellHref(id)}">Проверить в опыте (клетка) →</a>` : '';
+const cellHref = id => `cell-1.html?v=1&mode=trace&focus=${encodeURIComponent(id)}` + (CELL_C[id] && CELL_C[id].length === 1 ? `&scenario=${CELL_C[id][0]}` : (CELL_E[id] && CELL_E[id].length === 1 ? `&scenario=${CELL_E[id][0]}` : ''));
+const nOp = n => n === 1 ? '' : ` (опытов: ${n})`;
+const cellBtnC = id => CELL_C[id] ? `<a class="tocell" href="${cellHref(id)}">Посмотреть в клетке${nOp(CELL_C[id].length)} →</a>` : '';
+const cellBtnE = id => CELL_E[id] ? `<a class="tocell" href="${cellHref(id)}">Проверить в опыте (клетка)${nOp(CELL_E[id].length)} →</a>` : '';
 
 /* ---------- колонки семинаров */
 function renderCols() {
@@ -405,7 +407,7 @@ function drawLinks(vis) {
   svg.querySelectorAll('path.hit').forEach(p => p.addEventListener('click', () => selectEdge(p.dataset.e, true)));
 }
 function renderRouteDesc() { renderRouteDesc0(); const el = $('#rdesc');
-  if (S.route === 'foxo' && !S.c) el.insertAdjacentHTML('beforeend', ' <a class="tocell" href="cell-1.html?v=1&scenario=S02&mode=trace">Проследить маршрут в клетке →</a>'); el.hidden = !el.textContent.trim(); }  // пустую плашку не показывать (R59)
+  if (S.route && CELL_R[S.route] && !S.c) el.insertAdjacentHTML('beforeend', ` <a class="tocell" href="cell-1.html?v=1&scenario=${CELL_R[S.route]}&mode=trace">Проследить маршрут в клетке →</a>`); el.hidden = !el.textContent.trim(); }  // пустую плашку не показывать (R59)
 function renderRouteDesc0() {
   const el = $('#rdesc');
   if (S.route && !S.c) { const r = D.routes.find(r => r.id === S.route);

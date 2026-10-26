@@ -98,11 +98,15 @@ input[type=range]{accent-color:var(--u-ui)}
 .foot{border-top:2px solid var(--u-red)}
 </style>
 <!--brand-univ:end-->
+<link href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap&text=%20%D0%98%D0%9C%D0%9E%D0%B0%D0%BA%D0%BB%D0%BE%D0%BF%D1%81%D1%82%D1%85%D1%87" rel="stylesheet">
 <style id="minimum">
 /* минимум к коллоквиуму: список вопросов и ответ на один экран */
 .wrap.min{max-width:980px;padding-top:10px}
 .min .affil{margin-bottom:12px}
 .min .crumb{margin:0 0 10px}
+.lhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.egg{margin:-4px 4px 0 0;font-family:"Marck Script","Segoe Script",cursive;font-size:30px;line-height:1;color:var(--u-red,var(--warn));transform:rotate(-6deg);transform-origin:right center;white-space:nowrap;user-select:none}
+@media (max-width:600px){.lhead{margin-bottom:10px}.egg{font-size:23px;margin-top:-2px;transform:rotate(-3deg)}}
 .min h1{margin:0 0 6px}
 .min .lead{margin:0 0 16px;font-size:16px}
 .qlist{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
@@ -135,7 +139,7 @@ input[type=range]{accent-color:var(--u-ui)}
   <p class="affil">Кафедра биологии и генетики · Медицинский университет Петровского · курс «Молекулярная биология», 5–6 семестры</p>
   <main id="app">
   <section class="view" id="list" aria-labelledby="lh">
-   <p class="crumb"><a href="section-1.html">← Раздел I</a></p>
+   <div class="lhead"><p class="crumb"><a href="section-1.html">← Раздел I</a></p><p class="egg">пасхалочка от МИО</p></div>
    <p class="kicker">Раздел I · коллоквиум I</p>
    <h1 id="lh">Минимум к коллоквиуму I</h1>
    <p class="lead">Тот минимум, который стоит знать для прохождения коллоквиума: 24 вопроса, ответ на каждый — 9 предложений.</p>

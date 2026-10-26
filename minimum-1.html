@@ -104,9 +104,9 @@ input[type=range]{accent-color:var(--u-ui)}
 .wrap.min{max-width:980px;padding-top:10px}
 .min .affil{margin-bottom:12px}
 .min .crumb{margin:0 0 10px}
-.lhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.egg{margin:-4px 4px 0 0;font-family:"Marck Script","Segoe Script",cursive;font-size:30px;line-height:1;color:var(--u-red,var(--warn));transform:rotate(-6deg);transform-origin:right center;white-space:nowrap;user-select:none}
-@media (max-width:600px){.lhead{margin-bottom:10px}.egg{font-size:23px;margin-top:-2px;transform:rotate(-3deg)}}
+.ttl{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:0 16px}
+.egg{margin:0 4px 0 auto;font-family:"Marck Script","Segoe Script",cursive;font-size:30px;line-height:1;color:var(--u-red,var(--warn));white-space:nowrap;user-select:none}
+@media (max-width:600px){.egg{font-size:24px;margin:0 2px 6px auto}}
 .min h1{margin:0 0 6px}
 .min .lead{margin:0 0 16px;font-size:16px}
 .qlist{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
@@ -139,9 +139,9 @@ input[type=range]{accent-color:var(--u-ui)}
   <p class="affil">Кафедра биологии и генетики · Медицинский университет Петровского · курс «Молекулярная биология», 5–6 семестры</p>
   <main id="app">
   <section class="view" id="list" aria-labelledby="lh">
-   <div class="lhead"><p class="crumb"><a href="section-1.html">← Раздел I</a></p><p class="egg">пасхалочка от МИО</p></div>
+   <p class="crumb"><a href="section-1.html">← Раздел I</a></p>
    <p class="kicker">Раздел I · коллоквиум I</p>
-   <h1 id="lh">Минимум к коллоквиуму I</h1>
+   <div class="ttl"><h1 id="lh">Минимум к коллоквиуму I</h1><p class="egg">пасхалочка от МИО</p></div>
    <p class="lead">Тот минимум, который стоит знать для прохождения коллоквиума: 24 вопроса, ответ на каждый — 9 предложений.</p>
    <ol class="qlist">
    <li id="li1"><a href="#q1"><span class="qn">1.</span><span>Мембранная компартментализация и локальные физико-химические условия</span></a></li>

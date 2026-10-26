@@ -98,6 +98,20 @@ input[type=range]{accent-color:var(--u-ui)}
 .foot{border-top:2px solid var(--u-red)}
 </style>
 <!--brand-univ:end-->
+<style id="rev39-sec">
+/* ревизия 25.10.2026: короткая подпись миниатюры + подробная легенда, цель раздела, маршрут, две кнопки семинара */
+.mini figcaption p{margin:0}
+.mini figcaption details{margin-top:6px}
+.mini figcaption summary{cursor:pointer;color:var(--u-ui,var(--acc));font-weight:600}
+.mini figcaption details p{margin-top:6px}
+.goal{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--u-ui,var(--acc));border-radius:10px;padding:10px 14px;margin:0 0 14px;line-height:1.5}
+.status{font-size:14px;color:var(--muted);margin:-8px 0 16px}
+.howto{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:0 0 14px;line-height:1.5}
+.howto ol{margin:6px 0 4px;padding-left:22px}
+.howto p{margin:0}
+.howto .quiet{font-size:13.5px;color:var(--muted);margin-top:6px}
+.semact{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -108,6 +122,8 @@ input[type=range]{accent-color:var(--u-ui)}
     <p class="kicker">Раздел II · семинары 7–12 · коллоквиум II</p>
     <h1>Ресурсы, митохондрии, стресс и контроль качества</h1>
     <p class="lead">Ресурсные и энергетические ограничения, стрессовые программы и поддержание качества белков и органелл.</p>
+    <p class="goal"><b>После раздела вы сможете</b> связать сигнальные пути mTORC1 и AMPK с изменением метаболических потоков, объяснить, при каких условиях митохондрия синтезирует ATP, а при каких поддерживает мембранный потенциал за счёт гидролиза ATP, различить стрессовые программы по сенсору и следствию и предложить измерение, отличающее изменение регуляции от изменения потока.</p>
+    <p class="status">Опубликованы семинары 7–10 (4 из 6); семинары 11 и 12 готовятся.</p>
    </div>
    <figure class="mini" data-miniature="S2" data-section="II" data-variant="S2-C"><div class="mini-art"><svg aria-describedby="mcap2" viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Органеллы и программы раздела II внутри контура клетки, лизосома с mTORC1 в центре">
 <defs><marker id="m2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#1F2A36"></path></marker><marker id="m2t" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M5 0 V10" stroke="#1F2A36" stroke-width="2.4"></path></marker></defs>
@@ -130,37 +146,38 @@ input[type=range]{accent-color:var(--u-ui)}
 <text x="350" y="64" text-anchor="end" font-family="Golos Text, system-ui, sans-serif" font-size="12.5" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">10</tspan> Стрессовая<tspan x="350" dy="15">программа</tspan></text>
 <g transform="translate(232 250)"><path d="M-6 -26 A 26 26 0 1 0 -6 26" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round"></path><path d="M-4 -20 A 20 20 0 1 0 -4 20" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round"></path><rect x="-16" y="-8" width="22" height="16" rx="8" fill="#fff" stroke="#1F2A36" stroke-width="1.5"></rect><g fill="#006CA3"><circle cx="9" cy="-9" r="3"></circle><circle cx="12" cy="-2" r="3"></circle><circle cx="10" cy="5" r="3"></circle></g></g>
 <text x="232" y="300" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="12.5" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">12</tspan> Селективная аутофагия</text>
-</svg></div><figcaption id="mcap2">Метаболический поток (8) поставляет субстраты митохондрии (9); при снижении энергетического заряда (↓ATP, ↑AMP) активируется AMPK, которая тормозит mTORC1 на лизосоме (7); mTORC1 тормозит запуск аутофагии (фагофор) — одного из путей протеостаза (11), а при длительном голодании продукты лизосомной деградации вновь активируют mTORC1. Стрессовая программа (10; фосфорилирование eIF2α при интегрированном стрессовом ответе) повышает ёмкость протеостаза; митохондрия с утраченным мембранным потенциалом может удаляться селективной аутофагией (12), в культуре клеток — путём, зависимым от PINK1 и Parkin. Пунктирная стрелка — влияние при определённых условиях.</figcaption></figure>
+</svg></div><figcaption id="mcap2"><p>Метаболический поток (8) и митохондрии (9) определяют энергетическое состояние клетки; через AMPK и mTORC1 (7) оно регулирует синтез и аутофагию (11, 12), а стрессовые программы (10) в ответ на разные сенсоры перестраивают трансляцию и транскрипцию. Номера обозначают порядок изучения, а не обязательную последовательность событий в клетке.</p><details><summary>Подробная подпись к схеме</summary><p>Метаболический поток (8) поставляет субстраты митохондрии (9); при снижении энергетического заряда (↓ATP, ↑AMP) активируется AMPK, которая тормозит mTORC1 на лизосоме (7); mTORC1 тормозит запуск аутофагии (фагофор) — одного из путей протеостаза (11), а при длительном голодании продукты лизосомной деградации вновь активируют mTORC1. Стрессовые программы (10) различаются по сенсору и следствию: например, при интегрированном стрессовом ответе фосфорилирование eIF2α сначала снижает общую трансляцию и тем самым белковую нагрузку, а затем через ATF4 меняет экспрессию генов адаптации; исход зависит от силы и длительности стресса. Митохондрия с утраченным мембранным потенциалом может удаляться селективной аутофагией (12), в культуре клеток — путём, зависимым от PINK1 и Parkin. Пунктирная стрелка — влияние при определённых условиях.</p></details></figcaption></figure>
   </div>
   <h2 class="semh" id="seminars">Семинары раздела II</h2>
+  <div class="howto"><p><b>Как работать с материалами раздела</b></p><ol><li>Начните с объяснений: в них разобраны механизмы, а в конце каждого шага есть вопрос для самопроверки.</li><li>Откройте практикум: проверьте механизм на схемах, меняя условия, и пройдите сценарии «Предскажите и проверьте».</li><li>После семинаров раздела сопоставьте их выводы: как сигнальные пути mTORC1 и AMPK, метаболические потоки, митохондрии и стрессовые программы ограничивают друг друга. Системная карта и интерактивная клетка пока есть только для раздела I.</li></ol><p class="quiet">Это рекомендуемый порядок, а не ограничение: любую страницу можно открыть в любой момент.</p></div>
   <ol class="sems">
   <li class="sem" id="s7">
    <div class="n">Семинар 7</div>
    <h2><a href="seminar-7.html">Интеграция сигналов о ресурсном состоянии: mTORC1, AMPK и лизосомная переработка</a></h2>
    <h3 class="qh">Вопросы программы</h3>
    <ol class="qs"><li><span class="qn">7.1</span><a href="seminar-7.html#q1">Лизосомная активация mTORC1 при совпадении аминокислотного и ростового сигналов</a></li><li><span class="qn">7.2</span><a href="seminar-7.html#q2">AMPK как сенсор аденилатного энергетического заряда и переключатель клеточного бюджета</a></li><li><span class="qn">7.3</span><a href="seminar-7.html#q3">Переключение между синтезом и β-окислением жирных кислот через ACC, малонил-CoA и CPT1</a></li><li><span class="qn">7.4</span><a href="seminar-7.html#q4">Согласование аутофагии, лизосомного гидролиза и повторной активации mTORC1</a></li></ol>
-   <a class="btn" href="seminar-7.html">Открыть семинар 7</a>
+   <div class="semact"><a class="btn" href="seminar-7-route.html">Объяснения</a><a class="btn ghost" href="seminar-7.html">Практикум: схемы и сценарии</a></div>
   </li>
   <li class="sem" id="s8">
    <div class="n">Семинар 8</div>
    <h2><a href="seminar-8.html">Метаболические потоки, биосинтез и редокс-состояние</a></h2>
    <h3 class="qh">Вопросы программы</h3>
    <ol class="qs"><li><span class="qn">8.1</span><a href="seminar-8.html#q1">Аэробный гликолиз (эффект Варбурга) как перераспределение углеродного и энергетического потоков</a></li><li><span class="qn">8.2</span><a href="seminar-8.html#q2">Цикл трикарбоновых кислот как источник восстановительных эквивалентов и биосинтетических предшественников: катаплероз и анаплероз</a></li><li><span class="qn">8.3</span><a href="seminar-8.html#q3">Ацетил-CoA, S-аденозилметионин и α-кетоглутарат как субстраты и косубстраты ферментов хроматина</a></li><li><span class="qn">8.4</span><a href="seminar-8.html#q4">Отношение NADH/NAD⁺ и переход активных форм кислорода от сигнальной функции к повреждению</a></li></ol>
-   <a class="btn" href="seminar-8.html">Открыть семинар 8</a>
+   <div class="semact"><a class="btn" href="seminar-8-route.html">Объяснения</a><a class="btn ghost" href="seminar-8.html">Практикум: схемы и сценарии</a></div>
   </li>
   <li class="sem" id="s9">
    <div class="n">Семинар 9</div>
    <h2><a href="seminar-9.html">Митохондрии как энергетический, сигнальный и генетический узел</a></h2>
    <h3 class="qh">Вопросы программы</h3>
    <ol class="qs"><li><span class="qn">9.1</span><a href="seminar-9.html#q1">Хемиосмотическое сопряжение переноса электронов и синтеза ATP</a></li><li><span class="qn">9.2</span><a href="seminar-9.html#q2">Мембранный потенциал внутренней мембраны как условие синтеза ATP, импорта белков и ионного транспорта</a></li><li><span class="qn">9.3</span><a href="seminar-9.html#q3">Передача Ca²⁺ в контактах ЭПР и митохондрии: от согласования метаболизма до перегрузки</a></li><li><span class="qn">9.4</span><a href="seminar-9.html#q4">Двойной генетический контроль дыхательной цепи и порог гетероплазмии мтДНК</a></li></ol>
-   <a class="btn" href="seminar-9.html">Открыть семинар 9</a>
+   <div class="semact"><a class="btn" href="seminar-9-route.html">Объяснения</a><a class="btn ghost" href="seminar-9.html">Практикум: схемы и сценарии</a></div>
   </li>
   <li class="sem" id="s10">
    <div class="n">Семинар 10</div>
    <h2><a href="seminar-10.html">Стрессовые программы</a></h2>
    <h3 class="qh">Вопросы программы</h3>
    <ol class="qs"><li><span class="qn">10.1</span><a href="seminar-10.html#q1">Интегрированный стрессовый ответ: фосфорилирование eIF2α и избирательное усиление трансляции ATF4</a></li><li><span class="qn">10.2</span><a href="seminar-10.html#q2">Три ветви UPR при несоответствии белковой нагрузки и ёмкости ЭПР</a></li><li><span class="qn">10.3</span><a href="seminar-10.html#q3">KEAP1–NRF2: сенсор электрофилов на цистеиновых остатках и транскрипционная программа редокс-адаптации</a></li><li><span class="qn">10.4</span><a href="seminar-10.html#q4">Кислород-зависимая деградация HIF-α: пролилгидроксилазы PHD и убиквитинлигазный комплекс с pVHL</a></li></ol>
-   <a class="btn" href="seminar-10.html">Открыть семинар 10</a>
+   <div class="semact"><a class="btn" href="seminar-10-route.html">Объяснения</a><a class="btn ghost" href="seminar-10.html">Практикум: схемы и сценарии</a></div>
   </li>
   <li class="sem" id="s11">
    <div class="n">Семинар 11</div>
@@ -178,7 +195,7 @@ input[type=range]{accent-color:var(--u-ui)}
   </li>
   </ol>
   <nav class="others" aria-label="Другие разделы"><a class="btn ghost" href="section-1.html">Раздел I</a><a class="btn ghost" href="section-3.html">Раздел III</a><a class="btn ghost" href="section-4.html">Раздел IV</a></nav>
-  <p class="ver">Версия 1.2, 23 октября 2026 г.</p>
+  <p class="ver">Версия 1.3, 26 октября 2026 г.</p>
   <footer class="foot">© 2026 Кафедра биологии и генетики, Медицинский университет Петровского. Учебные материалы курса «Молекулярная биология» (5–6 семестры). При использовании ссылка на кафедру обязательна.
 <!--views:start-->
 <div id="gc-views" title="Всего просмотров страниц сайта" aria-label="Всего просмотров страниц сайта" style="display:none;justify-content:flex-end;align-items:center;gap:6px;margin-top:8px">

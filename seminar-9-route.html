@@ -1262,7 +1262,21 @@ navigate(location.hash.slice(1) || 'home');
 
 (function () { const a = document.getElementById('seminar-back'); if (a && new URLSearchParams(location.search).has('fixed')) a.href = 'seminar-9.html?fixed'; })();
 (function () { const a = document.querySelector('.all-seminars'); if (a && location.hostname !== 'fresll.github.io') a.href = 'https://fresll.github.io/molbio/section-2.html#seminars'; })();
-</script><!--stats:start-->
+</script><script>/* ревизия сайта 25.10.2026 (версия 3.9): «← Вернуться к семинару» ведёт к вопросу текущего шага (#qN);
+   ?fixed сохраняется; продвинутый уровень — если страница открыта из практикума с ?level=adv и шаг относится к тому же вопросу */
+(function () {
+  const a = document.getElementById('seminar-back'); if (!a || typeof CONTENT === 'undefined') return;
+  const base = a.getAttribute('href').split(/[?#]/)[0], P = new URLSearchParams(location.search);
+  const qOf = id => { const l = (CONTENT.lessons || []).find(x => x.id === id); if (!l) return null;
+    if (Array.isArray(l.questions)) return l.questions.length === 1 ? l.questions[0] : null;
+    return typeof l.section === 'number' && l.section < (CONTENT.questions || []).length ? l.section + 1 : null; };
+  const fromQ = P.get('level') === 'adv' ? qOf(location.hash.slice(1)) : null;
+  const upd = () => { const q = qOf(location.hash.slice(1)), p = [];
+    if (P.has('fixed')) p.push('fixed'); if (q && q === fromQ) p.push('level=adv');
+    a.setAttribute('href', base + (p.length ? '?' + p.join('&') : '') + (q ? '#q' + q : '')); };
+  window.addEventListener('hashchange', upd); upd();
+})();</script>
+<!--stats:start-->
 <script data-goatcounter="https://molbio.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <!--stats:end-->
 </body></html>

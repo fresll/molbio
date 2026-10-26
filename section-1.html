@@ -98,6 +98,20 @@ input[type=range]{accent-color:var(--u-ui)}
 .foot{border-top:2px solid var(--u-red)}
 </style>
 <!--brand-univ:end-->
+<style id="rev39-sec">
+/* ревизия 25.10.2026: короткая подпись миниатюры + подробная легенда, цель раздела, маршрут, две кнопки семинара */
+.mini figcaption p{margin:0}
+.mini figcaption details{margin-top:6px}
+.mini figcaption summary{cursor:pointer;color:var(--u-ui,var(--acc));font-weight:600}
+.mini figcaption details p{margin-top:6px}
+.goal{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--u-ui,var(--acc));border-radius:10px;padding:10px 14px;margin:0 0 14px;line-height:1.5}
+.status{font-size:14px;color:var(--muted);margin:-8px 0 16px}
+.howto{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:0 0 14px;line-height:1.5}
+.howto ol{margin:6px 0 4px;padding-left:22px}
+.howto p{margin:0}
+.howto .quiet{font-size:13.5px;color:var(--muted);margin-top:6px}
+.semact{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -108,6 +122,8 @@ input[type=range]{accent-color:var(--u-ui)}
     <p class="kicker">Раздел I · семинары 1–6 · коллоквиум I</p>
     <h1>Организация, сигналы и геномный контекст</h1>
     <p class="lead">Как локальные условия, молекулярные взаимодействия, сигнальные сети и организация генома определяют характер, длительность и устойчивость клеточных состояний.</p>
+    <p class="goal"><b>После раздела вы сможете</b> проследить действие сигнала до гена, объяснить, почему ответ зависит от места и длительности воздействия, и предложить эксперимент, позволяющий отличить изменение механизма от внешне сходного эффекта.</p>
+    <p class="status">Опубликованы все шесть семинаров раздела.</p>
    </div>
    <figure class="mini" data-miniature="S1" data-section="I" data-variant="S1-B"><div class="mini-art"><svg aria-describedby="mcap1" viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Клетка в разрезе: рецептор на мембране, компартменты, транспорт и сигнальная сеть в цитоплазме, нуклеосома и метилированная ДНК в ядре">
 <defs><marker id="m1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#1F2A36"></path></marker></defs>
@@ -130,7 +146,7 @@ input[type=range]{accent-color:var(--u-ui)}
 <text x="392" y="160" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="12.5" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">5</tspan> Нуклеосома</text>
 <g transform="translate(392 230)"><path d="M-38 -4 H38 M-38 8 H38" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><path d="M-30 -4 V8 M-18 -4 V8 M-6 -4 V8 M6 -4 V8 M18 -4 V8 M30 -4 V8" stroke="#7A8696" stroke-width="1.2"></path><path d="M-18 -4 V-16 M6 -4 V-16 M30 -4 V-16" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><g fill="#006CA3"><circle cx="-18" cy="-20" r="4.5"></circle><circle cx="6" cy="-20" r="4.5"></circle><circle cx="30" cy="-20" r="4.5"></circle></g></g>
 <text x="392" y="264" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="12.5" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">6</tspan> Метилирование<tspan x="392" dy="15">ДНК</tspan></text>
-</svg></div><figcaption id="mcap1">Компартменты (1) и транспорт (2) задают условия активации рецептора (3); сигнал рецептора поступает в сеть с обратными связями (4), которая через транскрипционные факторы влияет на транскрипцию генов-мишеней и опосредованно — на хроматин (5), а состояние гистонов — на установление метилирования ДНК (6). Состояние хроматина, в свою очередь, влияет на то, какие гены ответят на сигнал (пунктирная стрелка из ядра к сети). Порядок номеров — маршрут изучения взаимосвязанных условий, а не обязательная последовательность событий в клетке. Пунктирная стрелка — опосредованное влияние или влияние при определённых условиях, пунктирный контур — ядро.</figcaption></figure>
+</svg></div><figcaption id="mcap1"><p>Компартменты и транспорт (1, 2) задают условия рецепции (3); сигнальная сеть (4) влияет на гены-мишени и хроматин (5, 6), а состояние хроматина — на ответ генов. Номера обозначают порядок изучения, а не обязательную последовательность событий в клетке.</p><details><summary>Подробная подпись к схеме</summary><p>Компартменты (1) и транспорт (2) задают условия активации рецептора (3); сигнал рецептора поступает в сеть с обратными связями (4), которая через транскрипционные факторы влияет на транскрипцию генов-мишеней и опосредованно — на хроматин (5), а состояние гистонов — на установление метилирования ДНК (6). Состояние хроматина, в свою очередь, влияет на то, какие гены ответят на сигнал (пунктирная стрелка из ядра к сети). Порядок номеров — маршрут изучения взаимосвязанных условий, а не обязательная последовательность событий в клетке. Пунктирная стрелка — опосредованное влияние или влияние при определённых условиях, пунктирный контур — ядро.</p></details></figcaption></figure>
   </div>
   <div class="mapentry">
    <div><h2>Системная карта коллоквиума I</h2>
@@ -139,56 +155,57 @@ input[type=range]{accent-color:var(--u-ui)}
   </div>
   <div class="mapentry">
    <div><h2>Интерактивная клетка</h2>
-   <p>Проследите воздействие от рецепции до изменения транскрипции, измените одно условие и проверьте объяснение. Механизмы раздела разобраны в одной клетке — гепатоците; вместе они охватывают все вопросы семинаров 1–6.</p></div>
+   <p>Проследите воздействие от рецепции до изменения транскрипции, измените одно условие и проверьте объяснение. Механизмы раздела разобраны в одной клетке — гепатоците; вместе они охватывают все вопросы семинаров 1–6. Гепатоцит служит общей моделью: часть механизмов изучена в других клетках и системах, и система, в которой получены данные, указана в паспорте каждого этапа.</p></div>
    <a class="btn" href="cell-1.html">Открыть клетку</a>
   </div>
   <h2 class="semh" id="seminars">Семинары раздела I</h2>
+  <div class="howto"><p><b>Как работать с материалами раздела</b></p><ol><li>Начните с объяснений: в них разобраны механизмы, а в конце каждого шага есть вопрос для самопроверки.</li><li>Откройте практикум: проверьте механизм на схемах, меняя условия, и пройдите сценарии «Предскажите и проверьте».</li><li>После семинаров раздела соберите связи между ними на <a href="map-1.html">системной карте</a> и проследите их в <a href="cell-1.html">интерактивной клетке</a>.</li></ol><p class="quiet">Это рекомендуемый порядок, а не ограничение: любую страницу можно открыть в любой момент.</p></div>
   <ol class="sems">
   <li class="sem" id="s1">
    <div class="n">Семинар 1</div>
    <h2><a href="seminar-1.html">Компартменты, локальные условия и обмен</a></h2>
    <h3 class="qh">Вопросы программы</h3>
    <ol class="qs"><li><span class="qn">1.1</span><a href="seminar-1.html#q1">Мембранная компартментализация и локальные физико-химические условия</a></li><li><span class="qn">1.2</span><a href="seminar-1.html#q2">Локальная концентрация и формирование внутриклеточного градиента</a></li><li><span class="qn">1.3</span><a href="seminar-1.html#q3">Фосфоинозитиды как маркеры идентичности клеточных мембран</a></li><li><span class="qn">1.4</span><a href="seminar-1.html#q4">Мембранные контактные сайты органелл без слияния мембран</a></li></ol>
-   <a class="btn" href="seminar-1.html">Открыть семинар 1</a>
+   <div class="semact"><a class="btn" href="seminar-1-route.html">Объяснения</a><a class="btn ghost" href="seminar-1.html">Практикум: схемы и сценарии</a></div>
   </li>
   <li class="sem" id="s2">
    <div class="n">Семинар 2</div>
    <h2><a href="seminar-2.html">Транспорт, сети органелл, конденсаты и полярность</a></h2>
    <h3 class="qh">Вопросы программы</h3>
    <ol class="qs"><li><span class="qn">2.1</span><a href="seminar-2.html#q1">Направленный транспорт груза по цитоскелету</a></li><li><span class="qn">2.2</span><a href="seminar-2.html#q2">Слияние и деление мембранных органелл: митохондрии как модель и границы обобщения</a></li><li><span class="qn">2.3</span><a href="seminar-2.html#q3">Биомолекулярные конденсаты: сборка, динамика и критерии интерпретации</a></li><li><span class="qn">2.4</span><a href="seminar-2.html#q4">Поддержание клеточной полярности направленным транспортом</a></li></ol>
-   <a class="btn" href="seminar-2.html">Открыть семинар 2</a>
+   <div class="semact"><a class="btn" href="seminar-2-route.html">Объяснения</a><a class="btn ghost" href="seminar-2.html">Практикум: схемы и сценарии</a></div>
   </li>
   <li class="sem" id="s3">
    <div class="n">Семинар 3</div>
    <h2><a href="seminar-3.html">Рецепция и молекулярные переключатели</a></h2>
    <h3 class="qh">Вопросы программы</h3>
    <ol class="qs"><li><span class="qn">3.1</span><a href="seminar-3.html#q1">Активация β2-адренорецептора и зависимость ответа от клеточного контекста</a></li><li><span class="qn">3.2</span><a href="seminar-3.html#q2">Обратимое фосфорилирование как молекулярный переключатель</a></li><li><span class="qn">3.3</span><a href="seminar-3.html#q3">Цикл малой ГТФазы RAS</a></li><li><span class="qn">3.4</span><a href="seminar-3.html#q4">Депо-зависимый вход Ca²⁺: система STIM–Orai</a></li></ol>
-   <a class="btn" href="seminar-3.html">Открыть семинар 3</a>
+   <div class="semact"><a class="btn" href="seminar-3-route.html">Объяснения</a><a class="btn ghost" href="seminar-3.html">Практикум: схемы и сценарии</a></div>
   </li>
   <li class="sem" id="s4">
    <div class="n">Семинар 4</div>
    <h2><a href="seminar-4.html">Динамика, обратные связи и интеграция сигналов</a></h2>
    <h3 class="qh">Вопросы программы</h3>
    <ol class="qs"><li><span class="qn">4.1</span><a href="seminar-4.html#q1">Усиление и завершение сигнала в киназном каскаде</a></li><li><span class="qn">4.2</span><a href="seminar-4.html#q2">Длительность активности ERK и выбор клеточного ответа</a></li><li><span class="qn">4.3</span><a href="seminar-4.html#q3">Положительная и отрицательная обратная связь в адаптации к сигналу</a></li><li><span class="qn">4.4</span><a href="seminar-4.html#q4">Перекрёстная регуляция в сети инсулин–PI3K–AKT–mTORC1–AMPK и селективная инсулинорезистентность</a></li></ol>
-   <a class="btn" href="seminar-4.html">Открыть семинар 4</a>
+   <div class="semact"><a class="btn" href="seminar-4-route.html">Объяснения</a><a class="btn ghost" href="seminar-4.html">Практикум: схемы и сценарии</a></div>
   </li>
   <li class="sem" id="s5">
    <div class="n">Семинар 5</div>
    <h2><a href="seminar-5.html">Нуклеосомы, ремоделирование и гистоны</a></h2>
    <h3 class="qh">Вопросы программы</h3>
    <ol class="qs"><li><span class="qn">5.1</span><a href="seminar-5.html#q1">Нуклеосомная организация и доступность регуляторной ДНК</a></li><li><span class="qn">5.2</span><a href="seminar-5.html#q2">АТФ-зависимое ремоделирование нуклеосом</a></li><li><span class="qn">5.3</span><a href="seminar-5.html#q3">Посттрансляционные модификации гистонов: ферменты установления и удаления метки и белки-эффекторы, распознающие модификацию</a></li><li><span class="qn">5.4</span><a href="seminar-5.html#q4">Гистоновые варианты и изменение свойств нуклеосомы</a></li></ol>
-   <a class="btn" href="seminar-5.html">Открыть семинар 5</a>
+   <div class="semact"><a class="btn" href="seminar-5-route.html">Объяснения</a><a class="btn ghost" href="seminar-5.html">Практикум: схемы и сценарии</a></div>
   </li>
   <li class="sem" id="s6">
    <div class="n">Семинар 6</div>
    <h2><a href="seminar-6.html">Метилирование ДНК, регуляторные элементы и память</a></h2>
    <h3 class="qh">Вопросы программы</h3>
    <ol class="qs"><li><span class="qn">6.1</span><a href="seminar-6.html#q1">Установление и поддержание метилирования ДНК у млекопитающих</a></li><li><span class="qn">6.2</span><a href="seminar-6.html#q2">Избирательность взаимодействия энхансера и промотора</a></li><li><span class="qn">6.3</span><a href="seminar-6.html#q3">Сигнал-зависимая регуляция транскрипционного фактора на примере FOXO</a></li><li><span class="qn">6.4</span><a href="seminar-6.html#q4">Хроматиновая память и изменение ответа на повторный сигнал</a></li></ol>
-   <a class="btn" href="seminar-6.html">Открыть семинар 6</a>
+   <div class="semact"><a class="btn" href="seminar-6-route.html">Объяснения</a><a class="btn ghost" href="seminar-6.html">Практикум: схемы и сценарии</a></div>
   </li>
   </ol>
   <nav class="others" aria-label="Другие разделы"><a class="btn ghost" href="section-2.html">Раздел II</a><a class="btn ghost" href="section-3.html">Раздел III</a><a class="btn ghost" href="section-4.html">Раздел IV</a></nav>
-  <p class="ver">Версия 1.6, 24 октября 2026 г.</p>
+  <p class="ver">Версия 1.7, 26 октября 2026 г.</p>
   <footer class="foot">© 2026 Кафедра биологии и генетики, Медицинский университет Петровского. Учебные материалы курса «Молекулярная биология» (5–6 семестры). При использовании ссылка на кафедру обязательна.
 <!--views:start-->
 <div id="gc-views" title="Всего просмотров страниц сайта" aria-label="Всего просмотров страниц сайта" style="display:none;justify-content:flex-end;align-items:center;gap:6px;margin-top:8px">

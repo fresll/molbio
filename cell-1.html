@@ -169,6 +169,17 @@ body.overview .legend{display:none}
 .abbr dt{font-weight:700;color:var(--acc);white-space:nowrap}
 .abbr dd{margin:0;color:var(--ink)}
 .abbr .flash{background:var(--on);color:var(--p-ink);border-radius:4px}
+/* атлас курса: полоса «Раздел I–IV × Карта | Клетка» */
+.atlas{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;margin:10px 0 4px;font:500 13px/1.2 'Golos Text',system-ui,sans-serif}
+.atlas .atl-t{font:600 11.5px/1 'Golos Text',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--u-ui,#0b5e8e)}
+.atlas .atl-g{display:inline-flex;align-items:center;gap:4px;background:#fff;border:1px solid var(--line,#d6dde6);border-radius:10px;padding:3px}
+.atlas .atl-l{color:var(--muted,#5b6675);padding:0 4px 0 6px}
+.atlas .atl-b{display:inline-block;min-width:30px;text-align:center;padding:5px 10px;border-radius:7px;color:var(--ink,#1c2430);text-decoration:none;font-weight:600}
+.atlas a.atl-b:hover{background:var(--u-soft,#e6f3fa)}
+.atlas .atl-b.on{background:var(--u-ui,#0b5e8e);color:#fff}
+.atlas .atl-b.off{color:#9aa4b1;cursor:not-allowed}
+.atlas a.atl-b:focus-visible{outline:2px solid var(--u-red,#E62E29);outline-offset:1px}
+@media (max-width:600px){.atlas{gap:6px 8px}.atlas .atl-t{width:100%}.atlas .atl-b{padding:6px 9px;min-width:28px}}
 </style>
 <!--brand-univ:start-->
 <link rel="icon" type="image/png" href="data:image/png;base64,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">
@@ -201,6 +212,8 @@ input[type=range]{accent-color:var(--u-ui)}
 <div class="app">
  <header class="top">
   <p class="affil">Кафедра биологии и генетики · Медицинский университет Петровского · курс «Молекулярная биология», 5–6 семестры</p>
+<nav class="atlas" id="atlas" aria-label="Атлас курса: разделы и виды"><span class="atl-t">Атлас курса</span><span class="atl-g" role="group" aria-label="Раздел"><span class="atl-l">Раздел</span><a class="atl-b on" aria-current="page" href="cell-1.html" data-sec="1" title="Раздел I. Организация, сигналы и геномный контекст — открыт">I</a><span class="atl-b off" aria-disabled="true" title="Раздел II. Ресурсы, митохондрии, стресс и контроль качества: интерактивная клетка готовится">II</span><span class="atl-b off" aria-disabled="true" title="Раздел III. Деление, смена клеточных состояний и тканевой гомеостаз: интерактивная клетка готовится">III</span><span class="atl-b off" aria-disabled="true" title="Раздел IV. Патологические состояния, их измерение и изменение: интерактивная клетка готовится">IV</span></span><span class="atl-g" role="group" aria-label="Вид"><a class="atl-b" href="map-1.html" data-view="map" title="Системная карта раздела I">Карта</a><a class="atl-b on" aria-current="page" href="cell-1.html" data-view="cell">Клетка</a></span></nav>
+<script>(function(){var n=document.getElementById('atlas');if(!n)return;n.addEventListener('click',function(ev){var a=ev.target.closest('a[data-view],a[data-sec]');if(!a||a.getAttribute('aria-current'))return;var h=null;try{h=a.dataset.view?(window.atlasHref&&window.atlasHref(a.dataset.view)):(window.atlasSecHref&&window.atlasSecHref(+a.dataset.sec,a.getAttribute('href')));}catch(e){}if(h){ev.preventDefault();location.href=h;}});})();</script>
   <div class="titlebar">
    <a class="crumb" href="index.html">← Все разделы</a><a class="crumb" href="section-1.html">Раздел I</a>
    <h1>Клетка: <span id="h1t"></span></h1>
@@ -212,7 +225,7 @@ input[type=range]{accent-color:var(--u-ui)}
     <button type="button" class="tab" role="tab" data-mode="vary">Изменить условия</button>
     <button type="button" class="tab" role="tab" data-mode="find">Найти причину</button>
    </div>
-   <div class="links"><a class="btn ghost sm" href="map-1.html">Системная карта</a><button type="button" class="btn ghost sm" id="bLink">Ссылка на эту страницу</button></div>
+   <div class="links"><button type="button" class="btn ghost sm" id="bLink">Ссылка на эту страницу</button></div>
   </div>
  </header>
  <main class="stage" aria-label="Клетка и промотор гена-мишени">
@@ -238,7 +251,7 @@ input[type=range]{accent-color:var(--u-ui)}
   <p>Все механизмы разбираются в одной и той же клетке печени — гепатоците. У каждого пункта три режима. «Проследить»: путь воздействия по этапам. «Изменить условия»: одно вмешательство в сравнении с контролем. «Найти причину»: состояние образца скрыто, причину ищут по результатам выбранных измерений. Если механизм изучен в другой клетке, это подписано как «окно в другую клетку».</p>
   <p>Уровни величин качественные; числа приведены только там, где они взяты из первоисточника. У каждого состояния модели есть статус: <span class="st F">Ф</span> измерено в указанной системе, <span class="st V">В</span> вывод из измеренного, <span class="st M">М</span> допущение учебной модели. Система, в которой получены данные, указана в паспорте каждого этапа.</p>
  </div>
- <p class="ver">Версия 2.5, 26 октября 2026 г.</p>
+ <p class="ver">Версия 2.6, 29 октября 2026 г.</p>
  <footer class="foot">© 2026 Кафедра биологии и генетики, Медицинский университет Петровского. Учебные материалы курса «Молекулярная биология» (5–6 семестры). При использовании ссылка на кафедру обязательна.
 <!--views:start-->
 <div id="gc-views" title="Всего просмотров страниц сайта" aria-label="Всего просмотров страниц сайта" style="display:none;justify-content:flex-end;align-items:center;gap:6px;margin-top:8px">
@@ -3909,7 +3922,8 @@ function links(p) {
   const cs = p.concepts.map(c => `<a class="btn ghost sm" href="${mapHref('concept', c)}" title="Понятие на системной карте">${esc(X.CLABEL[c] || c)}</a>`).join('');
   const es = p.edges.map(e => `<a class="btn ghost sm" href="${mapHref('edge', e)}" title="Паспорт связи на карте">Паспорт ${e}</a>`).join('');
   return `${cs || es ? `<p class="cap">Связи на карте</p><div class="go">${cs}${es}</div>` : ''}
-   <p class="cap">Разобрать механизм</p><div class="go"><a class="btn ghost sm" href="${p.route[0]}">${esc(p.route[1])}</a><a class="btn ghost sm" href="${p.sem[0]}">Задания: ${esc(p.sem[1])}</a></div>`;
+   <p class="cap">Разобрать механизм</p><div class="go"><a class="btn ghost sm" href="${p.route[0]}">${esc(p.route[1])}</a><a class="btn ghost sm" href="${p.sem[0]}">Задания: ${esc(p.sem[1])}</a></div>`
+   + (X.cross && X.cross.length ? `<p class="cap">Связь с другими разделами</p><div class="go">${X.cross.map(c => `<a class="btn ghost sm" href="${c.page}?v=1&scenario=${c.sc}&mode=trace" title="${esc(c.why || '')}">${esc(c.label)}</a>`).join('')}</div>` : '');
 }
 function windowNote(p) { return p.win ? `<p class="win"><b>Окно в другую клетку: ${esc(p.win[0])}.</b> ${esc(p.win[1])}</p>` : ''; }
 function focusPh(id, f) { const x = SC[id]; return x.CONCEPT_PHASE[f] !== undefined ? x.CONCEPT_PHASE[f] : x.EDGE_PHASE[f]; }
@@ -4041,6 +4055,10 @@ document.addEventListener('keydown', e => { if (e.target.closest('input,select,t
   if (e.key === 'ArrowRight') { setPh(S.ph + 1); } else if (e.key === 'ArrowLeft') { setPh(S.ph - 1); } });
 addEventListener('popstate', () => { stop(); readURL(); render(); });
 writeURL(false); render();
+
+/* ---------- атлас курса: переход «Клетка → Карта» с понятием или связью открытого этапа */
+window.atlasHref = v => { if (v !== 'map' || !X) return null; const p = X.PH[S.ph] || {};
+  return p.edges && p.edges.length ? mapHref('edge', p.edges[0]) : (p.concepts && p.concepts.length ? mapHref('concept', p.concepts[0]) : `map-1.html?${X.route ? 'route=' + X.route + '&' : ''}from=cell&ret=${ret()}`); };
 
 </script>
 <!--stats:start-->

@@ -62,7 +62,7 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(22px,4vw,30px);m
 .rdesc{font-size:15px;color:var(--ink);background:var(--surface-2);border-radius:10px;padding:8px 12px;margin:0 0 12px;min-height:1.5em}
 .rdesc b{font-weight:600}
 .map{position:relative}
-.cols{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:22px}
+.cols{display:grid;grid-template-columns:repeat(var(--ncol,6),minmax(0,1fr));gap:22px}
 .col{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:6px;min-width:0}
 .col h2{font-size:14px;line-height:1.25;margin:0;font-weight:600}
 .col h2 .cn{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);margin-bottom:2px}
@@ -166,6 +166,26 @@ dl.pass dd{margin:0}
 }
 @media (max-width:560px){.grid3,.meth,.methods .mgrid{grid-template-columns:1fr}}
 
+/* атлас курса: пограничные понятия других разделов */
+.col.xcol{border-style:dashed;background:var(--surface-2)}
+.node.ext{border-style:dashed}
+.node .xs{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
+.node[aria-pressed="true"] .xs{color:inherit;opacity:.85}
+.cols.withx{grid-template-columns:minmax(0,.7fr) repeat(var(--ncol,6),minmax(0,1fr));gap:14px}
+.col.xcol .sq{font-size:12px}
+@media (max-width:980px){.cols.withx{grid-template-columns:1fr}}
+.node{hyphens:auto;-webkit-hyphens:auto;hyphenate-limit-chars:16 7 7;overflow-wrap:break-word}
+/* атлас курса: полоса «Раздел I–IV × Карта | Клетка» */
+.atlas{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;margin:10px 0 4px;font:500 13px/1.2 'Golos Text',system-ui,sans-serif}
+.atlas .atl-t{font:600 11.5px/1 'Golos Text',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--u-ui,#0b5e8e)}
+.atlas .atl-g{display:inline-flex;align-items:center;gap:4px;background:#fff;border:1px solid var(--line,#d6dde6);border-radius:10px;padding:3px}
+.atlas .atl-l{color:var(--muted,#5b6675);padding:0 4px 0 6px}
+.atlas .atl-b{display:inline-block;min-width:30px;text-align:center;padding:5px 10px;border-radius:7px;color:var(--ink,#1c2430);text-decoration:none;font-weight:600}
+.atlas a.atl-b:hover{background:var(--u-soft,#e6f3fa)}
+.atlas .atl-b.on{background:var(--u-ui,#0b5e8e);color:#fff}
+.atlas .atl-b.off{color:#9aa4b1;cursor:not-allowed}
+.atlas a.atl-b:focus-visible{outline:2px solid var(--u-red,#E62E29);outline-offset:1px}
+@media (max-width:600px){.atlas{gap:6px 8px}.atlas .atl-t{width:100%}.atlas .atl-b{padding:6px 9px;min-width:28px}}
 </style>
 <!--brand-univ:start-->
 <link rel="icon" type="image/png" href="data:image/png;base64,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">
@@ -196,6 +216,8 @@ input[type=range]{accent-color:var(--u-ui)}
 <body>
 <div class="wrap">
   <p class="affil">Кафедра биологии и генетики · Медицинский университет Петровского · курс «Молекулярная биология», 5–6 семестры</p>
+<nav class="atlas" id="atlas" aria-label="Атлас курса: разделы и виды"><span class="atl-t">Атлас курса</span><span class="atl-g" role="group" aria-label="Раздел"><span class="atl-l">Раздел</span><a class="atl-b on" aria-current="page" href="map-1.html" data-sec="1" title="Раздел I. Организация, сигналы и геномный контекст — открыт">I</a><span class="atl-b off" aria-disabled="true" title="Раздел II. Ресурсы, митохондрии, стресс и контроль качества: системная карта готовится">II</span><span class="atl-b off" aria-disabled="true" title="Раздел III. Деление, смена клеточных состояний и тканевой гомеостаз: системная карта готовится">III</span><span class="atl-b off" aria-disabled="true" title="Раздел IV. Патологические состояния, их измерение и изменение: системная карта готовится">IV</span></span><span class="atl-g" role="group" aria-label="Вид"><a class="atl-b on" aria-current="page" href="map-1.html" data-view="map">Карта</a><a class="atl-b" href="cell-1.html" data-view="cell" title="Интерактивная клетка раздела I">Клетка</a></span></nav>
+<script>(function(){var n=document.getElementById('atlas');if(!n)return;n.addEventListener('click',function(ev){var a=ev.target.closest('a[data-view],a[data-sec]');if(!a||a.getAttribute('aria-current'))return;var h=null;try{h=a.dataset.view?(window.atlasHref&&window.atlasHref(a.dataset.view)):(window.atlasSecHref&&window.atlasSecHref(+a.dataset.sec,a.getAttribute('href')));}catch(e){}if(h){ev.preventDefault();location.href=h;}});})();</script>
   <p class="crumb"><a href="section-1.html">← Раздел I</a><a href="index.html">Все разделы</a></p>
   <p class="kicker">Раздел I · семинары 1–6 · коллоквиум I</p>
   <h1>Системная карта коллоквиума I</h1>
@@ -283,7 +305,7 @@ input[type=range]{accent-color:var(--u-ui)}
    <section class="task"><h2>Источники исследовательского режима</h2><ol class="srcs" id="labSrc"></ol></section>
   </div>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><marker id="mA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--ink)"/></marker></defs></svg>
-  <p class="ver">Версия 1.7, 24 октября 2026 г.</p>
+  <p class="ver">Версия 1.8, 29 октября 2026 г.</p>
   <footer class="foot">© 2026 Кафедра биологии и генетики, Медицинский университет Петровского. Учебные материалы курса «Молекулярная биология» (5–6 семестры). При использовании ссылка на кафедру обязательна.
 <!--views:start-->
 <div id="gc-views" title="Всего просмотров страниц сайта" aria-label="Всего просмотров страниц сайта" style="display:none;justify-content:flex-end;align-items:center;gap:6px;margin-top:8px">
@@ -310,7 +332,8 @@ input[type=range]{accent-color:var(--u-ui)}
 <script>
 const D = JSON.parse(document.getElementById('mapdata').textContent);
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
-const byC = Object.fromEntries(D.concepts.map(c => [c.id, c]));
+const EXT = D.ext || [];  /* пограничные понятия других разделов (атлас курса): {id, l, s, sec, roman, ch, page} */
+const byC = Object.fromEntries(D.concepts.concat(EXT.map(c => Object.assign({x: 1}, c))).map(c => [c.id, c]));
 const byE = Object.fromEntries(D.edges.map(e => [e.id, e]));
 const qById = {}; D.chapters.forEach(ch => ch.qs.forEach(q => qById[q.id] = Object.assign({n: ch.n}, q)));
 const groupOf = e => e.ped ? 'ped' : (e.sg === '-' ? 'inh' : Object.keys(D.groups).find(g => D.groups[g].includes(e.ty)));  // П9: торможение — по знаку
@@ -335,7 +358,13 @@ const cellBtnE = id => CELL_E[id] ? `<a class="tocell" href="${cellHref(id)}">П
 
 /* ---------- колонки семинаров */
 function renderCols() {
-  $('#cols').innerHTML = D.chapters.map(ch => `<section class="col" aria-labelledby="ch${ch.n}h">
+  const xs = [...new Set(EXT.map(c => c.roman))];
+  const xcol = EXT.length ? `<section class="col xcol" aria-labelledby="chXh">
+    <h2 id="chXh"><span class="cn">Раздел ${xs.join(', ')}</span>Понятия других разделов</h2>
+    <p class="sq" data-sq>Связи с ними проверены так же; понятие открывается на карте своего раздела.</p>
+    ${EXT.map(c => `<button type="button" class="node ext" data-id="${c.id}" aria-pressed="false">${esc(c.l)}<span class="xs">раздел ${c.roman} · сем. ${c.ch}</span></button>`).join('')}</section>` : '';
+  $('#cols').style.setProperty('--ncol', D.chapters.length); $('#cols').classList.toggle('withx', !!EXT.length);
+  $('#cols').innerHTML = xcol + D.chapters.map(ch => `<section class="col" aria-labelledby="ch${ch.n}h">
     <h2 id="ch${ch.n}h"><span class="cn">Семинар ${ch.n}</span>${esc(ch.t)}</h2>
     <p class="sq" data-sq>${esc(ch.sq)}</p>
     ${D.concepts.filter(c => c.ch === ch.n).map(c => `<button type="button" class="node" data-id="${c.id}" aria-pressed="false">${esc(c.l)}</button>`).join('')}
@@ -380,7 +409,7 @@ function drawLinks(vis) {
   /* П3: связь через несколько колонок идёт по промежуткам между колонками и по полосе под узлами, а не под чужими узлами */
   const cols = $$('.col').map(c => c.getBoundingClientRect());
   const lastBottom = $$('.col').map(c => Math.max(...[...c.querySelectorAll('.node')].map(n => n.getBoundingClientRect().bottom - box.top)));
-  const colOf = id => byC[id].ch - 1;
+  const colOf = id => byC[id].x ? 0 : D.chapters.findIndex(ch => ch.n === byC[id].ch) + (EXT.length ? 1 : 0);
   const ortho = pts => { let d = `M${pts[0][0]} ${pts[0][1]}`; const r = 6;
     for (let i = 1; i < pts.length - 1; i++) { const [x0, y0] = pts[i - 1], [x, y] = pts[i], [x1, y1] = pts[i + 1];
       const ux = Math.sign(x - x0), uy = Math.sign(y - y0), vx = Math.sign(x1 - x), vy = Math.sign(y1 - y);
@@ -436,9 +465,12 @@ function selectConcept(id, user) {
   if (!S.c) { p.innerHTML = '<p class="cap">Понятие</p><p class="muted">Выберите понятие на карте.</p>'; $('#epanel').innerHTML = epEmpty(); paint(); return; }
   const c = byC[S.c]; const out = D.edges.filter(e => e.s === c.id), inn = D.edges.filter(e => e.t === c.id);
   const li = (e, isOut) => { const o = byC[isOut ? e.t : e.s];
-    return `<li><button type="button" data-e="${e.id}" aria-pressed="false"><span class="dir">${isOut ? sym(e) : symIn(e)}</span>${esc(o.l)} <span class="muted">(гл. ${o.ch})</span>
+    return `<li><button type="button" data-e="${e.id}" aria-pressed="false"><span class="dir">${isOut ? sym(e) : symIn(e)}</span>${esc(o.l)} <span class="muted">(${o.x ? `раздел ${o.roman}, ` : ''}сем. ${o.ch})</span>
       <span class="ty">${badge(e)}${esc(tyL(e))}</span></button></li>`; };
-  p.innerHTML = `${TOMAP}<p class="cap">Понятие · семинар ${c.ch}</p>${cellBtnC(c.id)}<h3>${esc(c.l)}</h3><p>${esc(c.s)}</p>
+  p.innerHTML = c.x ? `${TOMAP}<p class="cap">Понятие раздела ${c.roman} · семинар ${c.ch}</p><a class="tocell" href="${c.page}?concept=${encodeURIComponent(c.id)}">Открыть на карте раздела ${c.roman} →</a><h3>${esc(c.l)}</h3><p>${esc(c.s)}</p>
+    <p class="cap">Связи с этой картой (${out.length + inn.length})</p>
+    <ul class="rel">${out.map(e => li(e, true)).join('')}${inn.map(e => li(e, false)).join('')}</ul>` :
+    `${TOMAP}<p class="cap">Понятие · семинар ${c.ch}</p>${cellBtnC(c.id)}<h3>${esc(c.l)}</h3><p>${esc(c.s)}</p>
     <p class="cap">Вопросы программы</p><ul class="qlist">${c.q.map(q => { const x = qById[q]; return `<li>${x.n}.${x.k}. <a href="${x.href}">${esc(x.t)}</a></li>`; }).join('')}</ul>
     <p class="cap">Связи (${out.length + inn.length})</p>
     ${out.length + inn.length ? `<ul class="rel">${out.map(e => li(e, true)).join('')}${inn.map(e => li(e, false)).join('')}</ul>` : '<p class="muted">Связей нет.</p>'}`;
@@ -453,7 +485,7 @@ function selectEdge(id, user) {
   S.e = id; const e = byE[id]; const a = byC[e.s], b = byC[e.t];
   $$('.rel button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.e === id)));
   const src = e.src.map(k => { const v = D.ev[k]; return `<li>${esc(v.c)}. <a href="https://doi.org/${esc(v.d)}" rel="noopener">doi:${esc(v.d)}</a>${AUDIT ? ` <span class="o">(${esc(v.o)})</span>` : ''}</li>`; }).join('');
-  let h = `${TOMAP}<p class="cap">Паспорт связи ${e.id}</p><h3>${esc(a.l)} ${sym(e)} ${esc(b.l)}</h3>${cellBtnE(e.id)}
+  let h = `${TOMAP}<p class="cap">Паспорт связи ${e.id}${a.x || b.x ? ` · связь с разделом ${(a.x ? a : b).roman}` : ''}</p><h3>${esc(a.l)} ${sym(e)} ${esc(b.l)}</h3>${cellBtnE(e.id)}
    <p>${badge(e)}<span class="muted">${esc(tyL(e))}${e.sg === '-' && e.ty !== 'feedback' ? ' (тормозящее влияние)' : ''} · ${esc(D.statuses[e.st])}</span></p>
    <dl class="pass"><dt>Утверждение</dt><dd>${esc(e.l)}</dd>
    ${e.c ? `<dt>Условия и пределы вывода</dt><dd>${esc(e.c)}</dd>` : ''}
@@ -620,6 +652,14 @@ setMode('route');
 })();
 let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(paint, 120); });
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(paint);
+
+/* ---------- атлас курса: переход «Карта → Клетка» с выбранным понятием или связью */
+window.atlasHref = v => v === 'cell' ? (S.e && CELL_E[S.e] ? cellHref(S.e) : (S.c && CELL_C[S.c] ? cellHref(S.c) : (S.route && CELL_R[S.route] ? `cell-1.html?v=1&scenario=${CELL_R[S.route]}&mode=trace` : null))) : null;
+/* ---------- атлас курса: смена раздела с выбранным понятием — открыть его пограничный узел на карте другого раздела */
+window.atlasSecHref = (n, href) => { if (!S.c) return null; const c = byC[S.c];
+  if (c.x) return c.sec === n ? `${c.page}?concept=${encodeURIComponent(c.id)}` : null;
+  const xe = D.edges.some(e => (e.s === c.id || e.t === c.id) && byC[e.s === c.id ? e.t : e.s].x && byC[e.s === c.id ? e.t : e.s].sec === n);
+  return xe ? `${href}?concept=${encodeURIComponent(c.id)}` : null; };
 </script>
 </body>
 </html>

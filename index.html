@@ -39,7 +39,7 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(22px,4vw,30px);m
 .mini figcaption{font-size:13.5px;line-height:1.45;color:var(--muted);margin:8px 2px 0}
 .mini .mini-note{font-size:12.5px;line-height:1.35;color:var(--muted);margin:6px 2px 0}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.wrap{max-width:1400px;margin:0 auto;padding:12px clamp(16px,3vw,40px) 32px}
+.wrap{max-width:2300px;margin:0 auto;padding:12px clamp(16px,3.5vw,72px) 32px}
 .parts{list-style:none;margin:0 0 30px;padding:0;border-top:1px solid var(--line)}
 .part{display:grid;grid-template-columns:72px minmax(0,1fr) auto;gap:6px 20px;align-items:start;padding:18px 0;border-bottom:1px solid var(--line)}
 .part .num{font-family:var(--f-display);font-weight:600;font-size:34px;line-height:1;color:var(--acc);padding-top:2px}
@@ -73,6 +73,12 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(22px,4vw,30px);m
  .part .mini{grid-column:2;grid-row:2;width:100%;max-width:600px;margin-top:20px}
  .part h2{font-size:clamp(20px,1.7vw,24px)}
  .part p{max-width:62ch}
+}
+/* сверхширокие экраны: внутри раздела текст слева, научная миниатюра справа */
+@media (min-width:1900px){
+ .part{grid-template-columns:clamp(48px,5vw,72px) minmax(0,1fr) minmax(340px,44%);grid-template-rows:auto;column-gap:clamp(16px,1.8vw,32px)}
+ .part>div{grid-column:2;grid-row:1}
+ .part .mini{grid-column:3;grid-row:1;max-width:none;margin-top:0;align-self:start}
 }
 @media (max-width:720px){
  .affil{line-height:1.28;margin-bottom:14px;padding-bottom:7px}

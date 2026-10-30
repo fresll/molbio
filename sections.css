@@ -7,24 +7,35 @@
 
 /* длина строки текста */
 .lead{max-width:72ch}
-.howto{max-width:760px}
 
-/* верх страницы: слева текст, справа увеличенная схема с подписью */
-@media (max-width:1099px){
- .head{grid-template-columns:minmax(0,1fr)}
- .head .mini{width:100%;max-width:560px}
-}
+/* верх страницы (разделы I и II): две независимые вертикальные колонки.
+   Слева: вводная часть, результаты обучения, «Как работать…», системная карта.
+   Справа: научная схема с подписью, интерактивная клетка. Блоки идут вплотную друг к другу. */
+.col-a>:first-child{min-width:0}
+.goal,.howto{max-width:820px}
+.howto,.mapentry{margin:0}
 @media (min-width:1100px){
- .head{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:14px clamp(32px,4vw,80px);margin-bottom:12px}
- .head .mini{width:100%;max-width:820px;justify-self:end}
+ .head{grid-template-columns:minmax(0,1.22fr) minmax(0,1fr);gap:14px clamp(32px,3.5vw,72px);align-items:start;margin-bottom:8px}
+ .col-a,.col-b{display:flex;flex-direction:column;gap:16px;min-width:0}
+ .head .mini{width:100%;max-width:820px}
+ .semh{margin-top:30px}
 }
-
-/* системная карта и интерактивная клетка (разделы I и II): рядом на широком экране */
-.entries{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin:8px 0 22px}
-.entries .mapentry{margin:0}
-@media (min-width:1000px){
- .entries{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px clamp(20px,2.5vw,40px)}
+/* планшет и телефон: одна колонка, порядок — вводная часть → схема → «Как работать» → карта → клетка */
+@media (max-width:1099px){
+ .head{display:flex;flex-direction:column;gap:16px;margin-bottom:16px}
+ .col-a,.col-b{display:contents}
+ .col-a>:first-child{order:1}
+ .col-b>.mini{order:2;width:100%;max-width:560px}
+ .col-a>.howto{order:3}
+ .col-a>.mapentry{order:4}
+ .col-b>.mapentry{order:5}
 }
+@media (min-width:1800px){
+ .head{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+}
+/* разделы III и IV: колонок нет, схема остаётся справа от текста */
+.head>.mini{justify-self:end}
+@media (max-width:1099px){.head>.mini{width:100%;max-width:560px;justify-self:start}}
 
 /* семинары: порядок 1 → 2 → 3 … слева направо, сверху вниз; высота по содержимому */
 .sems{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}

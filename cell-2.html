@@ -251,7 +251,7 @@ input[type=range]{accent-color:var(--u-ui)}
   <p>Все механизмы разбираются в одной и той же клетке печени — гепатоците. У каждого пункта три режима. «Проследить»: путь воздействия по этапам. «Изменить условия»: одно вмешательство в сравнении с контролем. «Найти причину»: состояние образца скрыто, причину ищут по результатам выбранных измерений. Если механизм изучен в другой клетке, это подписано как «окно в другую клетку».</p>
   <p>Уровни величин качественные; числа приведены только там, где они взяты из первоисточника. У каждого состояния модели есть статус: <span class="st F">Ф</span> измерено в указанной системе, <span class="st V">В</span> вывод из измеренного, <span class="st M">М</span> допущение учебной модели. Система, в которой получены данные, указана в паспорте каждого этапа.</p>
  </div>
- <p class="ver">Версия 1.0, 29 октября 2026 г.</p>
+ <p class="ver">Версия 1.1, 4 ноября 2026 г.</p>
  <footer class="foot">© 2026 Кафедра биологии и генетики, Медицинский университет Петровского. Учебные материалы курса «Молекулярная биология» (5–6 семестры). При использовании ссылка на кафедру обязательна.
 <!--views:start-->
 <div id="gc-views" title="Всего просмотров страниц сайта" aria-label="Всего просмотров страниц сайта" style="display:none;justify-content:flex-end;align-items:center;gap:6px;margin-top:8px">
@@ -416,8 +416,14 @@ const MSCHEME = {
 /* S201: гепатоцит, питание и голодание на лизосоме. Два входа mTORC1 (аминокислоты → Rag; инсулин → AKT ⊣ TSC → RHEB–GTP),
    разные субстраты (S6K1, 4E-BP1, TFEB). Научный паспорт: s2/cellkit/science/S201_passport.md */
 Object.assign(SRC, {
+  Li2018: ['Li L. и др. 2018. A TFEB nuclear export signal integrates amino acid supply and glucose availability. Nat Commun', '10.1038/s41467-018-04849-7'],
+  Wolfson2016: ['Wolfson R. L. и др. 2016. Sestrin2 is a leucine sensor for the mTORC1 pathway. Science', '10.1126/science.aab2674'],
+  Chantranupong2016: ['Chantranupong L. и др. 2016. The CASTOR proteins are arginine sensors for the mTORC1 pathway. Cell', '10.1016/j.cell.2016.02.035'],
+  Valenstein2025: ['Valenstein M. L. и др. 2025. Structural basis for the dynamic regulation of mTORC1 by amino acids. Nature', '10.1038/s41586-025-09428-7'],
+  Jansen2025: ['Jansen R. M. и др. 2025. Structural basis for mTORC1 regulation by the CASTOR1–GATOR2 complex. Nat Struct Mol Biol', '10.1038/s41594-025-01635-0'],
   Goul2023: ['Goul C., Peruzzo R., Zoncu R. 2023. The molecular basis of nutrient sensing and signalling by mTORC1 in metabolism regulation and disease. Nat Rev Mol Cell Biol', '10.1038/s41580-023-00641-8'],
   BarPeled2013: ['Bar-Peled L. и др. 2013. A tumor suppressor complex with GAP activity for the Rag GTPases that signal amino acid sufficiency to mTORC1. Science', '10.1126/science.1232044'],
+  Napolitano2018: ['Napolitano G. и др. 2018. mTOR-dependent phosphorylation controls TFEB nuclear export. Nat Commun', '10.1038/s41467-018-05862-6'],
   Napolitano2020: ['Napolitano G. и др. 2020. A substrate-specific mTORC1 pathway underlies Birt–Hogg–Dubé syndrome. Nature', '10.1038/s41586-020-2444-0'],
   Roczniak2012: ['Roczniak-Ferguson A. и др. 2012. The transcription factor TFEB links mTORC1 signaling to transcriptional control of lysosome homeostasis. Sci Signal', '10.1126/scisignal.2002790'],
   Settembre2013: ['Settembre C. и др. 2013. TFEB controls cellular lipid metabolism through a starvation-induced autoregulatory loop. Nat Cell Biol', '10.1038/ncb2718'],
@@ -465,10 +471,10 @@ const PH = [
  {id: 'P0', short: 'Сытое состояние', sig: 1, time: 'исходное состояние: полная среда',
   title: 'Аминокислоты и инсулин есть',
   what: 'В среде есть аминокислоты и инсулин: Rag-гетеродимер находится в конфигурации RagA/B–GTP и RagC/D–GDP, а RHEB — преимущественно в GTP-форме. Оба входа одновременно разрешают работу mTORC1.',
-  how: 'При достатке аминокислот действие GATOR1 (GAP для RagA/B) ограничено, а FLCN–FNIP переводит RagC/D в GDP-форму. Инсулин через PI3K–AKT фосфорилирует TSC2 и ослабляет GAP-действие комплекса TSC в отношении RHEB.',
+  how: 'При достатке аминокислот цитозольные сенсоры (Sestrin2 для лейцина, CASTOR1 для аргинина), связав лиганд, отделяются от комплекса GATOR2; свободный GATOR2 ограничивает действие GATOR1 (GAP для RagA/B). FLCN–FNIP переводит RagC/D в GDP-форму. Инсулин через PI3K–AKT фосфорилирует TSC2 и ослабляет GAP-действие комплекса TSC в отношении RHEB.',
   next: 'Активная конфигурация Rag привлекает mTORC1 к лизосоме.',
   exp: 'Иммуноблоттинг p-AKT; определение доли RHEB, связанной с GTP; сравнение среды с аминокислотами и без них.',
-  st: 'V', src: ['Goul2023', 'Yecies2011'],
+  st: 'V', src: ['Goul2023', 'Yecies2011', 'Wolfson2016', 'Chantranupong2016'],
   concepts: ['C7.rag', 'C7.rheb', 'C7.mtorc1'], edges: [], route: ['seminar-7-route.html#ns-coincidence', 'Семинар 7 · привлечение и активация mTORC1'], sem: R7},
  {id: 'P1', short: 'mTORC1 у лизосомы', sig: 1, time: 'то же состояние',
   title: 'Привлечение к мембране',
@@ -488,20 +494,20 @@ const PH = [
   concepts: ['C7.rheb', 'C7.mtorc1'], edges: ['E202'], route: ['seminar-7-route.html#ns-growth', 'Семинар 7 · ростовой вход через AKT, TSC и RHEB'], sem: R7},
  {id: 'P3', short: 'TFEB в цитоплазме', sig: 1, time: 'то же состояние',
   title: 'Удержание TFEB',
-  what: 'mTORC1 фосфорилирует TFEB по S211 (номер для TFEB человека); с этим участком связываются белки 14-3-3 и удерживают фактор в цитоплазме, экспрессия лизосомных генов низкая.',
-  how: 'Для фосфорилирования TFEB нужна RagC/D в GDP-форме: она связывает TFEB и подводит его к mTORC1. От активности RHEB этот субстрат почти не зависит (Napolitano 2020).',
+  what: 'mTORC1 фосфорилирует TFEB по S211 (номер для TFEB человека); с этим участком связываются белки 14-3-3 и удерживают основную часть фактора в цитоплазме, экспрессия лизосомных генов низкая.',
+  how: 'Для фосфорилирования TFEB нужна RagC/D в GDP-форме: она связывает TFEB и подводит его к mTORC1. От активности RHEB этот субстрат почти не зависит (Napolitano 2020). Удержание в цитоплазме обеспечивают фосфо-S211 и белки 14-3-3, при этом обмен TFEB с ядром сохраняется. Скорость вывода из ядра определяют другие остатки (S142 и S138 рядом с сигналом ядерного экспорта) и экспортин XPO1 (CRM1); эти два механизма различны. Экспортин связывает груз с таким сигналом только вместе с RanGTP (семинар 1, шаг 13).',
   next: 'При удалении аминокислот фосфорилирование TFEB снизится.',
   exp: 'Иммунофлуоресценция TFEB (ядро и цитоплазма); иммуноблоттинг p-TFEB (S211); совместное осаждение TFEB с 14-3-3.',
-  st: 'F', src: ['Napolitano2020', 'Roczniak2012'],
+  st: 'F', src: ['Napolitano2020', 'Roczniak2012', 'Napolitano2018', 'Li2018'],
   win: ['клетки HeLa', 'Связывание 14-3-3 после фосфорилирования S211 и субстратная особенность TFEB показаны в культивируемых клетках человека (Roczniak-Ferguson 2012; Napolitano 2020); для гепатоцита — по аналогии.'],
   concepts: ['C7.tfeb'], edges: ['E203'], route: ['seminar-7-route.html#ns-tfeb', 'Семинар 7 · почему TFEB и S6K1 отвечают по-разному'], sem: R7},
  {id: 'P4', short: 'Удаление аминокислот', sig: 0, time: 'после удаления аминокислот',
   title: 'Голодание по аминокислотам',
   what: 'Аминокислоты убраны: GATOR1 переводит RagA/B в GDP-форму, гетеродимер перестаёт связывать RAPTOR, и mTORC1 уходит с лизосомы в цитозоль.',
-  how: 'Без аминокислот действие GATOR1 не ограничено. Rag-ГТФазы при этом привлекают к лизосоме TSC2, который переводит часть RHEB в GDP-форму (клетки HeLa, Demetriades 2014).',
+  how: 'Без лейцина и аргинина Sestrin2 и CASTOR1 связываются с GATOR2 и подавляют его, поэтому GATOR2 слабее ограничивает действие GATOR1. Как именно связанные с GATOR2 сенсоры меняют работу GATOR1, в опубликованных работах описано не полностью. Rag-ГТФазы при этом привлекают к лизосоме TSC2, который переводит часть RHEB в GDP-форму (клетки HeLa, Demetriades 2014).',
   next: 'Фосфорилирование субстратов mTORC1 снижается.',
   exp: 'Иммунофлуоресценция mTOR и LAMP1 до и после удаления аминокислот; клетки без TSC2 как контроль второго звена.',
-  st: 'F', src: ['Goul2023', 'Demetriades2014'], win: W_CL,
+  st: 'F', src: ['Goul2023', 'Demetriades2014', 'Wolfson2016', 'Chantranupong2016', 'Valenstein2025', 'Jansen2025'], win: W_CL,
   concepts: ['C7.rag', 'C7.mtorc1'], edges: ['E201'], route: ['seminar-7-route.html#ns-rag', 'Семинар 7 · аминокислотный вход через Rag'], sem: R7},
  {id: 'P5', short: 'p-S6K1 низко', sig: 0, time: 'время не указано (учебная последовательность)',
   title: 'Синтез белка снижен',
@@ -513,11 +519,11 @@ const PH = [
   concepts: ['C7.mtorc1'], edges: [], route: ['seminar-7-route.html#ns-coincidence', 'Семинар 7 · привлечение и активация mTORC1'], sem: R7},
  {id: 'P6', short: 'TFEB в ядре', sig: 0, time: 'позже',
   title: 'Программа лизосом',
-  what: 'Фосфорилирование TFEB снижается, белки 14-3-3 отделяются, и фактор переходит в ядро, где повышает транскрипцию генов лизосомных и аутофагических белков.',
-  how: 'Рост ядерной доли TFEB — показатель локализации; рост числа лизосом требует синтеза белков и сборки мембран и развивается позже. В печени мыши голодание усиливало экспрессию TFEB и его генов-мишеней (Settembre 2013).',
-  next: 'Возвращение аминокислот снова привлекает mTORC1 к лизосоме (этап 1).',
+  what: 'При голодании фосфорилирование TFEB снижается (фосфатазы, в том числе кальциневрин, снимают с него фосфат), связь с белками 14-3-3 ослабевает, а экспорт из ядра замедляется. TFEB продолжает перемещаться между цитозолем и ядром, но доля ядерного белка растёт, и в ядре он повышает транскрипцию генов лизосомных и аутофагических белков.',
+  how: 'Рост ядерной доли TFEB — показатель локализации; рост числа лизосом требует синтеза белков и сборки мембран и развивается позже. Рост доли не означает, что импорт всё время превышает экспорт: после установления нового распределения встречные потоки могут приблизительно уравновеситься. Поэтому различают доли белка в ядре и цитозоле, скорости переходов между ними и фактические потоки. В печени мыши голодание усиливало экспрессию TFEB и его генов-мишеней (Settembre 2013).',
+  next: 'При возвращении аминокислот ядерный экспорт TFEB усиливается (NES, S142 и S138, XPO1): часть белка выходит в цитозоль, связывается с RagC/D–GDP на лизосоме, и лизосомный mTORC1 вновь фосфорилирует его по S211 (этап 1); в ядро mTORC1 не проникает.',
   exp: 'Иммунофлуоресценция TFEB; ОТ-ПЦР мРНК генов-мишеней TFEB; позже — подсчёт LAMP1-положительных структур.',
-  st: 'F', src: ['Napolitano2020', 'Roczniak2012', 'Settembre2013'],
+  st: 'F', src: ['Napolitano2020', 'Roczniak2012', 'Settembre2013', 'Napolitano2018', 'Li2018', 'Medina2015'],
   concepts: ['C7.tfeb', 'C7.lysosome'], edges: ['E203', 'E208'], route: ['seminar-7-route.html#ns-tfeb', 'Семинар 7 · почему TFEB и S6K1 отвечают по-разному'], sem: R7}
 ];
 /* ---------- переменные модели (0–3 — качественная шкала) */
@@ -537,9 +543,9 @@ const all = v => a => a.map(() => v);
 const IV = {
   ctl: {label: 'Контроль', short: 'контроль', st: {rheb: 'V', tgt: 'V'}, mod: s => s},
   torin: {label: 'Torin1 (ATP-конкурентный ингибитор mTOR)', short: 'Torin1',
-    why: 'Torin1 занимает ATP-связывающий участок киназы mTOR и снижает фосфорилирование S6K1, 4E-BP1 и TFEB; TFEB переходит в ядро. Препарат подавляет mTOR в составе обоих комплексов, поэтому вывод делают по измеренному участку.',
+    why: 'Torin1 занимает ATP-связывающий участок киназы mTOR и снижает фосфорилирование S6K1, 4E-BP1 и TFEB; доля TFEB в ядре растёт. Препарат подавляет mTOR в составе обоих комплексов, поэтому вывод делают по измеренному участку.',
     st: {ps6k: 'F', p4e: 'F', ptfeb: 'F', tfn: 'F', tgt: 'V'}, src: ['Thoreen2009', 'Roczniak2012'],
-    win: ['MEF и клетки HeLa', 'Подавление устойчивого к рапамицину фосфорилирования 4E-BP1 показано на эмбриональных фибробластах мыши (Thoreen 2009), переход TFEB в ядро — в клетках HeLa (Roczniak-Ferguson 2012).'],
+    win: ['MEF и клетки HeLa', 'Подавление устойчивого к рапамицину фосфорилирования 4E-BP1 показано на эмбриональных фибробластах мыши (Thoreen 2009), рост доли TFEB в ядре — в клетках HeLa (Roczniak-Ferguson 2012).'],
     note: 'Положение mTOR относительно лизосомы при Torin1 в модели не меняется — это вывод: препарат действует на каталитический участок, а не на Rag-вход. Torin1 подавляет и mTORC2, поэтому при нём снижается фосфорилирование AKT по S473.',
     mod: s => { s.ps6k = all(1)(s.ps6k); s.p4e = all(1)(s.p4e); s.ptfeb = all(0)(s.ptfeb); s.tfn = all(3)(s.tfn); s.tgt = all(2)(s.tgt); return s; }},
   rapa: {label: 'Рапамицин (комплекс с FKBP12)', short: 'рапамицин',
@@ -551,10 +557,10 @@ const IV = {
   ragko: {label: 'Утрата Rag или Ragulator', short: 'нет Rag',
     why: 'Нарушено привлечение mTORC1 к лизосоме: в полной среде mTOR не совпадает с LAMP1, и p-S6K1 низкий, хотя ростовой вход сохранён. Так аминокислотный вход отделяют от ростового.',
     st: {rag: 'F', loc: 'F', ps6k: 'F', p4e: 'V', ptfeb: 'V', tfn: 'V', tgt: 'V'}, src: ['Goul2023', 'Napolitano2020'], win: W_CL,
-    note: 'Потеря привлечения mTORC1 и аминокислотной регуляции при утрате Rag или Ragulator показана в культивируемых клетках (обзор Goul 2023). Снижение p-TFEB и переход TFEB в ядро — вывод из строгой зависимости фосфорилирования TFEB от RagC/D (Napolitano 2020). Доля RHEB–GTP оставлена как в контроле — допущение модели.',
+    note: 'Потеря привлечения mTORC1 и аминокислотной регуляции при утрате Rag или Ragulator показана в культивируемых клетках (обзор Goul 2023). Снижение p-TFEB и рост доли TFEB в ядре — вывод из строгой зависимости фосфорилирования TFEB от RagC/D (Napolitano 2020). Доля RHEB–GTP оставлена как в контроле — допущение модели.',
     mod: s => { s.rag = all(0)(s.rag); s.loc = all(0)(s.loc); s.ps6k = all(1)(s.ps6k); s.p4e = all(1)(s.p4e); s.ptfeb = all(0)(s.ptfeb); s.tfn = all(3)(s.tfn); s.tgt = all(2)(s.tgt); return s; }},
   flcn: {label: 'Утрата FLCN', short: 'нет FLCN',
-    why: 'Без FLCN RagC/D не переходит в GDP-форму: фосфорилирование TFEB резко снижается и фактор уходит в ядро, тогда как p-S6K1 и p-4E-BP1 во многом сохраняются. Субстраты одного комплекса регулируются по-разному.',
+    why: 'Без FLCN RagC/D не переходит в GDP-форму: фосфорилирование TFEB резко снижается и доля TFEB в ядре растёт, тогда как p-S6K1 и p-4E-BP1 во многом сохраняются. Субстраты одного комплекса регулируются по-разному.',
     st: {rag: 'V', loc: 'M', ptfeb: 'F', tfn: 'F', tgt: 'V'}, src: ['Napolitano2020'],
     win: ['клетки HeLa и почка мыши', 'Субстратная особенность TFEB показана в культивируемых клетках человека, следствия утраты FLCN — в почке мыши (модель синдрома Бёрта–Хогга–Дюбе; Napolitano 2020). В гепатоците не проверялось.'],
     note: 'В модели привлечение mTORC1 к лизосоме при утрате FLCN снижено до среднего уровня — это допущение (M); измерять его нужно отдельно. Сохранение p-S6K1 и p-4E-BP1 — измерено (Napolitano 2020).',
@@ -567,8 +573,8 @@ const IV = {
     mod: s => { s.ins = all(0)(s.ins); s.rheb = all(1)(s.rheb); s.ps6k = s.ps6k.map(v => Math.min(v, 1)); s.p4e = s.p4e.map(v => Math.min(v, 1)); return s; }},
   noaa: {label: 'Нет аминокислот с начала эксперимента', short: 'нет аминокислот',
     why: 'Без аминокислот RagA/B в GDP-форме, mTORC1 не привлечён к лизосоме, p-S6K1 и p-TFEB низкие, TFEB в ядре.',
-    st: {aa: 'F', rag: 'F', loc: 'F', rheb: 'V', ps6k: 'F', p4e: 'V', ptfeb: 'F', tfn: 'F', tgt: 'V'}, src: ['Goul2023', 'Demetriades2014', 'Napolitano2020'], win: W_CL,
-    note: 'Частичное снижение доли RHEB–GTP при удалении аминокислот — по данным на клетках HeLa (Demetriades 2014).',
+    st: {aa: 'F', rag: 'F', loc: 'F', rheb: 'V', ps6k: 'F', p4e: 'V', ptfeb: 'F', tfn: 'F', tgt: 'V'}, src: ['Goul2023', 'Demetriades2014', 'Napolitano2020', 'Dong2000', 'Yin2024', 'Misra2024'], win: W_CL,
+    note: 'Частичное снижение доли RHEB–GTP при удалении аминокислот — по данным на клетках HeLa (Demetriades 2014). В той же клетке при этом растёт доля деацилированных тРНК, и они активируют киназу GCN2 (интегрированный стрессовый ответ; подробнее в механизме «нагрузка ЭПР: ISR и UPR»). Этот путь здесь не моделируется. Перенос на киназу млекопитающих деталей, изученных для дрожжевой Gcn2 in vitro, остаётся допущением (Dong 2000; Yin 2024; Misra 2024).',
     mod: s => { s.aa = all(0)(s.aa); s.rag = all(0)(s.rag); s.loc = all(0)(s.loc); s.rheb = all(2)(s.rheb); s.ps6k = all(1)(s.ps6k); s.p4e = all(1)(s.p4e);
       s.ptfeb = all(1)(s.ptfeb); s.tfn = all(3)(s.tfn); s.tgt = all(2)(s.tgt); return s; }}
 };
@@ -730,7 +736,7 @@ function zoomSVG(s, cond) {
   <text x="12" y="294" class="tiny" fill="#64748B">шкала качественная; строки между собой не сравнивают</text></svg>`;
 }
 
-return {id: 'S201', order: 1, title: 'питание и голодание на лизосоме', q: 'Когда mTORC1 фосфорилирует субстраты, а когда отпускает TFEB в ядро?',
+return {id: 'S201', order: 1, title: 'питание и голодание на лизосоме', q: 'Когда mTORC1 фосфорилирует субстраты, а когда доля TFEB в ядре растёт?',
   sem: 'семинар 7 (вопрос 7.1)', input: 'аминокислоты в среде', route: null, marker: [252, 166],
   cross: [{page: 'cell-1.html', sc: 'S06', label: 'Сеть инсулин–AKT–mTORC1–AMPK (раздел I)', why: 'Ростовой вход (инсулин → AKT ⊣ TSC2 → RHEB–GTP) и выходы mTORC1 в сети инсулина разобраны в разделе I.'}],
   zoomTitle: 'Поверхность лизосомы', hidden: 'Лизосома образца: скрыто',
@@ -738,7 +744,7 @@ return {id: 'S201', order: 1, title: 'питание и голодание на 
   draw: signalLayer, zoom: zoomSVG,
   legend: [['<path d="M2 6h22" stroke="#0E7490" stroke-width="2"/><path d="M22 2l6 4l-6 4z" fill="#1D4ED8"/><circle cx="12" cy="6" r="4" fill="#E11D48"/>', 'фосфорилирование (катализ)'],
     ['<path d="M2 6h22" stroke="#334155" stroke-width="2"/><path d="M22 2l6 4l-6 4z" fill="#334155"/>', 'активация / влияние'],
-    ['<path d="M2 6h22" stroke="#7C3AED" stroke-width="2" stroke-dasharray="3 3"/><path d="M22 2l6 4l-6 4z" fill="#7C3AED"/>', 'перемещение'],
+    ['<path d="M2 6h22" stroke="#7C3AED" stroke-width="2" stroke-dasharray="3 3"/><path d="M22 2l6 4l-6 4z" fill="#7C3AED"/>', 'рост доли TFEB в ядре (обмен с цитозолем идёт постоянно)'],
     ['<ellipse cx="15" cy="6" rx="12" ry="5" fill="#0E7490"/>', 'mTORC1'], ['<circle cx="15" cy="6" r="5" fill="#FEF3C7" stroke="#D97706"/>', 'лизосома'],
     ['<ellipse cx="15" cy="6" rx="9" ry="5" fill="#9D174D"/>', 'TFEB']]};
 })();
@@ -746,6 +752,11 @@ return {id: 'S201', order: 1, title: 'питание и голодание на 
 /* S202: гепатоцит, энергетический заряд → AMPK → ACC → малонил-CoA ⊣ CPT1 → перенос ацилов в митохондрию.
    Поток β-окисления показан отдельной величиной. Научный паспорт: s2/cellkit/science/S202_passport.md */
 Object.assign(SRC, {
+  Zhang2017: ['Zhang C.-S. и др. 2017. Fructose-1,6-bisphosphate and aldolase mediate glucose sensing by AMPK. Nature', '10.1038/nature23275'],
+  Li2019: ['Li M. и др. 2019. Transient receptor potential V channels are essential for glucose sensing by aldolase and AMPK. Cell Metab', '10.1016/j.cmet.2019.05.018'],
+  Hawley2005: ['Hawley S. A. и др. 2005. Calmodulin-dependent protein kinase kinase-β is an alternative upstream kinase for AMP-activated protein kinase. Cell Metab', '10.1016/j.cmet.2005.05.009'],
+  Wanders2020: ['Wanders R. J. A. и др. 2020. Mitochondrial fatty acid oxidation disorders: laboratory diagnosis, pathogenesis, and the complicated route to treatment. J Lipid Atheroscler', '10.12997/jla.2020.9.3.313'],
+  Missaglia2021: ['Missaglia S., Tavian D., Angelini C. 2021. ETF dehydrogenase advances in molecular genetics and impact on treatment. Crit Rev Biochem Mol Biol', '10.1080/10409238.2021.1908952'],
   Smith2026: ['Smith T. K. T. и др. 2026. AMPK at the interface of nutrient sensing, metabolic flux and energy homeostasis. Nat Metab', '10.1038/s42255-025-01442-3'],
   Steinberg2023: ['Steinberg G. R., Hardie D. G. 2023. New insights into activation and function of the AMPK. Nat Rev Mol Cell Biol', '10.1038/s41580-022-00547-x'],
   Xiao2011: ['Xiao B. и др. 2011. Structure of mammalian AMPK and its regulation by ADP. Nature', '10.1038/nature09932'],
@@ -791,7 +802,7 @@ ABBR_X.push(['ACC', 'ацетил-CoA-карбоксилаза: образует
   ['LKB1', 'протеинкиназа, фосфорилирующая Thr172 AMPK'],
   ['ATP / ADP', 'аденозинтрифосфат / аденозиндифосфат', 'ATP|ADP'],
   ['CoA', 'кофермент A', 'CoA'],
-  ['NADH, FADH₂', 'восстановленные коферменты, которые реокисляются дыхательной цепью', 'NADH|FADH₂'],
+  ['NADH, FADH₂', 'NADH — восстановленный кофермент, электроны которого принимает комплекс I; FADH₂ — восстановленная форма FAD, прочно связанного с ферментом (например, с ацил-CoA-дегидрогеназой): от FADH₂ электроны идут через ETF и ETF:убихинон-оксидоредуктазу к убихинону', 'NADH|FADH₂'],
   ['AICAR', 'аминоимидазолкарбоксамид-рибозид: в клетке превращается в ZMP, аналог AMP'],
   ['T172', 'треонин 172 активационной петли α-субъединицы AMPK (номер для α2 человека)', 'T172|Thr172'],
   ['S79', 'серин 79 ACC1 мыши — ингибирующий участок, фосфорилируемый AMPK', 'S79A?|Ser79']);
@@ -818,10 +829,11 @@ const PH = [
  {id: 'P2', short: 'p-AMPK (Thr172)', sig: 1, time: 'время не указано (учебная последовательность)',
   title: 'Активация AMPK',
   what: 'Вышестоящая киназа LKB1 фосфорилирует Thr172 в активационной петле; AMP защищает этот фосфат от фосфатаз и аллостерически повышает активность комплекса.',
-  how: 'Комплекс LKB1 постоянно активен; чувствительность к AMP обеспечивает γ-субъединица AMPK. Thr172 — номер для α2 человека; в α1 человека соответствующий остаток — Thr183.',
+  how: 'Комплекс LKB1, по-видимому, постоянно активен и нуклеотидами напрямую не регулируется; чувствительность к AMP обеспечивает γ-субъединица AMPK. Это аденилатный вход, но не единственный. При снижении глюкозы альдолаза, не занятая фруктозо-1,6-бисфосфатом, действуя через каналы TRPV эндоплазматического ретикулума и V-ATPase, собирает у лизосомы комплекс AXIN–LKB1, и AMPK активируется без обнаруженного роста AMP и ADP. Кроме того, Ca²⁺ через кальмодулин активирует CaMKK2, которая фосфорилирует Thr172 без LKB1. Thr172 — номер для α2 человека; в α1 человека соответствующий остаток — Thr183.',
   next: 'Активная AMPK фосфорилирует свои субстраты, в том числе ACC.',
   exp: 'Иммуноблоттинг p-AMPK (Thr172) вместе с общим AMPK; сравнение клеток дикого типа и без каталитических субъединиц AMPK.',
-  st: 'F', src: ['Steinberg2023', 'Smith2026'],
+  st: 'F', src: ['Steinberg2023', 'Smith2026', 'Zhang2017', 'Li2019', 'Hawley2005'],
+  win: ['клетки человека и мыши, нематода', 'Альдолазный вход (Zhang 2017) и его звено TRPV (Li 2019) описаны в клетках человека и мыши и у нематоды; для всех тканей универсальность не установлена. Вклад CaMKK2 зависит от ткани и клетки (Hawley 2005).'],
   concepts: ['C7.ampk'], edges: [], route: ['seminar-7-route.html#ns-ampk-nucleotides', 'Семинар 7 · как нуклеотиды регулируют AMPK'], sem: Q2},
  {id: 'P3', short: 'p-ACC', sig: 1, time: 'время не указано (учебная последовательность)',
   title: 'Торможение ACC',
@@ -849,11 +861,11 @@ const PH = [
   concepts: ['C7.cpt1'], edges: ['E206'], route: ['seminar-7-route.html#ns-carnitine', 'Семинар 7 · как ацильная группа достигает матрикса'], sem: Q3},
  {id: 'P6', short: 'Поток — отдельно', sig: 1, time: 'время не указано (учебная последовательность)',
   title: 'β-окисление не гарантировано',
-  what: 'Ослабление ингибирования CPT1 создаёт возможность, но поток β-окисления зависит ещё от поступления и активации жирных кислот, ферментов цикла и реокисления NADH и FADH₂ дыхательной цепью.',
+  what: 'Ослабление ингибирования CPT1 создаёт возможность, но поток β-окисления зависит ещё от поступления и активации жирных кислот, ферментов цикла и реокисления коферментов. NADH передаёт электроны преимущественно комплексу I, а электроны FAD, прочно связанного с ацил-CoA-дегидрогеназой, идут к белку ETF, затем к ETF:убихинон-оксидоредуктазе (ETFDH) и убихинону; от убихинона они попадают на комплекс III.',
   how: 'Если одно из этих звеньев ограничено, ослабление торможения CPT1 не ускорит путь. Поэтому рост p-ACC — признак регуляции, а не мера окисления.',
   next: 'Поток окисления измеряют отдельным методом.',
   exp: 'Окисление меченого пальмитата до продуктов цикла и CO₂; генетическое сравнение клеток с CPT1 и без неё.',
-  st: 'V', src: ['Smith2026', 'Houten2016'],
+  st: 'V', src: ['Smith2026', 'Houten2016', 'Wanders2020', 'Missaglia2021'],
   concepts: ['C7.cpt1'], edges: [], route: ['seminar-7-route.html#ns-fatty-acid-context', 'Семинар 7 · почему снятие торможения CPT1 не гарантирует окисления'], sem: Q3}
 ];
 const VARS = {
@@ -1386,6 +1398,8 @@ return {id: 'S203', order: 3, title: 'анаплероз и глюконеоге
    и редокс-состояние (NADH/NAD⁺, H₂O₂): почему содержание метаболита не определяет однозначно состояние метки на гистоне.
    Паспорт: s2/cellkit/science/S204_passport.md */
 Object.assign(SRC, {
+  Izzo2023: ['Izzo L. T. и др. 2023. Acetylcarnitine shuttling links mitochondrial metabolism to histone acetylation and lipogenesis. Sci Adv', '10.1126/sciadv.adf0115'],
+  Sutendra2014: ['Sutendra G. и др. 2014. A nuclear pyruvate dehydrogenase complex is important for the generation of acetyl-CoA and histone acetylation. Cell', '10.1016/j.cell.2014.04.046'],
   Wellen2009: ['Wellen K. E. и др. 2009. ATP-citrate lyase links cellular metabolism to histone acetylation. Science', '10.1126/science.1164097'],
   Sivanand2018: ['Sivanand S., Viney I., Wellen K. E. 2018. Spatiotemporal control of acetyl-CoA metabolism in chromatin regulation. Trends Biochem Sci', '10.1016/j.tibs.2017.11.004'],
   Seto2014: ['Seto E., Yoshida M. 2014. Erasers of histone acetylation: the histone deacetylase enzymes. Cold Spring Harb Perspect Biol', '10.1101/cshperspect.a018713'],
@@ -1460,11 +1474,12 @@ const RX = '#DC2626';     /* редокс / H₂O₂ */
 const PH = [
  {id: 'P0', short: 'Ацетил-CoA из цитрата', sig: 1, time: 'время не указано (учебная последовательность)',
   title: 'Источник ацетильных групп для гистонов',
-  what: 'ACLY образует ацетил-CoA из цитрата в цитозоле и ядре, ACSS2 — из ацетата. Митохондриальный пул ацетил-CoA отделён внутренней мембраной и напрямую не смешивается с ядерно-цитозольным.',
+  what: 'Основные внемитохондриальные источники ацетил-CoA — цитрат (ACLY) и ацетат (ACSS2) в цитозоле и ядре. По данным отдельных работ, вносят вклад также ацетилкарнитин, выходящий из митохондрий, и ядерный пируватдегидрогеназный комплекс; относительная роль путей зависит от клеток и условий. Митохондриальный пул ацетил-CoA отделён внутренней мембраной и напрямую не смешивается с ядерно-цитозольным.',
   how: 'Цитрат выходит из матрикса через SLC25A1; ACLY расщепляет его с участием CoA и ATP на ацетил-CoA и оксалоацетат. Для вывода об ацетилировании нужен ацетил-CoA именно ядерно-цитозольного пула.',
   next: 'Этот пул служит субстратом гистонацетилтрансфераз.',
   exp: 'Масс-спектрометрия ацетил-CoA в нужном компартменте; подавление ACLY и ACSS2.',
-  st: 'F', src: ['Wellen2009', 'Sivanand2018'],
+  st: 'F', src: ['Wellen2009', 'Sivanand2018', 'Izzo2023', 'Sutendra2014'],
+  win: ['клетки человека и мыши', 'Роль ACLY и ацетата показана в клетках HCT116 (Wellen 2009), ацетилкарнитина — в клетках мышиной карциномы печени (Izzo 2023); вклад путей зависит от клеток и условий. Для гепатоцита — по аналогии.'],
   concepts: ['C8.acetylcoa', 'C8.tca'], edges: ['E216'], route: ['seminar-8-route.html#ns-acetyl-coa-compartments', 'Семинар 8 · откуда ацетил-CoA для гистонов'], sem: ['seminar-8.html#q3', 'Семинар 8, вопрос 8.3']},
  {id: 'P1', short: 'Ацетилирование гистона', sig: 1, time: 'время не указано (учебная последовательность)',
   title: 'Присоединение и удаление ацетильной группы',
@@ -1699,6 +1714,9 @@ return {id: 'S204', order: 4, title: 'метаболиты, хроматин и 
    Модель — изолированные митохондрии (в том числе печени); обращённый режим ATP-синтазы — окно в другую систему.
    Научный паспорт: s2/cellkit/science/S205_passport.md */
 Object.assign(SRC, {
+  Kuhlbrandt2019: ['Kühlbrandt W. 2019. Structure and mechanisms of F-type ATP synthases. Annu Rev Biochem', '10.1146/annurev-biochem-013118-110903'],
+  Wong2023: ['Wong J. E., Zíková A., Gahura O. 2023. The ancestral shape of the access proton path of mitochondrial ATP synthases revealed by a split subunit-a. Mol Biol Evol', '10.1093/molbev/msad146'],
+  Marciniak2022: ['Marciniak A. и др. 2022. Determinants of directionality and efficiency of the ATP synthase Fo motor at atomic resolution. J Phys Chem Lett', '10.1021/acs.jpclett.1c03358'],
   Hinkle2005: ['Hinkle P. C. 2005. P/O ratios of mitochondrial oxidative phosphorylation. Biochim Biophys Acta', '10.1016/j.bbabio.2004.09.004'],
   Mitchell1961: ['Mitchell P. 1961. Coupling of phosphorylation to electron and hydrogen transfer by a chemi-osmotic type of mechanism. Nature', '10.1038/191144a0'],
   Racker1974: ['Racker E., Stoeckenius W. 1974. Reconstitution of purple membrane vesicles catalyzing light-driven proton uptake and adenosine triphosphate formation. J Biol Chem', '10.1016/S0021-9258(19)43080-9'],
@@ -1760,7 +1778,7 @@ const Q1 = ['seminar-9.html#q1', 'Семинар 9, вопрос 9.1'], Q2 = ['s
 const PH = [
  {id: 'P0', short: 'Субстрат и O₂', sig: 0, time: 'исходно: субстрат добавлен, ADP мало',
   title: 'Окисление субстрата: электроны идут к O₂',
-  what: 'Комплекс I окисляет NADH матрикса, комплекс II — сукцинат; электроны сходятся на убихиноне и идут через комплекс III, цитохром c и комплекс IV к O₂, который восстанавливается до воды.',
+  what: 'Комплекс I окисляет NADH матрикса, комплекс II — сукцинат; электроны сходятся на убихиноне и идут через комплекс III, цитохром c и комплекс IV к O₂, который восстанавливается до воды. Электроны от β-окисления поступают на убихинон через ETF и ETF:убихинон-оксидоредуктазу.',
   how: 'NADH образуют дегидрогеназы матрикса. Пока ADP мало, перенос электронов медленный: его тормозит уже созданный градиент H⁺. По исходным определениям Chance и Williams это условия состояния 2 (субстрата много, ADP мало); в современных протоколах участок записи до первой добавки ADP часто называют состоянием 2.',
   next: 'При переносе электронов комплексы I, III и IV выводят H⁺ из матрикса.',
   exp: 'Респирометрия: потребление O₂ изолированными митохондриями печени после добавления субстрата; автофлуоресценция NAD(P)H.',
@@ -1777,11 +1795,11 @@ const PH = [
  {id: 'P2', short: 'Возврат H⁺', sig: 0, time: 'то же состояние',
   title: 'Возврат H⁺ через ATP-синтазу: синтез ATP',
   what: 'H⁺ возвращается в матрикс через ATP-синтазу; роторный катализ меняет конформацию β-субъединиц, и из ADP и неорганического фосфата образуется и высвобождается ATP.',
-  how: 'В ATP-синтазе митохондрий животных кольцо F₀ содержит 8 c-субъединиц: за оборот ротора проходят 8 H⁺ и образуются 3 ATP. Фосфатную группу ATP даёт неорганический фосфат, а не электроны или H⁺.',
+  how: 'H⁺ проходит F₀ не по сквозной поре: субъединица a образует два водных полуканала, один открыт в межмембранное пространство, другой — в матрикс. H⁺ присоединяется к c-субъединице у первого полуканала, c-кольцо поворачивается, и почти через полный оборот H⁺ отдаётся в матрикс у второго. В ATP-синтазе митохондрий животных кольцо F₀ содержит 8 c-субъединиц: за оборот ротора проходят 8 H⁺ и образуются 3 ATP. Фосфатную группу ATP даёт неорганический фосфат, а не электроны или H⁺.',
   next: 'Пока ADP мало, синтаза работает медленно, и градиент остаётся высоким.',
   exp: 'Синтез ATP изолированными митохондриями (люциферазный анализ) с олигомицином как контролем; наблюдение вращения одиночных молекул F₁.',
-  st: 'F', src: ['Watt2010', 'Noji1997'],
-  win: ['митохондрии сердца быка и очищенная часть F₁ бактерии', 'Число c-субъединиц (8) установлено для ATP-синтазы сердца быка (Watt 2010), вращение наблюдали на очищенной части F₁ термофильной бактерии (Noji 1997); для гепатоцита это перенос по консервативности фермента.'],
+  st: 'F', src: ['Watt2010', 'Noji1997', 'Kuhlbrandt2019', 'Wong2023', 'Marciniak2022'],
+  win: ['митохондрии сердца быка и очищенная часть F₁ бактерии', 'Число c-субъединиц (8) установлено для ATP-синтазы сердца быка (Watt 2010), вращение наблюдали на очищенной части F₁ термофильной бактерии (Noji 1997); для гепатоцита это перенос по консервативности фермента. Два полуканала субъединицы a показаны структурами (Kühlbrandt 2019, использован только реферат; Wong 2023); порядок присоединения и отдачи H⁺ рассчитан для F₀ дрожжей (Marciniak 2022), а для человеческого фермента детальная последовательность не установлена.'],
   concepts: ['C9.atpsynthase'], edges: ['E224'], route: R9('atp-synthase', 'как ATP-синтаза преобразует движение H⁺ в синтез ATP'), sem: Q1},
  {id: 'P3', short: 'Потребители Δψm', sig: 0, time: 'то же состояние',
   title: 'Градиент расходуют и переносчики',
@@ -1971,7 +1989,7 @@ function cellLayer(s, cond) {
   const fw = s.syn >= 1, rv = s.hyd >= 1, sc = (fw || rv) ? K.sy : K.mute;
   L.push(`<g class="hot" data-ph="2" tabindex="0" role="button" aria-label="ATP-синтаза: этап 2">
     <rect class="hl" x="268" y="144" width="20" height="24" rx="4" fill="${sc}"/><line x1="278" y1="168" x2="278" y2="175" stroke="${sc}" stroke-width="4"/><circle cx="278" cy="184" r="10" fill="${sc}" opacity=".85"/>
-    ${fw ? ar('M278 124 L278 170', 'hp', 1.2 + s.syn * 0.6) : ''}${rv ? ar('M278 170 L278 126', 'hp', 2.2) : ''}
+    ${fw ? ar('M275 122 L275 142', 'hp', 1.2 + s.syn * 0.6) + ar('M287 168 L297 178', 'hp', Math.min(2.2, 1.2 + s.syn * 0.6)) : ''}${rv ? ar('M297 178 L287 168', 'hp', 2.2) + ar('M275 142 L275 124', 'hp', 2.2) : ''}
     <text x="256" y="212" class="tiny" fill="${sc}" font-weight="600">ATP-синтаза</text>
     <text x="256" y="232" class="lbs" fill="${fw ? K.atp : rv ? K.sy : '#64748B'}" font-weight="${s.syn >= 3 ? 700 : 400}">${fw ? 'ADP + Pi → ATP' : rv ? 'ATP → ADP + Pi' : 'синтеза нет'}</text></g>`);
   if (olig) L.push(cross(278, 156, 12));
@@ -2759,6 +2777,11 @@ return {id: 'S207', order: 7, title: 'два генома и гетеропла�
 /* S208: гепатоцит, нагрузка на ЭПР превышает ёмкость → интегрированный стрессовый ответ (ISR) и три ветви UPR.
    Научный паспорт: s2/cellkit/science/S208_passport.md. Содержание — graph_s2_v02.json (sid S208). */
 Object.assign(SRC, {
+  Tam2014: ['Tam A. B., Koong A. C., Niwa M. 2014. Ire1 has distinct catalytic mechanisms for XBP1/HAC1 splicing and RIDD. Cell Rep', '10.1016/j.celrep.2014.09.016'],
+  Hollien2009: ['Hollien J. и др. 2009. Regulated Ire1-dependent decay of messenger RNAs in mammalian cells. J Cell Biol', '10.1083/jcb.200903014'],
+  Dong2000: ['Dong J. и др. 2000. Uncharged tRNA activates GCN2 by displacing the protein kinase moiety from a bipartite tRNA-binding domain. Mol Cell', '10.1016/S1097-2765(00)00028-9'],
+  Yin2024: ['Yin J. Z. и др. 2024. The HisRS-like domain of GCN2 is a pseudoenzyme that can bind uncharged tRNA. Structure', '10.1016/j.str.2024.02.021'],
+  Misra2024: ['Misra J. и др. 2024. Multiple mechanisms activate GCN2 eIF2 kinase in response to diverse stress conditions. Nucleic Acids Res', '10.1093/nar/gkae006'],
   Wiseman2022: ['Wiseman R. L., Mesgarzadeh J. S., Hendershot L. M. 2022. Reshaping endoplasmic reticulum quality control through the unfolded protein response. Mol Cell', '10.1016/j.molcel.2022.03.025'],
   Acosta2025: ['Acosta-Alvear D. и др. 2025. Homeostasis control in health and disease by the unfolded protein response. Nat Rev Mol Cell Biol', '10.1038/s41580-024-00794-0'],
   Harding2000: ['Harding H. P., Zhang Y., Bertolotti A., Zeng H., Ron D. 2000. Perk is essential for translational regulation and cell survival during the unfolded protein response. Mol Cell', '10.1016/s1097-2765(00)80330-5'],
@@ -2801,7 +2824,7 @@ Object.assign(MSCHEME, {
 });
 ABBR_X.push(
   ['PERK', 'трансмембранная киназа ЭПР; люминальный домен воспринимает стресс ЭПР, цитозольный фосфорилирует eIF2α'],
-  ['IRE1α', 'трансмембранный белок ЭПР с киназным и эндорибонуклеазным доменами; вырезает интрон из мРНК XBP1', 'IRE1α|IRE1'],
+  ['IRE1α', 'трансмембранный белок ЭПР с киназным и эндорибонуклеазным доменами; активируется при олигомеризации и взаимном фосфорилировании; вырезает интрон из мРНК XBP1', 'IRE1α|IRE1'],
   ['ATF6f', 'N-концевой фрагмент ATF6α, отщеплённый в аппарате Гольджи; транскрипционный фактор'],
   ['ATF6', 'мембранный белок ЭПР; при стрессе переносится в Гольджи и расщепляется протеазами', 'ATF6(?!f)'],
   ['ATF4', 'транскрипционный фактор; его мРНК избирательно транслируется при фосфорилировании eIF2α'],
@@ -2849,11 +2872,12 @@ const PH = [
   concepts: ['C10.perk', 'C10.eif2a', 'C10.atf4'], edges: ['E242', 'E239'], route: ['seminar-10-route.html#ns-upr-perk', 'Семинар 10 · PERK и регуляция трансляции'], sem: ['seminar-10.html#q2', 'Семинар 10, вопрос 10.2']},
  {id: 'P3', short: 'Ветвь IRE1α', sig: 1, time: 'время не указано (учебная последовательность)',
   title: 'IRE1α вырезает интрон XBP1, RtcB сшивает',
-  what: 'РНКазный домен IRE1α вырезает из мРНК XBP1 интрон из 26 нуклеотидов, РНК-лигаза RtcB сшивает части; сдвиг рамки даёт XBP1s, усиливающий транскрипцию генов шаперонов, ферментов сворачивания и ERAD.',
-  how: 'IRE1α только разрезает мРНК; части соединяет RtcB — без неё XBP1s не образуется, хотя IRE1α активен. Тот же домен расщепляет и другие РНК (RIDD).',
+  what: 'При стрессе ЭПР молекулы IRE1α объединяются в олигомеры и фосфорилируют друг друга, после чего активируется РНКазный домен. Он вырезает из мРНК XBP1 интрон из 26 нуклеотидов, а РНК-лигаза RtcB сшивает части мРНК; сдвиг рамки даёт XBP1s, усиливающий транскрипцию генов шаперонов, ферментов сворачивания и ERAD.',
+  how: 'IRE1α только разрезает мРНК; части соединяет RtcB, без которой XBP1s не образуется, хотя IRE1α активен. Тот же РНКазный домен расщепляет и другие РНК (RIDD), но в реконструированной системе работает иначе: для двух разрезов мРНК XBP1 субъединицы действовали кооперативно в олигомере, а для RIDD хватало одной субъединицы (Tam 2014, опыты in vitro). Отсюда не следует общего правила «олигомер — XBP1, мономер — RIDD»: какие сборки IRE1α действуют на какие субстраты в клетке, в рассмотренных работах не определено.',
   next: 'ATF6 даёт второй транскрипционный выход ёмкости.',
   exp: 'ОТ-ПЦР продуктов XBP1u и XBP1s (различие 26 пар нуклеотидов); клетки без RtcB.',
-  st: 'F', src: ['Calfon2002', 'Lu2014'],
+  st: 'F', src: ['Calfon2002', 'Lu2014', 'Tam2014', 'Hollien2009'],
+  win: ['реконструированная система in vitro; клетки млекопитающих', 'Кооперативность субъединиц IRE1 при разрезах XBP1/HAC1 и её отсутствие при RIDD показаны in vitro (Tam 2014, использован только реферат) и не переносятся как общее правило на клетки; RIDD в клетках млекопитающих описан в работе Hollien 2009.'],
   concepts: ['C10.ire1'], edges: ['E243'], route: ['seminar-10-route.html#ns-ire1-xbp1', 'Семинар 10 · IRE1α и мРНК XBP1s'], sem: ['seminar-10.html#q2', 'Семинар 10, вопрос 10.2']},
  {id: 'P4', short: 'Ветвь ATF6', sig: 1, time: 'время не указано (учебная последовательность)',
   title: 'ATF6α расщепляется в Гольджи до ATF6f',
@@ -2947,7 +2971,7 @@ const IV = {
 const VARY = ['tgn', 'noperk', 'nortcb', 'nos1p', 'isrib'];
 const METH = {
   m_peif2a: {l: 'Блот: фосфо-eIF2α (Ser51)', kind: 'blot', v: 'peif2a', q: 'Фосфорилирован ли eIF2α?',
-    lim: 'Показывает долю фосфо-eIF2α, но не указывает, какая из четырёх киназа (PERK, PKR, HRI, GCN2) его фосфорилировала.', band: 'P-eIF2α (Ser51)'},
+    lim: 'Показывает долю фосфо-eIF2α, но не указывает, какая из четырёх киназ (PERK, PKR, HRI, GCN2) его фосфорилировала.', band: 'P-eIF2α (Ser51)'},
   m_xbp1: {l: 'ОТ-ПЦР сплайсинга XBP1', kind: 'bar', v: 'xbp1s', q: 'Образуется ли XBP1s (ветвь IRE1α)?',
     lim: 'Отсутствие полосы XBP1s означает лишь, что её содержание ниже порога; RIDD и путь JNK этим методом не видны.', scheme: 'S208xbp1', col: '#DC2626', ylab: 'доля XBP1s'},
   m_atf6f: {l: 'Блот: фрагмент ATF6f (p50)', kind: 'blot', v: 'atf6f', q: 'Образуется ли фрагмент ATF6f (ветвь ATF6)?',
@@ -2965,7 +2989,7 @@ const TASKS = {
     meth: ['m_peif2a', 'm_xbp1', 'm_atf6f', 'm_dsrna', 'm_dpsi'],
     check: {ctl: 'Сравнить с клетками без PERK: при стрессе ЭПР фосфорилирование eIF2α исчезает, а при двухцепочечной РНК (PKR) и нарушении митохондрий (HRI) сохраняется.',
       pkr: 'Убрать двухцепочечную РНК или выключить PKR: фосфорилирование eIF2α снижается, сплайсинг XBP1 и ATF6f отсутствуют.',
-      hri: 'Выключить OMA1, DELE1 или HRI (Guo 2020): фосфорилирование eIF2α при нарушении митохондрий исчезает. Рассмотрены не все киназы ISR: при недостатке аминокислот (голодание гепатоцита) eIF2α фосфорилирует GCN2 — это отдельная причина, здесь не показанная.'}}
+      hri: 'Выключить OMA1, DELE1 или HRI (Guo 2020): фосфорилирование eIF2α при нарушении митохондрий исчезает. Рассмотрены не все киназы ISR: при недостатке аминокислот (например, при голодании гепатоцита) киназа GCN2, которую активируют деацилированные тРНК, фосфорилирует eIF2α; эта причина здесь не показана.'}}
 };
 const CONCEPT_PHASE = {'C10.erload': 1, 'C10.perk': 2, 'C10.eif2a': 2, 'C10.atf4': 2, 'C10.ire1': 3, 'C10.atf6': 4, 'C10.gadd34': 6};
 const EDGE_PHASE = {E241: 1, E242: 2, E239: 2, E243: 3, E244: 4, E245: 5, E278: 5, E240: 6, E277: 6};
@@ -2986,7 +3010,7 @@ function signalLayer(s, cond) {
   /* три сенсора в мембране ЭПР (вне ядра); P — автофосфорилирование PERK и IRE1α; ATF6 не фосфорилируется */
   const sens = (x, y, lab, on, col, ph, lx, ly) => `<g><rect x="${x - 4}" y="${y - 14}" width="8" height="28" rx="2" fill="${on ? col : '#CBD5E1'}"/>${on && ph ? `<circle cx="${x}" cy="${y + 18}" r="4" fill="${C.p}"/><text x="${x}" y="${y + 21.5}" class="pp">P</text>` : ''}<text x="${lx}" y="${ly}" class="tiny" text-anchor="middle" fill="${on ? col : '#94A3B8'}">${lab}</text></g>`;
   L.push(`<g class="hot" data-ph="2" tabindex="0" role="button" aria-label="PERK: этап 2"><rect class="hl" x="582" y="150" width="32" height="56" fill="transparent" stroke="none"/>${sens(598, 178, 'PERK', s.perk >= 2, '#1D4ED8', true, 580, 160)}</g>`);
-  L.push(`<g class="hot" data-ph="3" tabindex="0" role="button" aria-label="IRE1α: этап 3"><rect class="hl" x="644" y="282" width="34" height="56" fill="transparent" stroke="none"/>${sens(658, 304, 'IRE1α', s.xbp1s >= 1, '#0F766E', true, 692, 286)}</g>`);
+  L.push(`<g class="hot" data-ph="3" tabindex="0" role="button" aria-label="IRE1α: этап 3"><rect class="hl" x="644" y="282" width="34" height="56" fill="transparent" stroke="none"/>${s.xbp1s >= 1 ? sens(652, 304, '', true, '#0F766E', true, 0, 0) + sens(664, 304, 'IRE1α (олигомер)', true, '#0F766E', true, 692, 286) : sens(658, 304, 'IRE1α', false, '#0F766E', true, 692, 286)}</g>`);
   L.push(`<g class="hot" data-ph="4" tabindex="0" role="button" aria-label="ATF6: этап 4"><rect class="hl" x="596" y="234" width="32" height="56" fill="transparent" stroke="none"/>${sens(612, 258, 'ATF6', s.atf6f >= 1, '#B45309', false, 590, 238)}</g>`);
   /* PERK → рибосома/трансляция в цитозоле над ядром */
   const ribN = s.transl;
@@ -3037,6 +3061,7 @@ return {id: 'S208', order: 8, title: 'нагрузка ЭПР: ISR и UPR', q: '
   PH, VARS, TRACKVARS, defTracks: ['peif2a', 'xbp1s', 'transl'], CTL, IV, VARY, METH, TASKS, CONCEPT_PHASE, EDGE_PHASE, CLABEL,
   draw: signalLayer, zoom: zoomSVG,
   legend: [['<rect x="8" y="1" width="8" height="10" rx="2" fill="#1D4ED8"/><circle cx="12" cy="11" r="3" fill="#E11D48"/>', 'сенсор ЭПР (PERK / IRE1α / ATF6)'],
+    ['<rect x="6" y="1" width="6" height="10" rx="2" fill="#0F766E"/><rect x="15" y="1" width="6" height="10" rx="2" fill="#0F766E"/>', 'пара брусков — олигомер IRE1α (условное изображение)'],
     ['<circle cx="8" cy="6" r="4" fill="#E11D48"/>', 'фосфат (Ser51 eIF2α)'],
     ['<path d="M6 2 q5 4 -2 7 q-6 3 0 6 q5 3 -1 5" fill="none" stroke="#B4806A" stroke-width="2"/>', 'неправильно свёрнутый белок'],
     ['<path d="M2 6h20" stroke="#7C3AED" stroke-width="2" stroke-dasharray="3 3" marker-end="url(#S208lg)"/><defs><marker id="S208lg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#7C3AED"/></marker></defs>', 'перемещение фактора в ядро'],
@@ -3880,6 +3905,11 @@ return {id: 'S211', order: 11, title: 'Hsp70 и протеасома: судьб
 /* S212: гепатоцит, аутофагический поток при голодании: mTORC1 ⊣ ULK1 → VPS34/PI3P → LC3-II → слияние → расщепление →
    повторная активация mTORC1; медленный уровень — TFEB. Научный паспорт: s2/cellkit/science/S212_passport.md */
 Object.assign(SRC, {
+  Park2016: ['Park J.-M. и др. 2016. The ULK1 complex mediates MTORC1 signaling to the autophagy initiation machinery via binding and phosphorylating ATG14. Autophagy', '10.1080/15548627.2016.1140293'],
+  Takahashi2018: ['Takahashi Y. и др. 2018. An autophagy assay reveals the ESCRT-III component CHMP2A as a regulator of phagophore closure. Nat Commun', '10.1038/s41467-018-05254-w'],
+  Nanayakkara2023: ['Nanayakkara R. и др. 2023. Autophagic lysosome reformation in health and disease. Autophagy', '10.1080/15548627.2022.2128019'],
+  Du2016: ['Du W. и др. 2016. Kinesin 1 drives autolysosome tubulation. Dev Cell', '10.1016/j.devcel.2016.04.014'],
+  Dai2019: ['Dai A., Yu L., Wang H.-W. 2019. WHAMM initiates autolysosome tubulation by promoting actin polymerization on autolysosomes. Nat Commun', '10.1038/s41467-019-11694-9'],
   Komatsu2005: ['Komatsu M. и др. 2005. Impairment of starvation-induced and constitutive autophagy in Atg7-deficient mice. J Cell Biol', '10.1083/jcb.200412022'],
   Kim2011: ['Kim J., Kundu M., Viollet B., Guan K.-L. 2011. AMPK and mTOR regulate autophagy through direct phosphorylation of Ulk1. Nat Cell Biol', '10.1038/ncb2152'],
   Martina2012: ['Martina J. A. и др. 2012. MTORC1 functions as a transcriptional regulator of autophagy by preventing nuclear transport of TFEB. Autophagy', '10.4161/auto.19653'],
@@ -3944,36 +3974,36 @@ const PH = [
  {id: 'P1', short: 'Голодание', sig: 1, time: 'минуты (по фосфорилированию; число для гепатоцита не измерено)',
   title: 'Снижение активности mTORC1 активирует ULK1',
   what: 'Без аминокислот активность mTORC1 падает, ингибирующее фосфорилирование ULK1 уменьшается, и комплекс ULK1 собирается в месте будущей изолирующей мембраны.',
-  how: 'Это снятие торможения, а не новый активирующий сигнал от mTORC1. Роль AMPK в этом звене зависит от вида и длительности стресса и здесь не показана.',
+  how: 'Это снятие торможения, а не новый активирующий сигнал от mTORC1; такая регуляция действует на всю клетку при голодании. При селективной аутофагии (например, при удалении повреждённой митохондрии; см. механизм «PINK1–Parkin») рецептор на грузе собирает комплекс ULK1–FIP200, и ULK1 активируется локально, в том числе при активном mTORC1. Роль AMPK в этом звене зависит от вида и длительности стресса и здесь не показана.',
   next: 'Активная ULK1 фосфорилирует белки следующего комплекса.',
   exp: 'Иммуноблоттинг p-ULK1 (S758); микроскопия точек ULK1 или ATG13 после удаления аминокислот.',
-  st: 'F', src: ['Kim2011', 'Zachari2017'], win: W_ULK,
+  st: 'F', src: ['Kim2011', 'Zachari2017', 'Vargas2019'], win: W_ULK,
   concepts: ['C11.ulk1', 'C7.mtorc1'], edges: ['E259'], route: ['seminar-11-route.html#ns-ulk1-init', 'Семинар 11 · как ULK1 и VPS34 начинают аутофагосому'], sem: Q11},
  {id: 'P2', short: 'PI3P на мембране', sig: 1, time: 'время не указано (учебная последовательность)',
   title: 'VPS34 образует PI3P',
-  what: 'ULK1 фосфорилирует BECN1 (S15 у человека) в комплексе VPS34–ATG14, и на изолирующей мембране появляется PI3P.',
-  how: 'Фосфорилирование BECN1 повышает активность липидкиназы VPS34. Без ATG14 те же белки работают в эндоцитарном пути, поэтому VPS34 участвует не только в аутофагии.',
+  what: 'ULK1 (в комплексе с ATG13 и FIP200) фосфорилирует компоненты ATG14-содержащего комплекса VPS34: BECN1 (S15 у человека) и ATG14 (S29). Эти фосфорилирования способствуют активации липидкиназы VPS34, и на изолирующей мембране появляется PI3P.',
+  how: 'Без ATG14 те же белки работают в эндоцитарном пути, поэтому VPS34 участвует не только в аутофагии. ULK1 не создаёт фагофор в одиночку. Перечисленные участки показаны в определённых клетках и условиях.',
   next: 'PI3P привлекает белки, присоединяющие LC3.',
   exp: 'Иммуноблоттинг p-BECN1 (S15); микроскопия точек WIPI2 — белка, связывающего PI3P.',
-  st: 'F', src: ['Russell2013'], win: W_ULK,
+  st: 'F', src: ['Russell2013', 'Park2016'], win: W_ULK,
   concepts: ['C11.ulk1'], edges: [], route: ['seminar-11-route.html#ns-ulk1-init', 'Семинар 11 · как ULK1 и VPS34 начинают аутофагосому'], sem: Q11},
  {id: 'P3', short: 'LC3-II', sig: 1, time: 'время не указано (учебная последовательность)',
   title: 'Присоединение LC3 к мембране',
   what: 'WIPI2 связывается с PI3P и привлекает ATG12–ATG5–ATG16L1; ATG7 и ATG3 присоединяют LC3 к фосфатидилэтаноламину, и на обеих поверхностях растущей мембраны появляется LC3-II.',
   how: 'Две системы конъюгации напоминают убиквитинирование: ATG7 — E1-подобный фермент, ATG3 — E2-подобный, комплекс ATG12–ATG5–ATG16L1 — E3-подобный.',
-  next: 'Края мембраны смыкаются — образуется замкнутая аутофагосома.',
+  next: 'Фагофор растёт за счёт притока липидов, но остаётся открытым: рост, замыкание и слияние — разные события.',
   exp: 'Иммуноблоттинг LC3-I и LC3-II; микроскопия точек LC3; печень мышей без Atg7 как генетический контроль.',
   st: 'F', src: ['Dooley2014', 'Nakatogawa2020', 'Komatsu2005'],
   win: ['клетки человека (HEK293)', 'Привлечение ATG12–ATG5–ATG16L1 белком WIPI2 показано в культивируемых клетках человека (Dooley 2014); зависимость образования LC3-II от ATG7 — в печени мыши (Komatsu 2005).'],
   concepts: ['C11.lc3'], edges: ['E260'], route: ['seminar-11-route.html#ns-lc3-lipidation', 'Семинар 11 · как LC3 присоединяется к мембране'], sem: Q11},
- {id: 'P4', short: 'Слияние', sig: 1, time: 'время не указано (учебная последовательность)',
-  title: 'Замкнутая аутофагосома сливается с лизосомой',
-  what: 'После замыкания на наружной мембране аутофагосомы появляется STX17, который с SNAP29 и VAMP8 участвует в слиянии с лизосомой.',
-  how: 'На незамкнутой мембране STX17 нет. Слияние возможно и без него: второй комплекс SNARE с YKT6 частично сохраняет слияние в клетках без STX17 (Matsui 2018).',
+ {id: 'P4', short: 'Замыкание и слияние', sig: 1, time: 'время не указано (учебная последовательность)',
+  title: 'Замыкание аутофагосомы и слияние с лизосомой',
+  what: 'Края фагофора сближаются, и ESCRT-III (в частности, CHMP2A) с АТФазой VPS4 разделяют внутреннюю и наружную мембраны у края: образуется замкнутая аутофагосома с изолированным грузом. После замыкания на наружной мембране появляется STX17, который с SNAP29 и VAMP8 участвует в слиянии с лизосомой.',
+  how: 'Речь идёт о двух мембранах, а не о листках одного бислоя. Какой сигнал привлекает STX17 именно к замкнутой аутофагосоме, не выяснено; на незамкнутой мембране его нет. Слияние возможно и без него: второй комплекс SNARE с YKT6 частично сохраняет слияние в клетках без STX17 (Matsui 2018).',
   next: 'Внутренняя мембрана и груз оказываются в просвете аутолизосомы.',
   exp: 'Совпадение репортёра LC3 с меткой лизосом (LAMP1); тандемный репортёр mCherry-GFP-LC3; снижение STX17.',
-  st: 'F', src: ['Itakura2012', 'Matsui2018'],
-  win: ['клетки HeLa и MEF', 'Роль STX17 и YKT6 в слиянии показана в культивируемых клетках (Itakura 2012; Matsui 2018); для гепатоцита — по аналогии.'],
+  st: 'F', src: ['Itakura2012', 'Matsui2018', 'Takahashi2018'],
+  win: ['клетки HeLa и MEF', 'Роль ESCRT-III (CHMP2A) и VPS4 в замыкании фагофора показана в клетках HeLa (Takahashi 2018) и не означает единственного механизма замыкания; роль STX17 и YKT6 в слиянии — в культивируемых клетках (Itakura 2012; Matsui 2018); для гепатоцита — по аналогии.'],
   concepts: ['C11.flux', 'C7.lysosome'], edges: ['E262'], route: ['seminar-11-route.html#ns-fusion-degradation', 'Семинар 11 · слияние и расщепление'], sem: Q11},
  {id: 'P5', short: 'Расщепление', sig: 1, time: 'время не указано (учебная последовательность)',
   title: 'Гидролиз груза в аутолизосоме',
@@ -3986,22 +4016,22 @@ const PH = [
   concepts: ['C7.lysosome', 'C11.flux', 'C11.lc3'], edges: ['E261'], route: ['seminar-11-route.html#ns-flux-measure', 'Семинар 11 · как измерить аутофагический поток'], sem: Q11},
  {id: 'P6', short: 'mTORC1 снова активен', sig: 1, time: 'часы (клетки NRK; для гепатоцита не измерено)',
   title: 'Повторная активация mTORC1',
-  what: 'Аминокислоты из аутолизосом снова частично активируют mTORC1, который ограничивает аутофагию и запускает восстановление лизосом из аутолизосом.',
-  how: 'Повторная активация зависит от аутофагии и от расщепления в аутолизосомах; из аутолизосом вытягиваются тубулы, от них отделяются протолизосомы (Yu 2010). Нужен и разрешающий RHEB–GTP.',
+  what: 'Аминокислоты из аутолизосом снова частично активируют mTORC1, который ограничивает образование новых аутофагосом и участвует в восстановлении пула лизосом из мембран аутолизосом.',
+  how: 'Повторная активация зависит от аутофагии и от расщепления в аутолизосомах. Восстановление лизосом (autophagic lysosome reformation) в изученных системах проходит в три стадии: выпячивание мембраны (PI(4,5)P₂, AP-2, клатрин), вытягивание трубочки (KIF5B, WHAMM) и отделение протолизосомы (в частности, динамин 2 и VPS34–UVRAG). mTORC1 сам мембрану не вытягивает, а влияет на эти белки и липиды. Необходим также RHEB–GTP. Этот процесс отличается от TFEB-зависимого биогенеза (следующий этап); в клетках NRK он описан у Yu 2010, стадии — по обзору Nanayakkara 2023.',
   next: 'Отрицательная обратная связь ограничивает образование новых аутофагосом.',
   exp: 'Иммуноблоттинг p-S6K1 в серии точек длительного голодания с блоком аутофагии и без него.',
-  st: 'F', src: ['Yu2010'],
+  st: 'F', src: ['Yu2010', 'Nanayakkara2023', 'Du2016', 'Dai2019'],
   win: ['клетки NRK (почка крысы)', 'Повторная активация mTOR при длительном голодании и восстановление лизосом показаны в клетках NRK (Yu 2010); сроки для гепатоцита не измерены.'],
   concepts: ['C7.reactivation', 'C11.flux'], edges: ['E209', 'E263', 'E210'], route: ['seminar-7-route.html#ns-reactivation', 'Семинар 7 · расщепление и повторная активация mTORC1'], sem: Q7},
  {id: 'P7', short: 'TFEB в ядре', sig: 1, time: 'параллельно, позже',
   title: 'Медленный уровень: TFEB и ёмкость лизосом',
-  what: 'При длительном снижении активности mTORC1 TFEB переходит в ядро и усиливает транскрипцию генов лизосомных белков и белков аутофагии; новые белки появляются позже, чем меняется фосфорилирование ULK1.',
-  how: 'Переход TFEB в ядро начинается вместе со снижением активности mTORC1 (этапы 1–5), а новые белки требуют транскрипции и трансляции. Возвращает ли частичная повторная активация mTORC1 TFEB в цитоплазму, модель не задаёт.',
+  what: 'При длительном снижении активности mTORC1 фосфорилирование TFEB уменьшается, его экспорт из ядра ослабевает, и доля ядерного белка растёт; в ядре TFEB усиливает транскрипцию генов лизосомных белков и белков аутофагии. Новые белки появляются позже, чем меняется фосфорилирование ULK1.',
+  how: 'Рост ядерной доли TFEB начинается вместе со снижением активности mTORC1 (этапы 1–5), а новые белки требуют транскрипции и трансляции. TFEB непрерывно перемещается между цитозолем и ядром. При частичной повторной активации mTORC1 условия ядерного экспорта меняются (сигнал NES, S142 и S138, экспортин XPO1): часть TFEB выходит в цитозоль, связывается с RagC/D–GDP на лизосоме и фосфорилируется лизосомным mTORC1 по S211; в ядро mTORC1 не проникает. Эту петлю модель количественно не описывает.',
   next: 'Ёмкость лизосом, в которые доставляется материал, растёт.',
   exp: 'Иммунофлуоресценция TFEB; ОТ-ПЦР мРНК генов-мишеней; содержание лизосомных белков в поздних точках.',
-  st: 'F', src: ['Sardiello2009', 'Martina2012', 'RoczniakFerguson2012'],
+  st: 'F', src: ['Sardiello2009', 'Martina2012', 'RoczniakFerguson2012', 'Napolitano2018', 'Li2018', 'Napolitano2020'],
   win: ['клетки HeLa и ARPE-19', 'Сеть генов TFEB и удержание TFEB комплексом mTORC1 показаны в культивируемых клетках человека (Sardiello 2009; Martina 2012; Roczniak-Ferguson 2012).'],
-  concepts: ['C7.tfeb'], edges: ['E203', 'E208'], route: ['seminar-11-route.html#ns-ulk1-init', 'Семинар 11 · медленный уровень: TFEB'], sem: Q11}
+  concepts: ['C7.tfeb'], edges: ['E203', 'E208'], route: ['seminar-7-route.html#ns-tfeb', 'Семинар 7 · цикл TFEB: ядро и лизосома'], sem: Q11}
 ];
 const VARS = {
   mt: 'Активность mTORC1 (p-S6K1)', pulk: 'p-ULK1 (S758, участок mTORC1)', ulk: 'Активность ULK1 (p-BECN1 S15)', pi3p: 'PI3P на изолирующей мембране',
@@ -4073,7 +4103,7 @@ const METH = {
   blot_s6k: {l: 'Блот: p-S6K1 (T389)', kind: 'blot', v: 'mt', band: 'p-S6K1 (T389)', load: 'общий S6K1 (контроль количества)', q: 'Активен ли mTORC1?',
     lim: 'Отражает один субстрат mTORC1; не показывает состояние ULK1 напрямую.'},
   blot_becn: {l: 'Блот: p-BECN1 (S15)', kind: 'blot', v: 'ulk', band: 'p-BECN1 (S15)', load: 'общий BECN1 (контроль количества)', q: 'Работает ли киназа ULK1?',
-    lim: 'Участок ULK1 на одном субстрате; номер S15 — для BECN1 человека (у мыши S14).'},
+    lim: 'Участок ULK1 на одном субстрате; номер S15 — для BECN1 человека (у мыши S14); ATG14 S29 этим блотом не измеряется.'},
   blot_conj: {l: 'Блот: конъюгат ATG12–ATG5', kind: 'blot', v: 'conj', band: 'ATG12–ATG5', load: 'актин (контроль нанесения)', scheme: 'blot', q: 'Работает ли система конъюгации?',
     lim: 'Конъюгат образуется с участием ATG7 и ATG10; его наличие не означает, что LC3 присоединяется в нужном месте.'}
 };
@@ -4141,8 +4171,8 @@ function signalLayer(s, cond) {
   if (cond === 'atg7') L.push(`<path d="M${gx - 30} ${gy - 26} l40 52 M${gx + 10} ${gy - 26} l-40 52" stroke="${K.inh}" stroke-width="2.2"/>`);
   /* аутофагосомы (жёлтые = не кислые) */
   const nAp = [0, 1, 1, 3][s.ap];
-  AP.slice(0, nAp).forEach(([x, y], i) => L.push(`<g class="hot" data-ph="4" tabindex="0" role="button" aria-label="Аутофагосома"><circle class="hl" cx="${x}" cy="${y}" r="17" fill="${K.apF}" stroke="${K.ap}" stroke-width="2"/><circle cx="${x}" cy="${y}" r="12" fill="none" stroke="${K.ap}" stroke-width="1.4"/>${cargo(x, y, 3, '#78716C')}</g>`));
-  if (nAp && s.ap >= 1) L.push(`<text x="${AP[0][0] - 38}" y="${AP[0][1] + 6}" class="tiny" text-anchor="end" fill="${K.ap}" font-weight="600">аутофагосома</text>`);
+  AP.slice(0, nAp).forEach(([x, y], i) => L.push(ph <= 3 ? `<g class="hot" data-ph="3" tabindex="0" role="button" aria-label="Растущий фагофор, мембрана не замкнута: этап 3"><circle cx="${x}" cy="${y}" r="17" fill="transparent"/><path class="hl" d="M${x + 12} ${y - 12} A 17 17 0 1 0 ${x + 12} ${y + 12}" fill="none" stroke="${K.ap}" stroke-width="2" stroke-linecap="round"/><path d="M${x + 8.5} ${y - 8.5} A 12 12 0 1 0 ${x + 8.5} ${y + 8.5}" fill="none" stroke="${K.ap}" stroke-width="1.4" stroke-linecap="round"/>${cargo(x, y, 3, '#78716C')}</g>` : `<g class="hot" data-ph="4" tabindex="0" role="button" aria-label="Аутофагосома"><circle class="hl" cx="${x}" cy="${y}" r="17" fill="${K.apF}" stroke="${K.ap}" stroke-width="2"/><circle cx="${x}" cy="${y}" r="12" fill="none" stroke="${K.ap}" stroke-width="1.4"/>${cargo(x, y, 3, '#78716C')}</g>`));
+  if (nAp && s.ap >= 1) L.push(`<text x="${AP[0][0] - 38}" y="${AP[0][1] + 6}" class="tiny" text-anchor="end" fill="${K.ap}" font-weight="600">${ph <= 3 ? 'фагофор не замкнут' : 'аутофагосома'}</text>`);
   if (s.ap >= 1 && ph >= 3 && s.lc3 >= 2) L.push(arr(gx - 8, gy + 24, AP[0][0] + 6, AP[0][1] - 18, 'mv', 0, 1));
   if (ph === 4 && cond === 'ctl') L.push(`<text x="${AP[0][0] + 22}" y="${AP[0][1] + 16}" class="tiny" fill="${K.ap}" font-weight="700">STX17</text>`);
   /* лизосома для слияния и аутолизосома */
@@ -4189,6 +4219,7 @@ function zoomSVG(s, cond) {
   <path d="M58 ${y - 20} A 24 24 0 1 0 58 ${y + 20}" fill="none" stroke="${s.ulk >= 2 || s.pi3p >= 1 ? '#64748B' : '#CBD5E1'}" stroke-width="4" stroke-linecap="round"/>
   ${s.lc3 >= 2 && s.conj > 0 ? [[22, y - 8], [26, y + 14], [44, y - 22], [44, y + 22]].map(([a, b]) => `<circle cx="${a}" cy="${b}" r="2.6" fill="${K.lc}"/>`).join('') : ''}
   ${arr(72, y, 94, y, 'mv')}
+  <text x="83" y="${y - 26}" class="tiny" text-anchor="middle">замыкание</text>
   <circle cx="122" cy="${y}" r="22" fill="${s.ap >= 1 ? K.apF : '#F8FAFC'}" stroke="${s.ap >= 1 ? K.ap : '#CBD5E1'}" stroke-width="2"/><circle cx="122" cy="${y}" r="16" fill="none" stroke="${s.ap >= 1 ? K.ap : '#CBD5E1'}" stroke-width="1.4"/>
   ${arr(150, y, 172, y, 'mv')}
   <circle cx="204" cy="${y}" r="24" fill="${s.al >= 1 ? K.alF : '#F8FAFC'}" stroke="${s.al >= 1 ? K.al : '#CBD5E1'}" stroke-width="2"/>
@@ -4217,7 +4248,7 @@ return {id: 'S212', order: 12, title: 'аутофагический поток �
   draw: signalLayer, zoom: zoomSVG,
   legend: [['<path d="M2 6h22" stroke="#0E7490" stroke-width="2"/><path d="M22 2l6 4l-6 4z" fill="#0E7490"/><circle cx="12" cy="6" r="4" fill="#E11D48"/>', 'фосфорилирование (катализ)'],
     ['<path d="M2 6h22" stroke="#7C3AED" stroke-width="2" stroke-dasharray="3 3"/><path d="M22 2l6 4l-6 4z" fill="#7C3AED"/>', 'созревание / слияние'],
-    ['<circle cx="15" cy="6" r="5" fill="#FEF08A" stroke="#CA8A04"/>', 'аутофагосома (не кислая)'], ['<circle cx="15" cy="6" r="5" fill="#FECACA" stroke="#DC2626"/>', 'аутолизосома (кислая)'],
+    ['<path d="M18.5 2.5 A5 5 0 1 0 18.5 9.5" fill="none" stroke="#CA8A04" stroke-width="2"/>', 'фагофор (мембрана не замкнута)'], ['<circle cx="15" cy="6" r="5" fill="#FEF08A" stroke="#CA8A04"/>', 'аутофагосома (замкнута, не кислая)'], ['<circle cx="15" cy="6" r="5" fill="#FECACA" stroke="#DC2626"/>', 'аутолизосома (кислая)'],
     ['<circle cx="15" cy="6" r="3" fill="#1D4ED8"/>', 'LC3-Ⅱ'], ['<circle cx="15" cy="6" r="3" fill="#15803D"/>', 'PI3P']]};
 })();
 
@@ -4354,11 +4385,12 @@ const PH = [
   win: ['HeLa с избыточным Parkin', 'Удаление MFN1/2 и TOMM20 протеасомой при заблокированной митофагии показано в клетках HeLa с избыточным Parkin; в нейронах с эндогенным Parkin VDAC чаще остаётся на мембране как метка. Доля белков, разрушаемых независимо от митофагии, в источниках оценивается по-разному.']},
  {id: 'P7', short: 'OPTN и NDP52', sig: 1, time: 'часы',
   title: 'Рецепторы строят аутофагосому у метки',
-  what: 'Рецепторы OPTN и NDP52 связывают цепи с pS65-Ub и привлекают ULK1, FIP200, DFCP1 и WIPI1 к участкам у митохондрии ещё до присоединения LC3.',
-  how: 'NDP52 связывает FIP200 доменом SKICH; поэтому аппарат инициации собирается прямо на грузе, выше по цепи, чем связывание LC3.',
-  next: 'Фагофор замыкается вокруг помеченной митохондрии.',
+  what: 'Рецепторы OPTN и NDP52 связывают убиквитиновые цепи с pS65-Ub. NDP52 через домен SKICH связывает FIP200, а киназа TBK1 облегчает эту связь. В результате комплекс ULK1–FIP200 накапливается у мембраны митохондрии, и ULK1 активируется там (нужна её киназная активность). Затем образуется PI3P, который связывают DFCP1 и WIPI1; эти белки появляются у метки ещё до присоединения LC3.',
+  how: 'Аппарат инициации собирается прямо на грузе, выше по цепи, чем связывание LC3. Это локальный запуск, а не снятие общего тормоза во всей клетке: при принудительном закреплении белков на митохондрии он происходил и при избытке mTOR, сохранявшем фосфорилирование ULK1 по S757, и в клетках без AMPK.',
+  next: 'Фагофор растёт вокруг помеченной митохондрии и замыкается; замыкание — отдельное событие, как и в общем пути аутофагии.',
   exp: 'Нокаут пяти рецепторов: Parkin приходит, но ULK1 к митохондрии не привлекается; возврат OPTN или NDP52 восстанавливает привлечение.',
   st: 'F', src: ['Lazarou2015', 'Vargas2019'],
+  win: ['клетки человека (HeLa с Parkin; U2OS)', 'Привлечение ULK1 рецепторами до присоединения LC3 показано в клетках HeLa с Parkin (Lazarou 2015); локальный запуск ULK1 при принудительном закреплении на митохондрии — в клетках человека, независимость от AMPK проверена в линии U2OS (Vargas 2019).'],
   concepts: ['C12.receptor', 'C11.ulk1'], edges: ['E266', 'E268'], route: RT4, sem: SEM},
  {id: 'P8', short: 'В лизосому', sig: 1, time: 'часы',
   title: 'Слияние и доставка в кислый отсек',
@@ -4536,6 +4568,9 @@ return {id: 'S213', order: 13, title: 'митохондрия без потен�
    галектин-3 при крупном повреждении → ATG8 на мембране (CASM) → убиквитин и TAX1BP1 → лизофагия → TFEB и восстановление пула.
    Научный паспорт: s2/cellkit/science/S214_passport.md. Данные — HeLa при импульсе LLOMe и почка мыши (окно в другую клетку). */
 Object.assign(SRC, {
+  BonetPonce2020: ['Bonet-Ponce L. и др. 2020. LRRK2 mediates tubulation and vesicle sorting from lysosomes. Sci Adv', '10.1126/sciadv.abb2454'],
+  BonetPonce2022: ['Bonet-Ponce L., Cookson M. R. 2022. The endoplasmic reticulum contributes to lysosomal tubulation/sorting driven by LRRK2. Mol Biol Cell', '10.1091/mbc.E22-04-0139'],
+  BonetPonce2025: ['Bonet-Ponce L. и др. 2025. JIP4 and RILPL1 utilize opposing motor force to dynamically regulate lysosomal tubulation. J Cell Biol', '10.1083/jcb.202404018'],
   MeyerKravic2024: ['Meyer H., Kravic B. 2024. The endo-lysosomal damage response. Annu Rev Biochem', '10.1146/annurev-biochem-030222-102505'],
   Medina2015: ['Medina D. L. и др. 2015. Lysosomal calcium signalling regulates autophagy through calcineurin and TFEB. Nat Cell Biol', '10.1038/ncb3114'],
   Skowyra2018: ['Skowyra M. L. и др. 2018. Triggered recruitment of ESCRT machinery promotes endolysosomal repair. Science', '10.1126/science.aar5078'],
@@ -4571,7 +4606,7 @@ Object.assign(MSCHEME, {
 });
 ABBR_X.push(
   ['LLOMe', 'L-лейцил-L-лейцин метиловый эфир — вещество, повреждающее лизосомную мембрану изнутри'],
-  ['ESCRT', 'комплексы сортировки, ремонтирующие мембрану повреждённой лизосомы'],
+  ['ESCRT', 'комплексы белков, разделяющие и герметизирующие мембраны; участвуют в ремонте мембраны повреждённой лизосомы и (по данным для клеток HeLa) в замыкании фагофора'],
   ['TFEB', 'транскрипционный фактор программы лизосомного и аутофагического биогенеза'],
   ['LC3', 'белок семейства ATG8, присоединяемый к мембранам', 'LC3(?!-)'],
   ['TAX1BP1', 'рецептор селективной аутофагии, необходимый для лизофагии'],
@@ -4597,11 +4632,11 @@ const WIN = ['HeLa при импульсе LLOMe; эпителий почечн�
 const PH = [
  {id: 'P0', short: 'TFEB в цитозоле', sig: 0, time: 'до повреждения',
   title: 'Неповреждённая лизосома',
-  what: 'В просвете pH около 4,5–5, много Ca²⁺ и гидролаз; гликаны внутренней стороны мембраны недоступны белкам цитозоля. TFEB фосфорилирован и удерживается в цитозоле белками 14-3-3.',
-  how: 'Лизосомный mTORC1 фосфорилирует TFEB; фосфорилированный TFEB связан с 14-3-3 и не входит в ядро. Программа биогенеза выключена.',
+  what: 'В просвете pH около 4,5–5, много Ca²⁺ и гидролаз; гликаны внутренней стороны мембраны недоступны белкам цитозоля. TFEB фосфорилирован, и основная его часть удерживается в цитозоле белками 14-3-3.',
+  how: 'Лизосомный mTORC1 фосфорилирует TFEB по S211, и с фосфо-S211 связываются белки 14-3-3. Обмен TFEB с ядром при этом не прекращается, но доля ядерного белка невелика, поэтому экспрессия генов биогенеза лизосом остаётся низкой.',
   next: 'Пока мембрана цела, ответа на повреждение нет.',
   exp: 'Иммунофлуоресценция TFEB (цитозоль); LysoTracker (кислая среда сохранена).',
-  st: 'F', src: ['MeyerKravic2024', 'Medina2015'],
+  st: 'F', src: ['MeyerKravic2024', 'Medina2015', 'Napolitano2018'],
   concepts: ['C7.tfeb', 'C7.mtorc1'], edges: ['E203'], route: R2, sem: SEM, win: WIN},
  {id: 'P1', short: 'LLOMe в лизосоме', sig: 1, time: 'минуты',
   title: 'Повреждение мембраны изнутри',
@@ -4659,13 +4694,13 @@ const PH = [
   exp: 'Поток лизофагии (убыль меченых лизосом); подавление зависит от TAX1BP1 и от конъюгации LC3.',
   st: 'F', src: ['Maejima2013'],
   concepts: ['C12.lysophagy'], edges: ['E270', 'E271'], route: R4, sem: SEM, win: WIN},
- {id: 'P8', short: 'TFEB в ядро', sig: 1, time: 'часы',
-  title: 'Восстановление пула лизосом',
-  what: 'Конъюгация LC3 на мембране повреждённой лизосомы необходима для активации TFEB (Nakamura 2020); участие Ca²⁺ и кальциневрина при повреждении LLOMe — вывод модели. TFEB переходит в ядро и включает гены лизосомных белков.',
-  how: 'mTORC1 отходит от лизосомы, Ca²⁺ активирует кальциневрин, а LC3 на мембране усиливает выход Ca²⁺. Дефосфорилированный TFEB входит в ядро; биогенез занимает часы.',
-  next: 'Пул лизосом восстановлен; ответ на повреждение завершён.',
+ {id: 'P8', short: 'TFEB и пул лизосом', sig: 1, time: 'часы',
+  title: 'TFEB и восстановление пула лизосом',
+  what: 'Конъюгация LC3 на мембране повреждённой лизосомы необходима для активации TFEB (Nakamura 2020); участие Ca²⁺ и кальциневрина при повреждении LLOMe — вывод модели. TFEB дефосфорилируется, его экспорт из ядра ослабевает, доля ядерного белка растёт, и он включает гены лизосомных белков.',
+  how: 'mTORC1 отходит от лизосомы, Ca²⁺ активирует кальциневрин, а LC3 на мембране усиливает выход Ca²⁺. Ядерное положение TFEB обратимо: когда лизосома восстановлена и mTORC1 вернулся на мембрану, экспорт (NES, S142 и S138, XPO1) ускоряется, и TFEB, связавшись с RagC/D–GDP, вновь фосфорилируется лизосомным mTORC1 по S211. Скорость этих переходов при повреждении прямо не измеряли. Биогенез занимает часы. Пул лизосом восстанавливают и другие программы. LYTL перераспределяет мембрану повреждённой лизосомы: LRRK2 фосфорилирует RAB, pRAB привлекают адаптеры JIP4 и RILPL1, которые действуют в противоположных направлениях: JIP4 связан с удлинением трубочки к плюс-концам микротрубочек, RILPL1 — с её ретракцией к минус-концам (какой мотор удлиняет трубочку, не установлено; данные получены на клетках после LLOMe). ALR отделяет протолизосомы от аутолизосом.',
+  next: 'Лизосомы удалены, отремонтированы или восстановлены; роль путей в тканях неясна.',
   exp: 'Иммунофлуоресценция ядерного TFEB; без системы конъюгации LC3 активация нарушена.',
-  st: 'V', src: ['Nakamura2020', 'Medina2015'],
+  st: 'V', src: ['Nakamura2020', 'Medina2015', 'Napolitano2018', 'BonetPonce2020', 'BonetPonce2025', 'BonetPonce2022'],
   concepts: ['C7.tfeb'], edges: ['E272', 'E208'], route: R5, sem: SEM, win: WIN}
 ];
 const VARS = {
@@ -4780,7 +4815,7 @@ function signalLayer(s, cond) {
     L.push(`<g class="hot" data-ph="8" tabindex="0" role="button" aria-label="TFEB в ядро: этап 8">
       <circle cx="${far ? 582 : CX - 60}" cy="${far ? 300 : CY + 46}" r="7" fill="#B45309"/>
       ${far ? `<path d="M${CX - 70} ${CY + 40} C 650 330 620 310 592 302" fill="none" stroke="#B45309" stroke-width="2" stroke-dasharray="3 4" marker-end="url(#mvF)"/>` : ''}
-      <text x="${far ? 578 : CX - 50}" y="${far ? 284 : CY + 50}" class="lbs" text-anchor="${far ? 'end' : 'start'}" fill="#B45309">TFEB${far ? ' в ядро' : ''}</text></g>`); }
+      <text x="${far ? 578 : CX - 50}" y="${far ? 284 : CY + 50}" class="lbs" text-anchor="${far ? 'end' : 'start'}" fill="#B45309">TFEB${far ? ' ↑ в ядре' : ''}</text></g>`); }
   return L.join('');
 }
 function locusSVG(s, cond) {
@@ -4804,7 +4839,7 @@ function locusSVG(s, cond) {
   ${meter(12, 260, s.tfebN, '#B45309', 'TFEB в ядре')}
   <text x="12" y="290" class="tiny" fill="#64748B">шкала качественная; строки между собой не сравнивают</text></svg>`;
 }
-return {id: 'S214', order: 14, title: 'повреждённая лизосома: ремонт, лизофагия, TFEB', q: 'Когда гепатоцит лизосому ремонтирует, когда удаляет и как восстанавливает их число?',
+return {id: 'S214', order: 14, title: 'повреждённая лизосома: ремонт, лизофагия, TFEB', q: 'Когда гепатоцит лизосому ремонтирует, когда удаляет и какими путями восстанавливает пул лизосом?',
   sem: 'семинар 12 (вопрос 12.3)', input: 'повреждение мембраны (LLOMe)', route: null, marker: [716, 280],
   zoomTitle: 'Лизосома', hidden: 'Состояние образца скрыто',
   PH, VARS, TRACKVARS, defTracks: ['perm', 'gal', 'tfebN'], CTL, IV, VARY, METH, TASKS, CONCEPT_PHASE, EDGE_PHASE, CLABEL,
@@ -4814,13 +4849,18 @@ return {id: 'S214', order: 14, title: 'повреждённая лизосома
     ['<circle cx="15" cy="6" r="4.5" fill="#7C3AED"/>', 'галектин-3 (крупное повреждение)'],
     ['<circle cx="15" cy="6" r="4.5" fill="#0F766E"/>', 'LC3 на мембране (CASM)'],
     ['<circle cx="15" cy="6" r="4.5" fill="#CA8A04"/>', 'убиквитин и TAX1BP1'],
-    ['<circle cx="15" cy="6" r="5" fill="#B45309"/>', 'TFEB']]};
+    ['<circle cx="15" cy="6" r="5" fill="#B45309"/>', 'TFEB (постоянно перемещается между ядром и цитозолем)']]};
 })();
 
 /* S215: гепатоцит, α1-антитрипсин в ЭПР — выбор маршрута. Несвёрнутый NHK: калнексин → отщепление маннозы → HRD1/SEL1L →
    p97 → протеасома (ERAD). Полимеры α1-антитрипсина Z (ATZ) не выводятся в цитозоль: FAM134B и везикулы → лизосома (ERLAD) и аутофагия.
    Научный паспорт: s2/cellkit/science/S215_passport.md. Лизосомный путь ATZ описан в HEK293 и MEF — окно в другую клетку. */
 Object.assign(SRC, {
+  Wu2020: ['Wu X. и др. 2020. Structural basis of ER-associated protein degradation mediated by the Hrd1 ubiquitin ligase complex. Science', '10.1126/science.aaz2449'],
+  Baldridge2016: ['Baldridge R. D., Rapoport T. A. 2016. Autoubiquitination of the Hrd1 ligase triggers protein retrotranslocation in ERAD. Cell', '10.1016/j.cell.2016.05.048'],
+  Vasic2020: ['Vasic V. и др. 2020. Hrd1 forms the retrotranslocation pore regulated by auto-ubiquitination and binding of misfolded proteins. Nat Cell Biol', '10.1038/s41556-020-0473-4'],
+  Schoebel2017: ['Schoebel S. и др. 2017. Cryo-EM structure of the protein-conducting ERAD channel Hrd1 in complex with Hrd3. Nature', '10.1038/nature23314'],
+  Wang2025: ['Wang H. H., Biunno I., Sun S., Qi L. 2025. SEL1L–HRD1-mediated ERAD in mammals. Nat Cell Biol', '10.1038/s41556-025-01690-1'],
   RuizCanada2009: ['Ruiz-Canada C., Kelleher D. J., Gilmore R. 2009. Cotranslational and posttranslational N-glycosylation of polypeptides by distinct mammalian OST isoforms. Cell', '10.1016/j.cell.2008.11.047'],
   Guay2025: ['Guay K. P. и др. 2025. N-glycan-dependent protein maturation and quality control in the ER. Nat Rev Mol Cell Biol', '10.1038/s41580-025-00855-y'],
   Hebert1995: ['Hebert D. N., Foellmer B., Helenius A. 1995. Glucose trimming and reglucosylation determine glycoprotein association with calnexin in the endoplasmic reticulum. Cell', '10.1016/0092-8674(95)90395-x'],
@@ -4860,10 +4900,10 @@ ABBR_X.push(
   ['ATZ', 'полимеры α1-антитрипсина Z, не выводимые в цитозоль'],
   ['ERAD', 'деградация, связанная с ЭПР: выведение дефектного белка в цитозоль и распад протеасомой'],
   ['ERLAD', 'путь из ЭПР в лизосому для устойчивых к протеасоме агрегатов', 'ERLAD'],
-  ['HRD1', 'убиквитинлигаза E3 мембраны ЭПР (в комплексе с SEL1L)'],
+  ['HRD1', 'убиквитинлигаза E3 мембраны ЭПР; вместе с SEL1L и, вероятно, белками Derlin образует мембранный комплекс, через который цепь субстрата переходит в цитозоль'],
   ['SEL1L', 'белок комплекса HRD1, принимающий субстрат от OS-9'],
   ['OS-9', 'лектин, узнающий открытую α1,6-маннозу и передающий белок на ERAD', 'OS-9'],
-  ['p97', 'ATPаза p97 (VCP): вытягивает убиквитинированный белок из мембраны', 'p97'],
+  ['p97', 'АТФаза p97 (VCP): после убиквитинирования первого участка цепи извлекает остальной белок из мембраны за счёт гидролиза ATP', 'p97'],
   ['NGLY1', 'N-гликаназа цитозоля, снимающая гликан перед протеасомой'],
   ['FAM134B', 'рецептор ЭПР, привлекающий аппарат присоединения LC3 к полимерам'],
   ['STX17', 'белок слияния везикул ЭПР с эндолизосомами (синтаксин-17)'],
@@ -4902,19 +4942,20 @@ const PH = [
   concepts: ['C11.calnexin'], edges: [], route: RC, sem: E11},
  {id: 'P2', short: 'Отщепление маннозы', sig: 1, time: 'медленно',
   title: 'Маннозный сигнал ERAD',
-  what: 'Медленно отщепляются маннозы (первая — EDEM2 с TXNDC11); открытую α1,6-маннозу узнаёт OS-9 и передаёт белок комплексу SEL1L–HRD1.',
+  what: 'Медленно отщепляются маннозы (первую отщепляет EDEM2 с TXNDC11); на гликане открывается α1,6-манноза, которую узнают лектины OS-9 и XTP3-B в просвете ЭПР. Через SEL1L они передают субстрат мембранному комплексу HRD1, с которого начинается перенос цепи в цитозоль; сами лектины через мембрану не проходят.',
   how: 'Быстрый цикл глюкозы даёт попытки свернуться, а медленное отщепление маннозы ограничивает время в ЭПР: это «таймер» контроля качества.',
-  next: 'HRD1 начинает выведение белка в цитозоль.',
+  next: 'Мембранный комплекс HRD1 начинает перенос цепи в цитозоль.',
   exp: 'Кифунензин (ингибитор маннозидаз) останавливает распад несвёрнутого белка.',
-  st: 'F', src: ['Ninagawa2014', 'Hosokawa2009', 'Christianson2008'],
+  st: 'F', src: ['Ninagawa2014', 'Hosokawa2009', 'Christianson2008', 'Guay2025'],
   concepts: ['C11.erad'], edges: ['E257'], route: RM, sem: E11},
  {id: 'P3', short: 'Выведение и p97', sig: 1, time: 'время не указано (учебная последовательность)',
-  title: 'Ретротранслокация и извлечение',
-  what: 'HRD1 с ферментами E2 убиквитинирует участок, вышедший в цитозоль, а p97 с UFD1–NPL4 связывает цепь и вытягивает белок из мембраны за счёт ATP.',
-  how: 'Канал в мембране ЭПР образуют трансмембранные части HRD1, DERL2 и HERP (вероятная модель); p97 протягивает и разворачивает белок.',
+  title: 'Ретротранслокация первого участка и извлечение белка с помощью p97',
+  what: 'Развёрнутая петля субстрата проходит через мембранный комплекс HRD1 (в структурах дрожжей — вместе с Der1: два «полуканала», обращённые в просвет ЭПР и в цитозоль), и первый участок цепи оказывается в цитозоле ещё до работы p97. На нём HRD1 с ферментами E2 строит цепь убиквитина; затем p97 с UFD1–NPL4 связывает убиквитиновую цепь и за счёт гидролиза ATP извлекает остальной белок из мембраны.',
+  how: 'Перенос люминального домена субстрата запускает аутоубиквитинирование HRD1 (реконструкция из белков дрожжей; Cdc48/p97 для этого этапа не нужен). Участие DERL1–3 и HERP в канале млекопитающих предполагают по сходству с дрожжевыми белками, и состав канала зависит от субстрата.',
   next: 'В цитозоле белок теряет гликан и расщепляется.',
   exp: 'Ингибитор p97 (CB-5083) удерживает субстрат связанным с мембраной.',
-  st: 'F', src: ['Christianson2008', 'Bodnar2017', 'Anderson2015'],
+  st: 'F', src: ['Christianson2008', 'Bodnar2017', 'Anderson2015', 'Wu2020', 'Baldridge2016', 'Vasic2020', 'Schoebel2017', 'Christianson2023', 'Wang2025'],
+  win: ['белки дрожжей (структуры, реконструкция); клетки человека', 'Структуры Hrd1–Der1 и Hrd1–Hrd3 и запуск ретротранслокации аутоубиквитинированием описаны для белков дрожжей (Wu 2020; Schoebel 2017; Baldridge 2016; Vasic 2020); у млекопитающих состав канала и порядок событий предполагаются по сходству и зависят от субстрата (Christianson 2023; Wang 2025).'],
   concepts: ['C11.erad', 'C11.ub'], edges: ['E255'], route: RE, sem: E11},
  {id: 'P4', short: 'Протеасома', sig: 1, time: 'время не указано (учебная последовательность)',
   title: 'Дегликозилирование и расщепление',

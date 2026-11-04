@@ -251,7 +251,7 @@ input[type=range]{accent-color:var(--u-ui)}
   <p>Все механизмы разбираются в одной и той же клетке печени — гепатоците. У каждого пункта три режима. «Проследить»: путь воздействия по этапам. «Изменить условия»: одно вмешательство в сравнении с контролем. «Найти причину»: состояние образца скрыто, причину ищут по результатам выбранных измерений. Если механизм изучен в другой клетке, это подписано как «окно в другую клетку».</p>
   <p>Уровни величин качественные; числа приведены только там, где они взяты из первоисточника. У каждого состояния модели есть статус: <span class="st F">Ф</span> измерено в указанной системе, <span class="st V">В</span> вывод из измеренного, <span class="st M">М</span> допущение учебной модели. Система, в которой получены данные, указана в паспорте каждого этапа.</p>
  </div>
- <p class="ver">Версия 2.6, 29 октября 2026 г.</p>
+ <p class="ver">Версия 2.7, 4 ноября 2026 г.</p>
  <footer class="foot">© 2026 Кафедра биологии и генетики, Медицинский университет Петровского. Учебные материалы курса «Молекулярная биология» (5–6 семестры). При использовании ссылка на кафедру обязательна.
 <!--views:start-->
 <div id="gc-views" title="Всего просмотров страниц сайта" aria-label="Всего просмотров страниц сайта" style="display:none;justify-content:flex-end;align-items:center;gap:6px;margin-top:8px">
@@ -298,6 +298,30 @@ const SRC = {
   Treyer2013: ['Treyer A., Müsch A. 2013. Hepatocyte polarity. Compr Physiol', '10.1002/cphy.c120009'],
   Hall2000: ['Hall R. K. и др. 2000. Regulation of phosphoenolpyruvate carboxykinase and insulin-like growth factor-binding protein-1 gene expression by insulin. The role of winged helix/forkhead proteins. J Biol Chem', '10.1074/jbc.M004898200']
 };
+/* Источники, добавленные при согласовании с исправленными семинарами 2–8 (правки класса B, 30.10.2026). */
+Object.assign(SRC, {
+  Zhou2013: ['Zhou Y. и др. 2013. Initial activation of STIM1, the regulator of store-operated calcium entry. Nat Struct Mol Biol', '10.1038/nsmb.2625'],
+  Fahrner2014: ['Fahrner M. и др. 2014. A coiled-coil clamp controls both conformation and clustering of stromal interaction molecule 1 (STIM1). J Biol Chem', '10.1074/jbc.M114.610022'],
+  Korzeniowski2017: ['Korzeniowski M. K. и др. 2017. Molecular anatomy of the early events in STIM1 activation - oligomerization or conformational change? J Cell Sci', '10.1242/jcs.205583'],
+  Beals1997: ['Beals C. R. и др. 1997. Nuclear export of NF-ATc enhanced by glycogen synthase kinase-3. Science', '10.1126/science.275.5308.1930'],
+  ZhuMcKeon1999: ['Zhu J., McKeon F. 1999. NF-AT activation requires suppression of Crm1-dependent export by calcineurin. Nature', '10.1038/18473'],
+  Gwack2006: ['Gwack Y. и др. 2006. A genome-wide Drosophila RNAi screen identifies DYRK-family kinases as regulators of NFAT. Nature', '10.1038/nature04631'],
+  Okamura2000: ['Okamura H. и др. 2000. Concerted dephosphorylation of the transcription factor NFAT1 induces a conformational switch that regulates transcriptional activity. Mol Cell', '10.1016/S1097-2765(00)00053-8'],
+  Vogel2015: ['Vogel G. F. и др. 2015. Cargo-selective apical exocytosis in epithelial cells is conducted by Myo5B, Slp4a, Vamp7, and Syntaxin 3. J Cell Biol', '10.1083/jcb.201506112'],
+  Winger2018: ['Winger J. и др. 2018. A twist defect mechanism for ATP-dependent translocation of nucleosomal DNA. eLife', '10.7554/eLife.34100'],
+  Jang2005: ['Jang M. K. и др. 2005. The bromodomain protein Brd4 is a positive regulatory component of P-TEFb and stimulates RNA polymerase II-dependent transcription. Mol Cell', '10.1016/j.molcel.2005.06.027'],
+  Yang2005: ['Yang Z. и др. 2005. Recruitment of P-TEFb for stimulation of transcriptional elongation by the bromodomain protein Brd4. Mol Cell', '10.1016/j.molcel.2005.06.029'],
+  Lito2012: ['Lito P. и др. 2012. Relief of profound feedback inhibition of mitogenic signaling by RAF inhibitors attenuates their activity in BRAFV600E melanomas. Cancer Cell', '10.1016/j.ccr.2012.10.009'],
+  Davidson2023: ['Davidson I. F. и др. 2023. CTCF is a DNA-tension-dependent barrier to cohesin-mediated loop extrusion. Nature', '10.1038/s41586-023-05961-5'],
+  Thiecke2020: ['Thiecke M. J. и др. 2020. Cohesin-dependent and -independent mechanisms mediate chromosomal contacts between promoters and enhancers. Cell Rep', '10.1016/j.celrep.2020.107929'],
+  Harrison2016: ['Harrison J. S. и др. 2016. Hemi-methylated DNA regulates DNA methylation inheritance through allosteric activation of H3 ubiquitylation by UHRF1. eLife', '10.7554/eLife.17101'],
+  Ishiyama2017: ['Ishiyama S. и др. 2017. Structure of the Dnmt1 reader module complexed with a unique two-mono-ubiquitin mark on histone H3 reveals the basis for DNA methylation maintenance. Mol Cell', '10.1016/j.molcel.2017.09.037'],
+  Li2018: ['Li T. и др. 2018. Structural and mechanistic insights into UHRF1-mediated DNMT1 activation in the maintenance DNA methylation. Nucleic Acids Res', '10.1093/nar/gky104'],
+  Nishiyama2020: ['Nishiyama A. и др. 2020. Two distinct modes of DNMT1 recruitment ensure stable maintenance DNA methylation. Nat Commun', '10.1038/s41467-020-15006-4'],
+  Arita2008: ['Arita K. и др. 2008. Recognition of hemi-methylated DNA by the SRA protein UHRF1 by a base-flipping mechanism. Nature', '10.1038/nature07249'],
+  Zhang2017: ['Zhang C.-S. и др. 2017. Fructose-1,6-bisphosphate and aldolase mediate glucose sensing by AMPK. Nature', '10.1038/nature23275'],
+  Li2019: ['Li M. и др. 2019. Transient receptor potential V channels are essential for glucose sensing by aldolase and AMPK. Cell Metab', '10.1016/j.cmet.2019.05.018']
+});
 const STL = {F: ['Ф', 'Измерено в указанной системе'], V: ['В', 'Вывод из измеренного'], M: ['М', 'Допущение учебной модели']};
 
 /* ---------- этапы механизма */
@@ -430,6 +454,9 @@ Object.assign(SRC, {
   Traverse1992: ['Traverse S. и др. 1992. Sustained activation of the mitogen-activated protein (MAP) kinase cascade may be required for differentiation of PC12 cells. Comparison of the effects of nerve growth factor and epidermal growth factor. Biochem J', '10.1042/bj2880351'],
   Dougherty2005: ['Dougherty M. K. и др. 2005. Regulation of Raf-1 by direct feedback phosphorylation. Mol Cell', '10.1016/j.molcel.2004.11.055'],
   Saha2012: ['Saha M. и др. 2012. RSK phosphorylates SOS1 creating 14-3-3-docking sites and negatively regulating MAPK activation. Biochem J', '10.1042/BJ20120938'],
+  Park2019: ['Park E. и др. 2019. Architecture of autoinhibited and active BRAF-MEK1-14-3-3 complexes. Nature', '10.1038/s41586-019-1660-y'],
+  Park2023: ['Park E. и др. 2023. Cryo-EM structure of a RAS/RAF recruitment complex. Nat Commun', '10.1038/s41467-023-40299-6'],
+  MartinezFiesco2022: ['Martinez Fiesco J. A. и др. 2022. Structural insights into the BRAF monomer-to-dimer transition mediated by RAS binding. Nat Commun', '10.1038/s41467-022-28084-3'],
   Murphy2002: ['Murphy L. O. и др. 2002. Molecular interpretation of ERK signal duration by immediate early gene products. Nat Cell Biol', '10.1038/ncb822'],
   Macian2001: ['Macián F., López-Rodríguez C., Rao A. 2001. Partners in transcription: NFAT and AP-1. Oncogene (обзор)', '10.1038/sj.onc.1204386'],
   Ekerot2008: ['Ekerot M. и др. 2008. Negative-feedback regulation of FGF signalling by DUSP6/MKP-3 is driven by ERK1/2 and mediated by Ets factor binding to a conserved site within the DUSP6/MKP-3 gene promoter. Biochem J', '10.1042/BJ20071512'],
@@ -496,17 +523,18 @@ const PH = [
   title: 'SOS1 переводит RAS в GTP-форму, GAP возвращают его в GDP-форму',
   what: 'Доля RAS-GTP растёт: SOS1 ускоряет замену GDP на GTP, а GAP (p120GAP, нейрофибромин) продолжают ускорять гидролиз GTP.',
   how: 'Обмен идёт в сторону GTP, потому что в цитозоле GTP намного больше, чем GDP. Доля активной формы определяется отношением скоростей обмена и гидролиза.',
-  next: 'RAS-GTP связывает RAF и привлекает её к мембране.',
-  exp: 'RBD pull-down с блотом на RAS; общий RAS в том же лизате — контроль нанесения.',
-  st: 'V', src: ['Cherfils2013', 'Scheffzek1997', 'deRooij1997'],
+  next: 'RAS-GTP связывает RBD автоингибированной RAF (в комплексе с 14-3-3) и удерживает её у мембраны. Само связывание киназу не включает: RAF фосфорилирует MEK лишь на следующем этапе, после раскрытия этого комплекса, дефосфорилирования ингибирующего участка и образования димера.',
+  exp: 'RBD pull-down с блотом на RAS; общий RAS в том же лизате — контроль нанесения. Метод выявляет RAS-GTP, но не активную киназу RAF: её активность оценивают по pMEK.',
+  st: 'V', src: ['Cherfils2013', 'Scheffzek1997', 'deRooij1997', 'Park2019', 'Park2023', 'MartinezFiesco2022'],
   concepts: ['C3.ras'], edges: [], route: ['seminar-3-route.html#ns-gef-gap', 'Семинар 3 · как GEF и GAP задают долю активной формы'], sem: ['seminar-3.html#q3', 'Семинар 3, вопрос 3.3']},
  {id: 'P3', short: 'Пик pERK', sig: 1, time: 'минуты; в клетках PC12 активность MEK максимальна через 2 мин после EGF',
   title: 'RAF → MEK → ERK: сигнал усиливается, ERK входит в ядро',
-  what: 'RAF у мембраны фосфорилирует MEK, MEK — ERK по T202 и Y204. Доля pERK максимальна; часть ERK переходит в ядро, и начинается транскрипция гена немедленного ответа c-fos.',
-  how: 'Каждая активная киназа фосфорилирует много молекул следующей, поэтому сигнал усиливается. RAF, привязанная к мембране искусственно, активна и без RAS: RAS-GTP служит её мембранным якорем.',
+  what: 'Активный димер RAF у мембраны фосфорилирует MEK, MEK — ERK по T202 и Y204. Доля pERK максимальна; часть ERK переходит в ядро, и начинается транскрипция гена немедленного ответа c-fos.',
+  how: 'Каждая активная киназа фосфорилирует много молекул следующей, поэтому сигнал усиливается. Связывания с RAS-GTP для активации RAF недостаточно: у мембраны комплекс RAF с 14-3-3 раскрывается, ингибирующий фосфосерин дефосфорилируется, и два протомера образуют активный димер. В клетках искусственное закрепление RAF на мембране делает активацию RAF независимой от RAS (Leevers 1994; Stokoe 1994): связывание с RAS-GTP нужно прежде всего для привлечения RAF к мембране, где идут остальные шаги активации.',
   next: 'Активная ERK фосфорилирует и белки, которые тормозят верхние звенья каскада, поэтому присутствие EGF само по себе не гарантирует длительной активности ERK.',
   exp: 'Блот pMEK и pERK (T202/Y204) в серии точек времени; репортёр активности ERK в отдельных клетках.',
-  st: 'F', src: ['Talarmin1999', 'Leevers1994', 'Stokoe1994', 'Traverse1992', 'Schmiedeberg1993'],
+  st: 'F', src: ['Talarmin1999', 'Leevers1994', 'Stokoe1994', 'Traverse1992', 'Schmiedeberg1993', 'Park2019', 'Park2023'],
+  win: ['очищенные комплексы BRAF и клетки', 'Последовательность активации RAF (раскрытие комплекса с 14-3-3, дефосфорилирование ингибирующего участка, димеризация «спина к спине») получена для BRAF человека на очищенных комплексах методом крио-ЭМ и в реконструкции in vitro (Park 2019; Park 2023); механизм раскрытия комплекса у мембраны остаётся моделью. В гепатоците эта последовательность не проверялась.'],
   concepts: ['C4.mapk', 'C3.ras'], edges: ['E020', 'E021', 'E037'], route: ['seminar-4-route.html#ns-cascade', 'Семинар 4 · как устроен каскад RAS → RAF → MEK → ERK'], sem: ['seminar-4.html#q1', 'Семинар 4, вопрос 4.1']},
  {id: 'P4', short: 'Быстрая обратная связь', sig: 1, time: 'этап (без числа)',
   title: 'ERK тормозит RAF-1, а через RSK — SOS1',
@@ -536,11 +564,11 @@ const PH = [
  {id: 'P7', short: 'Медленная петля: DUSP', sig: 1, time: 'десятки минут — часы',
   title: 'Накопились фосфатазы DUSP: pERK снижается при сохраняющемся EGF',
   what: 'Фосфатазы DUSP, синтез которых индуцировала ERK, дефосфорилируют её; pERK низкий, транскрипция c-fos почти прекратилась, а стабилизированный c-Fos сохраняется.',
-  how: 'ERK через факторы Ets запускает транскрипцию гена DUSP6; накопившийся белок дефосфорилирует ERK. Эта петля требует синтеза белка, поэтому действует позже быстрой.',
+  how: 'ERK индуцирует транскрипцию генов DUSP (для DUSP6 — через факторы Ets) и SPRY. Накопившиеся DUSP дефосфорилируют ERK, а SPRY тормозят вход на уровне RAS: они связывают GRB2 и мешают комплексу GRB2–SOS присоединяться к рецепторам. Эта петля требует синтеза белка, поэтому действует позже быстрой.',
   next: 'Ответ ослабевает, но не до исходного уровня — адаптация неполная. Положительная обратная связь (в PC12 при NGF — через PKC) удлинила бы сигнал; в модели её нет.',
   exp: 'Блот DUSP и pERK в поздних точках; циклогексимид, подавляющий синтез белка, выключает медленную петлю, но не быструю.',
   st: 'V', src: ['Ekerot2008', 'Lavoie2020', 'Santos2007'],
-  win: ['клеточные линии и эмбрион курицы', 'ERK-зависимая транскрипция гена DUSP6 через фактор Ets показана в клеточных линиях и в нервной пластинке эмбриона курицы (Ekerot 2008); в гепатоците медленная петля не измерялась.'],
+  win: ['клеточные линии и эмбрион курицы', 'ERK-зависимая транскрипция гена DUSP6 через фактор Ets показана в клеточных линиях и в нервной пластинке эмбриона курицы (Ekerot 2008); в гепатоците медленная петля не измерялась. SPRY в модели отдельной величиной не выделены: их вклад объединён с вкладом DUSP.'],
   concepts: ['C4.negative', 'C4.adaptation'], edges: [], route: ['seminar-4-route.html#ns-two-loops', 'Семинар 4 · быстрая и медленная отрицательные петли ERK'], sem: ['seminar-4.html#q3', 'Семинар 4, вопрос 4.3']}
 ];
 
@@ -566,9 +594,9 @@ const IV = {
     win: W1,
     mod: s => { set(s, 'egf', [0,3,3,3,0,0,0,0]); set(s, 'rasgtp', [0,1,3,3,1,0,0,0]); return OFF(s); }},
   mek: {label: 'Ингибитор MEK, добавленный после пика', short: 'ингибитор MEK',
-    why: 'EGF остаётся, RAS и RAF активны, но MEK не фосфорилирует ERK, и pERK падает. Профиль pERK как при коротком импульсе (тот же максимум, меньше длительность и площадь), но RAS-GTP остаётся высоким: без активной ERK нет торможения SOS1 и RAF-1.',
-    st: {rasgtp: 'V', perk: 'V', fb: 'V', dusp: 'V', fosm: 'V', fosp: 'V', pfos: 'V', ap1: 'V'}, src: ['Talarmin1999', 'Dougherty2005', 'Saha2012'],
-    note: 'Ингибитор MEK PD 98059 подавлял накопление мРНК циклина D1 и синтез ДНК в первичных гепатоцитах крысы (Talarmin 1999). Рост RAS-GTP при снятии обратной связи — вывод из Dougherty 2005 и Saha 2012; синтез DUSP тоже не индуцируется. Один ингибитор показывает зависимость от MEK, но не доказывает её.',
+    why: 'EGF остаётся, RAS и RAF активны, но MEK не фосфорилирует ERK, и pERK падает. Профиль pERK как при коротком импульсе (тот же максимум, меньше длительность и площадь), но RAS-GTP остаётся высоким: без активной ERK не работает быстрая петля (нет торможения SOS1 и RAF-1) и не индуцируются DUSP и SPRY.',
+    st: {rasgtp: 'V', perk: 'V', fb: 'V', dusp: 'V', fosm: 'V', fosp: 'V', pfos: 'V', ap1: 'V'}, src: ['Talarmin1999', 'Dougherty2005', 'Saha2012', 'Lito2012'],
+    note: 'Ингибитор MEK PD 98059 подавлял накопление мРНК циклина D1 и синтез ДНК в первичных гепатоцитах крысы (Talarmin 1999). Рост RAS-GTP при снятии обратной связи — вывод из Dougherty 2005 и Saha 2012; синтез DUSP и SPRY тоже не индуцируется. Исчезновение DUSP6 и SPRY и рост RAS-GTP после подавления ERK-зависимого сигнала показаны в клетках меланомы с BRAF V600E при действии вемурафениба (Lito 2012); для ингибитора MEK в гепатоците это перенос. Один ингибитор показывает зависимость от MEK, но не доказывает её.',
     mod: s => { set(s, 'rasgtp', [0,1,3,3,3,3,3,2]); return OFF(s); }},
   ras61: {label: 'RAS с заменой Q61L (почти без ГТФазной активности)', short: 'RAS Q61L',
     why: 'Замена глутамина 61 резко снижает и собственный, и GAP-стимулированный гидролиз GTP. В модели доля RAS-GTP постоянна и высока ещё до EGF, поэтому pERK, c-Fos и AP-1 не зависят от сигнала: различие короткого и длительного входа теряется.',
@@ -589,6 +617,9 @@ const IV = {
     win: W1,
     mod: s => { s.pfos = s.pfos.map(() => 0); set(s, 'ap1', [0,0,0,0,0,0,1,1]); return s; }}
 };
+/* RAF в активном димере отстаёт от RAS-GTP на один этап: связывание с RAS-GTP киназу не включает (семинар 4, шаг 1). Качественная величина, чисел нет. */
+const lagRaf = s => { s.raf = s.rasgtp.map((v, i) => i ? Math.min(v, s.rasgtp[i - 1]) : v); return s; };
+Object.keys(IV).forEach(k => { const m = IV[k].mod; IV[k].mod = s => lagRaf(m(s)); });
 const VARY = ['short', 'mek', 'ras61', 'nofb', 'def'];
 const METH = {
   trace_ktr: {l: 'Репортёр ERK-KTR: активность во времени', kind: 'trace', v: 'perk', trace: true, scheme: 'S01ktr', col: '#0B5E8E', ylab: 'активность ERK в клетке по этапам',
@@ -596,7 +627,7 @@ const METH = {
   blot_perk: {l: 'Блот: pERK (T202/Y204)', kind: 'blot', v: 'perk', band: 'pERK (T202/Y204)', load: 'общая ERK',
     q: 'Фосфорилирована ли ERK сейчас?', lim: 'Одна точка времени и среднее по миллионам клеток; фосфорилирование не равно каталитической активности.'},
   pull_ras: {l: 'RBD pull-down: RAS-GTP', kind: 'blot', v: 'rasgtp', scheme: 'S01rbd', band: 'RAS, осаждённый RBD-доменом RAF', load: 'общий RAS в лизате',
-    q: 'Сколько RAS в GTP-форме?', lim: 'Количество RAS-GTP в момент лизиса; не различает, усилен ли обмен или ослаблен гидролиз.'},
+    q: 'Сколько RAS в GTP-форме?', lim: 'Количество RAS-GTP в момент лизиса; не различает, усилен ли обмен или ослаблен гидролиз, и не показывает активную киназу RAF: RBD связывает RAS-GTP независимо от того, раскрыт ли комплекс RAF с 14-3-3.'},
   trace_ras: {l: 'RBD pull-down в серии точек', kind: 'trace', v: 'rasgtp', trace: true, scheme: 'S01rbd', col: '#15803D', ylab: 'RAS-GTP по этапам: до EGF и после',
     q: 'Зависит ли доля RAS-GTP от EGF?', lim: 'Каждая точка — отдельный лизат, среднее по популяции; скорости обмена и гидролиза метод не даёт.'},
   rna_fos: {l: 'мРНК c-fos (ОТ-ПЦР)', kind: 'rna', v: 'fosm',
@@ -677,9 +708,9 @@ function layer(s, cond) {
     <rect x="351" y="94" width="32" height="15" rx="4" fill="#fff" stroke="${rasOn ? K.ras : K.grey}"/>
     <text x="367" y="105.5" class="tiny" text-anchor="middle" style="fill:${rasOn ? K.ras : '#64748B'}" font-weight="700">${rasOn ? 'GTP' : 'GDP'}</text></g>`);
   /* RAF – MEK – ERK */
-  const rafOn = s.rasgtp >= 2, mekOn = s.rasgtp >= 2, erkOn = s.perk >= 2;
+  const rafBound = s.rasgtp >= 2, rafOn = (s.raf === undefined ? s.rasgtp : s.raf) >= 2, mekOn = rafOn, erkOn = s.perk >= 2;
   L.push(`<g class="hot" data-ph="3" tabindex="0" role="button" aria-label="Каскад RAF, MEK, ERK: этап 3">
-    ${kin(422, 134, 17, 'RAF', rafOn, '#0E7490')}${kin(404, 198, 17, 'MEK', mekOn, '#0369A1')}
+    ${rafBound && !rafOn ? `<circle class="hl" cx="422" cy="134" r="17" fill="#F1F5F9" stroke="#0E7490" stroke-width="2" stroke-dasharray="4 3"/><text x="422" y="138" class="tiny" text-anchor="middle" font-weight="700" fill="#0E7490">RAF</text>` : kin(422, 134, 17, 'RAF', rafOn, '#0E7490')}${kin(404, 198, 17, 'MEK', mekOn, '#0369A1')}
     <circle class="hl" cx="344" cy="238" r="18" fill="${s.perk ? K.erk : '#F1F5F9'}" fill-opacity="${[1, .4, .75, 1][s.perk]}" stroke="${s.perk ? K.erk : K.grey}" stroke-width="2"/>
     <text x="344" y="242" class="tiny" text-anchor="middle" font-weight="700" style="fill:${s.perk ? '#fff' : '#64748B'}">ERK</text>
     ${erkOn ? P(330, 222) + P(361, 252) : ''}
@@ -765,7 +796,8 @@ return {id: 'S01', order: 6, title: 'длительность сигнала ERK
   PH, VARS, TRACKVARS, defTracks: ['perk', 'fosm', 'fosp'], CTL, IV, VARY, METH, TASKS, CONCEPT_PHASE, EDGE_PHASE, CLABEL,
   draw: layer, zoom: zoomSVG,
   legend: [['<path d="M2 6h22" stroke="#1D4ED8" stroke-width="2"/><path d="M22 2l6 4l-6 4z" fill="#1D4ED8"/><circle cx="12" cy="6" r="4" fill="#E11D48"/>', 'фосфорилирование (катализ)'],
-    ['<path d="M2 6h22" stroke="#475569" stroke-width="2"/><path d="M22 2l6 4l-6 4z" fill="#475569"/>', 'активация'],
+    ['<path d="M2 6h22" stroke="#475569" stroke-width="2"/><path d="M22 2l6 4l-6 4z" fill="#475569"/>', 'активация или привлечение'],
+    ['<circle cx="15" cy="6" r="5" fill="#F1F5F9" stroke="#0E7490" stroke-width="1.6" stroke-dasharray="3 2"/>', 'RAF связана с RAS-GTP, но не активна'],
     ['<path d="M2 6h22" stroke="#B91C1C" stroke-width="2" stroke-dasharray="5 3"/><path d="M25 1v10" stroke="#B91C1C" stroke-width="3"/>', 'торможение (обратная связь)'],
     ['<path d="M2 6h22" stroke="#7C3AED" stroke-width="2" stroke-dasharray="3 3"/><path d="M22 2l6 4l-6 4z" fill="#7C3AED"/>', 'перемещение молекулы'],
     ['<ellipse cx="15" cy="6" rx="9" ry="5" fill="#0F766E"/>', 'белок c-Fos'],
@@ -1117,38 +1149,39 @@ const PH = [
   concepts: ['C1.compartment', 'C1.microdomain'], edges: ['E016'], route: ['seminar-3-route.html#ns-gq-ip3', 'Семинар 3 · выход Ca²⁺ из депо'], sem: ['seminar-1.html#q2', 'Семинар 1, вопрос 1.2']},
  {id: 'P4', short: 'STIM1 в кластерах', sig: 1, time: 'этап (без числа)',
   title: 'Опустошение депо: STIM1 собирается у контакта ЭПР–мембрана',
-  what: 'При снижении Ca²⁺ в просвете домен EF-hand STIM1 теряет Ca²⁺; STIM1 распрямляется и собирается в кластеры у контактов ЭПР с плазматической мембраной, где мембраны сближены на 10–25 нм.',
-  how: 'Диссоциация Ca²⁺ от EF-hand переводит STIM1 в активную форму. Кластеры накапливаются именно в контактах, где зазор достаточно мал, чтобы цитозольная часть STIM1 могла достичь канала в плазматической мембране.',
-  next: 'В контакте STIM1 связывает и открывает Orai1.',
+  what: 'При снижении Ca²⁺ в просвете домен EF-hand STIM1 теряет Ca²⁺. Люминальные домены двух субъединиц сближаются, участок SOAR/CAD освобождается из зажима с областью CC1, а цитозольная часть распрямляется; STIM1 собирается в кластеры у контактов ЭПР с плазматической мембраной, где мембраны сближены на 10–25 нм.',
+  how: 'Диссоциация Ca²⁺ от EF-hand переводит STIM1 в активную форму через смену внутримолекулярных контактов: освобождение SOAR/CAD и сборка кластеров — разные стадии (Fahrner 2014; Korzeniowski 2017). Кластеры накапливаются именно в контактах, где зазор достаточно мал, чтобы освобождённый SOAR/CAD достиг канала в плазматической мембране.',
+  next: 'В контакте освобождённый SOAR/CAD связывается с Orai1.',
   exp: 'Иммунофлуоресценция STIM1 (переход от рассеянного распределения к точкам) и электронная микроскопия зазора контакта.',
-  st: 'V', src: ['Aromataris2008', 'Wu2006', 'PrakriyaLewis2015'],
-  win: ['T-лимфоцит (Jurkat)', 'Зазор контакта 10–25 нм и накопление STIM1 в нём измерены в клетках Jurkat (Wu 2006). В клетках печени показано такое же перераспределение STIM1 в точки при опустошении депо (Aromataris 2008), поэтому механизм перенесён в гепатоцит.'],
+  st: 'V', src: ['Aromataris2008', 'Wu2006', 'PrakriyaLewis2015', 'Zhou2013', 'Fahrner2014', 'Korzeniowski2017'],
+  win: ['T-лимфоцит (Jurkat)', 'Зазор контакта 10–25 нм и накопление STIM1 в нём измерены в клетках Jurkat (Wu 2006). В клетках печени показано такое же перераспределение STIM1 в точки при опустошении депо (Aromataris 2008), поэтому механизм перенесён в гепатоцит. Освобождение SOAR/CAD из зажима с областью CC1 изучено на STIM1 мыши (Zhou 2013), в клетках HEK293 (Fahrner 2014) и COS (Korzeniowski 2017); это модель по биохимическим и FRET-данным, в гепатоците не проверялась.'],
   concepts: ['C2.contacts', 'C3.stim'], edges: ['E065'], route: ['seminar-3-route.html#ns-stim-sensor', 'Семинар 3 · опустошение депо и STIM1'], sem: ['seminar-1.html#q4', 'Семинар 1, вопрос 1.4']},
  {id: 'P5', short: 'Orai1 открыт, вход Ca²⁺', sig: 1, time: 'этап (без числа)',
-  title: 'STIM1 открывает Orai1: вход Ca²⁺ извне и микродомен',
-  what: 'Цитозольная часть STIM1 достигает Orai1 в плазматической мембране и непосредственно открывает его; Ca²⁺ входит из внеклеточной среды, у устья канала образуется локальный микродомен Ca²⁺.',
-  how: 'STIM1 остаётся в мембране ЭПР и действует через контакт на расстоянии: он связывает и открывает Orai1, канал плазматической мембраны. Входящий Ca²⁺ сначала накапливается у устья канала, затем рассеивается и повышает среднюю концентрацию Ca²⁺ в цитозоле.',
+  title: 'SOAR/CAD связывается с Orai1 и открывает пору: вход Ca²⁺ извне и микродомен',
+  what: 'Освобождённый участок SOAR/CAD белка STIM1 достигает Orai1 в плазматической мембране и связывается с его цитозольными частями — прежде всего с C-концом и околомембранным участком N-конца. Это связывание аллостерически открывает пору: Ca²⁺ входит из внеклеточной среды пассивно, по электрохимическому градиенту, и у устья канала образуется локальный микродомен Ca²⁺.',
+  how: 'STIM1 остаётся в мембране ЭПР и действует через контакт на расстоянии. Сближение, связывание SOAR/CAD с Orai1 и открывание поры — разные события: укороченный STIM1 (остатки 1–440) и вариант C437G собирали Orai1 в кластеры у контакта, но почти не активировали вход Ca²⁺ (Park 2009). Входящий Ca²⁺ сначала накапливается у устья канала, затем рассеивается и повышает среднюю концентрацию Ca²⁺ в цитозоле.',
   next: 'Длительный вход Ca²⁺ активирует Ca²⁺-зависимые белки.',
   exp: 'Патч-кламп (депо-зависимый ток, избирательный к Ca²⁺) и индикатор Ca²⁺ в цитозоле.',
   st: 'V', src: ['Rychkov2001', 'Jones2008', 'Park2009', 'Luik2006', 'Kar2011'],
-  win: ['Т-лимфоцит (Jurkat) и HEK293', 'Прямое связывание цитозольного домена STIM1 с Orai1 и локальный микродомен у устья канала изучены в клетках Jurkat и HEK293 (Park 2009; Luik 2006; Kar 2011). В клетках печени тот же высокоизбирательный депо-зависимый ток измерен патч-клампом (Rychkov 2001; Jones 2008).'],
+  win: ['Т-лимфоцит (Jurkat) и HEK293', 'Прямое связывание цитозольного домена STIM1 с Orai1 и локальный микродомен у устья канала изучены в клетках Jurkat и HEK293 (Park 2009; Luik 2006; Kar 2011). Картирование связывания получено на очищенных белках, в дрожжевой системе и в клетках HEK293 при повышенной экспрессии; число молекул STIM1 на один канал и порядок смены конформации Orai1 при открывании не определены. В клетках печени тот же высокоизбирательный депо-зависимый ток измерен патч-клампом (Rychkov 2001; Jones 2008).'],
   concepts: ['C3.stim', 'C1.microdomain'], edges: ['E017'], route: ['seminar-3-route.html#ns-contact-site', 'Семинар 3 · контакт ЭПР–мембрана и Orai1'], sem: ['seminar-1.html#q2', 'Семинар 1, вопрос 1.2']},
  {id: 'P6', short: 'Кальциневрин → NFAT', sig: 1, time: 'этап (без числа)',
   title: 'Длительный вход Ca²⁺: кальциневрин дефосфорилирует NFAT',
   what: 'Ca²⁺ связывается с кальмодулином; комплекс Ca²⁺–кальмодулин активирует фосфатазу кальциневрин, которая дефосфорилирует NFAT, и тот переходит в ядро.',
-  how: 'Сигнал передаётся активацией фосфатазы, а не киназы: дефосфорилирование открывает NFAT сигнал ядерного импорта. Для транскрипции конкретного гена ядерного NFAT недостаточно — нужны партнёры, прежде всего AP-1.',
+  how: 'Сигнал передаётся активацией фосфатазы, а не киназы: дефосфорилирование открывает сигнал ядерной локализации NFAT. Пока кальциневрин активен, он дефосфорилирует NFAT и, связываясь с ним, маскирует сигналы ядерного экспорта, поэтому NFAT остаётся в ядре; после спада Ca²⁺ преобладают киназы (этап 7). Для транскрипции конкретного гена ядерного NFAT недостаточно — нужны партнёры, прежде всего AP-1.',
   next: 'Ответ-мишень зависит от длительности входа Ca²⁺ и от наличия партнёров NFAT.',
   exp: 'Иммунофлуоресценция NFAT (ядро/цитоплазма); картирование связывания NFAT и синтез новой РНК мишени.',
-  st: 'M', src: ['Hogan2003', 'Timmerman1996', 'Kar2011', 'Macian2001', 'BaillyMaitre2007'],
+  st: 'M', src: ['Hogan2003', 'Timmerman1996', 'Kar2011', 'Macian2001', 'BaillyMaitre2007', 'ZhuMcKeon1999'],
   win: ['Т-лимфоцит и неэлектровозбудимые клетки', 'Связь длительного входа Ca²⁺ с переходом NFAT в ядро и считывание длительности сигнала изучены в основном на T-лимфоцитах и других неэлектровозбудимых клетках (Hogan 2003; Timmerman 1996; Kar 2011). В гепатоците дефосфорилирование NFAT1 кальциневрином и его переход в ядро показаны при регенерации печени (Bailly-Maitre 2007), но связь именно с депо-зависимым входом и с конкретным геном не охарактеризована.'],
   concepts: ['C3.phospho', 'C3.nfat', 'C5.transcription'], edges: ['E018', 'E019', 'E036'], route: ['seminar-3-route.html#ns-calcineurin-nfat', 'Семинар 3 · кальциневрин и NFAT'], sem: ['seminar-3.html#q4', 'Семинар 3, вопрос 3.4']},
  {id: 'P7', short: 'Агонист удалён', sig: 0, time: 'этап (без числа)',
   title: 'Агонист удалён: депо пополняется, вход прекращается',
-  what: 'SERCA закачивает Ca²⁺ обратно в ЭПР, Ca²⁺ снова связывается с EF-hand STIM1, кластеры разбираются, Orai1 закрывается; NFAT рефосфорилируется и постепенно выходит из ядра.',
-  how: 'Без IP₃ выход из депо прекращается, и насос SERCA пополняет запас. Ответ обратим; выход NFAT из ядра идёт медленнее самого Ca²⁺-сигнала, поэтому ядерный NFAT может сохраняться заметно дольше входа.',
+  what: 'SERCA закачивает Ca²⁺ обратно в ЭПР, Ca²⁺ снова связывается с EF-hand STIM1, кластеры разбираются, Orai1 закрывается. Кальциневрин теряет активность, и киназы фосфорилируют NFAT (в изученных системах — GSK3 после праймирующего фосфорилирования, например киназой DYRK, а также CK1; набор киназ зависит от NFAT и клетки).',
+  how: 'Без IP₃ выход из депо прекращается, и насос SERCA пополняет запас. Ответ обратим. Фосфорилирование многих остатков возвращает регуляторный домен NFAT в конформацию, в которой сигнал ядерной локализации замаскирован, а сигналы экспорта доступны, и экспортин XPO1 (CRM1) выносит NFAT из ядра. Экспорт перестаёт уравновешиваться импортом и идёт с задержкой, поэтому ядерный NFAT может сохраняться заметно дольше входа Ca²⁺.',
   next: 'В этой модели после снятия сигнала стойкого изменённого состояния не остаётся (кроме временного удержания NFAT в ядре).',
   exp: 'Индикатор Ca²⁺ в цитозоле и иммунофлуоресценция STIM1 и NFAT в нескольких точках после удаления агониста.',
-  st: 'V', src: ['Jones2008', 'Aromataris2008', 'Kar2011', 'Timmerman1996'],
+  st: 'V', src: ['Jones2008', 'Aromataris2008', 'Kar2011', 'Timmerman1996', 'Beals1997', 'ZhuMcKeon1999', 'Gwack2006', 'Okamura2000'],
+  win: ['клетки Jurkat, HeLa и неэлектровозбудимые клетки', 'Роль XPO1 (CRM1) и конформационного переключателя NFAT1 показана в отдельных клеточных системах (Zhu, McKeon 1999; Okamura 2000). Набор киназ различается у подсемейств NFAT: DYRK и GSK3 для NFAT1 (Gwack 2006), GSK3 для NF-ATc (Beals 1997); переносить эти результаты без проверки нельзя. Полувремя рефосфорилирования и выхода NFAT1 из ядра около 24 мин получено в неэлектровозбудимых клетках (Kar 2011). В гепатоците этот цикл не измерялся.'],
   concepts: ['C3.nfat'], edges: ['E018'], route: ['seminar-3-route.html#ns-addback', 'Семинар 3 · тапсигаргин и возврат Ca²⁺'], sem: ['seminar-3.html#q4', 'Семинар 3, вопрос 3.4']}
 ];
 
@@ -1187,7 +1220,7 @@ const IV = {
     note: 'Классический протокол в клетках печени: в среде без Ca²⁺ виден лишь преходящий подъём за счёт выхода из депо, а возврат Ca²⁺ восстанавливает вход (Jones 2008; Rychkov 2001).',
     mod: s => { s.entry = z8(); s.cyca = [0,0,0,2,1,0,0,0]; s.can = z8(); s.pnfat = f3(); s.nnfat = z8(); return s; }},
   orai: {label: 'Блокада Orai1 (замена R91W)', short: 'Orai1 не проводит',
-    why: 'Депо опустошается, STIM1 собирается в кластеры, но канал Orai1 не проводит Ca²⁺: входа нет даже при наружном Ca²⁺. Это отделяет сборку кластеров STIM1 от собственно проведения Ca²⁺ каналом.',
+    why: 'Депо опустошается, STIM1 собирается в кластеры, но канал Orai1 не проводит Ca²⁺: входа нет даже при наружном Ca²⁺. Это отделяет сборку кластеров STIM1 и его связывание с Orai1 от проведения Ca²⁺ самим каналом.',
     st: {orai: 'F', entry: 'V', cyca: 'V', can: 'V', nnfat: 'M'}, src: ['Jones2008', 'Feske2006'],
     win: ['T-лимфоцит', 'Полная потеря проведения Ca²⁺ при замене R91W охарактеризована в T-клетках больных иммунодефицитом (Feske 2006). В гепатоците вклад Orai1 во вход показан нокдауном (Jones 2008).'],
     note: 'Нокдаун Orai1 снижает депо-зависимый вход в гепатоцитах крысы (Jones 2008); полная потеря проведения при R91W — T-клетки больных (Feske 2006). Orai1 R91W остаётся у мембраны и связывает STIM1, но не проводит Ca²⁺.',
@@ -1290,8 +1323,8 @@ function signalLayer(s, cond) {
   const stimX = clustered ? [220,234,248] : [190,236,286], topY = clustered ? 100 : 126;
   stimX.forEach(x => { L.push(`<path d="M${x} 152 v-${152 - topY}" stroke="${stimCol}" stroke-width="4" stroke-linecap="round"/>
     <circle cx="${x}" cy="160" r="4" fill="${hasCa ? '#99F6E4' : '#CBD5E1'}" stroke="${stimCol}"/>${hasCa ? `<circle cx="${x}" cy="160" r="2" fill="${caCol}"/>` : ''}`); });
-  if (clustered) L.push(`<text x="210" y="110" class="tiny" text-anchor="end" fill="${stimCol}">STIM1 (кластер)</text><text x="260" y="114" class="tiny" fill="${C.lab}">зазор 10–25 нм</text>`);
-  else L.push(`<text x="236" y="180" class="tiny" text-anchor="middle" fill="${stimCol}">STIM1 (димеры)</text>`);
+  if (clustered) L.push(`<text x="210" y="110" class="tiny" text-anchor="end" fill="${stimCol}">STIM1 (кластер)</text><text x="210" y="123" class="tiny" text-anchor="end" fill="${stimCol}">SOAR/CAD свободен</text><text x="260" y="114" class="tiny" fill="${C.lab}">зазор 10–25 нм</text>`);
+  else L.push(`<text x="236" y="180" class="tiny" text-anchor="middle" fill="${stimCol}">STIM1 (димеры, SOAR/CAD закрыт)</text>`);
   L.push(`</g>`);
   /* свободный Ca²⁺ в цитозоле */
   const nCy = [0,2,4,7][s.cyca]; const cyPts = [[300,190],[336,172],[290,226],[344,206],[318,246],[360,240],[300,262]];
@@ -1330,7 +1363,7 @@ function contactSVG(s, cond) {
   <path d="M324 55 v95" stroke="#64748B" stroke-width="1" stroke-dasharray="2 3"/><text x="304" y="104" class="tiny" text-anchor="end">10–25 нм</text>
   ${st}
   <text x="170" y="44" class="tiny" text-anchor="middle" fill="${oraiOpen ? oraiCol : '#64748B'}" font-weight="700">Orai1</text>
-  ${clustered ? `<text x="140" y="112" class="tiny" text-anchor="end" fill="${stimCol}">STIM1 (кластер)</text>` : `<text x="166" y="110" class="tiny" text-anchor="middle" fill="${stimCol}">STIM1 (димеры)</text>`}
+  ${clustered ? `<text x="140" y="112" class="tiny" text-anchor="end" fill="${stimCol}">STIM1 (кластер)</text><text x="140" y="125" class="tiny" text-anchor="end" fill="${stimCol}">SOAR/CAD свободен</text>` : `<text x="150" y="110" class="tiny" text-anchor="middle" fill="${stimCol}">STIM1 (димеры, SOAR/CAD закрыт)</text>`}
   ${meter(12, 206, s.erca, stimCol, 'Ca²⁺ в депо ЭПР')}
   ${meter(12, 226, s.stim, stimCol, 'STIM1 в кластерах')}
   ${meter(12, 246, s.orai, oraiCol, 'Orai1 открыт')}
@@ -1788,13 +1821,13 @@ const PH = [
   win: ['клетки HeLa и другие линии', 'Что EEA1 удерживается на эндосоме при совпадении PI3P и Rab5-GTP, показано в культивируемых клетках млекопитающих (Simonsen 1998). В гепатомных клетках WIF-B EEA1 найден на базолатеральных ранних эндосомах вместе с Rab5 и уходит с них при подавлении PI3K (Tuma 2001).']},
  {id: 'P4', short: 'Транзит к апикальному полюсу', sig: 1, time: 'этап (без числа)',
   title: 'Груз переносится к канальцу через субапикальный Rab11-компартмент',
-  what: 'Груз проходит субапикальный компартмент с Rab11 и переносится к апикальному полюсу по микротрубочкам; у самой мембраны пузырёк ведёт миозин Vb по актину.',
-  how: 'Если минус-концы микротрубочек обращены к апикальной мембране, к канальцу груз переносит минус-концевой мотор (динеин); Rab11a и миозин Vb нужны для последнего шага к мембране.',
-  next: 'Груз встраивается в канальцевую мембрану.',
+  what: 'Груз проходит субапикальный компартмент с Rab11 и переносится к апикальному полюсу по микротрубочкам; на последнем участке пути пузырёк движется по актину, и мотором служит миозин Vb, который удерживают на пузырьке белки Rab11a и Rab8a.',
+  how: 'Если минус-концы микротрубочек обращены к апикальной мембране, груз к канальцу переносится минус-концевым мотором (динеином). Rab11a служит меткой и местом связывания миозина Vb, а по актину движется сам миозин Vb за счёт гидролиза ATP. Слияние пузырька с мембраной — отдельный этап: для NHE3 в клетках Caco-2 в нём участвуют синтаксин 3, Munc18-2, Slp4a пузырька и Vamp7 (Vogel 2015); для однопроходных транзитных белков гепатоцита этот комплекс не исследован.',
+  next: 'Пузырёк сливается с канальцевой мембраной, и груз встраивается в неё.',
   exp: 'Транзитный груз метят антителом на синусоидальной поверхности и прослеживают иммунофлуоресценцией до канальца.',
-  st: 'V', src: ['Hemery1996', 'Wakabayashi2005', 'Meads1995', 'Wakabayashi2004'],
+  st: 'V', src: ['Hemery1996', 'Wakabayashi2005', 'Meads1995', 'Wakabayashi2004', 'Vogel2015'],
   concepts: ['C2.transport', 'C2.traffic'], edges: ['E008'], route: ['seminar-2-route.html#ns-three-fluxes', 'Семинар 2 · доставка, удержание, удаление'], sem: ['seminar-2.html#q4', 'Семинар 2, вопрос 2.4'],
-  win: ['Caco-2 и гепатомные линии WIF-B', 'Ориентация «минус-концы у апикальной мембраны» измерена в клетках Caco-2; в WIF-B показано лишь, что рост микротрубочек начинается в апикальной области (Meads 1995). Rab11a и миозин Vb изучены в WIF-B9 (Wakabayashi 2005); данные Wakabayashi 2004 относятся к BSEP — грузу прямого пути, а не к однопроходному транзитному белку.']},
+  win: ['Caco-2 и гепатомные линии WIF-B', 'Ориентация «минус-концы у апикальной мембраны» измерена в клетках Caco-2; в WIF-B показано лишь, что рост микротрубочек начинается в апикальной области (Meads 1995). Rab11a и миозин Vb изучены в WIF-B9 (Wakabayashi 2005); данные Wakabayashi 2004 относятся к BSEP — грузу прямого пути, а не к однопроходному транзитному белку. Цепь «Rab11a и Rab8a → миозин Vb → синтаксин 3 с Munc18-2, Slp4a и Vamp7 → слияние» получена для NHE3 в клетках Caco-2 (Vogel 2015); участие Slp4a, Munc18-2 и Vamp7 следует из их взаимодействий и нарушений полярности клеток, а не из отдельной проверки положения груза. Для транзитного белка гепатоцита перенос цепи — допущение.']},
  {id: 'P5', short: 'Белок на канальце', sig: 1, time: 'этап (без числа)',
   title: 'Новый белок встроен в канальцевую (апикальную) мембрану',
   what: 'Груз доставлен на апикальную мембрану канальца и входит в состав апикального домена.',
@@ -1818,7 +1851,7 @@ const VARS = {
   golgi: 'Новый белок в Гольджи', vbaso: 'Пузырёк к синусоидальной мембране', baso: 'Новый белок на синусоидальной мембране',
   ee: 'Груз в базолатеральной ранней эндосоме', sac: 'Груз в субапикальном (Rab11) компартменте', apic: 'Новый белок на канальцевой мембране',
   domain: 'Резидентный апикальный домен', prelys: 'Резидентные апикальные белки в прелизосомах', mt: 'Микротрубочки (пути переноса)',
-  pi45: 'PI(4,5)P₂ плазматической мембраны', pi3p: 'PI3P ранних эндосом', rab11: 'Rab11a в активной форме (GTP)'
+  pi45: 'PI(4,5)P₂ плазматической мембраны', pi3p: 'PI3P ранних эндосом', rab11: 'Rab11a-GTP (метка эндосомы, якорь миозина Vb)'
 };
 const TRACKVARS = ['golgi', 'vbaso', 'baso', 'ee', 'sac', 'apic', 'domain', 'prelys', 'pi3p', 'mt'];
 const CTL = {
@@ -1843,9 +1876,9 @@ const IV = {
     mod: s => { s.pi3p = [0, 0, 0, 0, 0, 0, 0]; s.ee = [0, 0, 1, 3, 3, 3, 1];
       s.sac = [0, 0, 0, 0, 1, 2, 1]; s.apic = [0, 0, 0, 0, 0, 1, 2]; s.prelys = [2, 3, 3, 3, 3, 3, 3]; s.domain = s.domain.map(() => 2); return s; }},
   rab11: {label: 'Доминантно-негативный Rab11a / хвост миозина Vb', short: 'нет Rab11a/MyoVb',
-    why: 'Без активного Rab11a и миозина Vb последний шаг к апикальной мембране не идёт. В линии WIF-B9 при этом не образуются канальцы, а апикальные белки находятся в Rab11a-эндосомах; задержка нового груза в субапикальном компартменте — вывод.',
+    why: 'Rab11a-GTP удерживает миозин Vb на пузырьке, а по актину движется сам миозин Vb; при подавлении любого из двух звеньев последний шаг к апикальной мембране нарушен. В линии WIF-B9 при этом не образуются канальцы, а апикальные белки находятся в Rab11a-эндосомах; задержка нового груза в субапикальном компартменте — вывод.',
     st: {rab11: 'V', sac: 'V', apic: 'V', domain: 'V'}, src: ['Wakabayashi2005'],
-    note: 'Клетки WIF-B9: подавление Rab11a, форма Rab11a, связанная с GDP, или хвост миозина Vb без моторного домена предотвращали образование канальцев (Wakabayashi 2005). Количественно сам белок Rab11a не уменьшается — снижена его активная форма.',
+    note: 'Клетки WIF-B9: подавление Rab11a, форма Rab11a, связанная с GDP, или хвост миозина Vb без моторного домена предотвращали образование канальцев (Wakabayashi 2005). Количественно сам белок Rab11a не уменьшается — снижена его активная форма. Доминантно-негативный Rab11a и хвост миозина Vb влияют не только на перенос, но и на образование канальцев, поэтому воздействие не позволяет отделить перенос пузырька от его слияния с мембраной.',
     win: ['гепатома WIF-B9', 'Данные о Rab11a и миозине Vb получены в линии WIF-B9 (Wakabayashi 2005). Перенос на гепатоцит — учебное допущение.'],
     mod: s => { s.rab11 = [0, 0, 0, 0, 0, 0, 0]; s.sac = [0, 0, 0, 1, 3, 3, 3]; s.apic = [0, 0, 0, 0, 1, 1, 1]; s.domain = s.domain.map(() => 2); return s; }},
   direct: {label: 'Другой груз: ABC-переносчик (BSEP, MDR)', short: 'прямой путь',
@@ -1982,6 +2015,7 @@ return {id: 'S05', order: 2, title: 'доставка груза и два до�
 Object.assign(SRC, {
   Manning2002: ['Manning B. D. и др. 2002. Identification of the tuberous sclerosis complex-2 tumor suppressor gene product tuberin as a target of the phosphoinositide 3-kinase/Akt pathway. Mol Cell', '10.1016/s1097-2765(02)00568-3'],
   Inoki2002: ['Inoki K. и др. 2002. TSC2 is phosphorylated and inhibited by Akt and suppresses mTOR signalling. Nat Cell Biol', '10.1038/ncb839'],
+  Angarola2019: ['Angarola B., Ferguson S. M. 2019. Weak membrane interactions allow Rheb to activate mTORC1 signaling without major lysosome enrichment. Mol Biol Cell', '10.1091/mbc.E19-03-0146'],
   Menon2014: ['Menon S. и др. 2014. Spatial control of the TSC complex integrates insulin and nutrient regulation of mTORC1 at the lysosome. Cell', '10.1016/j.cell.2013.11.049'],
   Sancak2008: ['Sancak Y. и др. 2008. The Rag GTPases bind raptor and mediate amino acid signaling to mTORC1. Science', '10.1126/science.1157535'],
   Inoki2003: ['Inoki K., Zhu T., Guan K.-L. 2003. TSC2 mediates cellular energy response to control cell growth and survival. Cell', '10.1016/s0092-8674(03)00929-2'],
@@ -2025,11 +2059,11 @@ const K = {ak: '#1D4ED8', mt: '#0E7490', am: '#9333EA', rh: '#CA8A04', s6: '#0F7
 const PH = [
  {id: 'P0', short: 'Исходно: голодание', sig: 0, time: 'до инсулина',
   title: 'Голодание: mTORC1 неактивен, AMPK активна',
-  what: 'Инсулина нет; из-за высокого отношения AMP и ADP к ATP активна AMPK; mTORC1 на лизосоме неактивен; синтез белка и липогенез идут слабо.',
-  how: 'Без инсулина AKT неактивна, комплекс TSC удерживает RHEB в GDP-форме, и mTORC1 не активируется даже на лизосоме. FOXO1 в ядре поддерживает гены глюконеогенеза (это разобрано в механизме «от инсулина до гена G6PC»).',
+  what: 'Инсулина нет. AMPK активна: в модели её активирует высокое отношение AMP и ADP к ATP. mTORC1 на лизосоме неактивен; синтез белка и липогенез идут слабо.',
+  how: 'Без инсулина AKT неактивна, комплекс TSC удерживает RHEB в GDP-форме, и mTORC1 не активируется даже на лизосоме. FOXO1 в ядре поддерживает гены глюконеогенеза (это разобрано в механизме «от инсулина до гена G6PC»). Аденилатный вход к AMPK не единственный: в исследованных клетках при снижении глюкозы AMPK активировалась и без роста AMP/ATP — через альдолазу без связанного фруктозо-1,6-бисфосфата, V-ATPase и сборку AXIN–LKB1 у лизосомы (Zhang 2017; Li 2019); в модели этот путь не задан.',
   next: 'Появление инсулина включит ветвь AKT.',
   exp: 'Блот p-S6K (T389) и p-AMPK (T172); ОТ-ПЦР мРНК SREBP-1c и PEPCK.',
-  st: 'F', src: ['Inoki2003', 'Gwinn2008'],
+  st: 'F', src: ['Inoki2003', 'Gwinn2008', 'Zhang2017', 'Li2019'],
   concepts: ['C4.ampk'], edges: ['E063'], route: ['seminar-4-route.html#ns-mtorc1-node', 'Семинар 4 · узел mTORC1: входы AKT и AMPK'], sem: ['seminar-4.html#q4', 'Семинар 4, вопрос 4.4']},
  {id: 'P1', short: 'Инсулин → активная AKT', sig: 1, time: 'минуты',
   title: 'Инсулин связывается с рецептором, AKT активируется',
@@ -2050,10 +2084,10 @@ const PH = [
  {id: 'P3', short: 'Аминокислоты → mTORC1 на лизосоме', sig: 1, time: 'минуты',
   title: 'Аминокислоты привлекают mTORC1 к лизосоме, комплекс активен',
   what: 'Аминокислоты через Rag-ГТФазы привлекают mTORC1 к поверхности лизосомы; при накопленном RHEB-GTP комплекс активируется. Лизосома — место, где сходятся оба входа.',
-  how: 'Rag-ГТФазы на лизосоме связывают Raptor и переносят mTORC1 к RHEB. mTORC1 активен только при одновременном выполнении двух условий — привлечение (аминокислоты) и RHEB-GTP (инсулин).',
+  how: 'Rag-ГТФазы на лизосоме связывают Raptor и привлекают mTORC1 к лизосомной мембране; RHEB-GTP, связанный с мембранами через фарнезильный остаток, взаимодействует с mTORC1 и активирует его. О том, где в клетке находится основная часть RHEB, данные расходятся: Menon 2014 описали лизосомную локализацию, а Angarola, Ferguson 2019 не обнаружили преимущественного накопления RHEB на лизосомах. mTORC1 активен только при двух условиях: привлечении к лизосоме (аминокислоты) и RHEB-GTP (инсулин).',
   next: 'Активный mTORC1 фосфорилирует субстраты и распределяет сигнал по ветвям выхода.',
   exp: 'Совмещение меток mTOR и белка лизосомы (LAMP2) при удалении и возврате аминокислот; блот p-S6K.',
-  st: 'F', src: ['Sancak2008', 'Menon2014'],
+  st: 'F', src: ['Sancak2008', 'Menon2014', 'Angarola2019'],
   concepts: ['C4.mtor', 'C1.compartment'], edges: ['E027'], route: ['seminar-1-route.html#ns-compartment', 'Семинар 1 · лизосома как компартмент'], sem: ['seminar-1.html#q1', 'Семинар 1, вопрос 1.1']},
  {id: 'P4', short: 'Выход 1: синтез белка', sig: 1, time: 'этап (без числа)',
   title: 'mTORC1 фосфорилирует S6K и 4E-BP1: растёт синтез белка',
@@ -2090,7 +2124,7 @@ const PH = [
 ];
 /* ---------- переменные модели (уровни 0–3 — качественная шкала, не концентрации) */
 const VARS = {
-  ins: 'Инсулин у рецептора', akt: 'p-AKT (S473/S474)', irs: 'IRS1: передача к PI3K', rheb: 'RHEB-GTP у лизосомы',
+  ins: 'Инсулин у рецептора', akt: 'p-AKT (S473/S474)', irs: 'IRS1: передача к PI3K', rheb: 'RHEB-GTP (доля активной формы)',
   loc: 'mTORC1 на лизосоме (вход Rag)', mtor: 'Активность mTORC1', ampk: 'Активность AMPK',
   s6k: 'p-S6K (ветвь синтеза белка)', srebp: 'мРНК SREBP-1c (ветвь липогенеза)',
   foxo: 'FOXO1 в цитоплазме (ветвь S02)', pepck: 'мРНК PEPCK (глюконеогенез)'
@@ -2113,7 +2147,7 @@ const IV = {
   noaa: {label: 'Отсутствие аминокислот', short: 'нет аминокислот',
     why: 'Без аминокислот Rag-ГТФазы не привлекают mTORC1 к лизосоме, и комплекс неактивен даже при накопленном RHEB-GTP. Синтез белка и индукция мРНК SREBP-1c не растут, но AKT активна, а ветвь FOXO1 (глюконеогенез) затронута не напрямую.',
     st: {loc: 'F', mtor: 'F', s6k: 'V', srebp: 'V', akt: 'V', irs: 'V', foxo: 'V', pepck: 'V'}, src: ['Sancak2008', 'Menon2014'],
-    note: 'Привлечение mTORC1 к лизосоме Rag-ГТФазами и его зависимость от аминокислот показаны в клетках HEK293 (Sancak 2008); RHEB и лизосомная локализация — Menon 2014. Перенос на гепатоцит — учебное допущение.',
+    note: 'Привлечение mTORC1 к лизосоме Rag-ГТФазами и его зависимость от аминокислот показаны в клетках HEK293 (Sancak 2008); RHEB и лизосомная локализация — Menon 2014. Angarola, Ferguson 2019 не обнаружили преимущественного накопления RHEB на лизосомах, поэтому на рисунке RHEB показан у места контакта с mTORC1 как мембранный белок, а не как постоянный компонент лизосомы. Перенос на гепатоцит — учебное допущение.',
     mod: s => { s.loc = s.loc.map(() => 0); s.mtor = s.mtor.map(() => 0); s.s6k = s.s6k.map(() => 0); s.srebp = s.srebp.map(() => 0);
       s.irs = s.irs.map(() => 3); s.akt = s.akt.map((v, i) => s.ins[i] > 0 ? 3 : 0); return s; }},
   ampkact: {label: 'Активатор AMPK (дефицит энергии)', short: 'активна AMPK',
@@ -2212,7 +2246,7 @@ function signalLayer(s, cond) {
     <circle cx="${lx}" cy="${ly}" r="${lysR}" fill="${K.lyz}" stroke="${K.lyzS}" stroke-width="2.4"/>
     <text x="${lx}" y="${ly + 4}" class="tiny" text-anchor="middle" fill="${K.lyzS}">лизосома</text>
     <text x="${lx}" y="${ly + 50}" class="lbs" text-anchor="middle" fill="${K.lyzS}">pH ≈ 4,5–5</text></g>`);
-  /* RHEB на лизосоме */
+  /* RHEB у места контакта с mTORC1 (схематично; преимущественного накопления на лизосомах может не быть — Angarola 2019) */
   const rhebOn = s.rheb >= 2;
   L.push(`<g><circle cx="${lx + 22}" cy="${ly - 24}" r="10" fill="${rhebOn ? K.rh : '#E5E7EB'}" stroke="${K.rh}"/><text x="${lx + 22}" y="${ly - 21}" class="pp" style="font-size:6.5px;fill:${rhebOn ? '#fff' : '#334155'}">RHEB</text>
     <text x="${lx + 40}" y="${ly - 20}" class="tiny" fill="${K.rh}">${rhebOn ? 'GTP' : 'GDP'}</text></g>`);
@@ -2349,21 +2383,21 @@ const PH = [
  {id: 'P3', short: 'АТФ-зависимый сдвиг', sig: 1, time: 'этап (без числа)',
   title: 'SWI/SNF сдвигает нуклеосому с затратой АТФ',
   what: 'К участку привлекается АТФ-зависимый ремоделер семейства SWI/SNF (мотор BRG1/SMARCA4). Он сдвигает нуклеосому: вокруг мотива B образуется область, обеднённая нуклеосомами (NDR).',
-  how: 'АТФазный мотор контактирует с ДНК на нуклеосоме, и циклы гидролиза АТФ перемещают ДНК относительно гистонов. SWI/SNF постоянно восстанавливает доступность — при его острой утрате она падает за минуты.',
+  how: 'АТФазный мотор ремоделера контактирует с ДНК на нуклеосоме, и циклы связывания и гидролиза АТФ перемещают ДНК относительно гистонов. Подробно шаг мотора описан для Chd1 дрожжей; для SWI/SNF сходный механизм шага предполагается, но не показан. SWI/SNF постоянно восстанавливает доступность — при его острой утрате она падает за минуты.',
   next: 'На открытом участке ставится модификация гистона, а у границ NDR позже меняется состав соседних нуклеосом.',
   exp: 'Острое выключение (дегрон) каталитической субъединицы и ATAC-seq во времени.',
-  st: 'F', src: ['Iurlaro2021'],
+  st: 'F', src: ['Iurlaro2021', 'Winger2018'],
   concepts: ['C5.remodeler', 'C5.access'], edges: ['E031'], route: ['seminar-5-route.html', 'Семинар 5 · АТФ-зависимое ремоделирование'], sem: ['seminar-5.html#q2', 'Семинар 5, вопрос 5.2'],
-  win: ['эмбриональные стволовые клетки мыши', 'Постоянное восстановление доступности при подавлении SWI/SNF измерено в ЭСК мыши (Iurlaro 2021); для энхансера гепатоцита роль SWI/SNF принята по аналогии.']},
+  win: ['эмбриональные стволовые клетки мыши', 'Постоянное восстановление доступности при подавлении SWI/SNF измерено в ЭСК мыши (Iurlaro 2021); для энхансера гепатоцита роль SWI/SNF принята по аналогии. Шаг мотора (открытый мотор у SHL2 удерживает выступ ДНК около 1 п.н.; связывание АТФ и гидролиз закрывают мотор и переводят эту пару оснований к оси симметрии) предложен для Chd1 дрожжей по опытам на очищенных нуклеосомах in vitro (Winger 2018) и остаётся моделью; для SWI/SNF и ISWI это предположение авторов.']},
  {id: 'P4', short: 'Ацетилирование H3K27', sig: 1, time: 'этап (без числа)',
   title: 'p300/CBP ацетилирует H3K27; метку распознаёт белок-эффектор',
   what: 'Ацетилтрансфераза p300/CBP присоединяет ацетильную группу к лизину 27 гистона H3 (метка H3K27ac). Метку распознаёт бромодомен (например, у BRD4); удаляют метку деацетилазы (HDAC).',
-  how: 'Донор ацетильной группы — ацетил-КоА; ацетилирование нейтрализует положительный заряд лизина и создаёт поверхность для бромодомена. Содержание метки — баланс установления и удаления, а не наличие одного фермента.',
+  how: 'Донор ацетильной группы — ацетил-КоА; ацетилирование нейтрализует положительный заряд лизина и создаёт участок связывания для белков с бромодоменом. Содержание метки определяется балансом установления и удаления, а не наличием одного фермента. Влияние метки на транскрипцию требует дополнительных звеньев — узнавания метки белком-«читателем» и привлечения P-TEFb: в изученном примере бромодомен BRD4 связывает ацетилированный хроматин, а сам BRD4 взаимодействует с P-TEFb; CDK9 фосфорилирует С-концевой домен РНК-полимеразы II и способствует продуктивной элонгации (Jang 2005; Yang 2005).',
   next: 'Отдельно меняется и белковый состав нуклеосомы.',
   exp: 'Адресное ацетилирование участка dCas9–p300 и ChIP/CUT&RUN H3K27ac и белка-эффектора.',
-  st: 'F', src: ['Hilton2015'],
+  st: 'F', src: ['Hilton2015', 'Jang2005', 'Yang2005'],
   concepts: ['C5.marks', 'C5.access'], edges: ['E034'], route: ['seminar-5-route.html', 'Семинар 5 · установление, удаление и распознавание меток'], sem: ['seminar-5.html#q3', 'Семинар 5, вопрос 5.3'],
-  win: ['клетки человека', 'Причинная связь p300 → H3K27ac → активация показана адресным ферментом dCas9–p300 в клетках человека (Hilton 2015); здесь перенесена на энхансер гепатоцита.']},
+  win: ['клетки человека', 'Причинная связь p300 → H3K27ac → активация показана адресным ферментом dCas9–p300 в клетках человека (Hilton 2015); здесь перенесена на энхансер гепатоцита. Звено «ацетилированный хроматин → BRD4 → P-TEFb → фосфорилирование РНК-полимеразы II» описано как пример в клетках млекопитающих и HeLa (Jang 2005; Yang 2005); его нельзя переносить на любое ацетилирование, любой бромодомен и любой ген, а для энхансера гепатоцита оно не проверялось.']},
  {id: 'P5', short: 'Вариант H2A.Z', sig: 1, time: 'этап (без числа)',
   title: 'Обмен димера на H2A.Z–H2B меняет состав частицы',
   what: 'У границы NDR, образовавшейся на этапе 3, димер H2A–H2B заменяется на димер с вариантом H2A.Z. Меняется белковый состав нуклеосомы, а не последовательность ДНК.',
@@ -2376,7 +2410,7 @@ const PH = [
  {id: 'P6', short: 'Транскрипция мишени', sig: 1, time: 'этап (без числа)',
   title: 'Открытый и ацетилированный энхансер облегчает синтез новой РНК',
   what: 'Доступный, связанный FoxA и ацетилированный энхансер облегчает сборку транскрипционного аппарата на промоторе и синтез новой РНК гена-мишени.',
-  how: 'Доступность облегчает связывание факторов, но сама по себе транскрипцию не обеспечивает: нужны подходящие факторы и активный аппарат. Поэтому доступность, связывание и синтез РНК измеряют по отдельности.',
+  how: 'Доступность облегчает связывание факторов, но сама по себе транскрипцию не обеспечивает: нужны подходящие факторы и активный аппарат. Между меткой и синтезом РНК остаются узнавание, привлечение P-TEFb и фосфорилирование РНК-полимеразы II. Поэтому доступность, связывание, метку и синтез РНК измеряют по отдельности.',
   next: 'Что будет, если убрать пионерный фактор?',
   exp: 'ATAC-seq, картирование связывания и синтез новой РНК в одних временных точках.',
   st: 'V', src: ['Buenrostro2013', 'Klemm2019'],
@@ -2421,7 +2455,7 @@ const IV = {
   p300i: {label: 'Ингибитор p300/CBP', short: 'нет ацетилтрансферазы',
     why: 'FoxA связан, нуклеосома сдвинута, доступность высокая — но без p300/CBP метка H3K27ac не ставится, и белок-эффектор с бромодоменом не привлекается. Синтез новой РНК ниже. Доступность есть, а ответ гена не гарантирован.',
     st: {k27ac: 'V', brd: 'V', pol: 'V', nrna: 'V'}, src: ['Hilton2015'],
-    note: 'Причинная связь p300 → H3K27ac → активация показана адресным dCas9–p300 в клетках человека (Hilton 2015, усиление). Снижение метки и РНК при ингибировании фермента — вывод по аналогии. Окно в другую клетку.',
+    note: 'Причинная связь p300 → H3K27ac → активация показана адресным dCas9–p300 в клетках человека (Hilton 2015, усиление). Снижение метки и РНК при ингибировании фермента — вывод по аналогии; звено «метка → бромодомен → P-TEFb» в модели объединено. Окно в другую клетку.',
     win: ['клетки человека', 'Направление p300 → H3K27ac → активация установлено в клетках человека (Hilton 2015); здесь — обратный случай, вывод.'],
     mod: s => { s.k27ac = s.k27ac.map(() => 0); s.brd = s.brd.map(() => 0); s.pol = s.pol.map(v => Math.min(v, 1)); s.nrna = s.nrna.map(v => Math.min(v, 1)); return s; }},
   motifB: {label: 'Замена мотива на площадке B', short: 'мотив B изменён',
@@ -2941,9 +2975,9 @@ const IV = {
     mod: s => { s.contacts = s.contacts.map(() => 1); s.mdca = s.mdca.map(v => Math.min(v, 1));
       s.mca = s.mca.map(v => Math.min(v, 1)); s.ndh = s.ndh.map(v => Math.min(v, 2)); return s; }},
   cccp: {label: 'Протонофор CCCP вместе с олигомицином (снимает Δψ)', short: 'нет Δψ',
-    why: 'Δψ исчезает — пропадает движущая сила для MCU: микродомен есть, но Ca²⁺ в матрикс не входит, а NAD(P)H окисляется ниже исходного. Одновременно протеаза OMA1 расщепляет L-OPA1, слияние прекращается, и сеть фрагментируется.',
+    why: 'Δψ исчезает — пропадает движущая сила для MCU: микродомен есть, но Ca²⁺ в матрикс не входит, а NAD(P)H окисляется ниже исходного. Одновременно протеаза OMA1 расщепляет L-OPA1, и слияние внутренних мембран прекращается: матриксы органелл не объединяются. Деление при этом продолжается (его выполняет DRP1, а не OMA1), поэтому сеть фрагментируется.',
     st: {dpsi: 'F', opal: 'F', netw: 'F', mca: 'V', ndh: 'V'}, src: ['BrandNicholls2011', 'Head2009', 'Kirichok2004'],
-    win: ['HeLa', 'Расщепление L-OPA1 протеазой OMA1 и остановка слияния после CCCP показаны в клетках HeLa; для гепатоцита это вывод по общему механизму.'],
+    win: ['HeLa', 'Расщепление L-OPA1 протеазой OMA1 и остановка слияния после CCCP показаны в клетках HeLa; для гепатоцита это вывод по общему механизму. Фрагментацию сети выполняет не OMA1: при подавлении протеазы OMA1 сеть после CCCP распадалась так же (Head 2009).'],
     note: 'Олигомицин не даёт ATP-синтазе гидролизовать ATP после снятия Δψ; без него истощение ATP изменило бы и цитозольные колебания Ca²⁺. Сохранение колебаний в модели — допущение. TMRM показывает падение Δψ, но не поток (Brand, Nicholls 2011). Отсутствие входа в матрикс — вывод.',
     mod: s => { s.dpsi = s.dpsi.map(() => 0); s.mca = s.mca.map(() => 0); s.ndh = s.ndh.map(() => 0);
       s.opal = s.opal.map(() => 1); s.netw = s.netw.map(() => 1); return s; }},
@@ -2974,7 +3008,7 @@ const METH = {
     q: 'Какова длина и связность сети?', lim: 'Одинаковая фрагментация возникает и при ослабленном слиянии, и при усиленном делении: морфология не указывает механизм (семинар 2).'},
   evt_fus: {l: 'Счёт событий слияния', kind: 'bar', scheme: 's_event', col: '#0F766E', ylab: 'слияний в минуту',
     f: c => c === 'cccp' ? 0 : (c === 'mfn2' ? 1 : 2),
-    q: 'Сколько событий слияния в минуту?', lim: 'Прямое измерение процесса; требует прижизненной съёмки и не заменяется снимком формы.'},
+    q: 'Сколько событий слияния в минуту?', lim: 'Прямое измерение процесса; требует прижизненной съёмки и не заменяется снимком формы. Учитывают полные события слияния (объединение матриксов); слияние наружных мембран отдельно не считают.'},
   evt_fis: {l: 'Счёт событий деления', kind: 'bar', scheme: 's_event', col: '#B45309', ylab: 'делений в минуту',
     f: c => (c === 'cccp' || c === 'drpup') ? 3 : 2,
     q: 'Сколько событий деления в минуту?', lim: 'Прямое измерение процесса; учитывают и образование, и удаление митохондрий.'},
@@ -2997,7 +3031,7 @@ const TASKS = {
     obs: 'На снимке сеть митохондрий в образце короче и разрозненнее обычной. Усилено деление или ослаблено слияние?',
     lanes: [['Контроль', 'ctl', 0], ['Образец', '*', 0]],
     meth: ['morph', 'evt_fus', 'evt_fis', 'blot_opa', 'blot_mfn', 'tmrm'],
-    causes: {mfn2: 'Ослаблено слияние: нет митофузина 2', cccp: 'Слияние остановлено потерей Δψ (OMA1 расщепил OPA1)', drpup: 'Усилено деление при сохранном слиянии'},
+    causes: {mfn2: 'Ослаблено слияние: нет митофузина 2', cccp: 'Слияние внутренних мембран остановлено потерей Δψ (протеаза OMA1 расщепила L-OPA1)', drpup: 'Усилено деление при сохранном слиянии'},
     check: {mfn2: 'Вернуть митофузин 2: частота событий слияния и трубчатая сеть восстанавливаются (предсказание).',
       cccp: 'Убрать протонофор: Δψ и длинная форма OPA1 восстанавливаются, слияние возобновляется (по Head 2009).',
       drpup: 'Подавить деление (меньше активной DRP1): события деления снижаются, сеть удлиняется; при этом слияние как в контроле.'}}
@@ -3446,13 +3480,13 @@ const ME = '#166534', HM = '#EA580C', FAC = '#9333EA', ENH = '#D97706', PROM = '
 const PH = [
  {id: 'P0', short: 'Ген ВКЛ, энхансер активен', sig: 0, time: 'этап (без числа)',
   title: 'Ген-мишень включён: активный энхансер защищён от метилирования',
-  what: 'К печёночному энхансеру присоединён фактор, узнающий мотив с CpG; энхансер активен (H3K4me1, H3K27ac) и контактирует с промотором мишени в своём домене. Идёт синтез новой РНК.',
-  how: 'Связанные с энхансером фактор и коактиваторы повышают вероятность транскрипции промотора. Активный энхансер с H3K4me1 защищён от метилирования de novo: именно метилированный по лизину 4 хвост H3 (H3K4me0) узнаёт направляющий фермент ADD-домен.',
+  what: 'К энхансеру в гепатоцитах присоединён фактор, узнающий мотив с CpG; энхансер активен (H3K4me1, H3K27ac) и контактирует с промотором мишени в том же домене (граница домена снижает вероятность контактов через неё, но не исключает их). Идёт синтез новой РНК.',
+  how: 'Связанные с энхансером фактор и коактиваторы повышают вероятность транскрипции промотора. Активный энхансер с H3K4me1 защищён от метилирования de novo: именно хвост H3, не метилированный по лизину 4 (H3K4me0), узнаёт ADD-домен направляющего фермента.',
   next: 'Пока энхансер активен и несёт H3K4me1, DNMT3A/3B на этот CpG не направляются.',
   exp: 'ChIP фактора, H3K4me1 и H3K27ac на энхансере; Hi-C/4C — контакт энхансер–промотор; синтез новой РНК мишени.',
   st: 'V', src: ['Hafner2023', 'Bergman2022', 'MartinezAra2022', 'Zabidi2015', 'Ooi2007', 'Smith2024'],
   concepts: ['C6.topology', 'C6.enhancer'], edges: ['E040'], route: ['seminar-6-route.html#ns-enhancer', 'Семинар 6 · чем различаются энхансер и промотор'], sem: ['seminar-6.html#q2', 'Семинар 6, вопрос 6.2'],
-  win: ['эмбриональная стволовая клетка мыши / линии', 'Избирательность энхансера к промотору изучали в репортёрных системах (K562 — Bergman 2022; мышь — Martinez-Ara 2022; дрозофила — Zabidi 2015): она не строгая. Защита H3K4me1 от de novo метилирования — по Ooi 2007 и обзору Smith 2024. Для печёночного локуса связь принята как учебная модель.']},
+  win: ['эмбриональная стволовая клетка мыши / линии', 'Избирательность энхансера к промотору изучали в репортёрных системах (K562 — Bergman 2022; мышь — Martinez-Ara 2022; дрозофила — Zabidi 2015): она не строгая. Защита H3K4me1 от de novo метилирования — по Ooi 2007 и обзору Smith 2024. Для энхансера в гепатоцитах связь принята как учебная модель.']},
  {id: 'P1', short: 'Сигнал: энхансер инактивируется', sig: 1, time: 'этап (без числа)',
   title: 'Лицензирование: фактор уходит, активные метки снимаются',
   what: 'Сигнал снимает активные метки энхансера и выводит фактор: H3K4me1 и H3K27ac снижаются, занятость мотива падает, синтез новой РНК мишени уменьшается. CpG пока не метилирован.',
@@ -3479,7 +3513,7 @@ const PH = [
   exp: 'ChIP фактора и H3K27ac на метилированном и неметилированном участке; CRISPRi энхансера (dCas9-KRAB) и синтез РНК мишени; Hi-C — частота контакта в том же сроке.',
   st: 'F', src: ['Bell2000', 'Fulco2016', 'Hafner2023', 'Bergman2022'],
   concepts: ['C6.enhancer', 'C5.transcription'], edges: ['E041'], route: ['seminar-6-route.html#ns-methyl-binding', 'Семинар 6 · как белки связывают метилированную ДНК'], sem: ['seminar-6.html#q2', 'Семинар 6, вопрос 6.2'],
-  win: ['клетки с геном Igf2/H19 / K562', 'Метилирование CpG в сайте CTCF отменяет связывание CTCF и управляет доступом энхансера к промотору (Bell 2000). Необходимость энхансера и независимость контакта от активации — CRISPRi в K562 (Fulco 2016). Перенос на печёночный локус — учебная модель.']},
+  win: ['клетки с геном Igf2/H19 / K562', 'Метилирование CpG в сайте CTCF отменяет связывание CTCF и управляет доступом энхансера к промотору (Bell 2000). Необходимость энхансера и независимость контакта от активации — CRISPRi в K562 (Fulco 2016). Перенос на энхансер в гепатоцитах — учебная модель.']},
  {id: 'P4', short: 'Деление: диада полуметил.', sig: 1, time: 'этап (без числа)',
   title: 'Гепатоцит делится: диада становится полуметилированной',
   what: 'При регенерации печени гепатоцит делится. После репликации полностью метилированной CpG-диады обе дочерние диады полуметилированы: старая цепь несёт 5mC, новая — нет.',
@@ -3491,13 +3525,13 @@ const PH = [
   win: ['регенерирующая печень', 'Покоящийся гепатоцит делится редко; при регенерации (например, после резекции) гепатоциты активно делятся (Michalopoulos 2017) — тогда рисунок метилирования должен копироваться. Состояние диады читают методом шпильки (Laird 2004).']},
  {id: 'P5', short: 'DNMT1–UHRF1 копируют метку', sig: 1, time: 'этап (без числа)',
   title: 'Поддерживающее метилирование восстанавливает метку',
-  what: 'UHRF1 связывается с полуметилированной ДНК, привлекает и активирует DNMT1; на новую цепь переносится метильная группа с SAM, и диада возвращается в полностью метилированное состояние.',
-  how: 'Метка старой цепи служит образцом. Это отдельный процесс, не совпадающий с установлением de novo: установление ведут DNMT3A/3B, копирование после репликации — DNMT1 с UHRF1. Реакция не абсолютно точна.',
+  what: 'UHRF1 узнаёт полуметилированный CpG (SRA-домен) и убиквитинирует гистон H3 (RING-домен); домен RFTS белка DNMT1 узнаёт убиквитин на H3, что привлекает фермент к реплицирующемуся хроматину и ослабляет его автоингибирование. DNMT1 переносит метильную группу с SAM на цитозин новой цепи, и диада возвращается в полностью метилированное состояние.',
+  how: 'Метка старой цепи служит образцом, но новую метильную группу переносит не UHRF1, а DNMT1: между меткой и переносом действуют промежуточные участники. Копирование метки после репликации — отдельный процесс, не совпадающий с установлением de novo: установление ведут DNMT3A/3B, копирование — DNMT1 с UHRF1. Известен и второй путь привлечения DNMT1 — через убиквитинирование PAF15 (ранняя S-фаза, ЭС-клетки мыши). Реакция не абсолютно точна.',
   next: 'Рисунок метилирования копируется в ряду делений — основа наследования состояния.',
   exp: 'Нокаут Uhrf1 или Dnmt1 и бисульфитное секвенирование; метод шпильки для доли полуметилированных диад; клональный анализ.',
-  st: 'F', src: ['Sharif2007', 'Bashtrykov2014', 'Smith2024', 'Michalopoulos2017'],
+  st: 'F', src: ['Sharif2007', 'Bashtrykov2014', 'Smith2024', 'Michalopoulos2017', 'Arita2008', 'Harrison2016', 'Ishiyama2017', 'Li2018', 'Nishiyama2020'],
   concepts: ['C6.maintenance'], edges: ['E038', 'E039'], route: ['seminar-6-route.html#ns-maintenance', 'Семинар 6 · как восстанавливается метилирование после репликации'], sem: ['seminar-6.html#q1', 'Семинар 6, вопрос 6.1'],
-  win: ['эмбриональная стволовая клетка мыши / in vitro', 'Механизм UHRF1 → DNMT1 на полуметилированной ДНК показан на очищенных белках (Bashtrykov 2014) и в ЭС-клетках мыши (Sharif 2007); деление гепатоцита при регенерации — Michalopoulos 2017.']},
+  win: ['эмбриональная стволовая клетка мыши / in vitro', 'Механизм UHRF1 → DNMT1 на полуметилированной ДНК показан на очищенных белках (Bashtrykov 2014) и в ЭС-клетках мыши (Sharif 2007); деление гепатоцита при регенерации — Michalopoulos 2017. Узнавание полуметилированной ДНК доменом SRA — структура комплекса с очищенным белком (Arita 2008); убиквитинирование H3 и распознавание убиквитина доменом RFTS изучены на очищенных белках и в ЭС-клетках мыши (Harrison 2016; Ishiyama 2017; Li 2018), второй путь через PAF15 — в ЭС-клетках мыши (Nishiyama 2020). Работа в гепатоците показана не для каждого звена цепи.']},
  {id: 'P6', short: 'TET: удаление метки', sig: 0, time: 'этап (без числа)',
   title: 'Сигнал снят: TET окисляют 5mC, метка удаляется',
   what: 'Сигнал к метилированию снят. TET последовательно окисляют 5mC до 5-гидроксиметилцитозина, 5-формил- и 5-карбоксилцитозина; TDG вырезает окисленные формы, эксцизионная репарация возвращает обычный цитозин. Доля метилирования падает.',
@@ -3538,9 +3572,9 @@ const IV = {
     mod: s => { const n = s.me5.length; ['dnmt3', 'me5', 'hemi', 'dnmt1', 'tet'].forEach(k => s[k] = set(n, 0));
       s.occ = [3,1,1,2,3,3,3,3]; s.eact = [3,1,1,2,3,3,3,3]; s.nrna = [3,1,1,2,3,3,3,3]; s.mrna = [3,2,1,2,3,3,3,3]; return s; }},
   dnmt1ko: {label: 'Выключение DNMT1 / UHRF1', short: 'нет поддержания',
-    why: 'Метка ставится и закрепляет неактивное состояние, но после деления не восстанавливается: диада остаётся полуметилированной, доля 5mC при делениях падает, фактор возвращается, ген снова включается.',
-    st: {dnmt1: 'F', me5: 'F', hemi: 'F', occ: 'V', eact: 'V', nrna: 'V', mrna: 'V'}, src: ['Sharif2007', 'Bashtrykov2014', 'Wang2019'],
-    note: 'UHRF1 необходим для привлечения DNMT1 к полуметилированной ДНК (Sharif 2007; in vitro — Bashtrykov 2014). Удаление Uhrf1 в гепатоцитах мыши при регенерации вызывает гипометилирование генома, но измеримого влияния на экспрессию генов и транспозонов эта работа не показала (Wang 2019): возврат транскрипции здесь — вывод модели, а не результат Wang.',
+    why: 'Метка ставится и закрепляет неактивное состояние, но после деления не восстанавливается: диада остаётся полуметилированной, доля 5mC при делениях падает, фактор возвращается, ген снова включается. В модели выключение любого звена этой цепи даёт одинаковый результат; в клетке дефект узнавания (SRA), убиквитинирования (RING) или распознавания убиквитина (RFTS) нарушает разные стадии.',
+    st: {dnmt1: 'F', me5: 'F', hemi: 'F', occ: 'V', eact: 'V', nrna: 'V', mrna: 'V'}, src: ['Sharif2007', 'Bashtrykov2014', 'Wang2019', 'Ishiyama2017', 'Li2018'],
+    note: 'UHRF1 нужен для поддержания метилирования: SRA-домен узнаёт полуметилированный CpG, RING-домен убиквитинирует гистон H3, а домен RFTS белка DNMT1 узнаёт убиквитин на H3 (Ishiyama 2017; Li 2018). Привлечение DNMT1 к полуметилированной ДНК зависит от UHRF1 в ЭС-клетках мыши (Sharif 2007), активация DNMT1 — in vitro (Bashtrykov 2014). Дефекты SRA и RING — разные нарушения; модель их не разделяет и объединяет в одно воздействие. Удаление Uhrf1 в гепатоцитах мыши при регенерации вызывает гипометилирование генома, но измеримого влияния на экспрессию генов и транспозонов эта работа не показала (Wang 2019): возврат транскрипции здесь — вывод модели, а не результат Wang.',
     win: ['гепатоцит мыши (регенерация)', 'Гипометилирование при удалении Uhrf1 измерено в гепатоцитах мыши при регенерации печени (Wang 2019); реактивацию экспрессии работа не показала. Механизм поддержания — in vitro и ЭС-клетки.'],
     mod: s => { s.dnmt1 = set(s.dnmt1.length, 0); s.me5 = [0,0,2,3,2,1,0,0]; s.hemi = [0,0,0,0,3,3,2,0];
       s.occ = [3,1,1,1,1,3,3,3]; s.eact = [3,1,1,1,1,3,3,3]; s.nrna = [3,1,1,1,1,3,3,3]; s.mrna = [3,2,1,1,1,2,3,3]; return s; }},
@@ -3556,9 +3590,9 @@ const IV = {
     win: ['K562 (человек)', 'CRISPRi энхансера и снижение РНК мишени показаны в клетках K562 (Fulco 2016).'],
     mod: s => { s.eact = set(s.eact.length, 0); s.nrna = set(s.nrna.length, 1); s.mrna = [3,2,1,1,1,1,1,1]; return s; }},
   loop_loss: {label: 'Потеря контакта энхансер–промотор', short: 'нет контакта',
-    why: 'Удаление когезина или нарушение границы домена уменьшает контакт энхансера с промотором. Энхансер сам по себе активен, метка не изменена, но синтез РНК мишени падает. При нарушении границы энхансер может включить другой ген.',
-    st: {contact: 'F', nrna: 'V', eact: 'V', mrna: 'V'}, src: ['Rao2017', 'Lupianez2015', 'Hafner2023'],
-    note: 'После деградации когезина петли исчезают, но транскрипция меняется лишь у меньшей части генов (HCT-116, Rao 2017). Нарушение границы TAD перенаправляет энхансер на другой ген (Lupiáñez 2015). Перенос на этот локус — вывод.',
+    why: 'Когезин — АТФазный мотор: гидролиз АТФ позволяет ему втягивать ДНК в растущую петлю, а ориентированные сайты CTCF могут остановить её рост, но этот барьер неполный. Удаление когезина или нарушение границы домена уменьшает контакт энхансера с промотором, хотя часть контактов сохраняется. Энхансер сам по себе активен, метка не изменена, но синтез РНК мишени падает. При нарушении границы энхансер может включить другой ген.',
+    st: {contact: 'F', nrna: 'V', eact: 'V', mrna: 'V'}, src: ['Rao2017', 'Lupianez2015', 'Hafner2023', 'Thiecke2020', 'Davidson2023'],
+    note: 'После деградации когезина петли исчезают, но транскрипция меняется лишь у меньшей части генов (HCT-116, Rao 2017): более чем на 30 % — у 13 % генов, экспрессированных до воздействия. После быстрой деградации когезина или CTCF в клетках человека большинство контактов промоторов исчезало, но заметная часть сохранялась (Thiecke 2020). CTCF — ориентированный, но неполный барьер: в опытах с очищенными белками он останавливал экструзию петли примерно в 45 % встреч при одной ориентации сайта и примерно в 16 % при противоположной (Davidson 2023). WAPL высвобождает когезин с ДНК и ограничивает размер петли. Нарушение границы TAD может перенаправить энхансер на другой ген (Lupiáñez 2015). Падение синтеза РНК мишени в модели и перенос на этот локус — вывод.',
     win: ['HCT-116 / модельные мыши', 'Исчезновение петель при деградации когезина — HCT-116 (Rao 2017); эктопическая экспрессия при нарушении границы TAD — Lupiáñez 2015 (люди, мыши).'],
     mod: s => { s.contact = set(s.contact.length, 1); s.nrna = set(s.nrna.length, 1); s.mrna = [3,2,1,1,1,1,1,1]; return s; }}
 };
@@ -3653,7 +3687,7 @@ function locusSVG(s, cond) {
   let rna = ''; for (let i = 0; i < s.nrna; i++) rna += `<path d="M${pX + 36 + i * 3} ${yl - 18 - i * 7} q10 -10 20 -5" fill="none" stroke="${C.rna}" stroke-width="2.4"/>`;
   let ez = '', ezl = '';
   if (s.dnmt3 >= 2) { ez = '#2563EB'; ezl = 'DNMT3A/3B (de novo)'; }
-  else if (s.dnmt1 >= 2) { ez = ENZ; ezl = 'UHRF1 → DNMT1 (поддержание)'; }
+  else if (s.dnmt1 >= 2) { ez = ENZ; ezl = 'UHRF1 → H3–Ub → DNMT1'; }
   else if (s.tet >= 2) { ez = HM; ezl = 'TET (окисление 5mC)'; }
   const col = s.tet >= 2 ? HM : ME;
   const both = s.me5 >= 2 && s.hemi < 2, half = s.hemi >= 2;
@@ -3717,7 +3751,7 @@ const ABBR = [
  ['PI4P', 'фосфатидилинозитол-4-фосфат'],
  ['PIP₃', 'фосфатидилинозитол-3,4,5-трисфосфат', 'PIP₃|PIP3'],
  ['PI3K', 'фосфоинозитид-3-киназа'],
- ['Rab11', 'малая ГТФаза рециклирующих (субапикальных) эндосом'],
+ ['Rab11', 'малая ГТФаза рециклирующих (субапикальных) эндосом; служит меткой пузырька и местом связывания миозина Vb, но сама пузырёк не переносит'],
  ['G3BP1', 'РНК-связывающий белок — основной каркасный белок стресс-гранул'],
  ['FRAP', 'восстановление флуоресценции после фотообесцвечивания — метод оценки обмена молекул'],
  ['eIF2α', 'α-субъединица фактора инициации трансляции 2; eIF2α-P — фосфорилированная форма, тормозит инициацию', 'eIF2α|eIF2|IF2α'],
@@ -3734,15 +3768,17 @@ const ABBR = [
  ['GTP / GDP', 'гуанозинтрифосфат / гуанозиндифосфат; с GTP малые ГТФазы и Gα активны', 'GTP|GDP'],
  ['β2-АР', 'β2-адренорецептор', 'β2-АР'],
  ['V1a', 'рецептор вазопрессина типа V1a'],
- ['STIM1', 'сенсор Ca²⁺ в мембране ЭПР; при опустошении депо открывает Orai1'],
- ['Orai1', 'Ca²⁺-канал плазматической мембраны, открываемый STIM1'],
- ['NFAT', 'ядерный фактор активированных T-клеток — транскрипционный фактор, переходящий в ядро после дефосфорилирования'],
+ ['STIM1', 'сенсор Ca²⁺ в мембране ЭПР; при опустошении депо освобождает участок SOAR/CAD, который связывается с Orai1'],
+ ['Orai1', 'Ca²⁺-канал плазматической мембраны; пора открывается при связывании SOAR/CAD белка STIM1'],
+ ['SOAR/CAD', 'цитозольный участок STIM1, связывающий Orai1; в покое удерживается в зажиме с областью CC1'],
+ ['NFAT', 'ядерный фактор активированных T-клеток — транскрипционный фактор; переходит в ядро после дефосфорилирования кальциневрином и возвращается в цитоплазму после фосфорилирования киназами'],
+ ['XPO1', 'экспортин (CRM1): выносит из ядра белки с сигналом ядерного экспорта', 'XPO1|CRM1'],
  ['EGFR', 'рецептор эпидермального фактора роста (тирозинкиназа)'],
  ['EGF', 'эпидермальный фактор роста', 'EGF(?!R)'],
  ['GRB2', 'адаптерный белок, связывающий рецептор с SOS1'],
  ['SOS1', 'фактор обмена гуаниновых нуклеотидов: переводит RAS-GDP в RAS-GTP'],
  ['RAS', 'малая ГТФаза; активна в форме RAS-GTP'],
- ['RAF, MEK, ERK', 'протеинкиназы каскада MAPK: RAF фосфорилирует MEK, MEK — ERK', 'RAF|MEK|ERK'],
+ ['RAF, MEK, ERK', 'протеинкиназы каскада MAPK: активный димер RAF фосфорилирует MEK, MEK — ERK', 'RAF|MEK|ERK'],
  ['DUSP', 'фосфатазы двойной специфичности: дефосфорилируют ERK'],
  ['AP-1', 'транскрипционный фактор — димер белков семейств Fos и Jun'],
  ['IRS1', 'субстрат рецептора инсулина 1 — адаптер, привлекающий PI3K'],
@@ -3771,7 +3807,7 @@ const ABBR = [
  ['CpG', 'динуклеотид цитозин–гуанин; цитозин в нём может быть метилирован'],
  ['DNMT3A/3B', 'ДНК-метилтрансферазы, устанавливающие метилирование заново', 'DNMT3A/3B|DNMT3'],
  ['DNMT1', 'ДНК-метилтрансфераза, поддерживающая метилирование после репликации'],
- ['UHRF1', 'белок, узнающий полуметилированные CpG и привлекающий DNMT1'],
+ ['UHRF1', 'белок, узнающий полуметилированные CpG через SRA-домен и убиквитинирующий гистон H3; DNMT1 узнаёт этот убиквитин доменом RFTS'],
  ['TET', 'диоксигеназы, окисляющие 5-метилцитозин (путь удаления метки)'],
  ['CAR', 'конститутивный андростановый рецептор — ядерный рецептор гепатоцита'],
  ['Cyp2b10', 'ген цитохрома P450 2B10 мыши — мишень CAR', 'Cyp2[Bb]10'],

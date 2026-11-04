@@ -807,14 +807,14 @@ function q1Hsp70(id, x, y, closed, nuc, g){
   <text class="lbl" x="580" y="106" font-size="12" fill="var(--muted)" style="text-anchor:end">${t('s1b_st_adp2')}</text>
   <text class="lbl" x="580" y="122" font-size="12" fill="var(--muted)" style="text-anchor:end">${t('s1b_st_adp3')}</text>
   ${q1Hsp70('s1b_hD', 430, 200, true, 'ADP', 'q1_hsp70')}
-  <path id="s1b_arcH" class="edge" d="M 196 182 C 240 112, 360 112, 412 176" marker-end="url(#a_${K})" style="stroke-width:3"/>
-  <text class="lbl" x="300" y="194" font-size="12.5" font-weight="600">${t('s1b_e_hyd')}</text>
-  <path id="s1b_arcD" class="edge" d="M 470 268 C 420 360, 180 360, 120 268" marker-end="url(#a_${K})" style="stroke-width:3"/>
-  <text class="lbl" x="300" y="378" font-size="12.5" font-weight="600">${t('s1b_e_rel')}</text>
+  <path id="s1b_arcH" class="edge" d="M 174 166 H 461 V 191" marker-end="url(#a_${K})" style="stroke-width:3"/>
+  <text class="lbl" x="300" y="188" font-size="12.5" font-weight="600">${t('s1b_e_hyd')}</text>
+  <path id="s1b_arcD" class="edge" d="M 461 260 V 350 H 133 V 235" marker-end="url(#a_${K})" style="stroke-width:3"/>
+  <text class="lbl" x="300" y="368" font-size="12.5" font-weight="600">${t('s1b_e_rel')}</text>
   <g id="s1b_jW" class="clickable" data-g="q1_jdp">${BX('s1b_j', 210, 36, 180, 30, t('s1b_jdp'), 'q1_jdp', 13)}${XX('s1b_jX', 212, 34, 388, 68)}</g>
-  ${E('s1b_eJ', 'M300 68 L300 112', 'act', K)}
+  ${E('s1b_eJ', 'M300 70 L300 155', 'act', K)}
   <g id="s1b_nW" class="clickable" data-g="q1_nef">${BX('s1b_n', 256, 284, 88, 28, t('s1b_nef'), 'q1_nef', 13)}${XX('s1b_nX', 258, 282, 342, 314)}</g>
-  ${E('s1b_eN', 'M300 314 L300 334', 'act', K)}
+  ${E('s1b_eN', 'M300 316 L300 341', 'act', K)}
   <g class="clickable" data-g="q1_sub">
     <path d="M 22 300 q 6 -8 12 0 q 6 8 12 0 q 6 -8 12 0" fill="none" stroke="var(--mal)" stroke-width="3" stroke-linecap="round"/>
     <text class="lbl-l" x="16" y="324" font-size="12" fill="var(--muted)">${t('s1b_sub_free')}</text>
@@ -876,16 +876,16 @@ function q1Hsp70(id, x, y, closed, nuc, g){
     <rect id="s1a_A" x="24" y="304" width="200" height="58" rx="12" class="box"/>
     <text class="lbl" x="124" y="324" font-size="13" font-weight="700">${t('s1a_n_a')}</text>
     <text class="lbl" x="124" y="344" font-size="11.5" fill="var(--muted)">${t('s1a_n_a2')}</text></g>
-  <path id="s1a_eCap" class="edge" d="M 228 128 L 370 128" marker-end="url(#a_${K})"/>
+  <path id="s1a_eCap" class="edge" d="M 228 128 L 367 128" marker-end="url(#a_${K})"/>
   <text id="s1a_capT" class="lbl" x="300" y="104" font-size="12">${t('s1a_e_cap')}</text>
-  <path id="s1a_eRel" class="edge" d="M 372 156 L 230 156" marker-end="url(#a_${K})"/>
-  <text class="lbl" x="300" y="180" font-size="12">${t('s1a_e_rel')}</text>
-  <path id="s1a_eFold" class="edge" d="M 476 174 L 476 298" marker-end="url(#a_${K})"/>
+  <path id="s1a_eRel" class="edge" d="M 372 156 L 233 156" marker-end="url(#a_${K})"/>
+  <text class="lbl-l" x="234" y="180" font-size="12">${t('s1a_e_rel')}</text>
+  <path id="s1a_eFold" class="edge" d="M 476 174 L 476 295" marker-end="url(#a_${K})"/>
   <text class="lbl-l" x="486" y="226" font-size="12">${t('s1a_e_fold')}</text>
   <text class="lbl-l" x="486" y="242" font-size="12">${t('s1a_e_fold2')}</text>
-  <path id="s1a_eAgg" class="edge" d="M 124 174 L 124 298" marker-end="url(#a_${K})"/>
+  <path id="s1a_eAgg" class="edge" d="M 124 174 L 124 295" marker-end="url(#a_${K})"/>
   <text class="lbl-l" x="134" y="234" font-size="12">${t('s1a_e_agg')}</text>
-  <path id="s1a_eSp" class="edge dash" d="M 176 174 C 210 270, 300 320, 372 332" marker-end="url(#a_${K})"/>
+  <path id="s1a_eSp" class="edge dash" d="M 215 174 V 240 H 280 V 333 H 367" marker-end="url(#a_${K})"/>
   <text class="lbl-l" x="300" y="246" font-size="11.5" fill="var(--muted)">${t('s1a_e_sp')}</text>
   <text class="lbl-l" x="300" y="262" font-size="11.5" fill="var(--muted)">${t('s1a_e_sp2')}</text>
   <text class="lbl-l" x="300" y="278" font-size="11.5" fill="var(--muted)">${t('s1a_e_sp3')}</text>
@@ -1044,12 +1044,12 @@ function q2Prot(K, x, y, g){
   <rect class="cyto" width="600" height="420"/>
   <text class="area" x="16" y="26">${t('s2_cyto')}</text>
   <g>${[0, 1, 2].map(i => UB('s2b_pool' + i, 34 + i * 17, 72 + (i % 2) * 14)).join('')}</g>
-  ${Q2_FL('s2b_f1', 'M84 78 L104 78', K)}
+  ${Q2_FL('s2b_f1', 'M81 78 L97 78', K)}
   ${BX('s2b_e1', 106, 60, 74, 36, 'E1', 'q2_e1', 15)}
   <text class="lbl" x="143" y="48" font-size="11.5" fill="var(--muted)">${t('s2_atp')}</text>
-  ${Q2_FL('s2b_f2', 'M181 78 L214 78', K)}
+  ${Q2_FL('s2b_f2', 'M184 78 L206 78', K)}
   ${BX('s2b_e2', 216, 60, 64, 36, 'E2', 'q2_e2', 15)}
-  ${Q2_FL('s2b_f3', 'M281 78 L314 78', K)}
+  ${Q2_FL('s2b_f3', 'M284 78 L306 78', K)}
   ${BX('s2b_e3', 316, 56, 96, 44, 'E3', 'q2_e3', 15)}
   <text class="lbl" x="350" y="40" font-size="11.5" fill="var(--muted)">${t('s2_transfer')}</text>
   <line id="s2b_bind" x1="350" y1="101" x2="302" y2="190" stroke="var(--tfeb)" stroke-width="3" stroke-dasharray="2 5" stroke-linecap="round"/>
@@ -1063,14 +1063,14 @@ function q2Prot(K, x, y, g){
   <text id="s2b_degX" class="lbl fade" opacity="0" x="299" y="250" font-size="10.5" font-weight="700" style="fill:var(--bad);pointer-events:none">${t('s2_deg_mut')}</text>
   <g id="s2b_chain">${[0, 1, 2, 3, 4].map(i => UB('s2b_c' + i, 396 + (i % 2) * 10, 251 + i * 15)).join('')}</g>
   <text id="s2b_k48" class="lbl" x="401" y="336" font-size="11.5" fill="var(--muted)">${t('s2_k48')}</text>
-  ${Q2_FL('s2b_f4', 'M412 208 C 440 200, 452 172, 473 158', K)}
+  ${Q2_FL('s2b_f4', 'M414 216 H 445 V 153 H 466', K)}
   ${q2Prot('s2b', 476, 138, 'q2_prot')}
   <g id="s2b_drug" class="fade" opacity="0"><rect x="458" y="232" width="110" height="20" rx="10" class="drug"/><text x="513" y="242.5" class="lbl" font-size="11.5" font-weight="700" style="fill:#fff">${t('s2_bort_s')}</text></g>
-  ${Q2_FL('s2b_f5', 'M513 294 L513 330', K)}
+  ${Q2_FL('s2b_f5', 'M513 296 L513 328', K)}
   <g id="s2b_pep">${[0, 1, 2, 3, 4, 5].map(i => `<rect x="${470 + i * 15}" y="${338 + (i % 2) * 8}" width="10" height="5" rx="2" fill="var(--off-ink)"/>`).join('')}</g>
   <text class="lbl" x="513" y="370" font-size="11.5" fill="var(--muted)">${t('s2_pep')}</text>
-  ${Q2_FL('s2b_f6', 'M476 150 C 380 120, 130 150, 60 98', K, true)}
-  <text class="lbl" x="200" y="150" font-size="11.5" fill="var(--muted)">${t('s2_recyc')}</text>
+  ${Q2_FL('s2b_f6', 'M513 134 V 116 H 52 V 104', K, true)}
+  <text class="lbl" x="200" y="134" font-size="11.5" fill="var(--muted)">${t('s2_recyc')}</text>
   <g class="legend-svg"><line x1="20" y1="398" x2="48" y2="398" stroke="var(--mtor)" stroke-width="3"/><text class="lbl-l" x="54" y="398" font-size="11.5">${t('s2_lg_flux')}</text>
   <line x1="300" y1="398" x2="328" y2="398" stroke="var(--tfeb)" stroke-width="3" stroke-dasharray="2 5" stroke-linecap="round"/><text class="lbl-l" x="334" y="398" font-size="11.5">${t('s2_lg_bind')}</text></g>`;
   $('ctrl' + K).innerHTML = segHTML('s2b_degS', 's2b_deg_t', [['1', 's2b_deg_on'], ['0', 's2b_deg_off']], '1') + toggleHTML('s2b_bort', 's2b_bort_t', false);
@@ -1115,9 +1115,9 @@ function q2Prot(K, x, y, g){
   <text class="area" x="560" y="402" text-anchor="middle">${t('s2a_nuc')}</text>
   <g id="s2a_tnf" class="fade"><circle cx="70" cy="16" r="10" fill="var(--akt)"/><text class="lbl" x="104" y="16" font-size="12" font-weight="700">TNFα</text></g>
   ${BX('s2a_ikk', 40, 64, 64, 30, 'IKK', 'q2_ikk', 14)}${XX('s2a_ikkX', 42, 62, 102, 96)}
-  ${E('s2a_eTI', 'M70 27 L72 62', 'act', K)}
-  ${E('s2a_eIK', 'M104 86 C 140 96, 150 130, 156 150', 'act', K)}
-  <text class="lbl-l" x="166" y="118" font-size="11" fill="var(--muted)">${t('s2a_phos')}</text>
+  ${E('s2a_eTI', 'M70 30 L70 55', 'act', K)}
+  ${E('s2a_eIK', 'M72 98 V 173 H 131', 'act', K)}
+  <text class="lbl-l" x="84" y="140" font-size="11" fill="var(--muted)">${t('s2a_phos')}</text>
   <g class="clickable" data-g="q2_ikba">
     <rect id="s2a_ib" class="box" x="140" y="156" width="120" height="34" rx="10"/><text class="lbl" x="200" y="173" font-size="14" font-weight="700">IκBα</text>
   </g>
@@ -1127,22 +1127,22 @@ function q2Prot(K, x, y, g){
   <g id="s2a_chain">${[0, 1, 2, 3, 4].map(i => UB('s2a_u' + i, 252 + (i % 2) * 9, 148 - i * 13)).join('')}</g>
   ${BX('s2a_e1', 300, 52, 70, 30, 'E1', 'q2_e1', 13.5)}${XX('s2a_e1X', 302, 50, 368, 84)}
   <g id="s2a_takB" class="fade" opacity="0"><rect x="300" y="38" width="70" height="14" rx="7" class="drug"/><text x="335" y="45.5" class="lbl" font-size="10" font-weight="700" style="fill:#fff">TAK-243</text></g>
-  ${Q2_FL('s2a_f12', 'M371 67 L392 67', K)}
-  ${BX('s2a_e2', 394, 52, 56, 30, 'E2', 'q2_e2', 13.5)}
-  ${Q2_FL('s2a_f23', 'M422 83 L412 101', K)}
+  ${Q2_FL('s2a_f12', 'M374 67 L390 67', K)}
+  ${BX('s2a_e2', 400, 52, 56, 30, 'E2', 'q2_e2', 13.5)}
+  ${Q2_FL('s2a_f23', 'M428 86 V 101', K)}
   <g class="clickable" data-g="q2_scf">
-    <rect id="s2a_scf" class="box" x="314" y="103" width="146" height="52" rx="12"/>
-    <text class="lbl" x="387" y="118" font-size="13" font-weight="700">SCF</text>
-    <text class="lbl" x="387" y="138" font-size="11.5">CUL1 · βTrCP</text>
+    <rect id="s2a_scf" class="box" x="314" y="112" width="146" height="52" rx="12"/>
+    <text class="lbl" x="387" y="127" font-size="13" font-weight="700">SCF</text>
+    <text class="lbl" x="387" y="147" font-size="11.5">CUL1 · βTrCP</text>
   </g>
-  <g class="clickable" data-g="q2_nedd8"><circle id="s2a_n8" class="node on" cx="464" cy="106" r="13"/><text class="lbl" x="464" y="106" font-size="9.5" font-weight="700">N8</text></g>
-  <g id="s2a_mlnB" class="fade" opacity="0"><rect x="442" y="80" width="78" height="14" rx="7" class="drug"/><text x="481" y="87.5" class="lbl" font-size="10" font-weight="700" style="fill:#fff">MLN4924</text></g>
-  ${XX('s2a_btX', 374, 128, 460, 152)}
-  <line id="s2a_bind" x1="314" y1="146" x2="262" y2="168" stroke="var(--tfeb)" stroke-width="3" stroke-dasharray="2 5" stroke-linecap="round"/>
-  ${Q2_FL('s2a_f4', 'M262 178 C 330 182, 420 180, 466 176', K)}
+  <g class="clickable" data-g="q2_nedd8"><circle id="s2a_n8" class="node on" cx="464" cy="115" r="13"/><text class="lbl" x="464" y="115" font-size="9.5" font-weight="700">N8</text></g>
+  <g id="s2a_mlnB" class="fade" opacity="0"><rect x="452" y="89" width="78" height="14" rx="7" class="drug"/><text x="491" y="96.5" class="lbl" font-size="10" font-weight="700" style="fill:#fff">MLN4924</text></g>
+  ${XX('s2a_btX', 374, 137, 460, 161)}
+  <line id="s2a_bind" x1="314" y1="155" x2="262" y2="168" stroke="var(--tfeb)" stroke-width="3" stroke-dasharray="2 5" stroke-linecap="round"/>
+  ${Q2_FL('s2a_f4', 'M264 179 H 460', K)}
   ${q2Prot('s2a', 470, 160, 'q2_prot')}
   <g id="s2a_drug" class="fade" opacity="0"><rect x="452" y="252" width="110" height="18" rx="9" class="drug"/><text x="507" y="261.5" class="lbl" font-size="11" font-weight="700" style="fill:#fff">${t('s2_bort_s')}</text></g>
-  ${Q2_FL('s2a_fNF', 'M220 222 C 260 300, 390 335, 492 354', K)}
+  ${Q2_FL('s2a_fNF', 'M200 224 V 340 H 500', K)}
   <text id="s2a_nfL" class="lbl" x="240" y="360" font-size="11.5" fill="var(--muted)">${t('s2a_nf_free')}</text>
   <g class="legend-svg"><line x1="16" y1="404" x2="44" y2="404" stroke="var(--mtor)" stroke-width="3"/><text class="lbl-l" x="50" y="404" font-size="11.5">${t('s2_lg_flux')}</text>
   <line x1="16" y1="384" x2="44" y2="384" stroke="var(--tfeb)" stroke-width="3" stroke-dasharray="2 5" stroke-linecap="round"/><text class="lbl-l" x="50" y="384" font-size="11.5">${t('s2_lg_bind')}</text></g>
@@ -1362,13 +1362,13 @@ const Q3TAG = (id, x, y, w, k) => `<g id="${id}" class="fade" opacity="0"><rect 
   ${BX('s3b_os9', 330, 206, 250, 28, 'OS-9 / XTP3-B', 'q3_os9', 12.5)}
   ${BX('s3b_exit', 330, 124, 250, 28, t('s3_exit'), 'q3_golgi', 12.5)}
   ${BX('s3b_hrd', 378, 262, 150, 28, 'SEL1L–HRD1', 'q3_hrd1', 12.5)}
-  ${BX('s3b_p97', 378, 318, 70, 26, 'p97', 'q3_p97', 12.5)}
-  ${BX('s3b_ngly', 475, 318, 90, 26, 'NGLY1', 'q3_ngly1', 12.5)}
+  ${BX('s3b_p97', 374, 318, 70, 26, 'p97', 'q3_p97', 12.5)}
+  ${BX('s3b_ngly', 479, 318, 90, 26, 'NGLY1', 'q3_ngly1', 12.5)}
   ${BX('s3b_pr', 450, 372, 140, 30, t('s3_prot'), 'q3_prot', 12.5)}
-  ${E('s3b_e1', 'M455 236 L455 259', 'act', K)}
-  ${E('s3b_e2', 'M413 292 L413 315', 'act', K)}
-  ${E('s3b_e3', 'M450 331 L472 331', 'act', K)}
-  ${E('s3b_e4', 'M520 346 L520 369', 'act', K)}
+  ${E('s3b_e1', 'M455 238 L455 253', 'act', K)}
+  ${E('s3b_e2', 'M409 294 L409 309', 'act', K)}
+  ${E('s3b_e3', 'M448 331 L470 331', 'act', K)}
+  ${E('s3b_e4', 'M524 348 L524 363', 'act', K)}
   <text class="lbl-l" x="20" y="322" font-size="12.5" font-weight="700">${t('s3_where')}</text>
   <g id="s3b_bar"></g>
   <g id="s3b_lg">${SEG.map(([k, c], i) => `<rect x="${20 + (i % 3) * 118}" y="${364 + Math.floor(i / 3) * 18}" width="11" height="11" rx="2" fill="var(${c})"/><text class="lbl-l" x="${35 + (i % 3) * 118}" y="${370 + Math.floor(i / 3) * 18}" font-size="11">${t('s3_seg_' + k)}</text>`).join('')}</g>`;
@@ -1434,14 +1434,14 @@ const Q3TAG = (id, x, y, w, k) => `<g id="${id}" class="fade" opacity="0"><rect 
   $('svg' + K).innerHTML = defs(K) + `
   <rect class="cyto" width="600" height="420"/>
   <text class="lbl-l" x="14" y="18" font-size="12.5" font-weight="700">${t('s3a_path')}</text>
-  ${NODES.map(([id, g, lab], i) => BX('s3a_' + id, 10 + i * 100, 32, 74, 32, lab.startsWith('s3') ? t(lab) : lab, g, 10)).join('')}
-  ${NODES.slice(0, 5).map((_, i) => E('s3a_p' + i, `M${86 + i * 100} 48 L${108 + i * 100} 48`, 'act', K)).join('')}
-  ${E('s3a_px', 'M47 66 L47 91', 'act', K)}
+  ${NODES.map(([id, g, lab], i) => BX('s3a_' + id, 10 + i * 102, 32, 74, 32, lab.startsWith('s3') ? t(lab) : lab, g, 10)).join('')}
+  ${NODES.slice(0, 5).map((_, i) => E('s3a_p' + i, `M${78 + i * 102} 48 L${93 + i * 102} 48`, 'act', K)).join('')}
+  ${E('s3a_px', 'M47 68 L47 85', 'act', K)}
   ${BX('s3a_gol', 10, 94, 136, 28, t('s3_golgi_s'), 'q3_golgi', 11.5)}
-  ${E('s3a_py', 'M146 108 L176 108', 'act', K)}
+  ${E('s3a_py', 'M150 108 L169 108', 'act', K)}
   ${BX('s3a_med', 178, 94, 92, 28, t('s3_medium_s'), 'q3_golgi', 11.5)}
-  ${XX('s3a_xedem', 112, 34, 182, 62)}${XX('s3a_xhrd', 212, 34, 282, 62)}${XX('s3a_xp97', 312, 34, 382, 62)}${XX('s3a_xpr', 512, 34, 582, 62)}
-  ${Q3TAG('s3a_tkif', 95, 70, 104, 's3a_tag_kif')}${Q3TAG('s3a_tcb', 295, 70, 104, 's3a_tag_cb')}${Q3TAG('s3a_tbtz', 497, 70, 100, 's3a_tag_btz')}${Q3TAG('s3a_thrd', 195, 70, 104, 's3a_tag_hrd')}
+  ${XX('s3a_xedem', 114, 34, 184, 62)}${XX('s3a_xhrd', 216, 34, 286, 62)}${XX('s3a_xp97', 318, 34, 388, 62)}${XX('s3a_xpr', 522, 34, 592, 62)}
+  ${Q3TAG('s3a_tkif', 97, 70, 104, 's3a_tag_kif')}${Q3TAG('s3a_tcb', 301, 70, 104, 's3a_tag_cb')}${Q3TAG('s3a_tbtz', 497, 70, 100, 's3a_tag_btz')}${Q3TAG('s3a_thrd', 199, 70, 104, 's3a_tag_hrd')}
   <text class="lbl-l" x="290" y="100" font-size="12">${t('s3a_ub_lbl')}</text>
   <text class="lbl-l" x="290" y="117" font-size="12.5" font-weight="700" id="s3a_ub">.</text>
   <text class="lbl-l" x="290" y="134" font-size="11.5" fill="var(--muted)" id="s3a_ubn">${t('s3a_ub_note')}</text>
@@ -1610,9 +1610,10 @@ const AF_SC = { II: 2.4, dots: 9, p62: .6, pool: 2.6 };
 /* конвейер этапов (общая часть схем 4b и 4a) */
 function afPipe(K, y){
   const keys = ['ulk1', 'vps34', 'wipi2', 'atg7', 'close', 'stx17', 'vatp', 'cath'];
-  let h = `<path class="edge" d="M10 ${y + 56} L588 ${y + 56}" marker-end="url(#a_${K})"/>`;
+  let h = `<path class="edge" d="M6 ${y + 56} L586 ${y + 56}" marker-end="url(#a_${K})" style="stroke-width:1.5"/>`;
   keys.forEach((g, i) => {
     const x = 6 + i * 74;
+    h += `<line x1="${x + 35}" y1="${y + 46}" x2="${x + 35}" y2="${y + 56}" stroke="var(--edge)" stroke-width="1.5"/>`;
     h += `<g id="${K}_st${i}" class="clickable" data-g="q4_${g}"><rect class="box" id="${K}_st${i}_r" x="${x}" y="${y}" width="70" height="46" rx="8"/>` +
       `<text class="lbl" x="${x + 35}" y="${y + 15}" font-size="10.5" font-weight="700">${t('s4_st' + i + 'a')}</text>` +
       `<text class="lbl" x="${x + 35}" y="${y + 32}" font-size="9.5">${t('s4_st' + i + 'b')}</text></g>` +

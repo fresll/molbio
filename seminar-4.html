@@ -895,23 +895,25 @@ const fmtInt = x => String(Math.round(x)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
   ${node('s1a_erk', 500, 82, 60, 'ERK', 'erk', 14)}${PB('s1a_erkP', 530, 68)}
   ${E('s1a_e1', 'M82 82 L97 82', 'act', K)}${E('s1a_e2', 'M181 82 L210 82', 'act', K)}${E('s1a_e3', 'M260 82 L292 82', 'act', K)}
   ${E('s1a_e4', 'M354 82 L376 82', 'act', K)}${E('s1a_e5', 'M438 82 L468 82', 'act', K)}
-  <path id="s1a_eFB" class="edge dash" d="M500 66 C 470 18, 200 26, 152 66" marker-end="url(#b_${K})"/>
+  <path id="s1a_eFB" class="edge dash" d="M500 62 V 52 H 152 V 62" marker-end="url(#b_${K})"/>
+  <path id="s1a_eFR" class="edge dash" d="M478 102 V 134 H 348 V 102" marker-end="url(#b_${K})"/>
   <text class="lbl" x="330" y="26" font-size="11" fill="var(--muted)" style="paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round">${t('s1a_fb')}</text>
   ${node('s1a_nf1', 236, 160, 124, t('s1a_nf1'), 'nf1', 12)}${XX('s1a_nf1X', 176, 146, 296, 174)}
   ${E('s1a_eNF', 'M236 146 L236 110', 'inh', K)}
-  ${node('s1a_d6', 476, 160, 96, t('s1a_dusp6'), 'dusp', 12)}${XX('s1a_d6X', 430, 146, 522, 174)}
-  ${E('s1a_eD6', 'M476 146 L476 98', 'inh', K)}
-  <path id="s1a_eInt" class="edge dash" d="M50 98 C 50 150, 60 190, 72 206" marker-end="url(#a_${K})"/>
-  <text class="lbl" x="104" y="150" font-size="11" fill="var(--muted)">${t('s1a_int')}</text>
-  <circle cx="80" cy="244" r="31" fill="var(--lyso-fill)" stroke="var(--lyso)" stroke-width="2.5"/>
-  <text class="lbl" x="80" y="244" font-size="11" fill="var(--lyso)" style="fill:var(--lyso)">${t('s1a_lyso')}</text>
+  ${node('s1a_d6', 460, 160, 96, t('s1a_dusp6'), 'dusp', 12)}${XX('s1a_d6X', 414, 146, 506, 174)}
+  ${E('s1a_eD6', 'M500 146 L500 98', 'inh', K)}
+  <path id="s1a_eInt" class="edge dash" d="M70 102 V 206" marker-end="url(#a_${K})"/>
+  <text class="lbl" x="80" y="187" font-size="11" fill="var(--muted)" style="text-anchor:start">${t('s1a_int')}</text>
+  <circle cx="70" cy="244" r="31" fill="var(--lyso-fill)" stroke="var(--lyso)" stroke-width="2.5"/>
+  <text class="lbl" x="70" y="244" font-size="11" fill="var(--lyso)" style="fill:var(--lyso)">${t('s1a_lyso')}</text>
   <text class="lbl" id="s1a_recN" x="128" y="290" font-size="11" fill="var(--muted)"></text>
-  <path class="edge dash" id="s1a_eNuc" d="M528 98 C 560 150, 548 260, 470 330" marker-end="url(#a_${K})"/>
+  <path class="edge dash" id="s1a_eNuc" d="M526 102 V 316 H 452 V 326" marker-end="url(#a_${K})"/>
   <text class="lbl" x="560" y="230" font-size="11" fill="var(--muted)">${t('s1a_imp')}</text>
   ${node('s1a_ne', 450, 346, 70, 'ERK', 'erk', 13)}${PB('s1a_neP', 485, 332)}
   ${node('s1a_gene', 360, 392, 112, t('s1a_gene'), 'dusp', 11.5)}
-  <path id="s1a_eSyn" class="edge" d="M416 380 C 470 380, 540 380, 560 360" style="stroke:var(--tfeb);stroke-dasharray:2 4" marker-end="url(#a_${K})"/>
-  <text class="lbl" x="530" y="392" font-size="11" fill="var(--tfeb)" style="fill:var(--tfeb)">${t('s1a_syn')}</text>
+  <path id="s1a_eSyn" class="edge" d="M422 392 H 560 V 366" style="stroke:var(--tfeb);stroke-dasharray:2 4" marker-end="url(#a_${K})"/>
+  <path id="s1a_eTx" class="edge" d="M409 346 H 384 V 372" marker-end="url(#a_${K})"/>
+  <text class="lbl" x="488" y="382" font-size="11" fill="var(--tfeb)" style="fill:var(--tfeb)">${t('s1a_syn')}</text>
   ${node('s1a_d1', 560, 346, 60, 'DUSP1', 'dusp', 11.5)}
   ${E('s1a_eD1', 'M530 346 L487 346', 'inh', K)}
   <g id="s1a_dT" class="fade" opacity="0"><rect x="380" y="104" width="86" height="18" rx="9" class="drug"/><text class="lbl" x="423" y="113" font-size="11" font-weight="700" style="fill:#fff">${t('iv_tram')}</text></g>
@@ -959,7 +961,7 @@ const fmtInt = x => String(Math.round(x)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     /* связывание RAF с RAS-GTP (R) и её каталитический выход (pMEK, M) — разные показания; модель не менялась */
     setBoxState('s1a_rb', s.R > .2 ? 'on' : null); setBoxState('s1a_ra', s.M > .4 ? 'on' : null); setEdge('s1a_eRA', s.M);
     setEdge('s1a_e4', s.R); setBoxState('s1a_mek', s.M > .4 ? 'on' : null); setOp('s1a_mekP', s.M > .4 ? 1 : 0);
-    setEdge('s1a_eFB', s.F); setEdge('s1a_e5', s.M * (cd.c.trame ? .05 : 1)); setBoxState('s1a_erk', s.E > .35 ? 'on' : null); setOp('s1a_erkP', s.E > .35 ? 1 : 0);
+    setEdge('s1a_eFB', s.F); setEdge('s1a_eFR', s.F); setEdge('s1a_e5', s.M * (cd.c.trame ? .05 : 1)); setBoxState('s1a_erk', s.E > .35 ? 'on' : null); setOp('s1a_erkP', s.E > .35 ? 1 : 0);
     const nfx = gv === 'nf1'; missing('s1a_nf1', nfx); setOp('s1a_nf1X', nfx ? 1 : 0); setBoxState('s1a_nf1', nfx ? null : 'on');
     setEdge('s1a_eNF', nfx ? 0 : (gv === 'g12c' ? .2 : .9));
     const dx = cd.a === 'dusp'; missing('s1a_d6', dx); setOp('s1a_d6X', dx ? 1 : 0); setBoxState('s1a_d6', dx ? null : 'on');
@@ -967,7 +969,7 @@ const fmtInt = x => String(Math.round(x)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     setEdge('s1a_eInt', s.A > .05 ? .9 : .2);
     setTxt('s1a_recN', t('s1a_recleft', { p: pct(Math.min(1, s.Rt)) }));
     setEdge('s1a_eNuc', s.E); setBoxState('s1a_ne', s.En > .35 ? 'on' : null); setOp('s1a_neP', s.En > .35 ? 1 : 0);
-    setBoxState('s1a_gene', s.En > .3 ? 'on' : null); setEdge('s1a_eSyn', s.En);
+    setBoxState('s1a_gene', s.En > .3 ? 'on' : null); setEdge('s1a_eSyn', s.En); setEdge('s1a_eTx', s.En);
     setBoxState('s1a_d1', s.D > .1 && !dx ? 'on' : null); setEdge('s1a_eD1', dx ? .1 : Math.min(1, s.D * 3));
     setOp('s1a_dT', cd.c.trame ? 1 : 0); setOp('s1a_dS', cd.c.soto ? 1 : 0);
     setTxt('s1a_clock', t('s1a_clock', { m: tt }));
@@ -1063,18 +1065,20 @@ const DIFF_THR = 0.3;   // учебный порог: pERK через 60 мин 
   <text class="area" x="590" y="64" text-anchor="end">${t('s2b_cell')}</text>
   <g id="s2b_lig" class="fade"><circle cx="40" cy="20" r="9" fill="var(--aa)"/><text class="lbl" id="s2b_ligT" x="40" y="20" font-size="8.5" style="fill:#fff"></text></g>
   ${REC.map((x, i) => `<rect id="s2b_r${i}" x="${x - 5}" y="32" width="10" height="24" rx="3" fill="var(--akt)" opacity=".8"/>`).join('')}
-  <text class="lbl" id="s2b_recT" x="160" y="74" font-size="12" font-weight="700"></text>
+  <text class="lbl" id="s2b_recT" x="262" y="68" font-size="12" font-weight="700" style="text-anchor:start"></text>
   <g class="clickable" data-g="ras"><circle id="s2b_ras" class="node off" cx="70" cy="128" r="22"/><text class="lbl" x="70" y="128" font-size="12" font-weight="700">RAS</text></g>
   ${node('s2b_raf', 160, 128, 56, 'RAF', 'raf')}${node('s2b_mek', 250, 128, 56, 'MEK', 'mek')}${node('s2b_erk', 340, 128, 56, 'ERK', 'erk')}${PB('s2b_erkP', 368, 114)}
-  ${E('s2b_e0', 'M100 84 L84 108', 'act', K)}${E('s2b_e1', 'M92 128 L130 128', 'act', K)}${E('s2b_e2', 'M188 128 L220 128', 'act', K)}${E('s2b_e3', 'M278 128 L310 128', 'act', K)}
-  <path id="s2b_ePos" class="edge dash" d="M330 146 C 310 180, 190 180, 172 146" marker-end="url(#a_${K})"/>
-  <text class="lbl" id="s2b_posT" x="250" y="194" font-size="11" fill="var(--muted)">${t('s2b_pos')}</text>
+  ${E('s2b_e0', 'M70 62 V 100', 'act', K)}${E('s2b_e1', 'M92 128 L130 128', 'act', K)}${E('s2b_e2', 'M188 128 L220 128', 'act', K)}${E('s2b_e3', 'M278 128 L310 128', 'act', K)}
+  <path id="s2b_ePos" class="edge dash" d="M330 148 V 190 H 284" marker-end="url(#a_${K})"/>
+  <path id="s2b_ePos2" class="edge dash" d="M216 190 H 160 V 148" marker-end="url(#a_${K})"/>
+  <g id="s2b_pkcW" opacity="0">${BX('s2b_pkc', 222, 176, 56, 28, 'PKC', '', 12)}</g>
+  <text class="lbl" id="s2b_posT" x="250" y="224" font-size="11" fill="var(--muted)">${t('s2b_pos')}</text>
   ${node('s2b_oth', 460, 92, 150, t('s2b_other'), 'other', 11.5)}
-  ${E('s2b_eOth', 'M240 58 C 330 66, 380 80, 384 92', 'act', K)}
+  ${E('s2b_eOth', 'M250 62 V 92 H 379', 'act', K)}
   <ellipse class="nuc" cx="220" cy="330" rx="200" ry="82"/>
   <text class="area" x="60" y="290">${t('lbl_nucleus')}</text>
-  <path class="edge dash" id="s2b_eNuc" d="M366 144 C 384 210, 320 262, 262 294" marker-end="url(#a_${K})"/>
-  <text class="lbl" x="372" y="232" font-size="11" fill="var(--muted)">${t('s1a_imp')}</text>
+  <path class="edge dash" id="s2b_eNuc" d="M352 148 V 270 H 220 V 290" marker-end="url(#a_${K})"/>
+  <text class="lbl" x="360" y="232" font-size="11" fill="var(--muted)" style="text-anchor:start">${t('s1a_imp')}</text>
   ${node('s2b_ne', 220, 310, 64, 'ERK', 'erk')}${PB('s2b_neP', 252, 296)}
   ${node('s2b_ieg', 220, 364, 180, t('s2b_ieg'), 'ieg', 11.5)}
   ${E('s2b_eIeg', 'M220 326 L220 348', 'act', K)}
@@ -1102,7 +1106,7 @@ const DIFF_THR = 0.3;   // учебный порог: pERK через 60 мин 
     ['s2b_e0', 's2b_e1', 's2b_e2', 's2b_e3'].forEach(id => setEdge(id, s30.E));
     setBoxState('s2b_raf', s30.E > .35 ? 'on' : null); setBoxState('s2b_mek', s30.E > .35 ? 'on' : null);
     setBoxState('s2b_erk', s30.E > .35 ? 'on' : null); setOp('s2b_erkP', s30.E > .35 ? 1 : 0);
-    setOp('s2b_ePos', f === 'ngf' ? 1 : 0); setOp('s2b_posT', f === 'ngf' ? 1 : 0);
+    setOp('s2b_ePos', f === 'ngf' ? 1 : 0); setOp('s2b_ePos2', f === 'ngf' ? 1 : 0); setOp('s2b_pkcW', f === 'ngf' ? 1 : 0); setOp('s2b_posT', f === 'ngf' ? 1 : 0);
     setEdge('s2b_eNuc', s30.En); setBoxState('s2b_ne', s30.En > .35 ? 'on' : null); setOp('s2b_neP', s30.En > .35 ? 1 : 0);
     setBoxState('s2b_ieg', s30.En > .35 ? 'on' : null); setEdge('s2b_eIeg', s30.En);
     setBoxState('s2b_oth', 'on');
@@ -1150,13 +1154,13 @@ const DIFF_THR = 0.3;   // учебный порог: pERK через 60 мин 
   ${E('s2a_e1', 'M218 84 L266 84', 'act', K)}${E('s2a_e2', 'M312 84 L334 84', 'act', K)}
   <ellipse class="nuc" cx="262" cy="312" rx="252" ry="100"/>
   <text class="area" x="262" y="402" text-anchor="middle">${t('lbl_nucleus')}</text>
-  <path class="edge dash" id="s2a_eNuc" d="M396 100 C 396 150, 380 190, 360 220" marker-end="url(#a_${K})"/>
+  <path class="edge dash" id="s2a_eNuc" d="M396 102 V 190 H 350 V 218" marker-end="url(#a_${K})"/>
   ${node('s2a_ne', 350, 238, 64, 'ERK', 'erk')}${PB('s2a_neP', 382, 224)}
   ${node('s2a_gene', 180, 238, 110, t('s2a_gene'), 'cfos', 11.5)}
   ${E('s2a_eG', 'M318 238 L238 238', 'act', K)}
-  <path class="edge" id="s2a_eSyn" d="M150 254 L132 284" style="stroke:var(--tfeb);stroke-dasharray:2 4" marker-end="url(#a_${K})"/>
+  <path class="edge" id="s2a_eSyn" d="M150 258 V 280" style="stroke:var(--tfeb);stroke-dasharray:2 4" marker-end="url(#a_${K})"/>
   ${node('s2a_pu', 120, 300, 136, t('s2a_pu'), 'cfos', 11.5)}
-  <path class="edge dash" id="s2a_eDeg" d="M80 316 C 70 336, 76 350, 90 362" marker-end="url(#a_${K})"/>
+  <path class="edge dash" id="s2a_eDeg" d="M80 320 V 358" marker-end="url(#a_${K})"/>
   <text class="lbl" x="120" y="377" font-size="11" fill="var(--muted)">${t('s2a_deg')}</text>
   ${E('s2a_ePh', 'M190 300 L216 300', 'act', K)}
   <text class="lbl" x="208" y="279" font-size="11" fill="var(--muted)">${t('s2a_ph')}</text>
@@ -1164,11 +1168,11 @@ const DIFF_THR = 0.3;   // учебный порог: pERK через 60 мин 
   ${E('s2a_ePf', 'M388 300 L404 300', 'act', K)}
   ${node('s2a_pf', 458, 300, 104, t('s2a_pf'), 'cfos', 11)}${PB('s2a_psP2', 504, 286)}
   <text class="lbl" id="s2a_defT" x="458" y="266" font-size="10.5" fill="var(--bad)"></text>
-  ${E('s2a_eAp', 'M450 316 L426 342', 'act', K)}
+  ${E('s2a_eAp', 'M440 320 V 338', 'act', K)}
   ${node('s2a_ap', 400, 358, 160, t('s2a_ap1'), 'ap1', 11)}
   <rect x="440" y="120" width="150" height="132" rx="12" fill="var(--surface)" stroke="var(--line)"/>
   <text class="lbl" x="515" y="138" font-size="12" font-weight="700">${t('s2a_nb')}</text>
-  <path class="edge dash" id="s2a_eSec" d="M458 88 C 490 88, 515 92, 515 112" marker-end="url(#a_${K})"/>
+  <path class="edge dash" id="s2a_eSec" d="M460 88 H 515 V 114" marker-end="url(#a_${K})"/>
   <text class="lbl" x="596" y="76" font-size="11" fill="var(--muted)" style="text-anchor:end">${t('s2a_sec')}</text>
   ${node('s2a_st3', 515, 196, 90, 'STAT3', 'stat3', 12.5)}${PB('s2a_st3P', 560, 182)}
   <text class="lbl" id="s2a_st3T" x="515" y="232" font-size="11" fill="var(--muted)"></text>
@@ -1279,7 +1283,7 @@ const BIS = (() => {
   ${BX('s3b_prog', 20, 44, 110, 28, t('s3b_progN'), 'prog', 12)}
   ${BX('s3b_mos', 170, 44, 70, 28, 'Mos', 'mos', 13)}${BX('s3b_mek', 270, 44, 70, 28, 'MEK1', 'mek', 13)}${BX('s3b_map', 370, 44, 110, 28, 'p42 MAPK', 'mapk', 13)}
   ${E('s3b_e1', 'M132 58 L166 58', 'act', K)}${E('s3b_e2', 'M242 58 L266 58', 'act', K)}${E('s3b_e3', 'M342 58 L366 58', 'act', K)}
-  <path id="s3b_eFB" class="edge" d="M425 74 C 420 110, 220 112, 205 76" marker-end="url(#a_${K})"/>
+  <path id="s3b_eFB" class="edge" d="M425 78 V 98 H 205 V 78" marker-end="url(#a_${K})"/>
   <text class="lbl" id="s3b_fbT" x="315" y="115" font-size="11" fill="var(--muted)"></text>
   <text class="lbl" x="150" y="150" font-size="12" font-weight="700">${t('s3b_pop')}</text>
   ${[...Array(N).keys()].map(i => `<circle id="s3b_o${i}" cx="${46 + (i % 6) * 42}" cy="${186 + Math.floor(i / 6) * 44}" r="16" class="node off"/>`).join('')}
@@ -1364,24 +1368,25 @@ const BIS = (() => {
   ${node('s3a_sos', 140, 92, 70, 'SOS', 'sos', 13)}
   <g class="clickable" data-g="ras"><circle id="s3a_ras" class="node off" cx="224" cy="92" r="22"/><text class="lbl" x="224" y="92" font-size="12" font-weight="700">RAS</text></g>
   <g id="s3a_rafW">${node('s3a_raf', 318, 92, 92, 'RAF', 'raf', 12.5)}</g>
-  <g id="s3a_monoW">${node('s3a_mono', 318, 150, 142, t('s3a_mono'), 'braf', 11.5)}</g>
+  <g id="s3a_monoW">${node('s3a_mono', 340, 150, 142, t('s3a_mono'), 'braf', 11.5)}</g>
   ${node('s3a_mek', 420, 92, 64, 'MEK', 'mek', 13)}${node('s3a_erk', 520, 92, 64, 'ERK', 'erk', 13)}${PB('s3a_erkP', 552, 78)}
   ${E('s3a_e1', 'M85 92 L103 92', 'act', K)}${E('s3a_e2', 'M175 92 L200 92', 'act', K)}${E('s3a_e3', 'M246 92 L270 92', 'act', K)}
-  ${E('s3a_e4', 'M364 92 L386 92', 'act', K)}${E('s3a_eM', 'M391 150 C 404 140, 412 120, 414 108', 'act', K)}${E('s3a_e5', 'M452 92 L486 92', 'act', K)}
-  <path id="s3a_fS" class="edge" d="M520 76 C 480 20, 200 22, 146 76" marker-end="url(#b_${K})"/>
-  <path id="s3a_fR" class="edge" d="M512 76 C 470 46, 360 46, 326 76" marker-end="url(#b_${K})"/>
+  ${E('s3a_e4', 'M364 92 L386 92', 'act', K)}${E('s3a_eM', 'M400 130 V 112', 'act', K)}${E('s3a_e5', 'M452 92 L486 92', 'act', K)}
+  <path id="s3a_fS" class="edge" d="M526 72 V 52 H 146 V 72" marker-end="url(#b_${K})"/>
+  <path id="s3a_fR" class="edge" d="M510 72 V 62 H 326 V 72" marker-end="url(#b_${K})"/>
   <text class="lbl" x="250" y="23" font-size="11" fill="var(--muted)" style="paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round">${t('s3a_fast')}</text>
   <g id="s3a_drV" class="fade" opacity="0"><rect x="268" y="113" width="100" height="18" rx="9" class="drug"/><text class="lbl" x="318" y="122" font-size="11" font-weight="700" style="fill:#fff">${t('s3a_vem')}</text></g>
   <g id="s3a_drM" class="fade" opacity="0"><rect x="424" y="113" width="96" height="18" rx="9" class="drug"/><text class="lbl" x="472" y="122" font-size="11" font-weight="700" style="fill:#fff">${t('iv_tram')}</text></g>
   <ellipse class="nuc" cx="400" cy="350" rx="200" ry="92"/>
   <text class="area" x="560" y="300" text-anchor="middle">${t('lbl_nucleus')}</text>
-  <path class="edge dash" id="s3a_eNuc" d="M520 108 C 530 180, 500 230, 460 270" marker-end="url(#a_${K})"/>
+  <path class="edge dash" id="s3a_eNuc" d="M538 112 V 250 H 460 V 280" marker-end="url(#a_${K})"/>
   ${node('s3a_gene', 400, 300, 150, t('s3a_gene'), 'dusp', 11.5)}
-  <path class="edge" id="s3a_eSyn" d="M330 300 C 240 300, 200 280, 190 250" style="stroke:var(--tfeb);stroke-dasharray:2 4" marker-end="url(#a_${K})"/>
+  <path class="edge" id="s3a_eSyn" d="M320 300 H 190 V 250" style="stroke:var(--tfeb);stroke-dasharray:2 4" marker-end="url(#a_${K})"/>
+  <path class="edge" id="s3a_eSyn2" d="M190 300 H 80 V 250" style="stroke:var(--tfeb);stroke-dasharray:2 4" marker-end="url(#a_${K})"/>
   <text class="lbl" x="250" y="318" font-size="11" fill="var(--tfeb)" style="fill:var(--tfeb)">${t('s1a_syn')}</text>
   ${node('s3a_dusp', 190, 230, 84, 'DUSP', 'dusp', 12)}${node('s3a_spry', 80, 230, 84, 'SPRY', 'spry', 12)}
-  <path id="s3a_fD" class="edge" d="M232 222 C 380 200, 500 170, 516 110" marker-end="url(#b_${K})"/>
-  <path id="s3a_fSp" class="edge" d="M80 214 C 80 160, 200 140, 218 116" marker-end="url(#b_${K})"/>
+  <path id="s3a_fD" class="edge" d="M238 230 H 500 V 112" marker-end="url(#b_${K})"/>
+  <path id="s3a_fSp" class="edge" d="M80 208 V 150 H 188 V 98" marker-end="url(#b_${K})"/>
   <text class="lbl" x="170" y="196" font-size="11" fill="var(--muted)">${t('s3a_slow')}</text>
   <g id="s3a_chxW" class="fade" opacity="0"><rect x="300" y="336" width="200" height="20" rx="10" class="drug"/><text class="lbl" x="400" y="346" font-size="11" font-weight="700" style="fill:#fff">${t('s3a_chx')}</text></g>
   <text class="lbl-l mono" id="s3a_clock" x="14" y="404" font-size="15" font-weight="600"></text>`;
@@ -1432,7 +1437,7 @@ const BIS = (() => {
     setOp('s3a_fS', cd.fast ? .16 + .84 * s.F : 0); setOp('s3a_fR', cd.fast ? .16 + .84 * s.F : 0);
     setOp('s3a_drV', cd.c.vem ? 1 : 0); setOp('s3a_drM', cd.c.trame ? 1 : 0);
     setEdge('s3a_eNuc', s.En); setBoxState('s3a_gene', cd.slow && s.Dm > .15 ? 'on' : null);
-    setEdge('s3a_eSyn', cd.slow ? Math.min(1, s.Dm * 2) : 0);
+    setEdge('s3a_eSyn', cd.slow ? Math.min(1, s.Dm * 2) : 0); setEdge('s3a_eSyn2', cd.slow ? Math.min(1, s.Dm * 2) : 0);
     setBoxState('s3a_dusp', s.D > .15 ? 'on' : null); setBoxState('s3a_spry', s.S > .15 ? 'on' : null);
     setOp('s3a_fD', .16 + .84 * Math.min(1, s.D * 2)); setOp('s3a_fSp', .16 + .84 * Math.min(1, s.S * 2));
     setOp('s3a_chxW', cd.slow ? 0 : 1);
@@ -1526,7 +1531,7 @@ function insulinSVG(K){
   <text class="lbl" x="70" y="206" font-size="11" fill="var(--muted)">PIP₂ → PIP₃</text>
   ${node('_akt', 200, 158, 76, 'AKT', 'akt', 14)}${PB(p + 'aktP1', 236, 146)}${PB(p + 'aktP2', 250, 158)}
   ${E(p + 'e1', 'M70 64 L70 90', 'act', K)}${E(p + 'e2', 'M70 118 L70 144', 'act', K)}${E(p + 'e3', 'M106 158 L160 158', 'act', K)}
-  <path id="${p}fbIrs" class="edge dash" d="M540 92 C 520 66, 160 66, 118 98" marker-end="url(#b_${K})"/>
+  <path id="${p}fbIrs" class="edge dash" d="M548 94 V 76 H 84 V 85" marker-end="url(#b_${K})"/>
   <text class="lbl" x="330" y="64" font-size="11" fill="var(--muted)">${t('s4_fb')}</text>
   ${node('_ampk', 360, 196, 76, 'AMPK', 'ampk')}${PB(p + 'ampkP', 398, 184)}
   <text class="lbl" x="360" y="226" font-size="11" fill="var(--muted)">${t('s4_ampkIn')}</text>
@@ -1542,9 +1547,9 @@ function insulinSVG(K){
   <text class="lbl" x="432" y="160" font-size="10.5" fill="var(--muted)">${(w => `<tspan x="432" dy="0">${w[0]} ${w[1]}</tspan><tspan x="432" dy="12">${w[2]}</tspan>`)(t('s4_ampkRap').split(' '))}</text>
   ${node('_srb', 470, 248, 104, 'SREBP-1c', 'srebp', 12)}
   ${E(p + 'eMSr', 'M470 126 L470 234', 'act', K)}
-  <text class="lbl" x="522" y="176" font-size="10.5" fill="var(--muted)">${t('s4_mrna')}</text>
-  <path class="edge dash" id="${p}eSP" d="M560 126 C 600 200, 580 300, 477 321" marker-end="url(#a_${K})"/>
-  <text class="lbl" x="462" y="292" font-size="10.5" fill="var(--muted)" style="text-anchor:end">${t('s4_proc')}</text>
+  <text class="lbl" x="514" y="176" font-size="10.5" fill="var(--muted)">${t('s4_mrna')}</text>
+  <path class="edge dash" id="${p}eSP" d="M566 131 V 248 H 528" marker-end="url(#a_${K})"/>
+  <text class="lbl" x="558" y="212" font-size="10.5" fill="var(--muted)" style="text-anchor:end">${t('s4_proc').split(' ').map((w, i) => `<tspan x="558" dy="${i ? 12 : 0}">${w}</tspan>`).join('')}</text>
   ${node('_gsk', 100, 252, 64, 'GSK3', 'gsk3', 12)}${PB(p + 'gskP', 132, 240)}
   ${E(p + 'eAG', 'M180 172 L118 238', 'inh', K)}
   <text class="lbl" id="${p}glyT" x="100" y="282" font-size="11" fill="var(--muted)"></text>

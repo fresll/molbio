@@ -444,6 +444,10 @@ function plotLines(cv, series, o){
 
 /* ---------- каркас сцен ---------- */
 const SCENES = {};
+/* подпись в одну или две строки (разбиение по пробелу, слова не меняются): wrap2(id, текст, x, y_одна, y_верх, y_низ) */
+function wrap2(id, s, x, yOne, yA, yB){ const e = $(id), w = String(s).split(' '); let a = String(s), b = '';
+  if (a.length > 12 && w.length > 1){ let bi = 1, bd = 1e9; for (let i = 1; i < w.length; i++){ const d = Math.abs(w.slice(0, i).join(' ').length - w.slice(i).join(' ').length); if (d <= bd){ bd = d; bi = i; } } a = w.slice(0, bi).join(' '); b = w.slice(bi).join(' '); }
+  e.textContent = ''; [a, b].forEach((l, i) => { if (!l) return; const ts = document.createElementNS('http://www.w3.org/2000/svg', 'tspan'); ts.setAttribute('x', x); ts.setAttribute('y', b ? (i ? yB : yA) : yOne); ts.textContent = l; e.appendChild(ts); }); }
 function layout(key){
   const sec = document.createElement('section'); sec.className = 'scene'; sec.id = 'sc' + key; sec.hidden = true;
   sec.innerHTML = `<div class="panel stage"><button class="btn ghost zoombtn" id="zoom${key}" aria-pressed="false">${t('zoom_in')}</button><div class="zwrap"><svg id="svg${key}" viewBox="0 0 600 420" role="img"></svg></div></div>
@@ -748,13 +752,13 @@ const M1 = (() => {
   <ellipse id="s1b_org" cx="190" cy="128" rx="150" ry="74" stroke-width="3"/>
   <text class="lbl" id="s1b_orgN" x="190" y="104" font-size="13" font-weight="600"></text>
   <text class="lbl mono" id="s1b_val" x="190" y="134" font-size="22" font-weight="700"></text>
+  <path id="s1b_tr" class="edge dash" d="M 240 22 L 240 22" marker-end="url(#a_${K})"/>
   <g class="clickable" data-g="vatp" id="s1b_pumpG"><rect class="box" id="s1b_pump_r" x="128" y="40" width="124" height="28" rx="8"/><text class="lbl" id="s1b_pumpT" x="190" y="54" font-size="12.5" font-weight="700"></text></g>
-  <path id="s1b_tr" class="edge dash" d="M 300 30 L 300 30" marker-end="url(#a_${K})"/>
-  <text class="lbl-l" id="s1b_trT" x="308" y="40" font-size="12"></text>
+  <text class="lbl-l" id="s1b_trT" x="248" y="34" font-size="12"></text>
   <text class="lbl" id="s1b_atp" x="190" y="30" font-size="11.5" fill="var(--muted)"></text>
   <g id="s1b_drug" class="clickable" data-g="baf" opacity="0"><rect id="s1b_drugR" x="62" y="40" width="60" height="28" rx="6" fill="var(--bad)"/><text class="lbl" id="s1b_drugT" x="92" y="54" font-size="11.5" font-weight="700" style="fill:#fff"></text><text class="lbl" id="s1b_drugT2" x="92" y="68" font-size="11.5" font-weight="700" style="fill:#fff"></text></g>
   <line id="s1b_tee" x1="122" y1="54" x2="128" y2="54" stroke="var(--bad)" stroke-width="4" opacity="0"/>
-  <path id="s1b_leak" class="edge dash" d="M 100 190 L 100 222" marker-end="url(#a_${K})"/>
+  <path id="s1b_leak" class="edge dash" d="M 100 176 L 100 222" marker-end="url(#a_${K})"/>
   <text class="lbl-l" id="s1b_leakT" x="110" y="210" font-size="12"></text>
   <text class="lbl" id="s1b_mem" x="190" y="164" font-size="12" fill="var(--good)"></text>
   <g id="s1b_gauge"></g>
@@ -830,11 +834,11 @@ const M1 = (() => {
     org.setAttribute('stroke', COL[c]);
     setTxt('s1b_cyt', t('s1b_cyt_' + c)); setTxt('s1b_orgN', t('s1b_org_' + c)); setTxt('s1b_val', xText(c, x));
     $('s1b_pumpG').dataset.g = PG[c]; setTxt('s1b_pumpT', t('s1b_pumpN_' + c)); setBoxState('s1b_pump', on ? 'on' : 'inh');
-    setTxt('s1b_atp', t('s1b_en_' + c)); setOp('s1b_atp', on ? 1 : .35);
-    $('s1b_atp').setAttribute('x', c === 'mito' ? 128 : 190); $('s1b_atp').setAttribute('font-size', c === 'mito' ? 11 : 11.5); $('s1b_atp').setAttribute('y', c === 'mito' ? 29 : 30); $('s1b_atp').style.textAnchor = c === 'mito' ? 'start' : '';
+    if (c === 'mito') wrap2('s1b_atp', t('s1b_en_' + c), 128, 29, 24, 34); else setTxt('s1b_atp', t('s1b_en_' + c)); setOp('s1b_atp', on ? 1 : .35);
+    $('s1b_atp').setAttribute('x', c === 'mito' ? 128 : 190); $('s1b_atp').setAttribute('font-size', c === 'mito' ? 10.5 : 11.5); $('s1b_atp').setAttribute('y', c === 'mito' ? 29 : 30); $('s1b_atp').style.textAnchor = c === 'mito' ? 'start' : '';
     /* перенос насосом: лизосома и ЭПР — из цитозоля в просвет (вниз), матрикс — из матрикса наружу (вверх) */
     const tr = $('s1b_tr');
-    tr.setAttribute('d', c === 'mito' ? 'M 300 92 L 300 26' : 'M 300 22 L 300 88');
+    tr.setAttribute('d', c === 'mito' ? 'M 240 90 L 240 22' : 'M 240 22 L 240 88');
     tr.style.opacity = on ? 1 : .16; setTxt('s1b_trT', t('s1b_ion_' + c)); 
     $('s1b_drug').dataset.g = DG[c]; setTxt('s1b_drugT', t('s1b_drugS_' + c));
     /* для матрикса — два ингибитора, две строки */
@@ -844,7 +848,7 @@ const M1 = (() => {
     $('s1b_drugT2').setAttribute('x', 67); setTxt('s1b_drugT2', two ? t('s1b_drugS2_mito') : ''); setOp('s1b_drug', on ? 0 : 1); setOp('s1b_tee', on ? 0 : 1);
     /* утечка: различие рассеивается по градиенту, пока оно есть */
     const lk = $('s1b_leak');
-    lk.setAttribute('d', c === 'mito' ? 'M 100 222 L 100 190' : 'M 100 190 L 100 222');
+    lk.setAttribute('d', c === 'mito' ? 'M 100 222 L 100 176' : 'M 100 176 L 100 222');
     lk.style.opacity = (0.2 + 0.8 * Math.min(1, Math.abs(r))).toFixed(2); setTxt('s1b_leakT', t('s1b_leak_' + c));
     setTxt('s1b_mem', t('s1b_mem_ok'));
     gauge(c, x);
@@ -894,26 +898,26 @@ const M1 = (() => {
   <rect x="0" y="${YI0}" width="600" height="${YI1 - YI0}" fill="var(--mito-fill)" stroke="var(--mito)" stroke-width="2.5"/>
   <rect id="s1a_mat" x="0" y="${YI1}" width="600" height="${318 - YI1}" fill="var(--mito)" opacity=".1"/>
   <text class="lbl-l" x="300" y="${YI1 + 74}" font-size="11.5" fill="var(--muted)">${t('s1a_matrix')}</text>
+  <path id="s1a_trResp" class="edge dash" d="M 24 196 L 24 92" marker-end="url(#a_${K})"/>
+  <path id="s1a_trAtp" class="edge dash" d="M 172 92 L 172 196" marker-end="url(#a_${K})"/>
+  <path id="s1a_trTim" class="edge dash" d="M 336 46 L 336 196" marker-end="url(#a_${K})"/>
+  <path id="s1a_trMcu" class="edge dash" d="M 443 92 L 443 196" marker-end="url(#a_${K})"/>
+  <path id="s1a_trF" class="edge dash" d="M 550 92 L 550 196" marker-end="url(#a_${K})" style="opacity:0"/>
   ${BX('s1a_resp', 14, YI0 - 14, 118, 48, t('s1a_resp'), 'resp', 12)}
   ${BX('s1a_atps', 166, YI0 - 14, 92, 48, t('s1a_atps'), 'atps', 12)}
   ${BX('s1a_tim', 300, YI0 - 14, 72, 48, t('s1a_tim'), 'tim23', 12)}
   ${BX('s1a_mcu', 412, YI0 - 14, 62, 48, t('s1a_mcu'), 'mcu', 12)}
   <g id="s1a_fccpG" class="clickable" data-g="fccp" opacity="0"><rect x="520" y="${YI0 - 14}" width="60" height="48" rx="8" fill="var(--surface)" stroke="var(--bad)" stroke-width="2" stroke-dasharray="4 3"/><text class="lbl" x="550" y="${YI0 + 1}" font-size="12" font-weight="700" fill="var(--bad)">FCCP</text></g>
-  <path id="s1a_trResp" class="edge dash" d="M 144 196 L 144 92" marker-end="url(#a_${K})"/>
-  <text class="lbl-l" x="150" y="96" font-size="12">H⁺</text>
-  <path id="s1a_trAtp" class="edge dash" d="M 270 92 L 270 196" marker-end="url(#a_${K})"/>
-  <text class="lbl-l" x="276" y="96" font-size="12">H⁺</text>
-  <path id="s1a_trTim" class="edge dash" d="M 384 46 L 384 200" marker-end="url(#a_${K})"/>
-  <text class="lbl-l" x="392" y="42" font-size="11.5">${t('s1a_mts')}</text>
-  ${BX('s1a_tom', 356, YO - 12, 56, 24, t('s1a_tom'), 'tim23', 11.5)}
-  <path id="s1a_trMcu" class="edge dash" d="M 486 92 L 486 196" marker-end="url(#a_${K})"/>
-  <text class="lbl-l" x="492" y="178" font-size="12">Ca²⁺</text>
-  <path id="s1a_trF" class="edge dash" d="M 550 140 L 550 196" marker-end="url(#a_${K})" style="opacity:0"/>
+  <text class="lbl-l" x="35" y="96" font-size="12">H⁺</text>
+  <text class="lbl-l" x="183" y="96" font-size="12">H⁺</text>
+  <text class="lbl-l" x="344" y="42" font-size="11.5">${t('s1a_mts')}</text>
+  ${BX('s1a_tom', 308, YO - 12, 56, 24, t('s1a_tom'), 'tim23', 11.5)}
+  <text class="lbl-l" x="449" y="178" font-size="12">Ca²⁺</text>
   <text class="lbl-l" id="s1a_hF" x="556" y="190" font-size="12" opacity="0">H⁺</text>
-  <text class="lbl-l" id="s1a_o2" x="12" y="176" font-size="11"></text>
-  <text class="lbl" id="s1a_atpRx" x="216" y="176" font-size="11"></text>
-  <g id="s1a_dAnti" class="clickable" data-g="anti" opacity="0"><rect x="27" y="214" width="92" height="24" rx="6" fill="var(--bad)"/><text class="lbl" x="73" y="226" font-size="11.5" font-weight="700" style="fill:#fff">${t('s1a_lab_anti')}</text><line x1="73" y1="214" x2="73" y2="${YI1 + 46}" stroke="var(--bad)" stroke-width="3"/><line x1="63" y1="${YI1 + 46}" x2="83" y2="${YI1 + 46}" stroke="var(--bad)" stroke-width="4"/></g>
-  <g id="s1a_dOligo" class="clickable" data-g="oligo" opacity="0"><rect x="166" y="214" width="92" height="24" rx="6" fill="var(--bad)"/><text class="lbl" x="212" y="226" font-size="11.5" font-weight="700" style="fill:#fff">${t('s1a_lab_oligo')}</text><line x1="212" y1="214" x2="212" y2="${YI1 + 46}" stroke="var(--bad)" stroke-width="3"/><line x1="202" y1="${YI1 + 46}" x2="222" y2="${YI1 + 46}" stroke="var(--bad)" stroke-width="4"/></g>
+  <text class="lbl" id="s1a_o2" x="72" y="176" font-size="11"></text>
+  <text class="lbl" id="s1a_atpRx" x="210" y="176" font-size="11"></text>
+  <g id="s1a_dAnti" class="clickable" data-g="anti" opacity="0"><rect x="27" y="214" width="92" height="24" rx="6" fill="var(--bad)"/><text class="lbl" x="73" y="226" font-size="11.5" font-weight="700" style="fill:#fff">${t('s1a_lab_anti')}</text><line x1="112" y1="214" x2="112" y2="162" stroke="var(--bad)" stroke-width="3"/><line x1="104" y1="162" x2="120" y2="162" stroke="var(--bad)" stroke-width="4"/></g>
+  <g id="s1a_dOligo" class="clickable" data-g="oligo" opacity="0"><rect x="166" y="214" width="92" height="24" rx="6" fill="var(--bad)"/><text class="lbl" x="212" y="226" font-size="11.5" font-weight="700" style="fill:#fff">${t('s1a_lab_oligo')}</text><line x1="248" y1="214" x2="248" y2="162" stroke="var(--bad)" stroke-width="3"/><line x1="240" y1="162" x2="256" y2="162" stroke="var(--bad)" stroke-width="4"/></g>
   <text class="lbl" x="440" y="240" font-size="12" fill="var(--muted)">${t('s1a_psi_t')}</text>
   <text class="lbl mono" id="s1a_psi" x="440" y="264" font-size="20" font-weight="700"></text>
   <text class="lbl" id="s1a_tmrm" x="440" y="292" font-size="11.5" fill="var(--muted)"></text>
@@ -943,15 +947,15 @@ const M1 = (() => {
     setBoxState('s1a_mcu', o.ca.tot < 0 ? 'on' : 'inh');
     $('s1a_trResp').style.opacity = respOn ? 1 : .16;
     /* ATP-синтаза: синтез — H⁺ входят в матрикс; гидролиз — H⁺ выводятся из матрикса */
-    $('s1a_trAtp').setAttribute('d', o.atp === 'hyd' ? 'M 270 196 L 270 92' : 'M 270 92 L 270 196');
+    $('s1a_trAtp').setAttribute('d', o.atp === 'hyd' ? 'M 172 196 L 172 92' : 'M 172 92 L 172 196');
     $('s1a_trAtp').style.opacity = (o.atp === 'syn' || o.atp === 'hyd') ? 1 : .16;
     $('s1a_trTim').style.opacity = (0.16 + 0.84 * Math.min(1, o.imp)).toFixed(2);
     $('s1a_trMcu').style.opacity = o.ca.tot < 0 ? 1 : .16;
     $('s1a_trF').style.opacity = fccp ? 1 : 0; setOp('s1a_hF', fccp ? 1 : 0); setOp('s1a_fccpG', fccp ? 1 : 0);
     setOp('s1a_dOligo', k === 'oligo' || k === 'antiol' ? 1 : 0);
     setOp('s1a_dAnti', k === 'anti' || k === 'antiol' ? 1 : 0);
-    setTxt('s1a_o2', t(respOn ? 's1a_o2_on' : 's1a_o2_off'));
-    setTxt('s1a_atpRx', t('s1a_rx_' + o.atp));
+    wrap2('s1a_o2', t(respOn ? 's1a_o2_on' : 's1a_o2_off'), 72, 176, 171, 184);
+    wrap2('s1a_atpRx', t('s1a_rx_' + o.atp), 210, 176, 171, 184);
     setTxt('s1a_psi', mv(o.psi) + ' ' + t('u_mV'));
     setTxt('s1a_tmrm', t(Math.abs(o.psi) > 100 ? 's1a_tmrm_hi' : 's1a_tmrm_lo'));
     setOp('s1a_mat', (0.05 + 0.3 * Math.abs(o.psi) / 160));
@@ -1193,8 +1197,8 @@ const lg = x => Math.log10(x);
   <text class="lbl" x="${X1 - 15}" y="46" font-size="12" id="s2a_hBt" fill="var(--muted)">${t('s2a_lab_hB')}</text>
   <circle id="s2a_hAd" cx="${X0 + 15}" cy="62" r="6" fill="var(--akt)" opacity="0"/>
   <circle id="s2a_hBd" cx="${X1 - 15}" cy="62" r="6" fill="var(--tfeb)" opacity="0"/>
-  <path id="s2a_eA" class="edge" d="M${X0 + 15} 99 L${X0 + 15} 118" marker-end="url(#a_${K})"/>
-  <path id="s2a_eB" class="edge" d="M${X1 - 15} 99 L${X1 - 15} 118" marker-end="url(#a_${K})"/>
+  <path id="s2a_eA" class="edge" d="M${X0 + 15} 102 L${X0 + 15} 118" marker-end="url(#a_${K})"/>
+  <path id="s2a_eB" class="edge" d="M${X1 - 15} 102 L${X1 - 15} 118" marker-end="url(#a_${K})"/>
   <g class="clickable" data-g="adcy"><rect id="s2a_acA" x="${X0 + 4}" y="122" width="34" height="20" rx="5" class="box"/><text class="lbl" x="${X0 + 21}" y="132" font-size="11.5" font-weight="700">AC</text></g>
   <g class="clickable" data-g="adcy"><rect id="s2a_acB" x="${X1 - 38}" y="122" width="34" height="20" rx="5" class="box"/><text class="lbl" x="${X1 - 21}" y="132" font-size="11.5" font-weight="700">AC</text></g>
   <g class="clickable" data-g="akap"><rect id="s2a_akap" x="${X0 + 4}" y="146" width="44" height="18" rx="5" class="box"/><text class="lbl" x="${X0 + 26}" y="155" font-size="11" font-weight="700">AKAP</text></g>
@@ -1405,7 +1409,7 @@ const M3 = (() => {
   <text class="lbl" x="${G.le.x}" y="${G.le.y + 74}" font-size="12.5" font-weight="600" id="s3b_leL2">${t('s3b_m_le2')}</text>
   ${BX('s3b_pikf', G.le.x - 160, G.le.y - 14, 82, 24, t('s3b_e_pikfyve'), 'pikfyve', 12)}
   <g id="s3b_apiD" opacity="0"><rect x="${G.le.x - 160}" y="${G.le.y + 14}" width="82" height="20" rx="6" class="drug"/><text class="lbl" x="${G.le.x - 119}" y="${G.le.y + 24}" font-size="11" fill="#fff" font-weight="700">${t('s3b_d_api')}</text></g>
-  <path d="M${G.ee.x + 18} ${G.ee.y + 38} Q ${G.ee.x + 40} ${G.ee.y + 80} ${G.le.x - 20} ${G.le.y - 40}" class="edge dash" marker-end="url(#a_${K})" opacity=".5"/>
+  <path d="M${G.le.x - 20} ${G.ee.y + 39} L${G.le.x - 20} ${G.le.y - 44}" class="edge dash" marker-end="url(#a_${K})" opacity=".5"/>
   <text class="lbl" x="${G.ee.x - 24}" y="${G.ee.y + 82}" font-size="11.5" fill="var(--muted)">${t('s3b_matur')}</text>
   <text class="lbl" x="${G.le.x}" y="${G.le.y - 7}" font-size="11.5" fill="var(--lyso)" font-weight="600" id="s3b_vac1"></text><text class="lbl" x="${G.le.x}" y="${G.le.y + 9}" font-size="11.5" fill="var(--lyso)" font-weight="600" id="s3b_vac2"></text>
   <g transform="translate(36,390)" class="clickable" id="s3b_lgG" data-g="phplcd">
@@ -1713,12 +1717,12 @@ const fx4 = x => x >= 10 ? String(Math.round(x)) : x >= 1 ? fmt(x, 1) : fmt(x, 2
   <g class="clickable" data-g="mcu"><rect id="s4b_mcuB_r" x="440" y="${IMM - 7}" width="46" height="15" rx="4" class="box"/><text class="lbl" x="463" y="${IMM + 1}" font-size="11" font-weight="700">MCU</text></g>
   <g class="clickable" data-g="micu1" id="s4b_micuB"><rect id="s4b_micuB_r" x="494" y="${IMM - 21}" width="52" height="14" rx="4" class="box"/><text class="lbl" x="520" y="${IMM - 14}" font-size="10.5" font-weight="700">MICU1</text></g>
   ${XX('s4b_micuBx', 496, IMM - 21, 544, IMM - 7)}
-  <path id="s4b_tMcuA" d="M191 ${IMM + 10} L191 ${IMM + 52}" class="edge" style="stroke-dasharray:6 5" marker-end="url(#a_${K})"/>
-  <path id="s4b_tMcuB" d="M463 ${IMM + 10} L463 ${IMM + 52}" class="edge" style="stroke-dasharray:6 5" marker-end="url(#a_${K})"/>
+  <path id="s4b_tMcuA" d="M191 ${IMM + 12} L191 ${IMM + 52}" class="edge" style="stroke-dasharray:6 5" marker-end="url(#a_${K})"/>
+  <path id="s4b_tMcuB" d="M463 ${IMM + 12} L463 ${IMM + 52}" class="edge" style="stroke-dasharray:6 5" marker-end="url(#a_${K})"/>
   <text class="lbl-l" x="198" y="${IMM + 40}" font-size="11" fill="var(--muted)">${t('s4b_lb_tr')}</text>
   <g class="clickable" data-g="dh"><rect id="s4b_dh_r" x="230" y="300" width="200" height="40" rx="9" class="box"/><text class="lbl" x="330" y="314" font-size="12" font-weight="700">${t('s4b_lb_dh')}</text><text class="lbl" x="330" y="330" font-size="10.5" fill="var(--muted)">${t('s4b_lb_dh2')}</text></g>
-  <path id="s4b_eDh" d="M330 ${IMM + 92} L330 296" class="edge" marker-end="url(#a_${K})"/>
-  <g id="s4b_soce"><path d="M596 112 L560 122" class="edge" style="stroke-dasharray:6 5" marker-end="url(#a_${K})"/><text class="lbl" x="596" y="88" font-size="11" font-weight="600" style="text-anchor:end">${t('s4b_lb_soce')}</text></g>
+  <path id="s4b_eDh" d="M330 ${IMM + 92} L330 294" class="edge" marker-end="url(#a_${K})"/>
+  <g id="s4b_soce"><path d="M598 118 L558 118" class="edge" style="stroke-dasharray:6 5" marker-end="url(#a_${K})"/><text class="lbl" x="596" y="88" font-size="11" font-weight="600" style="text-anchor:end">${t('s4b_lb_soce')}</text></g>
   <circle cx="330" cy="386" r="4" fill="var(--rfp)"/><text class="lbl-l" x="340" y="386" font-size="11.5" fill="var(--muted)">${t('s4b_lg_ca')}</text>
   <text class="lbl" x="560" y="408" font-size="11" fill="var(--muted)" style="text-anchor:end">${t('s4b_lg_scale')}</text>`;
   $('ctrl' + K).innerHTML = segHTML('s4b_con', 's4b_con_t', CON, 'on') + segHTML('s4b_st', 's4b_st_t', STIM, 'rest') + segHTML('s4b_mi', 's4b_mi_t', MIC, 'yes') +
@@ -1740,7 +1744,7 @@ const fx4 = x => x >= 10 ? String(Math.round(x)) : x >= 1 ? fmt(x, 1) : fmt(x, 2
   }
   function update(){
     const o = cond(), r = M4.ca(o);
-    const yE = o.contact === 'on' ? OMM - 20 : OMM - 52;
+    const yE = o.contact === 'on' ? OMM - 34 : OMM - 52;
     /* ЭПР: в зоне контакта опускается к митохондрии, справа отходит */
     $('s4b_er').setAttribute('d', `M${ZX0} 40 L540 40 L540 70 C 420 70, 340 70, ${ZX1 + 20} ${yE - 6} L${ZX1} ${yE} L${ZX0} ${yE} Z`);
     setTxt('s4b_zoneT', t(o.contact === 'on' ? 's4b_zone_on' : 's4b_zone_low'));
@@ -1750,7 +1754,7 @@ const fx4 = x => x >= 10 ? String(Math.round(x)) : x >= 1 ? fmt(x, 1) : fmt(x, 2
     /* рецепторы IP₃ на мембране ЭПР в зоне контакта */
     const open = o.stim === 'ip3';
     $('s4b_ip3r').innerHTML = [80, 140, 250].map(x => `<g class="clickable" data-g="ip3r"><rect x="${x - 18}" y="${yE - 9}" width="36" height="16" rx="4" class="box${open ? ' on' : ''}"/><text class="lbl" x="${x}" y="${yE - 1}" font-size="10" font-weight="700">IP₃R</text></g>` +
-      (open ? `<path d="M${x} ${yE + 8} L${x} ${yE + 18}" class="edge" style="stroke-dasharray:3 3" marker-end="url(#a_${K})"/>` : '')).join('');
+      (open ? `<path d="M${x} ${yE + 10} L${x} ${yE + 28}" class="edge" style="stroke-dasharray:4 3" marker-end="url(#a_${K})"/>` : '')).join('');
     /* точки Ca²⁺: зазор, остальной цитозоль, матрикс */
     const gTop = yE + 10, gH = Math.max(8, OMM - gTop - 8);
     const dots = (pts, n, x0, w, y0, h) => pts.slice(0, n).map(([a, b]) => `<circle cx="${(x0 + a * w).toFixed(1)}" cy="${(y0 + b * h).toFixed(1)}" r="3" fill="var(--rfp)"/>`).join('');
@@ -1813,7 +1817,7 @@ const fx4 = x => x >= 10 ? String(Math.round(x)) : x >= 1 ? fmt(x, 1) : fmt(x, 2
   <text class="lbl" x="500" y="${EY + 44}" font-size="10.5" fill="var(--muted)">${t('s4a_lb_hyd')}</text>
   <path id="s4a_tChol" d="M420 ${EY - 4} L420 ${GY + 6}" class="edge" style="stroke-dasharray:6 5;stroke-width:3" marker-end="url(#a_${K})"/>
   <text class="lbl-l" x="426" y="${GY + 46}" font-size="11.5" font-weight="600">${t('s4a_lb_chol')}</text>
-  <path id="s4a_tPi" d="M530 ${GY + 6} L530 ${EY + 4}" class="edge" style="stroke-dasharray:6 5;stroke-width:3" marker-end="url(#a_${K})"/>
+  <path id="s4a_tPi" d="M530 ${GY + 6} L530 ${EY + 1}" class="edge" style="stroke-dasharray:6 5;stroke-width:3" marker-end="url(#a_${K})"/>
   <text class="lbl-l" x="536" y="${EY - 40}" font-size="11.5" font-weight="600">PI4P</text>
   <text class="lbl-l" x="426" y="${GY + 62}" font-size="10.5" fill="var(--muted)">${t('s4a_lb_tr').split(': ')[0]}:</text><text class="lbl-l" x="426" y="${GY + 75}" font-size="10.5" fill="var(--muted)">${t('s4a_lb_tr').split(': ').slice(1).join(': ')}</text>
   <g id="s4a_mth"></g>

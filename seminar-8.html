@@ -1287,11 +1287,11 @@ function redox(p){
   <g class="clickable" data-g="pyr"><circle id="${P}pyrN" class="node off" cx="278" cy="86" r="31"/><text class="lbl" x="278" y="86" font-size="11.5" font-weight="700">${t('s1_pyr')}</text></g>
 
   <!-- пируват: в митохондрии, в лактат, наружу -->
-  ${FE(P + 'ePM', 'M309 86 C 372 86, 414 102, 422 166', 'act', K)}
-  ${FE(P + 'ePL', 'M278 117 L278 188 C 278 205, 262 211, 224 211', 'act', K)}
+  ${FE(P + 'ePM', 'M309 86 L428 86 L428 163', 'act', K)}
+  ${FE(P + 'ePL', 'M278 117 L278 211 L229 211', 'act', K)}
   <path class="halo" d="M262 140 L290 140 M262 150 L290 150"/>
-  ${FE(P + 'ePx', 'M272 56 C 264 24, 220 10, 72 10', 'act', K)}
-  ${FE(P + 'ePi', 'M70 12 C 220 12, 262 26, 270 56', 'act', K)}
+  ${FE(P + 'ePx', 'M284 52 L284 8 L74 8', 'act', K)}
+  ${FE(P + 'ePi', 'M74 16 L272 16 L272 49', 'act', K)}
   ${BX(P + 'ldh', 96, 196, 126, 30, t('s1_ldh'), 'ldh', 13)}
   ${FE(P + 'eLx', 'M96 211 L68 211', 'act', K)}
 
@@ -1300,7 +1300,7 @@ function redox(p){
   <g class="clickable pool" data-g="nad"><rect class="pool-fr" x="96" y="134" width="126" height="18" rx="5"/><rect id="${P}poolD" class="nadh" x="96" y="134" width="20" height="18" rx="5"/></g>
   ${road(P + 'rG1', 'M200 112 L200 134')}${road(P + 'rG2', 'M214 134 L214 112')}
   ${road(P + 'rL1', 'M108 154 L108 194')}${road(P + 'rL2', 'M210 194 L210 154')}
-  ${road(P + 'rS1', 'M224 140 L300 140 C 326 140, 330 224, 345 224')}${road(P + 'rS2', 'M345 236 C 332 236, 328 150, 300 150 L224 150')}
+  ${road(P + 'rS1', 'M224 140 L328 140 L328 224 L340 224')}${road(P + 'rS2', 'M340 236 L316 236 L316 150 L224 150')}
   <text class="lbl-l" x="318" y="128" font-size="11" fill="var(--muted)">${t('s1_shuttle_l')}</text>
   ${adv ? `<g id="${P}noxg" class="fade clickable" data-g="lbnox" opacity="0" style="pointer-events:none"><rect class="noxbox" x="124" y="160" width="72" height="24" rx="8"/><text class="lbl" x="160" y="172" font-size="12" font-weight="700" style="fill:#fff">LbNOX</text></g>` : ''}
 
@@ -1323,7 +1323,7 @@ function redox(p){
   <text class="lbl" x="461" y="410" font-size="12" font-weight="700">O₂</text>
   ${FE(P + 'eATP', 'M544 322 L544 374', 'act', K)}
   <text class="lbl" x="544" y="388" font-size="12" font-weight="700">ATP</text>
-  ${FE(P + 'eLeak', 'M476 326 C 482 354, 506 354, 516 326', 'act', K, 'dash')}
+  ${FE(P + 'eLeak', 'M476 324 L476 344 L516 344 L516 327', 'act', K, 'dash')}
   <text class="lbl" x="497" y="366" font-size="11" fill="var(--muted)">H⁺</text>
 
   <!-- реакция ЛДГ: рабочая часть NAD(H), остаток — R -->
@@ -1623,7 +1623,7 @@ function redox(p){
   <!-- серая заглушка: притоки, которые модель не считает -->
   <g class="stub-g clickable" data-g="prop" tabindex="0" role="button" aria-label="${t('gl_prop')}"><rect class="stub" x="524" y="262" width="74" height="36" rx="6"/>
     <text class="lbl" x="561" y="274" font-size="9" fill="var(--muted)">${t('s2_stub1')}</text><text class="lbl" x="561" y="287" font-size="9" fill="var(--muted)">${t('s2_stub2')}</text></g>
-  <path class="edge dash" d="M522 282 L458 296" marker-end="url(#fa_${K})" style="opacity:.45"/>
+  <path class="edge dash" d="M520 290 L463 290" marker-end="url(#fa_${K})" style="opacity:.45"/>
   <!-- серая статическая стрелка ОАА → ФЕП (PEPCK): в расчёт не входит -->
   <g class="stub-g clickable" data-g="pepck" tabindex="0" role="button" aria-label="${t('s2_xp_a')}"><rect x="167" y="328" width="48" height="46" fill="transparent" stroke="none"/><path class="edge dash" d="M191 329 L191 355" marker-end="url(#fa_${K})" style="opacity:.45"/><text class="lbl" x="191" y="368" font-size="10.5" fill="var(--muted)">${t('s2_xp')}</text></g>
 
@@ -1646,7 +1646,7 @@ function redox(p){
   ${FE(P + 'eIDH', 'M238 130 L362 130', K)}
   ${FE(P + 'eKG', 'M410 157 L410 273', K)}
   ${FE(P + 'eSDH', 'M362 300 L238 300', K)}
-  ${adv ? `<g id="${P}redg" class="fade"><path id="${P}eRED" class="edge dash" d="M392 103 C 380 74, 220 74, 208 101" marker-end="url(#fa_${K})"/><g class="clickable" data-g="red"><text class="lbl" x="300" y="68" font-size="10.5" fill="var(--muted)">${t('s2_redl')}</text></g></g>` : ''}
+  ${adv ? `<g id="${P}redg" class="fade"><path id="${P}eRED" class="edge dash" d="M392 102 L392 80 L208 80 L208 98" marker-end="url(#fa_${K})"/><g class="clickable" data-g="red"><text class="lbl" x="300" y="68" font-size="10.5" fill="var(--muted)">${t('s2_redl')}</text></g></g>` : ''}
 
   <!-- выходы (катаплероз) -->
   ${FE(P + 'eXc', 'M164 103 L164 30', K)}
@@ -1660,7 +1660,7 @@ function redox(p){
   ${FE(P + 'eXh', 'M436 327 L436 384', K)}
   <g class="clickable" data-g="heme"><text class="lbl" x="436" y="398" font-size="11.5" font-weight="600">${t('s2_xh')}</text></g>
 
-  ${FE(P + 'eNI', 'M300 143 L300 168', K)}${FE(P + 'eNK', 'M377 208 L352 208', K)}${FE(P + 'eNM', 'M238 285 L262 264', K)}${FE(P + 'eNF', 'M300 287 L300 264', K)}
+  ${FE(P + 'eNI', 'M300 143 L300 168', K)}${FE(P + 'eNK', 'M377 208 L352 208', K)}${FE(P + 'eNM', 'M239 285 L262 285 L262 271', K)}${FE(P + 'eNF', 'M300 287 L300 264', K)}
   <g id="${P}dots"></g>
 
   <!-- ферменты на краях -->
@@ -1905,8 +1905,8 @@ function redox(p){
     <ellipse class="dna" cx="510" cy="222" rx="62" ry="50"/>
     <ellipse class="octa" cx="510" cy="222" rx="48" ry="37"/>
     <text class="lbl" x="510" y="222" font-size="12" font-weight="600">${t('s3_nucl')}</text>
-    <path class="tail" d="M462 208 C 420 200, 350 198, 292 196"/>
-    <text class="lbl" x="418" y="238" font-size="11" fill-opacity=".8">${t('s3_tail')}</text>
+    <path class="tail" d="M314 199 L452 199"/>
+    <text class="lbl" x="408" y="238" font-size="11" fill-opacity=".8">${t('s3_tail')}</text>
     <g class="clickable" data-g="ch_k4" tabindex="0" role="button"><circle class="ks" cx="300" cy="196" r="14"/><text class="lbl" x="300" y="196" font-size="11" font-weight="700">K4</text></g>
     <g class="clickable" data-g="ch_k9" tabindex="0" role="button"><circle class="ks" cx="372" cy="202" r="14"/><text class="lbl" x="372" y="202" font-size="11" font-weight="700">K9</text></g>
     <g id="${P}k4m" class="fade"><circle class="mme" cx="300" cy="168" r="12"/><text class="lbl kin-lbl" x="300" y="168" font-size="10">me3</text></g>
@@ -1922,20 +1922,20 @@ function redox(p){
     <g class="clickable" data-g="ch_tet" tabindex="0" role="button"><circle id="${P}cpg" class="cpg" cx="548" cy="268" r="26"/><text id="${P}cpgT" class="lbl" x="548" y="268" font-size="9" font-weight="700">5mC</text></g>
     <!-- ставят метку (сверху) -->
     ${BX(P + 'kmt', 252, 92, 76, 26, t('s3_kmt'), 'ch_kmt', 11.5)}${BX(P + 'hat', 334, 92, 70, 26, t('s3_hat'), 'ch_hat', 11.5)}${BX(P + 'suv', 410, 92, 86, 26, t('s3_suv'), 'ch_kmt', 11.5)}
-    ${E(P + 'eKmt', 'M290 118 L298 154', 'act', K)}${E(P + 'eHat', 'M362 118 L336 143', 'act', K)}${E(P + 'eSuv', 'M446 118 L462 143', 'act', K)}
+    ${E(P + 'eKmt', 'M300 121 L300 149', 'act', K)}${E(P + 'eHat', 'M338 121 L338 138', 'act', K)}${E(P + 'eSuv', 'M466 121 L466 138', 'act', K)}
     <!-- снимают метку (снизу) -->
     ${BX(P + 'kdm5', 252, 290, 70, 26, t('s3_kdm5'), 'ch_kdm', 11.5)}${BX(P + 'hdac', 326, 290, 44, 26, t('s3_hdac'), 'ch_hdac', 11.5)}${BX(P + 'sirt', 374, 290, 40, 26, t('s3_sirt'), 'ch_hdac', 11.5)}<text class="lbl" x="394" y="326" font-size="9.5" fill-opacity=".8">NAD⁺</text>${BX(P + 'kdm4', 418, 290, 64, 26, t('s3_kdm4'), 'ch_kdm', 11.5)}
     ${BX(P + 'tet', 514, 316, 68, 26, 'TET', 'ch_tet', 12)}
-    <path id="${P}rKdm5" class="edge rem" d="M290 290 L298 212"/><path id="${P}rHdac" class="edge rem" d="M348 290 L336 160"/><path id="${P}rSirt" class="edge rem" d="M394 290 L342 162"/><path id="${P}rKdm4" class="edge rem" d="M446 290 L462 160"/>
+    <path id="${P}rKdm5" class="edge rem" d="M300 287 L300 217"/><path id="${P}rHdac" class="edge rem" d="M338 287 L338 165"/><path id="${P}rSirt" class="edge rem" d="M394 287 L394 250 L348 250 L348 165"/><path id="${P}rKdm4" class="edge rem" d="M444 287 L444 165"/>
     <path id="${P}rTet" class="edge" d="M548 316 L548 287" marker-end="url(#a_${K})"/>
-    <text class="lbl-l" x="254" y="84" font-size="10.5" fill-opacity=".75">${t('s3_write')}</text>
+    <text class="lbl-l" x="254" y="68" font-size="10.5" fill-opacity=".75">${t('s3_write')}</text>
     <text class="lbl-l" x="252" y="332" font-size="10.5" fill-opacity=".75">${t('s3_erase')}</text>
     ${adv ? `${BX(P + 'phd', 300, 352, 142, 26, t('s3_phd'), 'ch_phd', 11.5)}<text id="${P}phdV" class="lbl" x="371" y="392" font-size="11.5"></text>
       <text id="${P}genoT" class="lbl" x="420" y="48" font-size="12.5" font-weight="700"></text>` : ''}
     <!-- связи шкал с ферментами -->
-    <path id="${P}lAc" class="edge link" d="M232 54 C 300 56, 340 70, 368 92"/>
-    <path id="${P}lMe" class="edge link" d="M232 134 C 244 128, 252 120, 262 118"/>
-    <path id="${P}lKg" class="edge link" d="M232 214 C 330 250, 420 270, 446 290"/>`;
+    <path id="${P}lAc" class="edge link" d="M232 54 L368 54 L368 90"/>
+    <path id="${P}lMe" class="edge link" d="M236 134 L236 84 L470 84 L470 90 M262 84 L262 90"/>
+    <path id="${P}lKg" class="edge link" d="M232 214 L232 268 L430 268 L430 286"/>`;
   }
 
   /* ---------- раскраска схемы ---------- */
@@ -2158,49 +2158,49 @@ function redox(p){
     <!-- NADH матрикса -->
     <g class="clickable" data-g="rx_nad" tabindex="0" role="button"><text class="lbl-l" x="44" y="62" font-size="12" font-weight="700">${t('s4_nadh')}</text></g>
     <rect class="gbar" x="44" y="72" width="120" height="12" rx="5"/><rect id="${P}nF" class="nadhfill" x="44" y="72" width="40" height="12" rx="5"/><line class="gref" x1="${44 + 120 * .32}" y1="68" x2="${44 + 120 * .32}" y2="88"/>
-    <text id="${P}nV" class="lbl-l mono" x="170" y="79" font-size="12"></text>
+    <text id="${P}nV" class="lbl-l mono" x="176" y="79" font-size="12"></text>
     <!-- цепь -->
     ${BX(P + 'c1', 70, 136, 56, 26, t('s4_c1'), 'rx_etc', 12)}${BX(P + 'q', 140, 136, 40, 26, 'Q', 'rx_etc', 12)}${BX(P + 'c3', 194, 136, 60, 26, t('s4_c3'), 'rx_etc', 12)}${BX(P + 'c4', 268, 136, 56, 26, t('s4_c4'), 'rx_etc', 12)}
-    <path id="${P}eRet" class="edge ret fade" d="M180 132 C 160 112, 130 112, 104 132" marker-end="url(#a_${K})" opacity="0"/>
-    <text id="${P}retT" class="lbl fade" x="90" y="102" font-size="10.5" opacity="0">${t('s4_ret')}</text>
+    <path id="${P}eRet" class="edge ret fade" d="M146 133 L146 121 L112 121 L112 129" marker-end="url(#a_${K})" opacity="0"/>
+    <text id="${P}retT" class="lbl fade" x="60" y="109" font-size="10.5" opacity="0">${t('s4_ret').split(' ').map((w, i) => `<tspan x="60" dy="${i ? 11 : 0}">${w}</tspan>`).join('')}</text>
     <!-- супероксид → SOD2 → H2O2 матрикса → Prx3 -->
     <g class="clickable" data-g="rx_sox" tabindex="0" role="button"><circle id="${P}sox" class="ros" cx="160" cy="104" r="12"/><text class="lbl" x="160" y="104" font-size="10" font-weight="700">O₂•⁻</text></g>
-    ${E(P + 'eSox', 'M110 136 L150 112', 'act', K)}${E(P + 'eSox3', 'M214 136 L172 112', 'act', K)}
+    ${E(P + 'eSox', 'M98 133 L98 104 L141 104', 'act', K)}${E(P + 'eSox3', 'M214 133 L214 104 L179 104', 'act', K)}
     ${BX(P + 'sod2', 214, 62, 56, 24, 'SOD2', 'rx_sod', 11.5)}
-    ${E(P + 'eSod', 'M172 98 L212 80', 'act', K)}
+    ${E(P + 'eSod', 'M167 91 L167 69 L207 69', 'act', K)}
     <g class="clickable" data-g="rx_h2o2" tabindex="0" role="button"><circle id="${P}hm" class="h2o2" cx="320" cy="78" r="16"/><text class="lbl" x="320" y="78" font-size="10.5" font-weight="700">H₂O₂</text></g>
     ${E(P + 'eHm', 'M270 74 L302 76', 'act', K)}
     ${BX(P + 'prx3', 380, 52, 90, 24, t('s4_prx3'), 'rx_prx', 11.5)}${prxBar('pm', 380, 82)}
-    ${E(P + 'ePm', 'M337 76 L378 66', 'act', K)}
+    ${E(P + 'ePm', 'M337 70 L373 70', 'act', K)}
     ${BX(P + 'trx', 488, 52, 74, 24, t('s4_trx'), 'rx_trx', 11)}
     <path class="edge" d="M488 64 L472 64" marker-end="url(#a_${K})"/>
-    <text id="${P}hmV" class="lbl mono" x="320" y="108" font-size="11.5"></text>
+    <text id="${P}hmV" class="lbl mono" x="298" y="108" font-size="11.5"></text>
     <!-- антимицин A: выход супероксида в межмембранное пространство -->
-    <path id="${P}eIms" class="edge fade" d="M224 162 L240 200" marker-end="url(#a_${K})" opacity="0"/>
+    <path id="${P}eIms" class="edge fade" d="M224 165 L224 198" marker-end="url(#a_${K})" opacity="0"/>
     <!-- цитоплазма -->
     <path id="${P}eLeak" class="edge" d="M320 96 L320 214" marker-end="url(#a_${K})"/>
     <g class="clickable" data-g="rx_h2o2" tabindex="0" role="button"><circle id="${P}hc" class="h2o2" cx="320" cy="240" r="16"/><text class="lbl" x="320" y="240" font-size="10.5" font-weight="700">H₂O₂</text></g>
-    <text id="${P}hcV" class="lbl mono" x="320" y="270" font-size="11.5"></text>
+    <text id="${P}hcV" class="lbl mono" x="296" y="270" font-size="11.5"></text>
     ${BX(P + 'prx2', 380, 214, 90, 24, t('s4_prx2'), 'rx_prx', 11.5)}${prxBar('pc', 380, 244)}
-    ${E(P + 'ePc', 'M337 236 L378 228', 'act', K)}
-    ${BX(P + 'ptp', 490, 202, 92, 22, t('s4_ptp1b'), 'rx_sig', 10.5)}${BX(P + 'pten', 490, 232, 92, 22, t('s4_pten'), 'rx_sig', 10.5)}
-    <path id="${P}eRelay" class="edge" d="M470 221 L488 213" marker-end="url(#a_${K})"/><path id="${P}eRelay2" class="edge" d="M470 231 L488 242" marker-end="url(#a_${K})"/>
-    ${BX(P + 'akt', 488, 278, 80, 24, 'p-Akt', 'rx_sig', 11.5)}
-    <path id="${P}ePtp" class="edge inh" d="M528 256 L528 276" marker-end="url(#b_${K})"/>
-    <path id="${P}ePtp1" class="edge inh" d="M583 213 C 598 236, 594 274, 570 288" marker-end="url(#b_${K})"/>
+    ${E(P + 'ePc', 'M337 232 L373 232', 'act', K)}
+    ${BX(P + 'ptp', 496, 202, 92, 22, t('s4_ptp1b'), 'rx_sig', 10.5)}${BX(P + 'pten', 496, 232, 92, 22, t('s4_pten'), 'rx_sig', 10.5)}
+    <path id="${P}eRelay" class="edge dash" d="M473 219 L491 219" marker-end="url(#a_${K})"/><path id="${P}eRelay2" class="edge dash" d="M473 235 L491 235" marker-end="url(#a_${K})"/>
+    ${BX(P + 'akt', 494, 278, 80, 24, 'p-Akt', 'rx_sig', 11.5)}
+    <path id="${P}ePtp" class="edge inh" d="M542 257 L542 272" marker-end="url(#b_${K})"/>
+    <path id="${P}ePtp1" class="edge inh dash" d="M591 213 L596 213 L596 290 L581 290" marker-end="url(#b_${K})"/>
     <!-- повреждение -->
     ${BX(P + 'dna', 60, 236, 96, 24, t('s4_dna'), 'rx_dmg', 11)}${BX(P + 'lip', 60, 270, 96, 24, t('s4_lip'), 'rx_dmg', 11)}
-    <path id="${P}eDmg" class="edge" d="M302 244 L158 254" marker-end="url(#a_${K})"/>
-    ${t('s4_dmg_note').split('; ').map((x, i) => `<text class="lbl-l" x="164" y="${277 + i * 12}" font-size="9.5" fill-opacity=".8">${x}${i ? '' : ';'}</text>`).join('')}
+    <path id="${P}eDmg" class="edge" d="M304 250 L171 250" marker-end="url(#a_${K})"/><path id="${P}eDmgB" class="edge" d="M158 239 L164 239 L164 292 L158 292"/>
+    ${t('s4_dmg_note').split('; ').map((x, i) => `<text class="lbl-l" x="172" y="${277 + i * 12}" font-size="9.5" fill-opacity=".8">${x}${i ? '' : ';'}</text>`).join('')}
     ${BX(P + 'parp', 60, 316, 96, 24, 'PARP1', 'rx_parp', 11.5)}
-    <path class="edge" d="M60 248 C 38 258, 38 318, 58 328" marker-end="url(#a_${K})"/>
+    <path class="edge" d="M56 248 L36 248 L36 328 L53 328" marker-end="url(#a_${K})"/>
     <text id="${P}nadV" class="lbl-l" x="162" y="328" font-size="11.5"></text>
     <!-- PKM2 → пентозофосфатный путь → NADPH -->
-    ${BX(P + 'pkm2', 380, 320, 74, 24, 'PKM2', 'rx_pkm2', 11.5)}${BX(P + 'ppp', 470, 320, 100, 24, t('s4_ppp'), 'rx_pkm2', 11)}
-    <path id="${P}ePk" class="edge" d="M454 332 L468 332" marker-end="url(#a_${K})"/>
-    <path id="${P}ePkOx" class="edge inh" d="M330 256 L392 318" marker-end="url(#b_${K})"/>
-    <text id="${P}nphV" class="lbl" x="520" y="360" font-size="11"></text>
-    <path class="edge" d="M500 318 C 492 292, 476 266, 446 258" marker-end="url(#a_${K})" stroke-dasharray="4 4"/>
+    ${BX(P + 'pkm2', 380, 320, 74, 24, 'PKM2', 'rx_pkm2', 11.5)}${BX(P + 'ppp', 478, 320, 100, 24, t('s4_ppp'), 'rx_pkm2', 11)}
+    <path id="${P}ePk" class="edge inh dash" d="M454 332 L474 332" marker-end="url(#b_${K})"/>
+    <path id="${P}ePkOx" class="edge inh" d="M339 241 L346 241 L346 332 L373 332" marker-end="url(#b_${K})"/>
+    <text id="${P}nphV" class="lbl" x="528" y="360" font-size="11"></text>
+    <path class="edge" d="M484 317 L484 282 L425 282 L425 258" marker-end="url(#a_${K})" stroke-dasharray="4 4"/>
     <!-- плазматическая мембрана и NOX -->
     <line class="pm" x1="14" y1="404" x2="586" y2="404"/>
     ${BX(P + 'nox', 270, 380, 100, 24, t('s4_nox'), 'rx_nox', 11)}
@@ -2226,7 +2226,7 @@ function redox(p){
     setBoxState(P + 'ptp', r.ptp > .3 ? 'inh' : 'on'); setBoxState(P + 'pten', r.ptp > .3 ? 'inh' : 'on'); setBoxState(P + 'akt', r.pakt > .5 ? 'on' : '');
     setBoxState(P + 'dna', r.dam > .2 ? 'on' : ''); setBoxState(P + 'lip', r.dam > .2 ? 'on' : ''); setBoxState(P + 'parp', r.dam > .2 && !inp.olap ? 'on' : (inp.olap ? 'inh' : ''));
     setBoxState(P + 'pkm2', inp.pkm2cs ? '' : (r.pk > .1 ? 'inh' : 'on')); setBoxState(P + 'ppp', r.pk > .1 ? 'on' : '');
-    setBoxState(P + 'nox', inp.gf ? 'on' : ''); setOp(P + 'eNox', inp.gf ? 1 : 0); setEdge(P + 'eDmg', clamp(r.dam * 1.2));
+    setBoxState(P + 'nox', inp.gf ? 'on' : ''); setOp(P + 'eNox', inp.gf ? 1 : 0); setEdge(P + 'eDmg', clamp(r.dam * 1.2)); setEdge(P + 'eDmgB', clamp(r.dam * 1.2));
     setOp(P + 'eRet', inp.rep ? 1 : 0); setOp(P + 'retT', inp.rep ? 1 : 0); setOp(P + 'eIms', inp.anti_a ? 1 : 0);
     if (adv){ setOp(P + 'pegP', inp.peg ? 1 : 0); setOp(P + 'amaP', inp.anti_a ? 1 : 0); }
     setTxt(P + 'nadV', t('s4_nad_v', { x: f2(r.nad) })); setTxt(P + 'nphV', t('s4_nadph_v', { x: f2(r.nadph / REF.nadph) }));
@@ -2247,9 +2247,9 @@ function redox(p){
       <text x="26" y="62" class="lbl" font-size="12" font-weight="700">SH</text><text x="112" y="62" class="lbl" font-size="12" font-weight="700">SOH</text>
       <text x="214" y="38" class="lbl" font-size="12" font-weight="700">S–S</text><text x="214" y="86" class="lbl" font-size="12" font-weight="700">SO₂H</text><text x="340" y="86" class="lbl" font-size="12" font-weight="700">SO₃H</text>
       <path class="edge" d="M42 62 L92 62" marker-end="url(#a_fd${K})"/><text x="66" y="54" class="lbl" font-size="9.5">H₂O₂</text>
-      <path class="edge" d="M134 56 L196 42" marker-end="url(#a_fd${K})"/><path class="edge" d="M134 68 L190 82" marker-end="url(#a_fd${K})"/><text x="168" y="90" class="lbl" font-size="9.5">H₂O₂</text>
-      <path class="edge" d="M198 30 C 140 18, 60 22, 30 50" marker-end="url(#a_fd${K})" stroke-dasharray="4 3"/><text x="236" y="38" class="lbl-l" font-size="9.5">${t('b4_br_trx')}</text>
-      <path class="edge" d="M196 94 C 140 108, 60 104, 30 74" marker-end="url(#a_fd${K})" stroke-dasharray="4 3"/><text x="96" y="114" class="lbl" font-size="9.5">${t('b4_br_srx')}</text>
+      <path class="edge" d="M134 58 L160 58 L160 38 L196 38" marker-end="url(#a_fd${K})"/><path class="edge" d="M134 68 L160 68 L160 86 L190 86" marker-end="url(#a_fd${K})"/><text x="178" y="79" class="lbl" font-size="9.5">H₂O₂</text>
+      <path class="edge" d="M214 26 L214 20 L26 20 L26 47" marker-end="url(#a_fd${K})" stroke-dasharray="4 3"/><text x="236" y="38" class="lbl-l" font-size="9.5">${t('b4_br_trx')}</text>
+      <path class="edge" d="M214 96 L214 100 L26 100 L26 71" marker-end="url(#a_fd${K})" stroke-dasharray="4 3"/><text x="96" y="114" class="lbl" font-size="9.5">${t('b4_br_srx')}</text>
       <path class="edge" d="M240 86 L312 86" marker-end="url(#a_fd${K})"/><text x="276" y="78" class="lbl" font-size="9.5">H₂O₂</text>
       <text x="340" y="104" class="lbl" font-size="9.5" fill-opacity=".8">${t('b4_br_irr')}</text></svg>`;
     return `<p class="plotcap" style="margin-top:8px">${t('b4_t')}</p>${leg}` + row(t('b4_row_m'), REF.prxM, r.prxM) + row(t('b4_row_c'), REF.prxC, r.prxC) + `<p class="hint">${t('b4_hint')}</p>` + br;

@@ -53,7 +53,7 @@ h1{font-family:var(--f-display);font-weight:600;font-size:17px;margin:0;line-hei
 .locus svg{width:100%;height:100%;display:block}
 .stagehint{position:absolute;right:10px;bottom:8px;font-size:12.5px;color:#334;background:rgba(255,255,255,.88);border-radius:6px;padding:2px 7px;pointer-events:none}
 .legend{font-size:12px;color:#334;border-top:1px solid #DDE3EA;padding:6px 10px;display:flex;flex-wrap:wrap;gap:4px 12px;background:#fff}
-.legend span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.legend span{display:inline-flex;align-items:center;gap:5px;white-space:normal;min-width:0;max-width:100%}
 .legend svg{width:30px;height:12px}
 
 /* ---------- боковая панель */
@@ -106,7 +106,7 @@ details.more summary{cursor:pointer;font-weight:600;color:var(--acc)}
 .ctrls button{font:inherit;width:32px;height:30px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:15px;line-height:1}
 .ctrls button[aria-pressed="true"]{background:var(--acc);color:var(--u-on-ui,#fff);border-color:var(--acc)}
 .phases{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:3px;flex:1;min-width:0}
-.ph{font:inherit;font-size:12px;line-height:1.15;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:7px;padding:3px 4px;cursor:pointer;text-align:left;min-height:34px;overflow:hidden}
+.ph{font:inherit;font-size:12px;line-height:1.15;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:7px;padding:3px 4px;cursor:pointer;text-align:left;min-height:34px;overflow:hidden;overflow-wrap:anywhere;hyphens:auto;hyphenate-limit-chars:9 4 3}
 .ph .n{display:block;font-size:10.5px;color:var(--muted);font-weight:700}
 .ph[aria-current="step"]{background:var(--acc);border-color:var(--acc);color:var(--u-on-ui,#fff)}
 .ph[aria-current="step"] .n{color:inherit;opacity:.85}
@@ -251,7 +251,7 @@ input[type=range]{accent-color:var(--u-ui)}
   <p>Все механизмы разбираются в одной и той же клетке печени — гепатоците. У каждого пункта три режима. «Проследить»: путь воздействия по этапам. «Изменить условия»: одно воздействие в сравнении с контролем. «Найти причину»: состояние образца скрыто, причину ищут по результатам выбранных измерений. Если механизм изучен в другой клетке, это подписано как «окно в другую клетку».</p>
   <p>Уровни величин качественные; числа приведены только там, где они взяты из первоисточника. У каждого состояния модели есть статус: <span class="st F">Ф</span> измерено в указанной системе, <span class="st V">В</span> вывод из измеренного, <span class="st M">М</span> допущение учебной модели. Система, в которой получены данные, указана в паспорте каждого этапа.</p>
  </div>
- <p class="ver">Версия 1.2, 5 ноября 2026 г.</p>
+ <p class="ver">Версия 1.3, 5 ноября 2026 г.</p>
  <footer class="foot">© 2026 Кафедра биологии и генетики, Медицинский университет Петровского. Учебные материалы курса «Молекулярная биология» (5–6 семестры). При использовании ссылка на кафедру обязательна.
 <!--views:start-->
 <div id="gc-views" title="Всего просмотров страниц сайта" aria-label="Всего просмотров страниц сайта" style="display:none;justify-content:flex-end;align-items:center;gap:6px;margin-top:8px">
@@ -2158,7 +2158,7 @@ const PH = [
  {id: 'P3', short: 'Вход в матрикс', sig: 1, time: 'время не указано (учебная последовательность)',
   title: 'MICU открывает пору',
   what: 'Когда концентрация у поверхности превышает пороговую, EF-мотивы MICU1 связывают Ca²⁺, пора открывается, и Ca²⁺ входит в матрикс по электрохимическому градиенту (вклад отрицательного Δψm).',
-  how: 'В пермеабилизованных гепатоцитах мыши и клетках HeLa захват Ca²⁺ круто нарастал примерно с 1 мкМ Ca²⁺ в среде; в интактных клетках матриксный Ca²⁺ рос лишь при цитозольном не ниже 0,5 мкМ, а без MICU1 — уже ниже 0,3 мкМ (Csordás 2013).',
+  how: 'В пермеабилизованных гепатоцитах мыши и клетках HeLa захват Ca²⁺ круто нарастал примерно с 1 мкМ Ca²⁺ в среде; в интактных клетках HeLa матриксный Ca²⁺ в контроле рос лишь при цитозольном не ниже 0,5 мкМ, а при подавлении MICU1 — уже при 0,3–0,4 мкМ (Csordás 2013).',
   next: 'Свободный Ca²⁺ в матриксе растёт.',
   exp: 'Сенсор Ca²⁺ в матриксе после вазопрессина; захват Ca²⁺ пермеабилизованными клетками при заданных концентрациях; подавление MCU.',
   st: 'F', src: ['Csordas2013', 'Baughman2011', 'Kirichok2004'],
@@ -2182,7 +2182,7 @@ const PH = [
  {id: 'P6', short: 'Длительный вход', sig: 1, time: 'при длительном входе',
   title: 'Перегрузка и mPT',
   what: 'При длительном входе общее количество Ca²⁺ в матриксе растёт; вместе с фосфатом и окислительным стрессом повышается вероятность перехода проницаемости (mPT), потенциал снижается, синтез ATP нарушается.',
-  how: 'Единого порога нет. В гепатоцитах мыши без MICU1 длительный вход Ca²⁺ чаще приводил к потере Δψm (Csordás 2013); митохондриям печени без циклофилина D для открытия поры требовалось примерно вдвое больше Ca²⁺ (Basso 2005).',
+  how: 'Единого порога нет. В гепатоцитах мыши при подавлении MICU1 длительный вход Ca²⁺ чаще приводил к потере Δψm (Csordás 2013); митохондриям печени без циклофилина D для открытия поры требовалось примерно вдвое больше Ca²⁺ (Basso 2005).',
   next: 'Если пора откроется, Δψm исчезнет и накопленный Ca²⁺ выйдет из матрикса (воздействие «избыток Ca²⁺»).',
   exp: 'TMRM при длительном входе Ca²⁺; потеря митохондриального кальцеина в гепатоцитах, подавляемая циклоспорином A.',
   st: 'V', src: ['Csordas2013', 'Basso2005', 'Petronilli1999', 'Bernardi2023', 'Lim2021'],
@@ -2226,7 +2226,7 @@ const IV = {
   over: {label: 'Длительный избыточный вход Ca²⁺', short: 'избыток Ca²⁺',
     why: 'Продолжительное поступление превышает медленный выход, и общее количество Ca²⁺ в матриксе растёт. Вместе с фосфатом это повышает вероятность перехода проницаемости: потенциал падает, накопленный Ca²⁺ выходит из матрикса, синтез ATP прекращается.',
     st: {tca: 'V', mpt: 'V', dpsi: 'V', mca: 'V', ndh: 'M', pdh: 'M', atp: 'V', cyca: 'M'}, src: ['Csordas2013', 'Petronilli1999', 'Bernardi2023'],
-    note: 'В гепатоцитах длительный вход Ca²⁺ в клетку вызывал потерю Δψm, особенно без MICU1 (Csordás 2013); индукторы поры вызывали потерю митохондриального кальцеина, подавляемую циклоспорином A (Petronilli 1999). Последовательность по этапам — допущение модели; единого порога нет.',
+    note: 'В гепатоцитах длительный вход Ca²⁺ в клетку вызывал потерю Δψm, особенно при подавлении MICU1 (Csordás 2013); индукторы поры вызывали потерю митохондриального кальцеина, подавляемую циклоспорином A (Petronilli 1999). Последовательность по этапам — допущение модели; единого порога нет.',
     mod: s => { s.cyca = set(s.cyca, [1,2,2,2,2,2,3]); s.mdca = set(s.mdca, [0,2,3,3,3,2,2]); s.mcuo = set(s.mcuo, [0,0,0,3,3,3,2]);
       s.erca = set(s.erca, [3,2,2,2,2,1,1]); s.mca = set(s.mca, [0,0,0,3,3,3,1]); s.tca = set(s.tca, [0,0,0,2,3,3,1]);
       s.mpt = set(s.mpt, [0,0,0,0,1,2,3]); s.dpsi = set(s.dpsi, [3,3,3,3,3,1,0]); s.ndh = set(s.ndh, [1,1,1,1,3,2,0]);
@@ -4221,7 +4221,7 @@ function zoomSVG(s, cond) {
   <path d="M58 ${y - 20} A 24 24 0 1 0 58 ${y + 20}" fill="none" stroke="${s.ulk >= 2 || s.pi3p >= 1 ? '#64748B' : '#CBD5E1'}" stroke-width="4" stroke-linecap="round"/>
   ${s.lc3 >= 2 && s.conj > 0 ? [[22, y - 8], [26, y + 14], [44, y - 22], [44, y + 22]].map(([a, b]) => `<circle cx="${a}" cy="${b}" r="2.6" fill="${K.lc}"/>`).join('') : ''}
   ${arr(72, y, 94, y, 'mv')}
-  <text x="83" y="${y - 26}" class="tiny" text-anchor="middle">замыкание</text>
+  <text x="100" y="${y - 26}" class="tiny" text-anchor="middle">замыкание</text>
   <circle cx="122" cy="${y}" r="22" fill="${s.ap >= 1 ? K.apF : '#F8FAFC'}" stroke="${s.ap >= 1 ? K.ap : '#CBD5E1'}" stroke-width="2"/><circle cx="122" cy="${y}" r="16" fill="none" stroke="${s.ap >= 1 ? K.ap : '#CBD5E1'}" stroke-width="1.4"/>
   ${arr(150, y, 172, y, 'mv')}
   <circle cx="204" cy="${y}" r="24" fill="${s.al >= 1 ? K.alF : '#F8FAFC'}" stroke="${s.al >= 1 ? K.al : '#CBD5E1'}" stroke-width="2"/>

@@ -53,7 +53,7 @@ h1{font-family:var(--f-display);font-weight:600;font-size:17px;margin:0;line-hei
 .locus svg{width:100%;height:100%;display:block}
 .stagehint{position:absolute;right:10px;bottom:8px;font-size:12.5px;color:#334;background:rgba(255,255,255,.88);border-radius:6px;padding:2px 7px;pointer-events:none}
 .legend{font-size:12px;color:#334;border-top:1px solid #DDE3EA;padding:6px 10px;display:flex;flex-wrap:wrap;gap:4px 12px;background:#fff}
-.legend span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.legend span{display:inline-flex;align-items:center;gap:5px;white-space:normal;min-width:0;max-width:100%}
 .legend svg{width:30px;height:12px}
 
 /* ---------- боковая панель */
@@ -106,7 +106,7 @@ details.more summary{cursor:pointer;font-weight:600;color:var(--acc)}
 .ctrls button{font:inherit;width:32px;height:30px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:15px;line-height:1}
 .ctrls button[aria-pressed="true"]{background:var(--acc);color:var(--u-on-ui,#fff);border-color:var(--acc)}
 .phases{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:3px;flex:1;min-width:0}
-.ph{font:inherit;font-size:12px;line-height:1.15;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:7px;padding:3px 4px;cursor:pointer;text-align:left;min-height:34px;overflow:hidden}
+.ph{font:inherit;font-size:12px;line-height:1.15;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:7px;padding:3px 4px;cursor:pointer;text-align:left;min-height:34px;overflow:hidden;overflow-wrap:anywhere;hyphens:auto;hyphenate-limit-chars:9 4 3}
 .ph .n{display:block;font-size:10.5px;color:var(--muted);font-weight:700}
 .ph[aria-current="step"]{background:var(--acc);border-color:var(--acc);color:var(--u-on-ui,#fff)}
 .ph[aria-current="step"] .n{color:inherit;opacity:.85}
@@ -251,7 +251,7 @@ input[type=range]{accent-color:var(--u-ui)}
   <p>Все механизмы разбираются в одной и той же клетке печени — гепатоците. У каждого пункта три режима. «Проследить»: путь воздействия по этапам. «Изменить условия»: одно воздействие в сравнении с контролем. «Найти причину»: состояние образца скрыто, причину ищут по результатам выбранных измерений. Если механизм изучен в другой клетке, это подписано как «окно в другую клетку».</p>
   <p>Уровни величин качественные; числа приведены только там, где они взяты из первоисточника. У каждого состояния модели есть статус: <span class="st F">Ф</span> измерено в указанной системе, <span class="st V">В</span> вывод из измеренного, <span class="st M">М</span> допущение учебной модели. Система, в которой получены данные, указана в паспорте каждого этапа.</p>
  </div>
- <p class="ver">Версия 2.8, 5 ноября 2026 г.</p>
+ <p class="ver">Версия 2.9, 5 ноября 2026 г.</p>
  <footer class="foot">© 2026 Кафедра биологии и генетики, Медицинский университет Петровского. Учебные материалы курса «Молекулярная биология» (5–6 семестры). При использовании ссылка на кафедру обязательна.
 <!--views:start-->
 <div id="gc-views" title="Всего просмотров страниц сайта" aria-label="Всего просмотров страниц сайта" style="display:none;justify-content:flex-end;align-items:center;gap:6px;margin-top:8px">
@@ -2305,7 +2305,7 @@ function nodeSVG(s, cond) {
   ${m(228, s.srebp, K.sr, 'мРНК SREBP-1c')}
   ${m(248, s.ampk, K.am, 'Активность AMPK')}
   ${m(268, s.pepck, K.ins, 'мРНК PEPCK (ветвь S02)')}
-  <text x="12" y="292" class="tiny" fill="#64748B">мРНК — маркеры ветвей, не потоки; строки не сравнивают между собой</text></svg>`;
+  <text x="12" y="292" class="tiny" fill="#64748B" textLength="306" lengthAdjust="spacingAndGlyphs">мРНК — маркеры ветвей, не потоки; строки не сравнивают</text></svg>`;
 }
 
 return {id: 'S06', order: 7, title: 'сеть инсулин–AKT–mTORC1–AMPK', q: 'Как один сигнал разводится по ветвям и где он сходится?',
@@ -2913,7 +2913,7 @@ const PH = [
   next: 'Высокий Ca²⁺ зазора открывает путь в матрикс.',
   exp: 'Сенсор Ca²⁺, закреплённый у наружной мембраны митохондрии; электронная томография зазора.',
   st: 'V', src: ['Csordas1999', 'Csordas2010', 'Giacomello2010', 'Szabadkai2006', 'RizzutoPozzan2006'],
-  win: ['RBL-2H3, H9c2, HeLa и пермеабилизованные клетки', 'Подъём Ca²⁺ у поверхности митохондрий — в 5–20 раз выше среднего цитозольного, в зазоре — более 9 мкМ; связка GRP75 описана в клетках HeLa. В гепатоците эти величины не измеряли: принят лишь факт, что локальная концентрация много выше средней.'],
+  win: ['RBL-2H3 и HeLa', 'Подъём Ca²⁺ у поверхности митохондрий — в 5–10 раз выше среднего цитозольного, в зазоре — в среднем около 9 мкМ (нижняя оценка авторов); связка GRP75 описана в клетках HeLa. В гепатоците эти величины не измеряли: принят лишь факт, что локальная концентрация много выше средней.'],
   concepts: ['C1.microdomain', 'C2.contacts'], edges: ['E010', 'E006'], route: ['seminar-1-route.html#ns-calcium-contact', 'Семинар 1 · контакт ускоряет захват Ca²⁺'], sem: ['seminar-1.html#q4', 'Семинар 1, вопрос 1.4']},
  {id: 'P4', short: 'Вход через MCU', sig: 1, time: 'этап (без числа)',
   title: 'Ca²⁺ входит в матрикс через MCU',
@@ -3694,10 +3694,10 @@ function locusSVG(s, cond) {
   const mk = (x, filled) => `<line x1="${x}" y1="${yl}" x2="${x}" y2="${yl - 16}" stroke="${filled ? col : '#94A3B8'}" stroke-width="2.4"/><circle cx="${x}" cy="${yl - 19}" r="5.5" fill="${filled ? col : '#fff'}" stroke="${filled ? col : '#94A3B8'}" stroke-width="1.8"/>`;
   return `<svg viewBox="0 0 330 300" xmlns="${NS}" role="img" aria-labelledby="locT"><title id="locT">Локус: энхансер и промотор мишени</title>${DEFS}
   <rect width="330" height="300" fill="#fff"/>
-  <text x="12" y="22" class="lb">Локус: энхансер и промотор · увеличение</text>
+  <text x="12" y="22" class="lb">Энхансер и промотор · увеличение</text>
   <text x="12" y="40" class="lbs">взаимное расположение элементов условное</text>
   <line x1="8" y1="${yl}" x2="322" y2="${yl}" stroke="#1F2937" stroke-width="3"/>
-  ${s.contact >= 2 ? `<path d="M${eX} ${yl - 7} C ${eX} ${yl - 70}, ${pX} ${yl - 70}, ${pX} ${yl - 7}" fill="none" stroke="${CON}" stroke-width="2.4" stroke-dasharray="5 4" opacity="${s.contact === 2 ? .55 : 1}"/><text x="${(eX + pX) / 2}" y="${yl - 62}" class="tiny" text-anchor="middle" fill="${CON}">контакт энхансер–промотор</text>` : `<text x="${(eX + pX) / 2}" y="${yl - 40}" class="tiny" text-anchor="middle" fill="#B91C1C">контакт потерян</text>`}
+  ${s.contact >= 2 ? `<path d="M${eX} ${yl - 7} C ${eX} ${yl - 70}, ${pX} ${yl - 70}, ${pX} ${yl - 7}" fill="none" stroke="${CON}" stroke-width="2.4" stroke-dasharray="5 4" opacity="${s.contact === 2 ? .55 : 1}"/><text x="${(eX + pX) / 2}" y="${yl - 62}" class="tiny" text-anchor="middle" fill="${CON}">контакт энхансер–промотор</text>` : `<text x="${(eX + pX) / 2}" y="${yl - 26}" class="tiny" text-anchor="middle" fill="#B91C1C">контакт потерян</text>`}
   <rect x="${eX - 24}" y="${yl - 7}" width="48" height="14" rx="3" fill="${ENH}" opacity="${.3 + .22 * s.eact}" stroke="${ENH}"/><text x="${eX}" y="${yl + 22}" class="tiny" text-anchor="middle">энхансер (мотив с CpG)</text>
   ${mk(eX - 6, both || half)}${mk(eX + 7, both)}
   <ellipse cx="${eX}" cy="${yl - 34}" rx="17" ry="11" fill="${FAC}" opacity="${op(s.occ)}"/><text x="${eX}" y="${yl - 30}" class="pp" style="font-size:8px" opacity="${s.occ ? 1 : 0}">фактор</text>

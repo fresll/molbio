@@ -54,11 +54,6 @@
 .wide2 .head .mini{width:100%;max-width:none;justify-self:stretch}
 .wide2 .goal{margin:0 0 12px}
 .wide2 .status{margin:0 0 12px}
-.wide2 .minp{margin:0}
-/* ссылка на минимум: спокойнее, но с красным акцентом */
-.wide2 .minlink{gap:8px;font-size:16px;line-height:1.35;font-weight:600;font-style:normal}
-.wide2 .minarr{width:22px;height:14px;animation:none}
-.wide2 .minlink span{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 
 /* ряд «системная карта + интерактивная клетка»: те же две колонки, общая верхняя линия */
 .wide2 .entries{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--gap);margin:var(--sec) 0 0;align-items:stretch}

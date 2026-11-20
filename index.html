@@ -162,6 +162,9 @@ footer { margin-top: 26px; border-top: 1px solid var(--border); padding-top: 12p
   .clinic-stage h3 { display: block; font-size: 13px; color: var(--accent); margin-bottom: 5px; }
   .preview { --axis-x: 3px; --content-offset: 20px; }
 }
+
+.page-views { display: inline-flex; align-items: center; gap: .35em; white-space: nowrap; vertical-align: middle; font-variant-numeric: tabular-nums; }
+.page-views svg { flex: none; }
 </style></head><body>
 <main class="preview" aria-labelledby="edu-title">
 <div class="page-head"><div class="eyebrow"><a href="https://mazunin.science/">MAZUNIN / EDU</a> <span>Кафедра биологии и генетики</span></div>
@@ -240,5 +243,32 @@ footer { margin-top: 26px; border-top: 1px solid var(--border); padding-top: 12p
 <h2 id="feedback-title">Обратная связь</h2>
 <p>Заметили технический сбой или неточность в объяснении механизма? Есть идея, как сделать схему или анимацию понятнее? Приложите ссылку на страницу и напишите нам на <a href="mailto:post@mazunin.science">post@mazunin.science</a></p>
 </section>
-<footer><span>Медицинский университет им. акад. Б. В. Петровского</span><a href="https://petrovsky.med.ru/education/distsipliny-kafedry6715/">Программа кафедры ↗</a></footer></main>
+<footer><span>Медицинский университет им. акад. Б. В. Петровского</span><a href="https://petrovsky.med.ru/education/distsipliny-kafedry6715/">Программа кафедры ↗</a>
+<span class="page-views" id="page-views" title="Посещения страницы">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+    <path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6S2 12 2 12Z"/>
+    <circle cx="12" cy="12" r="2.6"/>
+  </svg>
+  <span data-page-view-count aria-label="Статистика посещений пока недоступна">—</span>
+</span>
+</footer></main>
+<script data-goatcounter="https://molbio.goatcounter.com/count" data-goatcounter-settings='{"path":"/edu-home"}' async src="https://gc.zgo.at/count.js"></script>
+<script>
+(() => {
+  const value = document.querySelector('[data-page-view-count]');
+  fetch('https://molbio.goatcounter.com/counter//edu-home.json')
+    .then(response => {
+      if (!response.ok) throw new Error('Counter unavailable');
+      return response.json();
+    })
+    .then(({ count }) => {
+      if (typeof count !== 'string' || !count.trim()) return;
+      value.textContent = count;
+      value.setAttribute('aria-label', 'Посещения страницы: ' + count);
+    })
+    .catch(() => {
+      // Keep the unavailable state if the counter cannot be loaded.
+    });
+})();
+</script>
 </body></html>

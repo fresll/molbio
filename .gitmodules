@@ -1,0 +1,4 @@
+[submodule "bio"]
+	path = bio
+	url = https://github.com/fresll/bio.git
+	branch = gh-pages

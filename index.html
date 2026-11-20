@@ -39,7 +39,7 @@ a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
 .title { margin: 23px 0 31px; }
 .title h1 { font: 400 clamp(35px, 5vw, 61px)/1.08 Georgia, "Times New Roman", serif; letter-spacing: -.04em; }
 .title p { margin-top: 12px; font-size: clamp(16px, 1.65vw, 20px); color: var(--muted); }
-.timeline {
+.preview {
   --year-width: 104px;
   --gutter: 24px;
   --axis-x: calc(var(--year-width) - 20px);
@@ -115,12 +115,14 @@ footer { margin-top: 26px; border-top: 1px solid var(--border); padding-top: 12p
   .title { margin: clamp(15px, 2vh, 22px) 0 clamp(17px, 2.2vh, 29px); }
   .title h1 { font-size: clamp(52px, 6.3vh, 71px); }
   .title p { margin-top: 8px; font-size: clamp(18px, 2.2vh, 22px); line-height: 1.3; }
-  .timeline {
+  .preview {
     --year-width: clamp(104px, 7vw, 142px);
     --gutter: clamp(24px, 1.6vw, 34px);
     --row-pad: clamp(5px, .68vh, 8px);
     --card-pad: clamp(7px, .9vh, 12px);
     --marker-y: calc(var(--row-pad) + 20px);
+  }
+  .timeline {
     font-size: clamp(16px, 1.8vh, 19px);
     line-height: 1.28;
   }
@@ -138,6 +140,7 @@ footer { margin-top: 26px; border-top: 1px solid var(--border); padding-top: 12p
   .card p { max-width: 78ch; }
   .sem, .cycles small { font-size: clamp(12px, 1.36vh, 15px); }
   .route-note { margin-top: clamp(12px, 1.55vh, 20px); padding-top: 9px; }
+  .feedback { line-height: 1.28; }
   footer { margin-top: clamp(14px, 1.7vh, 23px); padding-top: 9px; }
 }
 
@@ -151,13 +154,13 @@ footer { margin-top: 26px; border-top: 1px solid var(--border); padding-top: 12p
   }
   .year-row::before, .year-row:first-of-type::before { left: var(--axis-x); top: 0; }
   .year-row:first-of-type::before { top: 25px; }
-  .year-row:last-of-type::before { height: 25px; }
+  .year-row:last-of-type::before { height: 24px; }
   .year-row::after { display: none; }
   .year { margin-top: 0; font-size: 18px; }
   .year::after { top: 7px; left: calc(var(--axis-x) - var(--content-offset) - 3px); }
   .clinic-stage { grid-column: 1; }
   .clinic-stage h3 { display: block; font-size: 13px; color: var(--accent); margin-bottom: 5px; }
-  .timeline { --axis-x: 3px; --content-offset: 20px; }
+  .preview { --axis-x: 3px; --content-offset: 20px; }
 }
 </style></head><body>
 <main class="preview" aria-labelledby="edu-title">
@@ -232,10 +235,10 @@ footer { margin-top: 26px; border-top: 1px solid var(--border); padding-top: 12p
 </li>
 </ul>
 </div></section><p class="route-note">На старших курсах геномные данные помогают связать клеточные механизмы с проявлениями болезни</p>
+</div>
 <section class="feedback" aria-labelledby="feedback-title">
 <h2 id="feedback-title">Обратная связь</h2>
 <p>Заметили технический сбой или неточность в объяснении механизма? Есть идея, как сделать схему или анимацию понятнее? Приложите ссылку на страницу и напишите нам на <a href="mailto:post@mazunin.science">post@mazunin.science</a></p>
 </section>
-</div>
 <footer><span>Медицинский университет им. акад. Б. В. Петровского</span><a href="https://petrovsky.med.ru/education/distsipliny-kafedry6715/">Программа кафедры ↗</a></footer></main>
 </body></html>

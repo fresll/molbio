@@ -2,29 +2,32 @@
 <html lang="ru"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Карта дисциплин кафедры биологии и генетики и вход в интерактивные семинары.">
 <link rel="canonical" href="https://edu.mazunin.science/">
-<title>От клетки к пациенту · MAZUNIN / EDU</title><style>:root{--paper:#f1dfe1;--ink:#24343b;--blue:#79535d;--navy:#623c47;--pale:#faeeee;--white:#fffcf8;--line:#c7aeb4;--muted:#53636a;--field:#f1dfe1;--rail:#a07b84;color-scheme:light}
+<title>От клетки к пациенту · MAZUNIN / EDU</title><style>:root{--paper:#fff;--card-background:#f1dfe1;--ink:#24343b;--accent:#79535d;--link:#623c47;--line:#c7aeb4;--muted:#53636a;--rail:#a07b84;color-scheme:light}
 *{box-sizing:border-box}
 html{scroll-margin-top:16px}
-body{margin:0;background:var(--field);color:var(--ink);font:16px/1.46 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
-a{color:var(--navy);text-underline-offset:3px}
-a:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.46 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+a{color:var(--link);text-underline-offset:3px}
+a:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
 h1,h2,h3,h4,p,ul{margin:0}
 h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.04em;line-height:1.02}
 h1{font-size:clamp(30px,4vw,50px)}
-.preview{border:1px solid #c7aeb4;border-top:5px solid var(--blue);background:var(--paper);padding:clamp(20px,4vw,52px);box-shadow:0 12px 35px #24343b0b}
+.preview{border:1px solid #c7aeb4;border-top:5px solid var(--accent);background:var(--paper);padding:clamp(20px,4vw,52px);box-shadow:0 12px 35px #24343b0b}
 .page-head{margin-bottom:35px}
-.eyebrow{font-size:12px;font-weight:750;letter-spacing:.085em;color:var(--navy);display:flex;justify-content:space-between;gap:8px 20px;flex-wrap:wrap}
+.eyebrow{font-size:12px;font-weight:750;letter-spacing:.085em;color:var(--link);display:flex;justify-content:space-between;gap:8px 20px;flex-wrap:wrap}
 .eyebrow span{color:var(--muted);font-weight:600;letter-spacing:0}
 .title{margin-top:24px;max-width:900px}
 .title p{max-width:665px;margin-top:12px;color:var(--muted);font-size:clamp(15px,1.6vw,19px)}
-.card{display:block;position:relative;border:1px solid var(--line);border-radius:3px;background:var(--white);padding:14px 16px;min-width:0;text-decoration:none;color:var(--ink);overflow-wrap:break-word}
+.card,.clinic-stage{border:1px solid var(--line);border-radius:3px;background:var(--card-background)}
+.card{display:block;position:relative;padding:14px 16px;min-width:0;text-decoration:none;color:var(--ink);overflow-wrap:break-word}
+.clinic-stage{padding:10px 12px}
+.card h3,.lane h3.label,.clinic-stage h4,.cycles li>span{color:var(--accent)}
 .card h3{font-size:18px;line-height:1.18;margin:4px 0 5px}
 .card p{font-size:14px;color:var(--muted)}
 .sem{color:var(--muted);font-weight:650;font-size:12px}
 
 .course-link:hover h3{text-decoration:underline;text-underline-offset:3px}
-.action{display:block;font-size:12px;font-weight:700;margin-top:9px;color:var(--navy)}
-.clinic-stage h4{font-size:14px;color:var(--navy);margin-bottom:7px}
+.action{display:block;font-size:12px;font-weight:700;margin-top:9px;color:var(--link)}
+.clinic-stage h4{font-size:14px;margin-bottom:7px}
 .cycles{list-style:none;padding:0;display:grid;gap:1px}
 .cycles li{border-top:1px solid #e1cad0;padding:4px 0;font-size:14px;display:flex;align-items:baseline;justify-content:space-between;gap:6px 12px}
 .cycles small{color:var(--muted);white-space:nowrap;font-size:11px}
@@ -34,7 +37,7 @@ h1{font-size:clamp(30px,4vw,50px)}
 .lanes{display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative;padding-top:32px}
 .lanes::before{content:"";position:absolute;left:25%;right:25%;top:15px;height:17px;border:2px solid var(--rail);border-bottom:0}
 .lanes::after{content:"";position:absolute;left:50%;top:0;height:15px;border-left:2px solid var(--rail)}
-.lane{padding:14px 14px 12px;border:1px solid var(--line);border-top:3px solid var(--blue);background:#fffcf8;border-radius:3px;min-width:0}
+.lane{padding:14px 14px 12px;border:1px solid var(--line);border-top:3px solid var(--accent);background:var(--paper);border-radius:3px;min-width:0}
 .lane h3.label{font:400 24px/1.1 Georgia,"Times New Roman",serif;margin:0 0 10px}
 .lane .card+.card{margin-top:14px}
 .lane .card+.card::before{content:"";position:absolute;top:-15px;left:22px;height:14px;border-left:2px solid var(--rail)}
@@ -47,7 +50,7 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;ma
 @media(max-width:760px){.preview{padding:18px}.page-head{margin-bottom:23px}.lanes{gap:9px}.lane{padding-inline:9px}.lane h3.label{font-size:20px}}
 @media(max-width:540px){.lanes{display:grid;grid-template-columns:1fr;gap:10px;padding-top:15px}.lanes::before{display:none}.foundation .card+.card::before,.lanes::after{left:20px}.eyebrow span{max-width:100%}}
 @media print{.preview{box-shadow:none}}
-body{border-top:6px solid var(--blue)}.preview{width:min(1240px,100%);margin:auto;border:0;box-shadow:none}
+body{border-top:6px solid var(--accent)}.preview{width:min(1240px,100%);margin:auto;border:0;box-shadow:none}
 .title h1{font-size:clamp(38px,6vw,78px);text-wrap:balance}
 .eyebrow{padding-bottom:13px;border-bottom:1px solid var(--line)}
 @media(max-width:540px){.title h1{font-size:clamp(33px,9.4vw,52px)}.lane{padding-inline:12px}.lanes{margin-left:8px;padding-left:12px;border-left:2px solid var(--rail)}.lanes::after{left:-2px}.lane{position:relative}.lane::before{content:'';position:absolute;width:12px;left:-13px;top:20px;border-top:2px solid var(--rail)}}

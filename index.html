@@ -39,7 +39,12 @@ a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
 .title { margin: 23px 0 31px; }
 .title h1 { font: 400 clamp(35px, 5vw, 61px)/1.08 Georgia, "Times New Roman", serif; letter-spacing: -.04em; }
 .title p { margin-top: 12px; font-size: clamp(16px, 1.65vw, 20px); color: var(--muted); }
-.timeline { --year-width: 104px; --gutter: 24px; --axis-x: calc(var(--year-width) - 20px); }
+.timeline {
+  --year-width: 104px;
+  --gutter: 24px;
+  --axis-x: calc(var(--year-width) - 20px);
+  --content-offset: calc(var(--year-width) + var(--gutter));
+}
 .timeline-head, .year-row { display: grid; grid-template-columns: var(--year-width) minmax(0, 1.25fr) minmax(0, 1fr); column-gap: var(--gutter); }
 .timeline-head {
   padding-bottom: 9px;
@@ -86,8 +91,19 @@ a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
 .cycles { list-style: none; padding: 0; display: grid; gap: 2px; }
 .cycles li { display: flex; justify-content: space-between; align-items: baseline; gap: 4px 10px; color: var(--accent); }
 .cycles small { white-space: nowrap; font-size: 12px; color: var(--muted); }
-.route-note { margin: 22px 0 0 calc(var(--year-width) + var(--gutter)); border-top: 1px solid var(--border); padding-top: 12px; font-size: 14px; color: var(--muted); }
-.feedback { margin: 24px 0 0 calc(var(--year-width) + var(--gutter)); border: 1px solid var(--divider); border-left: 3px solid var(--accent); border-radius: 4px; padding: 14px 16px; }
+.route-note { margin: 22px 0 0 var(--content-offset); border-top: 1px solid var(--border); padding-top: 12px; font-size: 14px; color: var(--muted); }
+.feedback { position: relative; margin: 24px 0 0 var(--content-offset); border: 1px solid var(--divider); border-radius: 4px; padding: 14px 16px; }
+.feedback::before {
+  content: "";
+  position: absolute;
+  inset-block: -1px;
+  left: calc(var(--axis-x) - var(--content-offset) - 4px);
+  width: 8px;
+  background:
+    radial-gradient(circle, var(--accent) 3.5px, transparent 4px) center top / 8px 8px no-repeat,
+    radial-gradient(circle, var(--accent) 3.5px, transparent 4px) center bottom / 8px 8px no-repeat,
+    linear-gradient(var(--axis), var(--axis)) center / 2px 100% no-repeat;
+}
 .feedback h2 { color: var(--accent); font-size: 16px; }
 .feedback p { margin-top: 5px; color: var(--muted); font-size: 14px; }
 .feedback a { font-weight: 650; overflow-wrap: anywhere; text-decoration: none; }
@@ -133,15 +149,15 @@ footer { margin-top: 26px; border-top: 1px solid var(--border); padding-top: 12p
     gap: 9px;
     padding: 13px 0 13px 20px;
   }
-  .year-row::before, .year-row:first-of-type::before { left: 3px; top: 0; }
+  .year-row::before, .year-row:first-of-type::before { left: var(--axis-x); top: 0; }
   .year-row:first-of-type::before { top: 25px; }
   .year-row:last-of-type::before { height: 25px; }
   .year-row::after { display: none; }
   .year { margin-top: 0; font-size: 18px; }
-  .year::after { top: 7px; left: -20px; }
+  .year::after { top: 7px; left: calc(var(--axis-x) - var(--content-offset) - 3px); }
   .clinic-stage { grid-column: 1; }
   .clinic-stage h3 { display: block; font-size: 13px; color: var(--accent); margin-bottom: 5px; }
-  .route-note, .feedback { margin-left: 20px; }
+  .timeline { --axis-x: 3px; --content-offset: 20px; }
 }
 </style></head><body>
 <main class="preview" aria-labelledby="edu-title">

@@ -1,276 +1,62 @@
 <!doctype html>
-<html lang="ru">
-<head>
-<meta charset="utf-8">
-<meta name="robots" content="noindex, nofollow">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="author" content="Кафедра биологии и генетики · Медицинский университет Петровского · курс «Молекулярная биология», 5–6 семестры">
-<title>Молекулярная биология — интерактивные семинары · Кафедра биологии и генетики, Медицинский университет Петровского</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#EDF0F4;--surface:#FFFFFF;--surface-2:#F6F8FA;--ink:#15202B;--muted:#5A6676;--line:#D3DAE3;--mtor:#0D6E73;--mtor-soft:#D3ECEC;--warn:#B3261E;--p-ink:#1A1E23;--on:#DC930F;--on-line:#B06E05;
---f-display:"Unbounded","Golos Text",system-ui,sans-serif;--f-body:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0D1217;--surface:#151C23;--surface-2:#1A222B;--ink:#E4E9EF;--muted:#97A3B0;--line:#29333E;--mtor:#33B6BB;--mtor-soft:#123A3C;--warn:#FF8A80;--on:#EFB13A;--on-line:#EFB13A;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0D1217;--surface:#151C23;--surface-2:#1A222B;--ink:#E4E9EF;--muted:#97A3B0;--line:#29333E;--mtor:#33B6BB;--mtor-soft:#123A3C;--warn:#FF8A80;--on:#EFB13A;--on-line:#EFB13A;color-scheme:dark}
-/* акцент: при фирменном стиле берётся синий университета (--u-ui), без него — классический */
-:root{--acc:var(--u-ui,var(--mtor));--acc-soft:var(--u-soft,var(--mtor-soft));--acc-2:var(--u-red,var(--mtor))}
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Карта дисциплин кафедры биологии и генетики и вход в интерактивные семинары.">
+<link rel="canonical" href="https://edu.mazunin.science/">
+<title>От клетки к пациенту · MAZUNIN / EDU</title><style>:root{--paper:#f1dfe1;--ink:#24343b;--blue:#79535d;--navy:#623c47;--pale:#faeeee;--white:#fffcf8;--line:#c7aeb4;--muted:#53636a;--field:#f1dfe1;--rail:#a07b84;color-scheme:light}
 *{box-sizing:border-box}
-[hidden]{display:none!important}
-html,body{background:var(--bg);color:var(--ink)}
-body{margin:0;font-family:var(--f-body);font-size:17px;line-height:1.45;-webkit-text-size-adjust:100%}
-a{color:var(--acc)}
-a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--on-line);outline-offset:2px;border-radius:4px}
-.affil{margin:0 0 18px;padding:0 0 8px;border-bottom:2px solid var(--mtor);color:var(--mtor);font-size:15px;font-weight:600;text-wrap:balance}
-h1{font-family:var(--f-display);font-weight:600;font-size:clamp(22px,4vw,30px);margin:0 0 8px;text-wrap:balance}
-.lead{color:var(--muted);margin:0 0 22px}
-.foot{margin-top:28px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
-.btn{font:inherit;font-weight:600;font-size:15px;border-radius:10px;padding:8px 13px;cursor:pointer;border:1.5px solid var(--acc);background:var(--acc);color:var(--u-on-ui,var(--surface));text-decoration:none;display:inline-block}
-.btn.ghost{background:transparent;color:var(--acc)}
-.crumb{font-size:15px;margin:0 0 14px}
-.crumb a{text-decoration:none;font-weight:600}
-.ver{font-size:13px;color:var(--muted);margin:22px 0 0}
-/* место для миниатюры раздела: рисунок появится после научного аудита и утверждения эскизов */
-.mini{margin:0;width:100%}
-/* рисунок всегда на белом поле: цвета знаков рассчитаны на светлый фон, в тёмной теме тоже */
-.mini-art{background:#fff;border:1px solid var(--line);border-radius:12px;padding:6px;line-height:0}
-.mini-art svg{display:block;width:100%;height:auto}
-.mini figcaption{font-size:13.5px;line-height:1.45;color:var(--muted);margin:8px 2px 0}
-.mini .mini-note{font-size:12.5px;line-height:1.35;color:var(--muted);margin:6px 2px 0}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.wrap{max-width:2300px;margin:0 auto;padding:12px clamp(16px,3.5vw,72px) 32px}
-.parts{list-style:none;margin:0 0 30px;padding:0;border-top:1px solid var(--line)}
-.part{display:grid;grid-template-columns:72px minmax(0,1fr) auto;gap:6px 20px;align-items:start;padding:18px 0;border-bottom:1px solid var(--line)}
-.part .num{font-family:var(--f-display);font-weight:600;font-size:34px;line-height:1;color:var(--acc);padding-top:2px}
-.part .range{display:block;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-.part h2{font-size:21px;line-height:1.25;margin:4px 0 6px;text-wrap:balance}
-.part h2 a{color:var(--ink);text-decoration:none}
-.part h2 a:hover{color:var(--acc);text-decoration:underline}
-.part p{margin:0 0 8px;color:var(--muted);font-size:15.5px}
-.part .go{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.part .mini{grid-column:3;grid-row:1;width:240px}
-.semh{font-family:var(--f-display);font-weight:600;font-size:18px;margin:26px 0 4px}
-.semsub{font-size:14px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:16px 0 8px}
-.card{display:block;text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 12px}
-.card:hover,.card:focus-visible{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
-.card .n{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
-.card h2{font-size:20px;margin:4px 0 6px}
-.card p{margin:0;color:var(--muted);font-size:15.5px}
-.note{font-size:14.5px;color:var(--muted);margin:20px 0 0}
-:root{--accent:#0D6E73;--accent-soft:#D3ECEC}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--accent:#33B6BB;--accent-soft:#123A3C}}
-:root[data-theme="dark"]{--accent:#33B6BB;--accent-soft:#123A3C}
-/* ширина строки текста вводной части: на широком экране не растягивается на всю страницу */
-.lead{max-width:820px}
-.note{max-width:78ch}
-/* широкие экраны: четыре раздела в сетке 2 × 2 (I II / III IV); ниже 1040 px — одна колонка */
-@media (min-width:1040px){
- .parts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(32px,4vw,64px);border-top:0;border-bottom:1px solid var(--line)}
- .part{grid-template-columns:clamp(48px,5vw,72px) minmax(0,1fr);grid-template-rows:1fr auto;gap:0 clamp(12px,1.6vw,20px);padding:22px 0 28px;border-top:1px solid var(--line);border-bottom:0}
- .part>div{display:flex;flex-direction:column;min-width:0;grid-column:2;grid-row:1}
- .part .go{margin-top:auto;padding-top:10px}
- .part .mini{grid-column:2;grid-row:2;width:100%;max-width:600px;margin-top:20px}
- .part h2{font-size:clamp(20px,1.7vw,24px)}
- .part p{max-width:62ch}
-}
-/* сверхширокие экраны: внутри раздела текст слева, научная миниатюра справа */
-@media (min-width:1900px){
- .part{grid-template-columns:clamp(48px,5vw,72px) minmax(0,1fr) minmax(340px,44%);grid-template-rows:auto;column-gap:clamp(16px,1.8vw,32px)}
- .part>div{grid-column:2;grid-row:1}
- .part .mini{grid-column:3;grid-row:1;max-width:none;margin-top:0;align-self:start}
-}
-@media (max-width:720px){
- .affil{line-height:1.28;margin-bottom:14px;padding-bottom:7px}
- .part{grid-template-columns:44px minmax(0,1fr)}
- .part .num{font-size:26px}
- .part .mini{grid-column:2;grid-row:auto;width:100%;max-width:340px}
-}
-</style>
-<!--brand-univ:start-->
-<link rel="icon" type="image/png" href="data:image/png;base64,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">
-<style id="brand-univ">
-:root{--u-blue:#0090D0;--u-red:#E62E29;--u-ui:#006CA3;--u-ui-2:#00507A;--u-soft:#E2F0F8;--u-on-ui:#FFFFFF;--u-bg:#EEF2F6}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--u-blue:#3DB0E6;--u-red:#FF5A52;--u-ui:#3DB0E6;--u-ui-2:#7CCAF0;--u-soft:#0E2B3B;--u-on-ui:#0D1217;--u-bg:#0D1217}}
-:root[data-theme="dark"]{--u-blue:#3DB0E6;--u-red:#FF5A52;--u-ui:#3DB0E6;--u-ui-2:#7CCAF0;--u-soft:#0E2B3B;--u-on-ui:#0D1217;--u-bg:#0D1217}
-html,body{background:var(--u-bg)}
-.affil{display:flex;align-items:center;gap:10px}
-.affil::before{content:"";flex:none;width:30px;height:30px;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAkKUlEQVR42uV9eXSV1bn3bw9nSE4mSIIJCUNIEJRSe8UCsdgoTrUofrSE60K5tl8H5GNh6XVZ+AwSEOhdtVeKIJ/X0mrVgm2O91KxasWhIhYExSsKIpIIYQqBkPkkZ9h7P98f7/uenMwnkADt3Wu9Szzn5B2e4ff8nmc/794MF3cwALy0tJStWrVKERG01rHf5wIo8Pl84/Ly8oYOGTJkdHZ2tgBwpc/nEx6PhwAgFAqxQCCgAXxWVVWlT58+fejw4cMnA4HAfgDlAI47JxRCgDGGkpISuXz5cgJgANDFFMDFGLyoqIi/9957iohgjHE+/0p2dvakiRMnfmPs2LET8vPzR4wYMSJ1+PDhyMjIQEpKCtxud48nDofDaGxsRE1NDY4ePYrKysqG8vLyyoMHD+7ZvXv336qqqnYB2AcAnHMwxjBlyhS5bds2YyvjH3rwsrIyIYRw/t8NYGphYeHahx56aK/f76fKykrqYqgOh9Zam9iDiHQXv2s3Kisrye/30+LFi/cWFhauBTDVvgcIIVBWViYA8H9IwRMR5zz6bAXjx48vWbRo0Wdbt26lQCAQK6cIEUWUUjoSiRilFGmtyRgT/UHsvzsOYwwZY0hrTUopss+hnfM6vwsEArR161ZatGjRZ+PHjy8BUOB4BRHxfxRFdBT85GnTpm3csGFDoLq62pGFJqKI1lorpYzWukuhEhE1NjbSu+++26sSuhu2Uoy2LhKxr03V1dW0YcOGwLRp0zYCmPwPoYiioiIZAzWTZ86c+aLf7yelosjgCL1XYTrfh8NhGjduHH344YdRgZ7rMMaQ7V2OMkgpRX6/n2bOnPmiowghBIqKiuTfm9U7wX3k1KlTn33hhRccIRoiUpFIxPTFgp3fhkIhuvnmm+k73/kOhUIhikd58Z4/EokYO24YIqJNmzbR1KlTnwUwEgDsZ7q0vaG4uDgaYHNycn66evXqGhvfjWVg6pwFRER09uxZKi0tpXXr1tEvfvELcqy2P4d9PkVEJhAI0OrVq2tycnJ+6nhDcXGxuBRlz2wGAQDj5syZ8+b+/ftjnkmdt4USETU0NNB9991HWmuaNWsWffHFF9GA298jRhG0f/9+uueee94EMA6Aw5bYJQM5jtUnJSXNXbNmTbOD8X2Fmt4UUF9fTz/+8Y+JiGj79u00d+7cAfGCLqApQkT0q1/9qjkpKWmu4w2XAiQJKSUAeCZOnPjM9u3bowZ0vlZpiEgbImUMhZUmZQzV19fT/5k3L2rx8+bNo3e3byfSmlQoRKQUkdZExlhHPw37espR/MSJE58B4LGfXVxs4V9WXFy869SpU1GrP3eLI1LakNJdn6KhoZ7uu29elOvv27ePvv+970W5bJcn7MfheENVVRUVFxfvAnDZ+SrhXOmVlFIqpdRV8+fP37xmzZo8KaXSWkv7huIeBMCQVYoRjEEwC1oNAV82hLDvbBB7z7RiX10EB45Wo6AlAsYYlNIYN24cUgYNwmv/XIxbri9CYGgOXMNHQGRng6dngLlc/WpxUkqmtZZZWVlq48aNE7OysnauW7duhpRyr1JKAlAXQgGO8L9WUlKydeXKlZkAlDEmlvfHJ3hDELxN6GdaFf56rBlbK5vw/qkADtWHEQ5qSxtSAIEW5DllM8ZARJgz9z48cfVVuO6D91EHQHg84KmpYN4EpC5ZCu9NtwBaA6J/kEIIAWOMdLlcau3atXkpKSlvrFq16hYp5cfnogR5DrCjlFJfW758+RtLly7NAKCJSMZku70OTWRZO2cwBLx5tAkbD9TitSNNONMUtrQjGCA4hEeAMYBxAR1iUerBOQcZjQljLge7Yzr2vf8exgwZgtZwGNTaCn3iBAK/f85SAO/fWGlnyZIxpleuXJnpdrvfKC0tvdlWggCg4z5XH4WvlVJXlZSUbF26dGmGMUYTkWAsPkZGZBmzYAxhQ3h6Xy2u2XQQt75Yjuc+OYszrQrCIyETJLiLgzFLWcoQNFkeEzsMEUCEb353Jt5uaEIikfUZY+Dp6Qh//BHUl18CjAGmfwudzPJAYYzRS5cuzSgpKdmqlLpKSqn7EhPiVQC3hT9k/vz5L61cuTLTGKMZY3ELXxOBMYAz4E8VDZi48Qv84NUj+O9TLeAuDpEgwQSLCtxQ70V6IQTAGG644QYcGpyBlmAQjDFL05zD1Dcg+PYbbdrv7+SHMTDGhDFGr1y5MnP+/PkvKaWG2Erg/aUARkRMKeWeMWPGK2vWrBkBQMUrfIqBnGPNEfzzK0cw47++xN7TLRC2pRsCtCHYxgvJbaihOKzQGAzPyIC44gocb2qCh3Prz4jAXC6Etm93cGNgMlBbCQDUmjVrRsyYMeMVpZTbLl2w81ZAaWmpYIzpCRMm/Pqpp566RkqpjDEyHuEbsu5AMIZNB+vw9d8fRNn+WnCPAHdxaNvSEYV8BtIE1aJAhuCRrFclGGPAAGRecSWOtwbhjlWAx4PIoYMwtWctzRINmBKMMVJKqZ566qlrJkyY8GvGmC4tLRXnpYDi4mKxcuVKlZSU9KP169ffm5mZqbTWcQVcTQTOgKAm3Pfmcdy95TCqWxVEgoShWMEzC+vDBrpVYWiSC3MnZGLHXaPx3YI0IKwhGbqAEUKsk2QMG4bTSkEyFlUAXC6Y2lqoigr7TwZuwotzDq21zMzMVE888cS9SUlJP1q5cqXqrXbEe5m9Mlrry1etWvX4pEmTtFJKxEM1Hcg53hzBjf5yPLXnNITHxnhb8tyOBzqkQBGDbwxLwtPTRuLTOWPxHzcNQ2G2D27BOgEa68L6AGBIbi7OEMAREzwYAyJh6JoaIA5I6w+KqpQSkydP1qtWrXpca315WVmZ6UnOsifcZ4zRXXfdteH+++9PMMZoKSXrXfiWVR+sD2Haf1ag4mwQMlFCxTAYyRlUWAMEfKsgDf96dSZuHpHcNq+rDQTnUWXFM9IzMnGIizbci3UarXChhpSSGWNw//33J+zcuXMDY+x6W5asKxPg3UAPF0Lo7OzsBStWrPimnVyIeDBfMKCiIYyb/eWoqAtBJrQJ32FBqlVhbLoXL80YhddmjMLNI5KtYG3ISgE4g2Dx4y8A+JJ8CAsB6oDzjKHfkrC+OAMAtWLFim9mZ2cvEELo4uJiHi8E8bKyMmOMGfqzn/3skYKCAqOUEr3hvrEZTE2rwrTNFTjWEIb0iKjwObMg2IQN7pswBLtmj8H0/FSLATnBmrNzrvFqrcFgUd125i8l+KDBF7Y8zDmUUqKgoMD87Gc/e8QYM7Q7KOr0QVlZGeOc03XXXffLefPmpQIgIXq2R7JmjGAMYdYrlTh4urWD8BmMIiRw4LlpI/HkjblIcfNooI7L2h0H7sC+HItvqG9AolIA422OrjVYog8iKyvGHS6QC1gyo3nz5qVed911v+ScU1lZGetNAaK4uNgQ0YSFCxfO9ng8WmvdK9/Xdk3np9tP4q/l9XDFwI4lfIN0r8DWmQWYc8UgKAdqejkvdZVKd/rI+qzq2FFkkAE552QMpBT44HSIIZddcAUwxqC1Fh6PRy9cuHA2EU0oLi42HaGcd3wYxhjdeeedD8+YMQO29ffKeCRneOGLeqzbVQ2Z6EKkg/AHeQT+MrMAU4b6EDHUlmjFEVPicQwAOHrgAIa7JCJ2xg3OgXAYrlH5YImJiGZ5FzIQWLKjGTNm4M4773yYMUYdYxTvEDgMgGt+8IMfTGeMGa217D3oMlTUh3HfG8esrBZtAZe0QaJk+PN3RuGaIQmIGIKLs35/SAOg+pO9GOXzIWRM9KFIKbgmTHAytosyaaK1lowx88Mf/nA6gGtsGYtOCnCs/9Zbb31g2rRpDIDpyfoJAMFKqL7/5jE0tkTAJI+yQG4FBvzxjjxcm+2DGgDhG2MAxlB+8iTEwc+Rk5SEsCNoY8C8HniumXjB4acLLzC33XYbu/XWWx/o6AU8ttgGYMTs2bPv4JyTXVbtwfqtZOuJvTXYXtEA6ZVR3i4Ygw5pPH7jMNyelxKFnfPCVHQuJTg9pdv++leMbaiHx+MBOXQsEoHIHAJZMPqiKgAA7ASWZs+efQeAEbHFOg4ARUVFXGuNcePGzZk+fboPgO6J+RgCOBhOBiIo3VEF7uHRUrHgDCqoMOdrGVhwVcZ5wQ51Crpd4+cnb7+Nryd40GqzKisARyCyssFTU+NTgF3aHkBGpKdPn+4bN27cHK01ioqK2hTwzjvvaACe22+//d60tDQYY3hPzIdsvv3zD06jvikCLjiMzfVNxGBEuhdPXJ9rTWSdh+VRL/LiUiJkDJo/P4CRPh9CWltBmTFAa/DB6fHPBTA2YF5iF+t4Wloabr/99nsBeGyZg1sKEgRg8m233VZgoQvxHq2fMVQ2hvHMvrPgHhGFHgarmrnmhhykuHlUUQMzrGvWtbSA19fD53ZDx1gwGQJLSYl7LoAiEeiTJwZs7sCWqbFlPNmWueClpaXMGINrr712ZmFhIfUWfA1ZBbEnPz2LloACFyxaPtAhjZsKUvG/RqVGC3IDPYw2YHZJuqOLMI87nkgOAGh89N/Q9PivBowxOcG4sLCQrr322pnGGJSWljK+bNkyDUDeeOONN7rdbqa15j3ZnOQMTWGD5w7UAW4e7WggQ+CSYVVhVj/beM+JmBAcJHgX8SKORMKeOaNgEK1/+i+YutoBDdhaa+52u9mNN954IwC5bNkyzaWUBGD0hAkTxlqe0j38OFCz5csGVNUGIWzaKTiDCWl8uyAVE7MS+836DfUeFDwuN+B2Q5FBu7jFGCgc7l0BAHTVSZjGRui6OqeYMzCgacmWrr766rEARkspiWutkZubWzhp0iQGQPdUdOP2Az57oA6xxVUiqwz6wD9l9qnkbvoBaj1uF5CQgLBuD0OMM1CguWeLjiqgChQOw9TVggKBAYsDtmz15MmTWW5ubqHW2mJBkyZNKsqyC1bdKcAKvkBlYxjbTzSDXALGpn0mbPCVrERcl5MUzQPigZfzzsuI4GEMLCERYa2jBgIiQAgYZyKmF4vWVVUAEaix0Zq+HKDZG0e2WVlZmDRpUpHDgvjYsWMnOBjVU/AFgNcrmxBsUZB28OVW7wiKC1IhGOKeRGEAPqlpPa/UjIisB0hMRNC2puh8sHRBV5+CaWjo1aL1qSqAM1BLC/SZMwMlf8TKeMyYMRMc0xian58/zIYS1hNNBoA3jzV3roR6hTV/GwNTvSly2fun8O2XDkepI/XwW4qWo9vPCTuB15WUbCkg1gOkhKmtjYtamtPVYFyAwiFLGQMEQbEyLigoGAZgKAeQP3LkyCQAxLrJvpzScVgT9pxuASS3SxEARQy+npWIcelei1SwXkgHs1jUr/67BifqQ/i8NtSH56VOHgAAbp8PQd0hCAsBam2BqjzSvUDt3+vTpy1b1KZNYQNXpmYAKC8vLwlAPh80aNCVw4YN4wBMd9mvc+9HGsM42hgGBLOruxb83J6XEi1NxyO+ioYQmsIaTBO2nWhuZ+3nMmRCAoIxVdDo9bSBPn68J1C2rl1fBzkyD2Q09MmTAz5PAMDk5ubyQYMGXcnz8/OHZ2RkxH7ZZekBAA7UBaFCBsJu/TBEgGQozPbFRZ8dIX9WG8RlCRLEGd4+1gxD58eIXF4vwmTQ1ax3W1Dt2qqouRkUDML99YmAoTYIGsCyBABkZGQgPz9/OE9PTx+dnJwcD1224MJY5QUGq1fT6xEoSPO0VSzjGPvOBnHvuMFwewTer2oBZ4BbsE5KoDgBSXg8iFAXBsRYG63sLijW1QJawz3+qwDn0KerownaQI7k5GSkp6eP5jk5OdFXjHqbevyyIRydgmLMmloYkujCkAQRl9EIO0AcbgjjrsvTMCRR4sTZIO5+tRJbjzZZE/fUXZ5gfdl2j9QuzTdd9AyBWTWenqzKVJ8C3G7IsVeAuVwwNTUwzc0DFoid+xdCICcnh3MAV9i1dd4bA6puUe3vyxAyEgS8kkepZU/WygDUBTUCEYOvZSageHQarshMwJbDjbi1rBwHaoMA6xmO+gwMWveoAHXsGHhKKuTIkWA+H0x9fRtsDRATipH1Fdzn8/X6joADLbVBFdWGNUECpNndD2FtdTXHHjqmBdF5li/qQxjstTxm9TeH4tPvj8WpueNwRWYC1n1cAwYgYv9tvI+vlYIA6/73WndxKMAY6CNHIC4bAp42CDwlBdTUBOPkAs4Zu/z7mMMY6+ijwnw+n+Rut7vXv3KoZVPEWG7tlJmJkOmVkJzBLRgkb38IxixYiQ3ktUHkpVgxw5m890mOhydnYePBehCARMkhGIO7l1TZ+VZHIjYxoE7pO0tMtBqz3G7rv87h9gCcI/TRB5AjR1nPOTjderkjmgu0ZdU9HpxbRx8Dt9vtpl6t34EOQ0BYW+0nThDmwmo5f/5AHVqViSrLJRh8kiPNI5CX6kF+qtsyDgYcrA3hn4YkRH/LYVHaGQWp+Mm2E1j07klcPzwJhoDjzWEIycGZjZ3dKESHw3B1nLEkAktIQPjTT9D8zG/B09LAfT5ASKvuU3MG4T0fILRjB5J/dJ+Fy0OGgCJh6KqTbW7LGALPPwv1xUHA5QIpBRgNaANoDbJL19TUiKT//UO4JxVa3hBnEJfhcDgutUUM4Uyrgo4YgFi0SWpHZSN2lNe3xUSKaY51cXi8Eq/NzMcNuVad6HgggrvTB0VhjDFAGYJXMNw9Ng2/fOsYfumV9nthHOCAjhDgFkBLpFsFOF3RLKbOzzweRPbvQ/jDDwB7bSCnTZ2MAeMcPDUVImeYpYCsbIuKOrmAlAjv3oX6hx+yTswY2l+EtSV9DfVIuOPOPsWOcDjMZCAQUPG4ueTA728djrAmuAUDt+HFOhiM/WZLSBOaIwZnWxX+crQJL+89i5e/bMQNuUloDGu0KoNRqe52wV1wS3iLr7kMU3OSAMagiKxYYABlDMAFqo4SDv6niN6X04Slw6G29wLQ2Qt4UlJnoTAGag1CpKdHO+fE0KEWFT1lF+eUQsOj/waWmAielBwN6IQO88ecg4QAHzSoTxAUCASUBHAAwFjOeaeurXYUkjHcMiK5TxeYPXYQhlQ04MPqFjuTjsAnORLteQQHURwlX5YocUd+arfnaxqcgZItvJNxqGAIbtb1pAw1N0dhIvpHjAFSglpa4L3yJjCflUiK7KGA22V5AGNo+eMLCH+4G8zrhamvs2+YgQkBuFxtSrDbY5gvKa4kLkbWB+SJEyeM1hrC7izuKRfQcbqWg0KpHoHRGQnYWxMEAJTXh5Cb7IpmxbxTn6edLdspbRuqWfdV26raUdSoAlpb4erkAQzQCimLSyDzRlmsh1sBk0kJ5nYDXi/kyLwoZvPsbDCPF9TSAlV+CM1P/T/rddelyyFH5QMgMJcbged/h5ZXXra8wmY/zO0GT06JpxjntC3ixIkTRp49e/ZQU1MT0tLSep/XjDfK2283MgCjUz34rCqAlojBlw0hjBnk7dZIGIu5Rocef2a/1tpVUqOCrfCItulRpyuCJSYi8bszwVPTeiPm1vNlXgaelAQTaEbDimVQFeVImrcAvtn3tPt568svAUq1dVIoBZacDJ6aEncZo6mpCWfPnj3EKyoqjtbYExfUj4mHc6rcJBcQMihvCKMqoDB2UN/KFl1ZT6zGDAAKBqMeEM2TlQLPyADzJrTx/u64u31Onp5uUdGGBoR2/g3yynFI/slC6/dKWYcx0CeOgwkZU/TT4GlpYCmpcT0DANTU1KCiouIor6ur++z48eMG1kJL/Z71ZfskQISPTregRRnkO3UjhnNSQEeXidgKcPOYGOB0xmVlg3ksvg8hu+fujgKSksAzM+3zMKQuXgLuCFVK6yC7fC2lrTxuXSs7x4K1XpqA7Xvkx44dM3V1dZ9xABWHDx9uhvVaUr9rIC/VDQiGbScC8AqGdK8AUf8tthNSCggG4bKbdKMMR2uI3Nx2ENMrDDEGOTIP5nQ1EmfOgvemm9uWOXBqR3W10KdPg0UVAJBWkPn5cV3LljE7cuRIM4AKDuBkeXn5MRtT+00BDlSMTvOAeSX+cqQRl/lcfQrm8XhDMBSyFMA7sCAiyNxhfcZMkZkJOSofKYtLrFd6nITKqR0dP2oxIkcBNqC6rhwXr1wIACoqKo4BOMkBmIMHD+6xK3T91pHkkMVRqR6kJ7lwqjaEy2346c8RDIUgw2HIjiyIc4ic3D7csHXHCd/6NtKffg48JaX9GzmOAg4eBAVb2xSjNXhyMtxfGR9XAHZk/Pnnn+8BYFXldu3ate3UqVNOpa6fPMC6/3SvwMhkFyAZvprhjWveOO4gDCAUCkGoCATn7Xg5c7utzDbegGP/xvXVq+D6yvhu5wTCn+xtOx/noFAIcmQeRN6odorspgoKADh16hR27dq1DbCXGzt+/PjO999/nwAI049teU6HxJjBXgxOciEv9dwDcHcsLRgKgasIuJ1NO824LDERPCOz7zVsMtF40A6ehAAphcgnH4O5PdFgS6EQ3JMmWzFB697K0AAgdu3aRcePH98phABXSjEAhz766KPP7Tnjfm+MvHKwB7fnpUDYdZ/+CMDRGBAMQSoNzni78jNPSgaP5jZ9uCLjna3Ybl2PHPgMkYoKMK+3LQGTEt7rb4gX/w0AtmfPns8BHFJKMb5s2TIBQL311ltvhcNh6s844CRO/3LFYDw6ZWi7z/prhEJBuIxugyabAfHUVKsG1F9JDWMIvvpnUGtLlL5SKAQ5ahTcE67pFX4c/A+Hw/TWW2+9BUAtW7ZM8OXLlxPnHDt27Hhx586dDADXWvdPHEBbMnZZojy3Ga3eK4pwmQ5t8FqDpaW10cfzmWB3lr5paEDrKy+DJfqipQtqaYH3plvakr2eyjiWTPnOnTvZjh07XuScY/ny5cSt7zQD8P5rr71WbsXI/oWh/nr5JDYIOxAUCoUgyaDdZLUxbQnU+V7YjgctL5ZBHT1qJXZEUfaTeOeMuAK9LVNuy/h9W+ZWm9z1118vAIT+/Oc/P1tfXw/OuenPnGwAXz5BKBSCq4OVExnw5KTzV0CM9Qee/501oWOMFZADAXgKr4W8fEyvEzBEBM65qa+vx6uvvvosgJAtc4uub9u2zQghsH///ue3bNkSACC01hdtV4k+QVAoBOkIOWZSKFoa7gfrDzz7DNSRI4Bj/fY1Eu+aHZeSbVmKLVu2BD799NPnhRCwN4yI5kvGfiuyctOmTS9rrZn9Jt8lPyLhMCQ61DYI5x+AbavWx4+h+dmnrcTMwf7mZriu+ho81xW1zRn3MKSUWmvNNm3a9DKASlvW7RTgLELHXn/99cdee+016s9gPCDDtrpIOAJJncM7S/T1C/NpXP3vMHUdSw9AyoOLrXVJe7d+AOCvvPIKvf7664/ZS9d0qhgA1lKLHMCHv/nNb7YQERdCqEtL5jFB2DFUrbqcxmMJCeeRQVoFuOBf30Lrlj9Zr7pqbXVc19XBd/cceAqvtT7rnXoqIuJPP/30FgAf2jLWXSkg6gUvvfTSis2bNwMAu5S8oCtiYLpoygVjFls5V+gRAupoJepLFrfhPuegQACuyy9H8r8+GFfngy07tnnzZrz00ksrOlp/JwUA0H6/nzPG9qxZs2ZTKBQSQghNdOnH445djHC7z034nMM0NaFuwTyYmjNttJMIMAZpK34O7vTS9lL3F0LoUCgk1qxZs4kxtsfv97ez/q4UgFmzZpExhm3fvv3BJ598ssH2gktWA4y1nwlzNMD62lzrdEsrhbqf3o/wp5+CJadYs2BSwtTVInnBQqvvJw7osWXGnnzyyYbt27c/aIxhs2bNimvJMjNr1izOOT/56KOPLi0vL+dSSm3MpbnFFhcc+vyxLQoz9f/3QQTf3Gq1mEQi0ZUXE26bhuT5C+ISvjEGUkpdXl7OH3300aWc85OzZs3i6GKfsi7P5Pf7jdZaVFVVrXv44YffhbW430UPBsaYTuVoISV0RxAiAsUbu2KFv7QELf4/gqenAxFldcI1NsD91auQ9uhqe9G7uFoQNQD58MMPv1tVVbVOay38fn+XFtxdayI5y6owxn5UWFj48f333+9WSlE8KydeyOFyuaFYxwVeCRQOxaFRbbWqMIb6ksUIbHzOWl9CKcAlQU1NEMOGY/CTG9rlAT0NW0ZYu3Zt6x/+8IcfOcsAoZvXHXo6m5k1axYXQnxRUlLyk127dgk7obhEsN+yA7fH3Xm9eAKopZc3MO0+IWoJoHbBPAQ2Pg+enhGlm9TYCJGTg/Tf/M7qmIuT9Ugp9a5du0RJSclPhBBfdAc98SgAfr9fL1myRDY3N2+YP3/+s2fOnJFCCHUpxQOPx2N5QIdsmJoau+f4FnYhsn8fambPQusrL7dZvh1wXWPHIuO5TVZDVpy4L4RQZ86ckfPnz3+2ubl5w5IlS6Tf7+/RYnvtjl6+fLmzRP2P586dO66srOwaKaWy18+/BBTgRYTzDi9QMit7jcV5x4KFAJRC8zO/RdMTj4OCreBpg2044jA1NUi45VtI+/fVVkOX6X3zB7vYppRScu7cuR/u2bPnx7bMeoWLeLgaMcZIShnevHnztIULF1YCkPa2LRc9CHu8HkSEbJekMc5hamvbmq8Ys4TIGILvvI0zd81Ew88faVe0o0gYpqkJyfMXYPCvf2sL32oK7k34RKQByIULF1Zu3rx5mpQy3BPu98kDYot1UsrT69evvzMtLe0NZw8BAOJieoLH40HE425TABEgOPTZmmjzFbW2IvTuOwi8sBGhHX8DGNoWczUGpqEBMicXKQ+XIuHW29oxo3iEzzkXS5YsObN+/fo7pZSn+7KLRl+2MNG2EvauWrXqFrfbHbuFyQVXgnO9BK8XyuVuezuGCBASpqYG4Q93I/jOOwi+uRWq/JBVokhKAhMCpDWouRkQHL5ZdyH5gQet9UXj3G/GZjeaMSYeeeSRGnsfmb193cKkr3vIaKWUlFJ+XFpaenM4HN66cuXKTMaYMsb0aR+Z/hperxfa44k2Azudyrr6FGr+5W5QawuYNwEsNRWMc1AkYq0fQQR34TeQPH8BPJML2xXh4oFCzrkCIJcsWXLmQm7iY1NdSwmrVq26ubGxcfPq1auj21iJC7xQttfjsRSggujYUs08HnBfEshoUGsrTGsrmNcLT+G18M25F96bb22rATlxotdCqYYQQiml5MKFCw+vX7/+gm9j5ShBSCn3rlu3rvDUqVNb1q5dOzErK8v5fEDxSGsNYwy01nAJAeX2QJtIW4C2WQ8FgzDBejApIUaOhPe6IiTcPh3uqyd0yoLjfGiSUurq6mq5YMGC3X6/f7qUstqGnXMq3Z/PPrlOTKj2+/3frKys/I/HHnvse1OmTAEAbYwR/Q1Jxhi4XC4IIZw12JCdlgbu9SJ48ig4t1buZUKC+XyQI/PgmTgJnqk3wXPN16NvwkRpqc2M4oQcLaUU7733nnzggQd+t3v37vuklKG+Yn6nWNYv9TAhjNYaSUlJc1esWPHYwoULfY6XCCHY+QZoZyLm2LFjuOeee3D11Vc7QkFYaxz9YDeem3ItxOB08OwsyGHDrXbBYcOtlvHYJMyp58R5Xa012dOz8vHHHw8sWbLkgebm5qeEEM7aP5dEVtpuO9t77rmnX7ezjd3dtKKigj7++GPau3evdXz8MR0/caKnfWmto4/7SnbcznbOnDmX7Ha20TFQGzrHKbH2h7Or6v+QDZ3bQVLHLc03bdoUu0utOp99hrXWnY7z3bO445bmxhh64YUX/v62NI8dRUVFsZR08syZM1/0+/2xmy9HtNa6v/aFPxehK6VIW5sFRxzr9/v9NHPmzBcBTHasvqioSOLvdHAi4jFsaPK0adM2btiwIVBdXR016hhlmIHYnjzWe+xrOELXRETV1dW0YcOGwLRp0zY6grc37OR/V1bfB0UUjB8/vmTRokWfbd26lew4EfUMIooopXQkEjG2lUY3cY7Hsp195pVSZJ/DEXjE+V0gEKCtW7fSokWLPhs/fnwJgIJ/RMF3UkRZWVnsZnBuAFMLCwvXLl68eK/f76fKysouY2OHQ2utTexhW3PH37UblZWV5Pf76aGHHtpbWFi4FsBU+x4ghHDYzQUV/MWiUryoqIi/9957ytp9KUqlv5KdnT1p4sSJ3xgzZsyEgoKCESNGjEgdPnw4MjIykJKSAncv7SbhcBiNjY2oqanB0aNHUVlZ2VBRUVH5+eef79m9e/ffqqqqdgHY51g7YwxTpkyRdq/mBef0F5vLMgC8tLSUrVq1StmJT+z3uQAKfD7fuLy8vKFDhgwZnZ2dLQBc6fP5hMfjIQAIhUIsEAhoAJ9VVVXp06dPHzp8+PDJQCCwH0A5gOjSiUIIMMZQUlIily9fTrbQL1rbzf8HXo3vyeyfa08AAAAASUVORK5CYII=) center/contain no-repeat}
-.affil{color:var(--u-ui);border-bottom:3px solid var(--u-red)}
-h1{color:var(--u-ui-2)}
-.tab[aria-selected="true"]{background:var(--u-ui);border-color:var(--u-ui);color:var(--u-on-ui)}
-.btn{background:var(--u-ui);border-color:var(--u-ui);color:var(--u-on-ui)}
-.btn.ghost{background:transparent;color:var(--u-ui)}
-.btn.warn{border-color:var(--on);background:var(--on);color:var(--p-ink)}
-.switch input:checked{background:var(--u-ui)}
-.seg button[aria-pressed="true"]{background:var(--u-ui-2);color:var(--u-on-ui)}
-input[type=range]{accent-color:var(--u-ui)}
-.meter i{background:var(--u-blue)}
-.cap{border-left-color:var(--u-red)}
-.take{border-color:var(--u-ui);background:var(--u-soft)}
-.take b{color:var(--u-ui)}
-.foot{border-top:2px solid var(--u-red)}
-</style>
-<!--brand-univ:end-->
-</head>
-<body>
-<div class="wrap">
-  <p class="affil">Кафедра биологии и генетики · Медицинский университет Петровского · курс «Молекулярная биология», 5–6 семестры</p>
-  <h1>Интерактивные семинары</h1>
-  <p class="lead">Курс состоит из четырёх разделов по шесть семинаров; каждый раздел завершается коллоквиумом. В семинарах можно двигать ползунки, менять условия и смотреть, что происходит в клетке. У каждого вопроса два уровня: базовый и продвинутый.</p>
+html{scroll-margin-top:16px}
+body{margin:0;background:var(--field);color:var(--ink);font:16px/1.46 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+a{color:var(--navy);text-underline-offset:3px}
+a:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
+h1,h2,h3,h4,p,ul{margin:0}
+h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.04em;line-height:1.02}
+h1{font-size:clamp(30px,4vw,50px)}
+.preview{border:1px solid #c7aeb4;border-top:5px solid var(--blue);background:var(--paper);padding:clamp(20px,4vw,52px);box-shadow:0 12px 35px #24343b0b}
+.page-head{margin-bottom:35px}
+.eyebrow{font-size:12px;font-weight:750;letter-spacing:.085em;color:var(--navy);display:flex;justify-content:space-between;gap:8px 20px;flex-wrap:wrap}
+.eyebrow span{color:var(--muted);font-weight:600;letter-spacing:0}
+.title{margin-top:24px;max-width:900px}
+.title p{max-width:665px;margin-top:12px;color:var(--muted);font-size:clamp(15px,1.6vw,19px)}
+.card{display:block;position:relative;border:1px solid var(--line);border-radius:3px;background:var(--white);padding:14px 16px;min-width:0;text-decoration:none;color:var(--ink);overflow-wrap:break-word}
+.card h3{font-size:18px;line-height:1.18;margin:4px 0 5px}
+.card p{font-size:14px;color:var(--muted)}
+.sem{color:var(--muted);font-weight:650;font-size:12px}
 
-  <h2 class="sr">Разделы курса</h2>
-  <ol class="parts">
-  <li class="part" id="part-1">
-   <span class="num" aria-hidden="true">I</span>
-   <div>
-    <span class="range">Семинары 1–6 · коллоквиум I</span>
-    <h2><a href="section-1.html">Раздел I. Организация, сигналы и геномный контекст</a></h2>
-    <p>Как локальные условия, молекулярные взаимодействия, сигнальные сети и организация генома определяют характер, длительность и устойчивость клеточных состояний.</p>
-    <p>Опубликованы все семинары раздела.</p>
-    <div class="go"><a class="btn" href="section-1.html">Семинары раздела I</a><a class="btn ghost" href="map-1.html">Системная карта коллоквиума I</a></div>
-   </div>
-   <figure class="mini" data-miniature="S1" data-section="I" data-variant="S1-B"><div class="mini-art"><svg aria-describedby="mcap1" viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Клетка в разрезе: рецептор на мембране, компартменты, транспорт и сигнальная сеть в цитоплазме, нуклеосома и метилированная ДНК в ядре">
-<defs><marker id="m1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#1F2A36"></path></marker></defs>
-<rect x="8" y="72" width="464" height="244" rx="40" fill="none" stroke="#7A8696" stroke-width="1.4"></rect><ellipse cx="392" cy="192" rx="74" ry="118" fill="#F4F8FB" stroke="#7A8696" stroke-width="1.4" stroke-dasharray="5 4"></ellipse>
-<path d="M98 150 Q109 137 120 124" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m1a)"></path>
-<path d="M151 232 Q155 177 157 122" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m1a)"></path>
-<path d="M206 122 Q222 146 238 170" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m1a)"></path>
-<path d="M298 186 Q326 160 346 124" fill="none" stroke="#1F2A36" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#m1a)"></path>
-<path d="M392 170 L392 198" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m1a)"></path>
-<path d="M346 194 Q324 214 298 208" fill="none" stroke="#1F2A36" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#m1a)"></path>
-<g transform="translate(160 62)"><line x1="-40" y1="4" x2="40" y2="4" stroke="#7A8696" stroke-width="1.6"></line><line x1="-40" y1="16" x2="40" y2="16" stroke="#7A8696" stroke-width="1.6"></line><path d="M-34 -12 Q-27 -11 -24 -4 V24 Q-20 30 -16 24 V-4 Q-12 -10 -8 -4 V24 Q-4 30 0 24 V-4 Q4 -10 8 -4 V24 Q12 30 16 24 V-4 Q20 -10 24 -4 V24 Q28 31 35 30" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><path d="M0 -32 l7 7 l-7 7 l-7 -7 z" fill="#006CA3"></path></g>
-<text x="160" y="112" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">3</tspan></text>
-<g transform="translate(70 176)"><ellipse rx="36" ry="25" fill="#DCEBF5" stroke="#1F2A36" stroke-width="1.8"></ellipse><ellipse rx="31" ry="20.5" fill="none" stroke="#1F2A36" stroke-width="1.2"></ellipse><g fill="#006CA3"><circle cx="-12" cy="-6" r="2.4"></circle><circle cx="-2" cy="4" r="2.4"></circle><circle cx="8" cy="-8" r="2.4"></circle><circle cx="14" cy="6" r="2.4"></circle><circle cx="-16" cy="8" r="2.4"></circle><circle cx="2" cy="-12" r="2.4"></circle><circle cx="20" cy="-2" r="2.4"></circle></g></g>
-<text x="70" y="226" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">1</tspan></text>
-<g transform="translate(262 196)"><g fill="#fff" stroke="#1F2A36" stroke-width="1.8"><circle cx="-26" cy="8" r="8"></circle><circle cx="0" cy="8" r="8"></circle><circle cx="26" cy="8" r="8"></circle></g><path d="M-17 8 H-10 M9 8 H16" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><path d="M-12 4 l4 4 l-4 4 M14 4 l4 4 l-4 4" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><path d="M26 -2 C 20 -28 -20 -28 -24 -6" fill="none" stroke="#006CA3" stroke-width="1.8" stroke-linecap="round"></path><path d="M-30 -7 L-18 -5" stroke="#006CA3" stroke-width="2.4" stroke-linecap="round"></path></g>
-<text x="262" y="246" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">4</tspan></text>
-<g transform="translate(150 256)"><line x1="-40" y1="14" x2="40" y2="14" stroke="#7A8696" stroke-width="5" stroke-linecap="round"></line><path d="M-6 14 L-2 4 M6 14 L2 4" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="0" cy="-8" r="12" fill="#fff" stroke="#1F2A36" stroke-width="1.8"></circle><g fill="#006CA3"><circle cx="-4" cy="-10" r="2.4"></circle><circle cx="4" cy="-6" r="2.4"></circle></g><path d="M24 -6 l8 6 l-8 6" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></g>
-<text x="150" y="306" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">2</tspan></text>
-<g transform="translate(392 112)"><ellipse rx="19" ry="15" fill="#DCEBF5" stroke="#1F2A36" stroke-width="1.8"></ellipse><path d="M-42 12 C -30 14 -24 -18 0 -18 C 22 -18 24 12 6 14 C -12 16 -16 -10 2 -10 C 18 -10 26 8 42 6" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></g>
-<text x="392" y="160" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">5</tspan></text>
-<g transform="translate(392 230)"><path d="M-38 -4 H38 M-38 8 H38" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><path d="M-30 -4 V8 M-18 -4 V8 M-6 -4 V8 M6 -4 V8 M18 -4 V8 M30 -4 V8" stroke="#7A8696" stroke-width="1.2"></path><path d="M-18 -4 V-16 M6 -4 V-16 M30 -4 V-16" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><g fill="#006CA3"><circle cx="-18" cy="-20" r="4.5"></circle><circle cx="6" cy="-20" r="4.5"></circle><circle cx="30" cy="-20" r="4.5"></circle></g></g>
-<text x="392" y="264" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">6</tspan></text>
-</svg></div><figcaption id="mcap1" class="sr">Компартменты (1) и транспорт (2) задают условия активации рецептора (3); сигнал рецептора поступает в сеть с обратными связями (4), которая через транскрипционные факторы влияет на транскрипцию генов-мишеней и опосредованно — на хроматин (5), а состояние гистонов — на установление метилирования ДНК (6). Состояние хроматина, в свою очередь, влияет на то, какие гены ответят на сигнал (пунктирная стрелка из ядра к сети). Порядок номеров — маршрут изучения взаимосвязанных условий, а не обязательная последовательность событий в клетке. Пунктирная стрелка — опосредованное влияние или влияние при определённых условиях, пунктирный контур — ядро.</figcaption><p class="mini-note">Цифры — номера семинаров; подписи и связи — на странице раздела.</p></figure>
-  </li>
-  <li class="part" id="part-2">
-   <span class="num" aria-hidden="true">II</span>
-   <div>
-    <span class="range">Семинары 7–12 · коллоквиум II</span>
-    <h2><a href="section-2.html">Раздел II. Ресурсы, митохондрии, стресс и контроль качества</a></h2>
-    <p>Ресурсные и энергетические ограничения, стрессовые программы и поддержание качества белков и органелл.</p>
-    <p>Опубликованы все семинары раздела.</p>
-    <div class="go"><a class="btn" href="section-2.html">Семинары раздела II</a><a class="btn ghost" href="map-2.html">Системная карта коллоквиума II</a></div>
-   </div>
-   <figure class="mini" data-miniature="S2" data-section="II" data-variant="S2-C"><div class="mini-art"><svg aria-describedby="mcap2" viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Органеллы и программы раздела II внутри контура клетки, лизосома с mTORC1 в центре">
-<defs><marker id="m2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#1F2A36"></path></marker><marker id="m2t" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M5 0 V10" stroke="#1F2A36" stroke-width="2.4"></path></marker></defs>
-<rect x="8" y="8" width="464" height="306" rx="44" fill="none" stroke="#7A8696" stroke-width="1.4"></rect>
-<path d="M72 80 L79 183" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m2a)"></path>
-<path d="M112 190 Q120 178 131 167" fill="none" stroke="#1F2A36" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#m2a)"></path><path d="M173 153 Q190 148 205 148" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m2t)"></path><rect x="128" y="146" width="44" height="18" rx="9" fill="#DCEBF5" stroke="#1F2A36" stroke-width="1.6"></rect>
-<path d="M254 150 Q300 150 326 190" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m2t)"></path>
-<path d="M326 218 Q290 214 256 162" fill="none" stroke="#1F2A36" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#m2a)"></path><g transform="translate(340 206) scale(0.55)"><path d="M-6 -26 A 26 26 0 1 0 -6 26" fill="none" stroke="#1F2A36" stroke-width="3" stroke-linecap="round"></path><path d="M-4 -20 A 20 20 0 1 0 -4 20" fill="none" stroke="#1F2A36" stroke-width="3" stroke-linecap="round"></path></g>
-<path d="M396 90 L396 179" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m2a)"></path>
-<path d="M116 216 Q158 228 198 242" fill="none" stroke="#1F2A36" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#m2a)"></path>
-<g transform="translate(232 144)"><circle r="24" fill="#DCEBF5" stroke="#1F2A36" stroke-width="1.8"></circle><g fill="#7A8696"><circle cx="-8" cy="4" r="2.4"></circle><circle cx="6" cy="10" r="2.4"></circle><circle cx="4" cy="-4" r="2.4"></circle></g><g fill="#006CA3"><ellipse cx="-5" cy="-29" rx="7" ry="5"></ellipse><ellipse cx="6" cy="-29" rx="6" ry="5"></ellipse></g></g>
-<text x="232" y="194" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">7</tspan></text>
-<g transform="translate(70 62)"><path d="M-30 0 l6 -10 h12 l6 10 l-6 10 h-12 z" fill="#fff" stroke="#1F2A36" stroke-width="1.8"></path><path d="M-10 0 H6 C 16 0 18 -14 30 -16 M6 0 C 16 0 18 14 30 16" fill="none" stroke="#006CA3" stroke-width="2.2" stroke-linecap="round"></path><path d="M26 -21 l6 4 l-5 5 M26 21 l6 -4 l-5 -5" fill="none" stroke="#006CA3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g>
-<text x="114" y="58" text-anchor="start" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">8</tspan></text>
-<g transform="translate(80 206)"><rect x="-34" y="-17" width="68" height="34" rx="17" fill="#DCEBF5" stroke="#1F2A36" stroke-width="1.8"></rect><path d="M-24 0 l5 -9 l5 18 l5 -18 l5 18 l5 -18 l5 18 l5 -18 l5 18 l5 -9" fill="none" stroke="#1F2A36" stroke-width="1.3" stroke-linejoin="round"></path></g>
-<text x="80" y="256" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">9</tspan></text>
-<g transform="translate(396 206)"><g fill="#fff" stroke="#1F2A36" stroke-width="1.6"><rect x="4" y="-22" width="26" height="9" rx="3"></rect><rect x="4" y="-11" width="26" height="9" rx="3"></rect><rect x="4" y="0" width="26" height="9" rx="3"></rect><rect x="4" y="11" width="26" height="9" rx="3"></rect></g><path d="M-36 0 q5 -7 10 0 t10 0 t10 0" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><g fill="#006CA3"><circle cx="-30" cy="-11" r="3.6"></circle><circle cx="-24" cy="-17" r="3.6"></circle><circle cx="-17" cy="-21" r="3.6"></circle></g></g>
-<text x="396" y="256" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">11</tspan></text>
-<g transform="translate(396 70)"><line x1="-40" y1="14" x2="40" y2="14" stroke="#7A8696" stroke-width="1.8"></line><ellipse cx="0" cy="-4" rx="17" ry="11" fill="#fff" stroke="#1F2A36" stroke-width="1.8"></ellipse><ellipse cx="0" cy="10" rx="12" ry="5.5" fill="#fff" stroke="#1F2A36" stroke-width="1.8"></ellipse><rect x="10" y="-32" width="48" height="15" rx="7.5" fill="#006CA3"></rect></g>
-<text x="350" y="64" text-anchor="end" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">10</tspan></text>
-<g transform="translate(232 250)"><path d="M-6 -26 A 26 26 0 1 0 -6 26" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round"></path><path d="M-4 -20 A 20 20 0 1 0 -4 20" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round"></path><rect x="-16" y="-8" width="22" height="16" rx="8" fill="#fff" stroke="#1F2A36" stroke-width="1.5"></rect><g fill="#006CA3"><circle cx="9" cy="-9" r="3"></circle><circle cx="12" cy="-2" r="3"></circle><circle cx="10" cy="5" r="3"></circle></g></g>
-<text x="232" y="300" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">12</tspan></text>
-</svg></div><figcaption id="mcap2" class="sr">Метаболический поток (8) поставляет субстраты митохондрии (9); при снижении энергетического заряда (↓ATP, ↑AMP) активируется AMPK, которая ингибирует mTORC1 на лизосоме (7); mTORC1 подавляет инициацию аутофагии (фагофор) — одного из путей протеостаза (11), а при длительном голодании продукты лизосомной деградации вновь активируют mTORC1. Стрессовые программы (10) различаются по сенсору и следствию: например, при интегрированном стрессовом ответе фосфорилирование eIF2α сначала снижает общую трансляцию и тем самым белковую нагрузку, а затем через ATF4 меняет экспрессию генов адаптации; исход зависит от силы и длительности стресса. Митохондрия с утраченным мембранным потенциалом может удаляться селективной аутофагией (12), в культуре клеток — путём, зависимым от PINK1 и Parkin. Пунктирная стрелка — влияние при определённых условиях.</figcaption><p class="mini-note">Цифры — номера семинаров; подписи и связи — на странице раздела.</p></figure>
-  </li>
-  <li class="part" id="part-3">
-   <span class="num" aria-hidden="true">III</span>
-   <div>
-    <span class="range">Семинары 13–18 · коллоквиум III</span>
-    <h2><a href="section-3.html">Раздел III. Деление, смена клеточных состояний и тканевой гомеостаз</a></h2>
-    <p>Регуляция пролиферации, переходы между клеточными состояниями и тканевые взаимодействия.</p>
-    <p>Семинары раздела готовятся.</p>
-    <div class="go"><a class="btn" href="section-3.html">Семинары раздела III</a></div>
-   </div>
-   <figure class="mini" data-miniature="S3" data-section="III" data-variant="S3-C"><div class="mini-art"><svg aria-describedby="mcap3" viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ложе ткани: ниша и матрикс внизу как основание, над ними клеточные состояния, вверху повреждение ДНК и его исходы">
-<defs><marker id="m3a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#1F2A36"></path></marker><marker id="m3t" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M5 0 V10" stroke="#1F2A36" stroke-width="2.4"></path></marker></defs>
-<rect x="16" y="222" width="448" height="94" rx="14" fill="#F4F8FB" stroke="none"></rect>
-<path d="M190 236 Q150 210 106 170" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m3a)"></path>
-<path d="M196 46 Q140 60 108 120" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m3t)"></path>
-<path d="M284 44 L370 44" fill="none" stroke="#1F2A36" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#m3a)"></path>
-<path d="M282 50 C 340 50 332 100 364 124" fill="none" stroke="#1F2A36" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#m3a)"></path>
-<path d="M336 204 Q313 220 290 236" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m3a)"></path>
-<path d="M240 236 L240 208" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m3a)"></path>
-<g transform="translate(240 44)"><path d="M-40 -5 H-8 M-40 5 H-8 M8 -5 H40 M8 5 H40" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><path d="M-8 -5 l-3 10 M8 -5 l3 10" stroke="#E62E29" stroke-width="1.8" stroke-linecap="round"></path><line x1="0" y1="2" x2="0" y2="-24" stroke="#1F2A36" stroke-width="1.6"></line><path d="M0 -24 L14 -19 L0 -14 z" fill="#006CA3"></path></g>
-<text x="240" y="74" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">14</tspan></text>
-<g transform="translate(400 44)"><path d="M-24 -6 C -24 -26 20 -28 24 -8 C 28 10 12 24 -4 22 C -20 20 -24 10 -24 -6 z" fill="#fff" stroke="#1F2A36" stroke-width="1.8"></path><g fill="#fff" stroke="#1F2A36" stroke-width="1.6"><circle cx="-26" cy="-20" r="6"></circle><circle cx="26" cy="12" r="6.5"></circle><circle cx="-14" cy="26" r="5.5"></circle></g><g fill="#006CA3"><circle cx="-4" cy="-4" r="4"></circle><circle cx="6" cy="2" r="3.2"></circle><circle cx="-2" cy="8" r="3"></circle></g></g>
-<text x="400" y="94" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">15</tspan></text>
-<g transform="translate(80 148)"><path d="M0 -22 A 22 22 0 1 1 -21 7" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round"></path><path d="M-26 1 l5 7 l6 -5" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><line x1="14" y1="-26" x2="22" y2="-12" stroke="#006CA3" stroke-width="3.2" stroke-linecap="round"></line><circle r="5" fill="#DCEBF5" stroke="#1F2A36" stroke-width="1.4"></circle></g>
-<text x="80" y="198" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">13</tspan></text>
-<g transform="translate(240 146)"><rect x="-11" y="-26" width="22" height="50" rx="6" fill="#fff" stroke="#1F2A36" stroke-width="1.8"></rect><path d="M-7 -26 V-33 M-2 -26 V-33 M3 -26 V-33 M8 -26 V-33" stroke="#1F2A36" stroke-width="1.4" stroke-linecap="round"></path><ellipse cx="0" cy="12" rx="6" ry="7" fill="#006CA3"></ellipse></g>
-<text x="240" y="196" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">17</tspan></text>
-<g transform="translate(400 148)"><ellipse rx="34" ry="17" fill="#DCEBF5" stroke="#1F2A36" stroke-width="1.8"></ellipse><ellipse cx="-6" rx="9" ry="7" fill="#fff" stroke="#1F2A36" stroke-width="1.5"></ellipse><g fill="#006CA3"><circle cx="-26" cy="-26" r="2.6"></circle><circle cx="2" cy="-30" r="2.6"></circle><circle cx="28" cy="-24" r="2.6"></circle><circle cx="40" cy="-6" r="2.6"></circle></g><path d="M-20 -16 L-24 -22 M2 -18 L2 -25 M22 -14 L26 -20" stroke="#006CA3" stroke-width="1.4" stroke-linecap="round"></path></g>
-<text x="400" y="198" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">16</tspan></text>
-<g transform="translate(240 262)"><path d="M-40 14 C -20 4 0 24 40 10 M-40 22 C -10 30 10 12 40 24" stroke="#7A8696" stroke-width="2" fill="none" stroke-linecap="round"></path><path d="M-30 30 L30 4" stroke="#7A8696" stroke-width="1.4"></path><path d="M-24 6 C -24 -24 24 -24 24 6 z" fill="#DCEBF5" stroke="#1F2A36" stroke-width="1.8"></path><circle cx="0" cy="-6" r="6" fill="#fff" stroke="#1F2A36" stroke-width="1.4"></circle></g>
-<text x="240" y="312" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">18</tspan></text>
-</svg></div><figcaption id="mcap3" class="sr">Сигналы ниши и матрикса (18) поддерживают прохождение клеточного цикла (13) и влияют на дифференцировку (17); сигнальный ответ на повреждение ДНК (14) останавливает клеточный цикл и при определённых условиях ведёт к регулируемой гибели (15) или сенесценции (16); факторы, секретируемые сенесцентными клетками, меняют тканевое окружение. Пунктирная стрелка — влияние при определённых условиях.</figcaption><p class="mini-note">Цифры — номера семинаров; подписи и связи — на странице раздела.</p></figure>
-  </li>
-  <li class="part" id="part-4">
-   <span class="num" aria-hidden="true">IV</span>
-   <div>
-    <span class="range">Семинары 19–24 · коллоквиум IV</span>
-    <h2><a href="section-4.html">Раздел IV. Патологические состояния, их измерение и изменение</a></h2>
-    <p>Опухолевые и возрастные изменения, методы анализа клеточных состояний и проверка воздействий на механизм.</p>
-    <p>Семинары раздела готовятся.</p>
-    <div class="go"><a class="btn" href="section-4.html">Семинары раздела IV</a></div>
-   </div>
-   <figure class="mini" data-miniature="S4" data-section="IV" data-variant="S4-C"><div class="mini-art"><svg aria-describedby="mcap4" viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Экспериментальный цикл: клон и его эволюция, теломеры и ткань измеряются; измерение служит основанием для воздействия, которое меняет состав клона">
-<defs><marker id="m4a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#1F2A36"></path></marker><marker id="m4t" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M5 0 V10" stroke="#1F2A36" stroke-width="2.4"></path></marker></defs>
-<path d="M94 72 Q128 100 138 162" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m4a)"></path>
-<path d="M426 128 L426 190" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m4t)"></path>
-<path d="M210 164 Q230 138 250 116" fill="none" stroke="#1F2A36" stroke-width="1.6" stroke-dasharray="1.5 4" stroke-linecap="round" marker-end="url(#m4a)"></path>
-<path d="M388 192 Q370 150 346 116" fill="none" stroke="#1F2A36" stroke-width="1.6" stroke-dasharray="1.5 4" stroke-linecap="round" marker-end="url(#m4a)"></path>
-<path d="M300 116 L300 202" fill="none" stroke="#1F2A36" stroke-width="1.6" stroke-dasharray="1.5 4" stroke-linecap="round" marker-end="url(#m4a)"></path>
-<path d="M286 226 Q246 222 212 196" fill="none" stroke="#1F2A36" stroke-width="1.5" marker-end="url(#m4a)"></path>
-<g transform="translate(60 56)"><g stroke="#1F2A36" stroke-width="1.6"><circle cx="-16" cy="-8" r="9" fill="#fff"></circle><circle cx="2" cy="-12" r="9" fill="#006CA3"></circle><circle cx="18" cy="-2" r="9" fill="#fff"></circle><circle cx="-8" cy="10" r="9" fill="#fff"></circle><circle cx="10" cy="14" r="9" fill="#006CA3"></circle></g></g>
-<text x="60" y="106" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">19</tspan></text>
-<g transform="translate(170 182)"><g stroke="#1F2A36" stroke-width="1.4"><circle cx="-30" cy="-6" r="6" fill="#fff"></circle><circle cx="-18" cy="-6" r="6" fill="#006CA3"></circle><circle cx="-30" cy="6" r="6" fill="#fff"></circle><circle cx="-18" cy="6" r="6" fill="#fff"></circle><circle cx="18" cy="-6" r="6" fill="#006CA3"></circle><circle cx="30" cy="-6" r="6" fill="#006CA3"></circle><circle cx="18" cy="6" r="6" fill="#006CA3"></circle><circle cx="30" cy="6" r="6" fill="#fff"></circle></g><path d="M-8 0 H6 M2 -4 l4 4 l-4 4" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></g>
-<text x="170" y="232" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">20</tspan></text>
-<g transform="translate(300 56)"><path d="M-32 -26 V20 H36" fill="none" stroke="#1F2A36" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><g fill="#006CA3"><circle cx="-18" cy="6" r="2.6"></circle><circle cx="-12" cy="10" r="2.6"></circle><circle cx="-14" cy="2" r="2.6"></circle><circle cx="-8" cy="6" r="2.6"></circle></g><g fill="#1F2A36"><circle cx="14" cy="-14" r="2.6"></circle><circle cx="20" cy="-8" r="2.6"></circle><circle cx="24" cy="-16" r="2.6"></circle><circle cx="18" cy="-20" r="2.6"></circle><circle cx="8" cy="-8" r="2.6"></circle></g></g>
-<text x="300" y="106" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">23</tspan></text>
-<g transform="translate(300 240)"><path d="M-6 -30 H6 V-6 L2 14 H-2 L-6 -6 z" fill="#fff" stroke="#1F2A36" stroke-width="1.8" stroke-linejoin="round"></path><line x1="-10" y1="-30" x2="10" y2="-30" stroke="#1F2A36" stroke-width="2.4" stroke-linecap="round"></line><path d="M0 20 C -5 26 -4 31 0 31 C 4 31 5 26 0 20 z" fill="#006CA3"></path></g>
-<text x="300" y="290" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">24</tspan></text>
-<g transform="translate(426 56)"><g fill="#fff" stroke="#1F2A36" stroke-width="1.6"><rect x="-6" y="-28" width="12" height="56" rx="6" transform="rotate(25)"></rect><rect x="-6" y="-28" width="12" height="56" rx="6" transform="rotate(-25)"></rect></g><g fill="#006CA3"><circle cx="-11.8" cy="-25.4" r="4"></circle><circle cx="11.8" cy="25.4" r="4"></circle><circle cx="11.8" cy="-25.4" r="4"></circle></g><circle cx="-11.8" cy="25.4" r="2" fill="#E62E29"></circle></g>
-<text x="426" y="106" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">21</tspan></text>
-<g transform="translate(426 210)"><line x1="-42" y1="16" x2="42" y2="16" stroke="#7A8696" stroke-width="1.8"></line><g fill="#fff" stroke="#1F2A36" stroke-width="1.6"><rect x="-40" y="-6" width="15" height="22" rx="3"></rect><rect x="-23" y="-6" width="15" height="22" rx="3"></rect><rect x="10" y="-14" width="17" height="30" rx="3" fill="#DCEBF5"></rect><rect x="29" y="-6" width="13" height="22" rx="3"></rect></g></g>
-<text x="426" y="260" text-anchor="middle" font-family="Golos Text, system-ui, sans-serif" font-size="26" fill="#1F2A36"><tspan font-weight="700" fill="#006CA3">22</tspan></text>
-</svg></div><figcaption id="mcap4" class="sr">Субклональный состав опухоли (19) меняется со временем (20); дисфункция теломер (21) ограничивает обновление ткани (22); измерение (23; точечные линии — измерение) описывает состав популяции и ткани и служит основанием для проверяемого воздействия на механизм (24), которое меняет относительное представительство клеток.</figcaption><p class="mini-note">Цифры — номера семинаров; подписи и связи — на странице раздела.</p></figure>
-  </li>
-  </ol>
-  <p class="note">Страницы адаптированы для телефона; карту коллоквиума удобнее изучать на большом экране. Схемы построены на учебных моделях. Расчётные величины и параметры моделей отделены от экспериментальных данных; для экспериментальных данных указаны источник и условия эксперимента.</p>
-  <footer class="foot">© 2026 Кафедра биологии и генетики, Медицинский университет Петровского. Учебные материалы курса «Молекулярная биология» (5–6 семестры). При использовании ссылка на кафедру обязательна.
-<!--views:start-->
-<div id="gc-views" title="Всего просмотров страниц сайта" aria-label="Всего просмотров страниц сайта" style="display:none;justify-content:flex-end;align-items:center;gap:6px;margin-top:8px">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-<span id="gc-views-n"></span>
-</div>
-<script>
-(function(){
-  var box=document.getElementById('gc-views'),n=document.getElementById('gc-views-n');
-  if(!box||!n||!window.fetch)return;
-  fetch('https://molbio.goatcounter.com/counter/TOTAL.json')
-    .then(function(r){return r.ok?r.json():Promise.reject();})
-    .then(function(d){if(d&&d.count){n.textContent=d.count;box.style.display='flex';}})
-    .catch(function(){});
-})();
-</script>
-<!--views:end-->
-</footer>
-</div>
-<!--stats:start-->
-<script data-goatcounter="https://molbio.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
-<!--stats:end-->
-</body>
-</html>
+.course-link:hover h3{text-decoration:underline;text-underline-offset:3px}
+.action{display:block;font-size:12px;font-weight:700;margin-top:9px;color:var(--navy)}
+.clinic-stage h4{font-size:14px;color:var(--navy);margin-bottom:7px}
+.cycles{list-style:none;padding:0;display:grid;gap:1px}
+.cycles li{border-top:1px solid #e1cad0;padding:4px 0;font-size:14px;display:flex;align-items:baseline;justify-content:space-between;gap:6px 12px}
+.cycles small{color:var(--muted);white-space:nowrap;font-size:11px}
+.branch{max-width:1000px;margin:0 auto}
+.foundation{max-width:510px;margin:0 auto;display:grid;gap:13px}
+.foundation .card+.card::before{content:"";position:absolute;top:-14px;left:50%;height:13px;border-left:2px solid var(--rail)}
+.lanes{display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative;padding-top:32px}
+.lanes::before{content:"";position:absolute;left:25%;right:25%;top:15px;height:17px;border:2px solid var(--rail);border-bottom:0}
+.lanes::after{content:"";position:absolute;left:50%;top:0;height:15px;border-left:2px solid var(--rail)}
+.lane{padding:14px 14px 12px;border:1px solid var(--line);border-top:3px solid var(--blue);background:#fffcf8;border-radius:3px;min-width:0}
+.lane h3.label{font:400 24px/1.1 Georgia,"Times New Roman",serif;margin:0 0 10px}
+.lane .card+.card{margin-top:14px}
+.lane .card+.card::before{content:"";position:absolute;top:-15px;left:22px;height:14px;border-left:2px solid var(--rail)}
+.bridge{border-top:1px solid var(--line);margin-top:15px;padding-top:9px;color:var(--muted);font-size:14px}
+.bridge strong{color:var(--ink)}
+.clinic-stage+.clinic-stage{margin-top:11px}
+
+.lane p.summary{font-size:14px;color:var(--muted);margin:-2px 0 10px}
+footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;margin-top:27px;border-top:1px solid var(--line);padding-top:12px;color:var(--muted);font-size:12px}
+@media(max-width:760px){.preview{padding:18px}.page-head{margin-bottom:23px}.lanes{gap:9px}.lane{padding-inline:9px}.lane h3.label{font-size:20px}}
+@media(max-width:540px){.lanes{display:grid;grid-template-columns:1fr;gap:10px;padding-top:15px}.lanes::before{display:none}.foundation .card+.card::before,.lanes::after{left:20px}.eyebrow span{max-width:100%}}
+@media print{.preview{box-shadow:none}}
+body{border-top:6px solid var(--blue)}.preview{width:min(1240px,100%);margin:auto;border:0;box-shadow:none}
+.title h1{font-size:clamp(38px,6vw,78px);text-wrap:balance}
+.eyebrow{padding-bottom:13px;border-bottom:1px solid var(--line)}
+@media(max-width:540px){.title h1{font-size:clamp(33px,9.4vw,52px)}.lane{padding-inline:12px}.lanes{margin-left:8px;padding-left:12px;border-left:2px solid var(--rail)}.lanes::after{left:-2px}.lane{position:relative}.lane::before{content:'';position:absolute;width:12px;left:-13px;top:20px;border-top:2px solid var(--rail)}}
+</style></head><body>
+<main class="preview" aria-labelledby="edu-title">
+<div class="page-head"><div class="eyebrow"><a href="https://mazunin.science/">MAZUNIN / EDU</a> <span>Кафедра биологии и генетики</span></div>
+    <div class="title"><h1 id="edu-title">От клетки к пациенту</h1><p>Биология и молекулярная биология дают основу для работы с геномными данными и понимания генетики заболеваний на клинических циклах.</p></div></div>
+<div class="branch"><div class="foundation"><div class="card"><span class="sem">1–2 семестры</span><h3>Биология</h3><p>Понять, как устроена клетка и как наследуются признаки.</p></div><a class="card course-link" href="/molbio/"><span class="sem">5–6 семестры</span><h3>Молекулярная биология</h3><p>Объяснять, как работа клетки меняется при болезни.</p><span class="action">Открыть семинары <span aria-hidden="true">↗</span></span></a></div><div class="lanes">
+<div class="lane"><h3 class="label">Данные, диагностика, технологии</h3><p class="summary">Дисциплины 4–5-го курсов</p><div class="card"><span class="sem">7 семестр</span><h3>Основы медицинской биоинформатики</h3><p>Читать биомедицинские данные и оценивать, что из них можно заключить.</p></div><div class="card"><span class="sem">8 семестр</span><h3>Геномная медицина</h3><p>Понимать, когда нужен генетический тест и что означает его результат.</p></div><div class="card"><span class="sem">10 семестр</span><h3>Генно-инженерные технологии</h3><p>Понимать принципы действия генных технологий и оценивать возможности их применения.</p></div></div>
+<div class="lane"><h3 class="label">Генетика в клинических циклах</h3><p class="summary">Модули 4–6-го курсов</p><div class="clinic-stage"><h4>4 курс</h4><ul class="cycles"><li><span>Неврология</span><small>7 сем.</small></li><li><span>Офтальмология</span><small>8 сем.</small></li><li><span>Иммунология и аллергология</span></li></ul></div><div class="clinic-stage"><h4>5 курс</h4><ul class="cycles"><li><span>Репродукция</span><small>9 сем.</small></li><li><span>Психиатрия</span><small>9 сем.</small></li><li><span>Ортопедия</span><small>10 сем.</small></li><li><span>Фармакогенетика</span><small>10 сем.</small></li></ul></div><div class="clinic-stage"><h4>6 курс</h4><ul class="cycles"><li><span>Эндокринология</span><small>11 сем.</small></li><li><span>Урология</span><small>11 сем.</small></li><li><span>Онкология</span><small>12 сем.</small></li></ul></div></div>
+</div><p class="bridge"><strong>Как ветви сходятся.</strong> В биоинформатике вы учитесь оценивать генетические данные, в геномной медицине — интерпретировать их, а на клинических циклах — соотносить результат с проявлениями болезни.</p></div><footer><span>Медицинский университет им. акад. Б. В. Петровского</span><a href="https://petrovsky.med.ru/education/distsipliny-kafedry6715/">Программа кафедры ↗</a></footer></main>
+</body></html>

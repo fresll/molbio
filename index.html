@@ -74,7 +74,6 @@ a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
 .card h3 { font-size: 18px; line-height: 1.22; margin: 3px 0; color: var(--accent); overflow-wrap: break-word; }
 .card p { font-size: 14px; color: var(--muted); }
 .sem { font-size: 12px; color: var(--muted); font-weight: 650; }
-.action { position: absolute; top: 13px; right: 15px; color: var(--link); font-size: 12px; font-weight: 700; }
 .course-link:hover h3 { text-decoration: underline; text-underline-offset: 3px; }
 .clinic-stage { grid-column: 3; align-self: stretch; }
 .clinic-stage h3 { display: none; }
@@ -111,8 +110,7 @@ footer { margin-top: 26px; border-top: 1px solid var(--border); padding-top: 12p
   .card h3 { margin: 2px 0; font-size: clamp(18px, 2.05vh, 22px); }
   .card p, .route-note { font-size: clamp(14px, 1.6vh, 17px); }
   .card p { max-width: 78ch; }
-  .sem, .action, .cycles small { font-size: clamp(12px, 1.36vh, 15px); }
-  .action { top: calc(var(--card-pad) + 3px); right: clamp(15px, 1.12vw, 23px); }
+  .sem, .cycles small { font-size: clamp(12px, 1.36vh, 15px); }
   .route-note { margin-top: clamp(12px, 1.55vh, 20px); padding-top: 9px; }
   footer { margin-top: clamp(14px, 1.7vh, 23px); padding-top: 9px; }
 }
@@ -135,9 +133,6 @@ footer { margin-top: 26px; border-top: 1px solid var(--border); padding-top: 12p
   .clinic-stage h3 { display: block; font-size: 13px; color: var(--accent); margin-bottom: 5px; }
   .route-note { margin-left: 20px; }
 }
-@media (max-width: 380px) {
-  .action { position: static; display: block; margin-top: 7px; }
-}
 </style></head><body>
 <main class="preview" aria-labelledby="edu-title">
 <div class="page-head"><div class="eyebrow"><a href="https://mazunin.science/">MAZUNIN / EDU</a> <span>Кафедра биологии и генетики</span></div>
@@ -153,7 +148,7 @@ footer { margin-top: 26px; border-top: 1px solid var(--border); padding-top: 12p
 </div></div></section><section class="year-row" aria-labelledby="year-3"><h2 class="year" id="year-3">3 курс</h2>
 <div class="disciplines"><a class="card course-link" href="/molbio/"><span class="sem">5–6 семестры</span><h3>Молекулярная биология</h3>
 <p>Объяснять, как работа клетки меняется при болезни.</p>
-<span class="action">Открыть семинары <span aria-hidden="true">↗</span></span></a></div></section><section class="year-row" aria-labelledby="year-4"><h2 class="year" id="year-4">4 курс</h2>
+</a></div></section><section class="year-row" aria-labelledby="year-4"><h2 class="year" id="year-4">4 курс</h2>
 <div class="disciplines">
 <div class="card">
 <span class="sem">7 семестр</span><h3>Основы медицинской биоинформатики</h3>

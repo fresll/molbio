@@ -87,9 +87,9 @@ a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
 .cycles li { display: flex; justify-content: space-between; align-items: baseline; gap: 4px 10px; color: var(--accent); }
 .cycles small { white-space: nowrap; font-size: 12px; color: var(--muted); }
 .route-note { margin: 22px 0 0 calc(var(--year-width) + var(--gutter)); border-top: 1px solid var(--border); padding-top: 12px; font-size: 14px; color: var(--muted); }
-.feedback { margin-top: 24px; border: 1px solid var(--divider); border-left: 3px solid var(--accent); border-radius: 4px; padding: 14px 16px; }
+.feedback { margin: 24px 0 0 calc(var(--year-width) + var(--gutter)); border: 1px solid var(--divider); border-left: 3px solid var(--accent); border-radius: 4px; padding: 14px 16px; }
 .feedback h2 { color: var(--accent); font-size: 16px; }
-.feedback p { max-width: 76ch; margin-top: 5px; color: var(--muted); font-size: 14px; }
+.feedback p { margin-top: 5px; color: var(--muted); font-size: 14px; }
 .feedback a { font-weight: 650; overflow-wrap: anywhere; }
 footer { margin-top: 26px; border-top: 1px solid var(--border); padding-top: 12px; color: var(--muted); font-size: 12px; }
 
@@ -141,7 +141,7 @@ footer { margin-top: 26px; border-top: 1px solid var(--border); padding-top: 12p
   .year::after { top: 7px; left: -20px; }
   .clinic-stage { grid-column: 1; }
   .clinic-stage h3 { display: block; font-size: 13px; color: var(--accent); margin-bottom: 5px; }
-  .route-note { margin-left: 20px; }
+  .route-note, .feedback { margin-left: 20px; }
 }
 </style></head><body>
 <main class="preview" aria-labelledby="edu-title">
@@ -216,11 +216,10 @@ footer { margin-top: 26px; border-top: 1px solid var(--border); padding-top: 12p
 </li>
 </ul>
 </div></section><p class="route-note">На старших курсах геномные данные помогают связать клеточные механизмы с проявлениями болезни</p>
-</div>
 <section class="feedback" aria-labelledby="feedback-title">
 <h2 id="feedback-title">Обратная связь</h2>
-<p>Заметили технический сбой или неточность в объяснении механизма? Есть идея, как сделать схему или анимацию понятнее? Напишите на <a href="mailto:post@mazunin.science">post@mazunin.science</a>.</p>
-<p>Если удобно, приложите ссылку на страницу и укажите, что именно стоит исправить или пояснить.</p>
+<p>Заметили технический сбой или неточность в объяснении механизма? Есть идея, как сделать схему или анимацию понятнее? Напишите на <a href="mailto:post@mazunin.science">post@mazunin.science</a>. Если удобно, приложите ссылку на страницу и укажите, что именно стоит исправить или пояснить.</p>
 </section>
+</div>
 <footer><span>Медицинский университет им. акад. Б. В. Петровского</span><a href="https://petrovsky.med.ru/education/distsipliny-kafedry6715/">Программа кафедры ↗</a></footer></main>
 </body></html>

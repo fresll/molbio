@@ -207,6 +207,11 @@ input[type=range]{accent-color:var(--u-ui)}
 </style>
 <!--brand-univ:end-->
 <style>.affil::before{width:20px!important;height:20px!important}.affil{border-bottom-width:2px!important}h1{color:var(--u-ui-2,var(--ink))}</style>
+<style id="mb-dark-fix">
+/* тёмная тема (21.11.2026): полоса атласа «Раздел · Карта | Клетка» — на тёмной поверхности */
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .atlas .atl-g{background:var(--surface)}:root:not([data-theme="light"]) .atlas .atl-b.on{color:#0D1217}:root:not([data-theme="light"]) .atlas .atl-b.off{color:#7D8896}}
+:root[data-theme="dark"] .atlas .atl-g{background:var(--surface)}:root[data-theme="dark"] .atlas .atl-b.on{color:#0D1217}:root[data-theme="dark"] .atlas .atl-b.off{color:#7D8896}
+</style>
 </head>
 <body>
 <div class="app">
@@ -251,7 +256,7 @@ input[type=range]{accent-color:var(--u-ui)}
   <p>Все механизмы разбираются в одной и той же клетке печени — гепатоците. У каждого пункта три режима. «Проследить»: путь воздействия по этапам. «Изменить условия»: одно воздействие в сравнении с контролем. «Найти причину»: состояние образца скрыто, причину ищут по результатам выбранных измерений. Если механизм изучен в другой клетке, это подписано как «окно в другую клетку».</p>
   <p>Уровни величин качественные; числа приведены только там, где они взяты из первоисточника. У каждого состояния модели есть статус: <span class="st F">Ф</span> измерено в указанной системе, <span class="st V">В</span> вывод из измеренного, <span class="st M">М</span> допущение учебной модели. Система, в которой получены данные, указана в паспорте каждого этапа.</p>
  </div>
- <p class="ver">Версия 1.5, 9 ноября 2026 г.</p>
+ <p class="ver">Версия 5.0, 21 ноября 2026 г.</p>
  <footer class="foot">© 2026 Кафедра биологии и генетики, Медицинский университет Петровского. Учебные материалы курса «Молекулярная биология» (5–6 семестры). При использовании ссылка на кафедру обязательна.
 <!--views:start-->
 <div id="gc-views" title="Всего просмотров страниц сайта" aria-label="Всего просмотров страниц сайта" style="display:none;justify-content:flex-end;align-items:center;gap:6px;margin-top:8px">

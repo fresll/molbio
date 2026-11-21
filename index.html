@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="ru"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="От биологии первого курса до генетики в клинических циклах. Учебный маршрут и интерактивные семинары.">
+<meta name="theme-color" content="#ffffff">
 <link rel="canonical" href="https://edu.mazunin.science/">
 <title>Карта дисциплин кафедры биологии и генетики · MAZUNIN / EDU</title>
 <meta property="og:type" content="website">
@@ -9,7 +10,8 @@
 <meta property="og:description" content="От биологии первого курса до генетики в клинических циклах. Учебный маршрут и интерактивные семинары.">
 <meta property="og:site_name" content="MAZUNIN / EDU"><style>
 :root {
-  --paper: #fff;
+  --theme-background: #ffffff;
+  --paper: var(--theme-background);
   --card: #f1dfe1;
   --ink: #24343b;
   --accent: #79535d;
@@ -19,6 +21,19 @@
   --divider: #eadde0;
   --axis: #a07b84;
   color-scheme: light;
+}
+
+:root[data-color-theme="dark"] {
+  --theme-background: #191719;
+  --card: #33262c;
+  --ink: #f0e8ea;
+  --accent: #e2b2c0;
+  --link: #f0c0cd;
+  --muted: #c8bdc1;
+  --border: #71545e;
+  --divider: #493740;
+  --axis: #a17b88;
+  color-scheme: dark;
 }
 * { box-sizing: border-box; }
 body {
@@ -166,9 +181,81 @@ footer { margin-top: 26px; border-top: 1px solid var(--border); padding-top: 12p
 .footer-university { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 12px; }
 .page-views { display: inline-flex; align-items: center; gap: .35em; white-space: nowrap; vertical-align: middle; font-variant-numeric: tabular-nums; }
 .page-views svg { flex: none; }
-</style></head><body>
+
+.eyebrow { align-items: center; }
+.eyebrow-tools { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 12px; }
+.theme-control {
+  min-height: 44px;
+  padding-inline: 8px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+}
+.theme-control:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+@media (max-width: 540px) {
+  .eyebrow { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; }
+  .eyebrow-tools { display: contents; }
+  .eyebrow-tools > span { grid-area: 2 / 1 / 3 / -1; }
+  .eyebrow-tools > select { grid-area: 1 / 2; }
+}
+@media print { .theme-control { display: none; } }
+</style>
+<script>
+(() => {
+  const root = document.documentElement;
+  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
+  const key = 'mazunin-color-theme';
+  let preference = 'auto';
+
+  try {
+    const saved = window.localStorage.getItem(key);
+    if (saved === 'light' || saved === 'dark') preference = saved;
+  } catch {
+    // System appearance is available even when browser storage is blocked.
+  }
+
+  function applyTheme() {
+    const dark = preference === 'auto' ? systemTheme.matches : preference === 'dark';
+    root.dataset.colorTheme = dark ? 'dark' : 'light';
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) {
+      themeColor.content = getComputedStyle(root).getPropertyValue('--theme-background').trim();
+    }
+  }
+
+  applyTheme();
+
+  if (systemTheme.addEventListener) systemTheme.addEventListener('change', applyTheme);
+  else systemTheme.addListener(applyTheme);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const control = document.querySelector('[data-theme-control]');
+    if (!control) return;
+
+    control.value = preference;
+    control.addEventListener('change', () => {
+      preference = control.value;
+      try {
+        if (preference === 'auto') window.localStorage.removeItem(key);
+        else window.localStorage.setItem(key, preference);
+      } catch {
+        // Keep the selected appearance for the current page.
+      }
+      applyTheme();
+    });
+    control.hidden = false;
+  });
+})();
+</script>
+</head><body>
 <main class="preview" aria-labelledby="edu-title">
-<div class="page-head"><div class="eyebrow"><a href="https://mazunin.science/">MAZUNIN / EDU</a> <span>Кафедра биологии и генетики</span></div>
+<div class="page-head"><div class="eyebrow"><a href="https://mazunin.science/">MAZUNIN / EDU</a>
+  <div class="eyebrow-tools"><span>Кафедра биологии и генетики</span>
+  <select class="theme-control" data-theme-control aria-label="Тема оформления" hidden><option value="auto">Авто</option><option value="light">Светлая</option><option value="dark">Тёмная</option></select></div>
+</div>
     <div class="title"><h1 id="edu-title">От клетки к пациенту</h1><p>Дисциплины кафедры по годам обучения и их связь с клиническими циклами</p></div></div>
 <div class="timeline">
 <div class="timeline-head" aria-hidden="true">

@@ -1,0 +1,62 @@
+/* Словарь курса «Молекулярная биология» (glossary.html). Собран 24.11.2026 из правил словаря курса «Биология»:
+   bio/sections.css (переменные цветов и шрифтов, основа страницы, шапка, подвал) и встроенный блок стилей bio/glossary.html.
+   Значения перенесены без изменений; отличия словаря МБ отмечены комментарием «МБ:». Действует только на glossary.html,
+   общие стили сайта МБ (sections.css, catalog.css) не затрагивает. Фирменный стиль — блок brand-univ страницы. */
+
+/* ---------- цвета и шрифты ---------- */
+:root{--bg:#EDF0F4;--surface:#FFFFFF;--surface-2:#F6F8FA;--ink:#15202B;--muted:#5A6676;--line:#D3DAE3;--mtor:#0D6E73;--mtor-soft:#D3ECEC;--on-line:#B06E05;
+--f-display:"Unbounded","Golos Text",system-ui,sans-serif;--f-body:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0D1217;--surface:#151C23;--surface-2:#1A222B;--ink:#E4E9EF;--muted:#97A3B0;--line:#29333E;--mtor:#33B6BB;--mtor-soft:#123A3C;--on-line:#EFB13A;color-scheme:dark;}}
+:root[data-theme="dark"]{--bg:#0D1217;--surface:#151C23;--surface-2:#1A222B;--ink:#E4E9EF;--muted:#97A3B0;--line:#29333E;--mtor:#33B6BB;--mtor-soft:#123A3C;--on-line:#EFB13A;color-scheme:dark;}
+:root{--acc:var(--u-ui,var(--mtor));--acc-soft:var(--u-soft,var(--mtor-soft))}
+
+/* ---------- основа, шапка, подвал ---------- */
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink)}
+body{margin:0;font-family:var(--f-body);font-size:17px;line-height:1.45;-webkit-text-size-adjust:100%;overflow-wrap:break-word}
+a{color:var(--acc)}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--on-line);outline-offset:2px;border-radius:4px}
+.affil{margin:0 0 18px;padding:0 0 8px;border-bottom:2px solid var(--mtor);color:var(--mtor);font-size:15px;font-weight:600;text-wrap:balance}
+h1{font-family:var(--f-display);font-weight:600;font-size:clamp(22px,4vw,30px);margin:0 0 8px;text-wrap:balance}
+.lead{color:var(--muted);margin:0 0 22px}
+.foot{margin-top:28px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.crumb{font-size:15px;margin:0 0 14px}
+.crumb a{text-decoration:none;font-weight:600}
+.kicker{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);margin:0 0 6px}
+.wrap{max-width:2300px;margin:0 auto;padding:12px clamp(16px,3.5vw,72px) 32px}
+.wide2{--gx:clamp(32px,3.5vw,72px);--gap:14px;--sec:28px}
+@media (max-width:720px){
+ .affil{line-height:1.28;margin-bottom:14px;padding-bottom:7px}
+}
+.lead{max-width:72ch}
+
+/* ---------- словарь (блок стилей образца) ---------- */
+.gl-tools{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0 8px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.gl-tools input[type=search]{font:inherit;width:100%;max-width:520px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink)}
+.gl-filt{display:flex;flex-wrap:wrap;gap:6px 14px;margin:8px 0 0;font-size:15px;color:var(--muted)}
+.gl-filt label{display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.gl-abc{display:flex;flex-wrap:wrap;gap:2px 6px;margin:8px 0 0;font-size:15px}
+.gl-abc a{text-decoration:none;padding:2px 4px;border-radius:5px}
+.gl-abc a:hover{background:var(--acc-soft)}
+.gl-count{font-size:14px;color:var(--muted);margin:6px 0 0}
+.gl-h{font-family:var(--f-display);font-size:20px;margin:22px 0 6px;color:var(--acc)}
+.gl-letter dl{margin:0}
+.gl-item{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 8px}
+.gl-item:target{outline:3px solid var(--on-line);outline-offset:1px}
+.gl-item dt{font-weight:700;font-size:17px}
+.gl-item dd{margin:4px 0 0}
+.gl-def{margin:0 0 6px}
+.gl-syn,.gl-where{margin:2px 0 0;font-size:14.5px;color:var(--muted)}
+.gl-where b{color:var(--ink);font-weight:600}
+.gl-adv{display:inline-block;font-size:12.5px;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:0 8px;margin-left:6px;vertical-align:2px}
+.gl-hide{display:none}
+@media (max-width:600px){.gl-tools{position:static}.gl-item{padding:10px 11px}.gl-tools input[type=search]{max-width:none}}
+
+/* МБ: указатель букв в три группы (А–Я, латинские буквы, «0–9, α–ω») — разделитель групп */
+.gl-abc-sep{flex:none;width:1px;align-self:stretch;margin:2px 4px;background:var(--line)}
+/* МБ: строка о статьях со ссылкой на словарь «Биологии» под счётчиком */
+.gl-count-ref{margin-top:2px;font-size:13px}
+/* МБ: статья, открытая по якорю, не уходит под закреплённую панель поиска */
+.gl-item{scroll-margin-top:var(--gl-top,12px)}
+/* МБ: статья со ссылкой на словарь «Биологии» — строка «Биология» отделена */
+.gl-where.gl-bio{margin-top:4px}

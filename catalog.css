@@ -113,3 +113,28 @@ body.cat .cat-foot .foot{margin:0;padding:0;border:0;font-size:13px;color:var(--
 body.cat .affil+.kick{margin-top:14px}
 /* пояснение под карточками главной и цель раздела — на всю ширину сетки, переносятся по мере сужения экрана */
 body.cat .note,body.cat .goal,body.cat .goal p,body.cat .adv-note,body.cat .sub,body.cat .status,body.cat .resources .coll-note{max-width:none}
+
+/* правки автора 24.11.2026 (2): строка кафедры — четыре строки без точек, одинаково на обоих курсах */
+body.cat .affil{display:flex;align-items:center;gap:12px}
+body.cat .affil::before{width:28px;height:28px}
+body.cat .affil-t{display:flex;flex-direction:column}
+body.cat .affil-t>span{display:block}
+
+/* миниатюры разделов в обеих темах, как в «Биологии»: цвета схем МолБио (заданы в атрибутах) переводятся на переменные --sc-* */
+body.cat{--sc-bg:#FFFFFF;--sc-line:#1F2A36;--sc-muted:#7A8696;--sc-soft:#DCEBF5;--sc-soft-2:#F1F6FA;--sc-acc:#006CA3;--sc-acc-2:#E62E29}
+@media (prefers-color-scheme:dark){
+ :root:not([data-theme="light"]) body.cat{--sc-bg:#151C23;--sc-line:#D7DEE6;--sc-muted:#8794A2;--sc-soft:#1D3A50;--sc-soft-2:#18232D;--sc-acc:#3DB0E6;--sc-acc-2:#FF5A52}
+}
+:root[data-theme="dark"] body.cat{--sc-bg:#151C23;--sc-line:#D7DEE6;--sc-muted:#8794A2;--sc-soft:#1D3A50;--sc-soft-2:#18232D;--sc-acc:#3DB0E6;--sc-acc-2:#FF5A52}
+body.cat .mini-art{background:var(--sc-bg)}
+body.cat .mini-art [fill="#1F2A36"]{fill:var(--sc-line)}
+body.cat .mini-art [stroke="#1F2A36"]{stroke:var(--sc-line)}
+body.cat .mini-art [fill="#006CA3"]{fill:var(--sc-acc)}
+body.cat .mini-art [stroke="#006CA3"]{stroke:var(--sc-acc)}
+body.cat .mini-art [fill="#fff"]{fill:var(--sc-bg)}
+body.cat .mini-art [fill="#7A8696"]{fill:var(--sc-muted)}
+body.cat .mini-art [stroke="#7A8696"]{stroke:var(--sc-muted)}
+body.cat .mini-art [fill="#DCEBF5"]{fill:var(--sc-soft)}
+body.cat .mini-art [fill="#F4F8FB"]{fill:var(--sc-soft-2)}
+body.cat .mini-art [fill="#E62E29"]{fill:var(--sc-acc-2)}
+body.cat .mini-art [stroke="#E62E29"]{stroke:var(--sc-acc-2)}

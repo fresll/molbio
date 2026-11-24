@@ -1,0 +1,115 @@
+/* Оформление «Оглавление» (24.11.2026): главная курса и страницы разделов.
+   Общий файл для двух сайтов — «Биология» (fresll/bio, catalog.css) и «Молекулярная биология» (fresll/molbio, /catalog.css).
+   Источник — _Каркас_Биология/инструменты/главная_и_разделы/оглавление_2026-11-24/catalog.css (копируется в оба репозитория без правок).
+   Визуальный эталон — EDU_HTML_варианты/01-catalog.html. Действует только на страницах с <body class="cat">,
+   поэтому карты, клетки, словарь и семинары не затрагивает. Подключается последним в <head>. */
+
+body.cat{
+ --c-bg:#f2f5f5;--c-paper:#fff;--c-ink:#153244;--c-mut:#536975;--c-blue:#006693;--c-line:#cbd8db;--c-wash:#e5eef0;
+ --c-red:#be534b;--c-focus:#bb7944;
+ margin:0;background:var(--c-bg);color:var(--c-ink);
+ font:16px/1.48 var(--f-body,"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif);
+ overflow-wrap:break-word;-webkit-text-size-adjust:100%
+}
+@media (prefers-color-scheme:dark){
+ :root:not([data-theme="light"]) body.cat{--c-bg:#142128;--c-paper:#1b2d36;--c-ink:#e4eff3;--c-mut:#aebfc7;--c-blue:#8ed2f4;--c-line:#39505a;--c-wash:#293f49;--c-red:#e0746b;--c-focus:#e0a26e}
+}
+:root[data-theme="dark"] body.cat{--c-bg:#142128;--c-paper:#1b2d36;--c-ink:#e4eff3;--c-mut:#aebfc7;--c-blue:#8ed2f4;--c-line:#39505a;--c-wash:#293f49;--c-red:#e0746b;--c-focus:#e0a26e}
+html:has(>body.cat){background:var(--u-bg,#f2f5f5)}
+
+/* ширина и поля */
+body.cat .cat-head,body.cat .cat-main,body.cat .cat-foot{width:min(1220px,92%);margin-left:auto;margin-right:auto}
+
+/* ссылки и фокус */
+body.cat a,body.cat summary{color:var(--c-blue);text-decoration:none;cursor:pointer}
+body.cat a:hover,body.cat summary:hover{text-decoration:underline;text-underline-offset:4px}
+body.cat a:focus-visible,body.cat summary:focus-visible{outline:3px solid var(--c-focus);outline-offset:3px;border-radius:4px}
+
+/* шапка: MAZUNIN / EDU, переключатель курсов, тонкая красная линия */
+body.cat .cat-head{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:2px solid var(--c-red);padding:18px 0}
+body.cat .cat-brand{font-weight:700;letter-spacing:.1em;color:var(--c-ink)}
+body.cat .cat-brand:hover{text-decoration:none}
+body.cat .cat-courses{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+body.cat .cat-courses a{padding:7px 13px;background:var(--c-wash);border-radius:6px;font-size:.88rem;font-weight:620}
+body.cat .cat-courses a[aria-current]{background:var(--c-ink);color:var(--c-paper)}
+
+/* строка кафедры и университета (логотип — из блока brand-univ) */
+body.cat .affil{border:0;margin:18px 0 0;padding:0;max-width:none;color:var(--c-mut);font-size:13px;font-weight:500;line-height:1.35}
+body.cat .affil::before{width:22px;height:22px}
+
+/* типографика */
+body.cat .cat-main{padding:28px 0 20px}
+body.cat h1,body.cat h2,body.cat h3,body.cat p,body.cat figure{margin:0}
+body.cat h1{font:500 clamp(34px,4.7vw,66px)/1.05 Georgia,"Times New Roman",serif;letter-spacing:-.04em;max-width:29ch;margin:8px 0 15px;color:var(--c-ink);text-wrap:balance}
+body.cat h2{font-family:inherit;font-size:clamp(21px,2vw,29px);line-height:1.17;letter-spacing:-.035em;font-weight:700;text-wrap:balance}
+body.cat h2 a{color:inherit}
+body.cat h3{font-size:18px;line-height:1.3;font-weight:700;color:var(--c-ink)}
+body.cat p{color:var(--c-mut);max-width:75ch}
+body.cat .kick,body.cat .tile .n,body.cat .lesson .n{display:block;font:650 12px/1.5 var(--f-body,system-ui,sans-serif);letter-spacing:.075em;color:var(--c-mut);text-transform:uppercase;margin:0 0 7px}
+
+/* кнопки */
+body.cat .actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
+body.cat .btn{display:inline-block;padding:7px 13px;background:var(--c-wash);color:var(--c-blue);border:0;border-radius:6px;font:620 .88rem/1.48 var(--f-body,system-ui,sans-serif)}
+body.cat .btn:not(.ghost){background:var(--c-blue);color:var(--c-paper)}
+body.cat .soon{display:inline-block;color:var(--c-mut);font-size:.88rem;font-weight:620}
+
+/* главная: четыре раздела сеткой 2 × 2 */
+body.cat .catalog,body.cat .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:24px 0 0;padding:0;list-style:none}
+body.cat .tile,body.cat .lesson{background:var(--c-paper);border:1px solid var(--c-line);border-radius:12px;padding:22px;margin:0;min-width:0}
+body.cat .tile{display:flex;flex-direction:column}
+body.cat .tile .actions{margin-top:auto;padding-top:14px}
+body.cat .inside{display:grid;grid-template-columns:1.2fr 1fr;gap:18px;align-items:center;margin-top:12px}
+body.cat .inside p{font-size:15px}
+body.cat .tile .status{font-size:14px;margin-top:10px}
+body.cat .tile .mini{margin:0;width:100%;max-width:none}
+body.cat .tile .mini-art{border-radius:8px}
+body.cat .tile .mini-note{font-size:12px;line-height:1.35;color:var(--c-mut);margin:6px 2px 0;max-width:none}
+body.cat .tile-soon h2{color:var(--c-mut)}
+body.cat .kick .range{display:inline;font:inherit;letter-spacing:inherit;color:inherit;text-transform:inherit}
+body.cat .note{font-size:14px;margin-top:22px;max-width:78ch}
+
+/* страница раздела */
+body.cat .back{display:inline-block;margin:14px 0 16px;font-weight:620}
+body.cat .sub{font-size:15px;font-weight:500;color:var(--c-mut);margin:0 0 12px}
+body.cat .goal{color:var(--c-mut);max-width:75ch;font-size:16px;margin:0;padding:0;background:none;border:0;border-radius:0}
+body.cat .goal b{color:var(--c-ink)}
+body.cat .goal-list{margin:6px 0 0;padding-left:20px}
+body.cat .goal-list li{margin:.3em 0}
+body.cat .adv-note,body.cat .status{font-size:14px;margin-top:12px}
+body.cat .lesson{display:flex;flex-direction:column;align-items:stretch}
+body.cat .lesson .actions{margin-top:14px}
+body.cat .lesson.soon-card{justify-content:flex-start}
+body.cat .lesson .soon-text{margin-top:4px;font-size:15px}
+body.cat .topics{margin-top:12px}
+body.cat .topics summary{font-weight:630;width:fit-content}
+body.cat .topics .qs{list-style:none;margin:8px 0 0;padding:0}
+body.cat .topics .qs li{display:grid;grid-template-columns:3.2em minmax(0,1fr);gap:6px;margin:.45em 0;padding:0;text-indent:0;font-size:15px;line-height:1.4}
+body.cat .topics .qn{display:block;width:auto;color:var(--c-mut);font-weight:600;font-variant-numeric:tabular-nums}
+body.cat .resources{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 22px;margin-top:24px;padding:18px 0;border-top:1px solid var(--c-line)}
+body.cat .resources a{font-weight:600}
+body.cat .resources .coll-note{flex-basis:100%;font-size:14px;margin:4px 0 0}
+
+/* подвал: переходы между разделами, авторская строка, счётчики */
+body.cat .cat-foot{border-top:1px solid var(--c-line);padding:16px 0 30px;font-size:13px;color:var(--c-mut)}
+body.cat .cat-foot .others{display:flex;flex-wrap:wrap;gap:6px 22px;margin:0 0 12px;padding:0;border:0}
+body.cat .cat-foot .others .btn{background:none;padding:0;color:var(--c-blue);font-size:14px;font-weight:600;border-radius:0}
+body.cat .cat-foot .foot{margin:0;padding:0;border:0;font-size:13px;color:var(--c-mut);max-width:none}
+
+/* планшет и телефон */
+@media (max-width:760px){
+ body.cat .cat-head{align-items:flex-start;flex-direction:column}
+ body.cat .cat-main{padding-top:20px}
+ body.cat .catalog,body.cat .cards{grid-template-columns:minmax(0,1fr)}
+ body.cat .tile,body.cat .lesson{padding:16px}
+}
+@media (min-width:761px) and (max-width:1000px){
+ body.cat .inside{grid-template-columns:minmax(0,1fr)}
+ body.cat .inside .mini{max-width:360px}
+}
+@media (max-width:440px){
+ body.cat .inside{grid-template-columns:minmax(0,1fr)}
+ body.cat .inside .mini{max-width:340px}
+}
+body.cat .affil+.kick{margin-top:14px}
+/* пояснение под карточками главной и цель раздела — на всю ширину сетки, переносятся по мере сужения экрана */
+body.cat .note,body.cat .goal,body.cat .goal p,body.cat .adv-note,body.cat .sub,body.cat .status,body.cat .resources .coll-note{max-width:none}

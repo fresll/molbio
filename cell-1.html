@@ -214,17 +214,20 @@ input[type=range]{accent-color:var(--u-ui)}
 </style>
 <!--return-nav:start-->
 <style id="return-nav">
-.rn-bar{position:fixed;left:50%;bottom:max(12px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:2147483000;display:flex;align-items:center;gap:2px;max-width:calc(100% - 20px);box-sizing:border-box;margin:0;padding:3px 3px 3px 16px;border-radius:22px;background:var(--u-ui,#006CA3);color:var(--u-on-ui,#FFFFFF);box-shadow:0 4px 18px rgba(0,0,0,.28);font:600 15px/1.3 "Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.rn-bar a{color:inherit;text-decoration:none;padding:8px 6px 8px 0;min-width:0}
-.rn-bar a:hover{text-decoration:underline;text-underline-offset:3px}
-.rn-bar button{flex:none;width:34px;height:34px;margin:0;padding:0;border:0;border-radius:50%;background:transparent;color:inherit;font:400 22px/1 system-ui,sans-serif;cursor:pointer}
-.rn-bar button:hover{background:rgba(255,255,255,.18)}
-.rn-bar a:focus-visible,.rn-bar button:focus-visible{outline:3px solid var(--on-line,#B06E05);outline-offset:2px;border-radius:6px}
+#rn-bar.rn-bar{--rn-bg:#006CA3;--rn-fg:#FFFFFF}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #rn-bar.rn-bar{--rn-bg:#3DB0E6;--rn-fg:#0D1217}}
+:root[data-theme="dark"] #rn-bar.rn-bar{--rn-bg:#3DB0E6;--rn-fg:#0D1217}
+#rn-bar.rn-bar{position:fixed;left:10px;right:10px;bottom:max(12px,env(safe-area-inset-bottom));width:max-content;z-index:2147483000;display:flex;align-items:center;gap:2px;max-width:calc(100% - 20px);box-sizing:border-box;margin:0 auto;padding:3px 3px 3px 16px;border-radius:22px;background:var(--rn-bg);color:var(--rn-fg);box-shadow:0 4px 18px rgba(0,0,0,.28);font:600 15px/1.3 "Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#rn-bar.rn-bar a{color:var(--rn-fg);background:none;font:inherit;border:0;box-shadow:none;text-decoration:none;padding:8px 6px 8px 0;min-width:0}
+#rn-bar.rn-bar a:hover{text-decoration:underline;text-underline-offset:3px}
+#rn-bar.rn-bar button{flex:none;width:34px;height:34px;margin:0;padding:0;border:0;border-radius:50%;background:transparent;color:var(--rn-fg);font:400 22px/1 system-ui,sans-serif;cursor:pointer;box-shadow:none;min-width:0;min-height:0}
+#rn-bar.rn-bar button:hover{background:rgba(255,255,255,.18)}
+#rn-bar.rn-bar a:focus-visible,#rn-bar.rn-bar button:focus-visible{outline:3px solid var(--on-line,#B06E05);outline-offset:2px;border-radius:6px}
 html.rn-on body{padding-bottom:72px}
 html.rn-on .gl-item{scroll-margin-top:var(--gl-top,12px)}
 .rn-gl{margin:6px 0 0;font-size:.9em}
 .rn-gl a{font-weight:600}
-@media print{.rn-bar{display:none}}
+@media print{#rn-bar.rn-bar{display:none}}
 </style>
 <script>
 (function(){
@@ -3851,7 +3854,7 @@ const ABBR = [
  ['PKA', 'протеинкиназа A, активируется cAMP'],
  ['R₂C₂', 'неактивная PKA: две регуляторные (R) и две каталитические (C) субъединицы', 'R₂C₂'],
  ['AKAP', 'белок, закрепляющий PKA в определённом месте клетки'],
- ['CREB', 'транскрипционный фактор, связывающийся с cAMP-зависимым элементом промотора'],
+ ['CREB', 'фактор транскрипции, связывающийся с cAMP-зависимым элементом промотора'],
  ['Gαs', 'α-субъединица стимулирующего G-белка (Gs)', 'Gαs|Gs'],
  ['GTP / GDP', 'гуанозинтрифосфат / гуанозиндифосфат; с GTP малые ГТФазы и Gα активны', 'GTP|GDP'],
  ['β2-АР', 'β2-адренорецептор', 'β2-АР'],
@@ -3859,7 +3862,7 @@ const ABBR = [
  ['STIM1', 'сенсор Ca²⁺ в мембране ЭПР; при опустошении депо освобождает участок SOAR/CAD, который связывается с Orai1'],
  ['Orai1', 'Ca²⁺-канал плазматической мембраны; пора открывается при связывании SOAR/CAD белка STIM1'],
  ['SOAR/CAD', 'цитозольный участок STIM1, связывающий Orai1; в покое удерживается в зажиме с областью CC1'],
- ['NFAT', 'ядерный фактор активированных Т-клеток — транскрипционный фактор; переходит в ядро после дефосфорилирования кальциневрином и возвращается в цитоплазму после фосфорилирования киназами'],
+ ['NFAT', 'ядерный фактор активированных Т-клеток — фактор транскрипции; переходит в ядро после дефосфорилирования кальциневрином и возвращается в цитоплазму после фосфорилирования киназами'],
  ['XPO1', 'экспортин (CRM1): выносит из ядра белки с сигналом ядерного экспорта', 'XPO1|CRM1'],
  ['EGFR', 'рецептор эпидермального фактора роста (тирозинкиназа)'],
  ['EGF', 'эпидермальный фактор роста', 'EGF(?!R)'],
@@ -3868,7 +3871,7 @@ const ABBR = [
  ['RAS', 'малая ГТФаза; активна в форме RAS-GTP'],
  ['RAF, MEK, ERK', 'протеинкиназы каскада MAPK: активный димер RAF фосфорилирует MEK, MEK — ERK', 'RAF|MEK|ERK'],
  ['DUSP', 'фосфатазы двойной специфичности: дефосфорилируют ERK'],
- ['AP-1', 'транскрипционный фактор — димер белков семейств Fos и Jun'],
+ ['AP-1', 'фактор транскрипции — димер белков семейств Fos и Jun'],
  ['IRS1', 'субстрат рецептора инсулина 1 — адаптер, привлекающий PI3K'],
  ['AKT', 'протеинкиназа B'],
  ['TSC2', 'белок комплекса туберозного склероза; ГТФаза-активирующий белок для RHEB'],
@@ -3879,12 +3882,12 @@ const ABBR = [
  ['AMPK', 'AMP-активируемая протеинкиназа'],
  ['S6K', 'киназа рибосомного белка S6'],
  ['4E-BP1', 'белок, связывающий фактор инициации eIF4E; при фосфорилировании освобождает его', '4E-BP1|E-BP1'],
- ['SREBP-1c', 'транскрипционный фактор генов синтеза жирных кислот'],
- ['FOXO1', 'транскрипционный фактор семейства forkhead box O'],
+ ['SREBP-1c', 'фактор транскрипции генов синтеза жирных кислот'],
+ ['FOXO1', 'фактор транскрипции семейства forkhead box O'],
  ['PEPCK', 'фосфоенолпируваткарбоксикиназа — фермент глюконеогенеза'],
  ['G6PC', 'каталитическая субъединица глюкозо-6-фосфатазы — фермент глюконеогенеза'],
  ['IRE', 'элемент ответа на инсулин — участок промотора, связывающий FOXO1', 'IRE(?![0-9])'],
- ['FoxA', 'пионерные транскрипционные факторы FoxA1/FoxA2'],
+ ['FoxA', 'пионерные факторы транскрипции FoxA1/FoxA2'],
  ['Pol II', 'РНК-полимераза II', 'Pol II|(?<![-–(])II(?![I)])'],
  ['14-3-3', 'белки, связывающие фосфорилированные участки других белков и удерживающие их в цитоплазме'],
  ['H1', 'линкерный гистон'],

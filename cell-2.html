@@ -214,17 +214,20 @@ input[type=range]{accent-color:var(--u-ui)}
 </style>
 <!--return-nav:start-->
 <style id="return-nav">
-.rn-bar{position:fixed;left:50%;bottom:max(12px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:2147483000;display:flex;align-items:center;gap:2px;max-width:calc(100% - 20px);box-sizing:border-box;margin:0;padding:3px 3px 3px 16px;border-radius:22px;background:var(--u-ui,#006CA3);color:var(--u-on-ui,#FFFFFF);box-shadow:0 4px 18px rgba(0,0,0,.28);font:600 15px/1.3 "Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.rn-bar a{color:inherit;text-decoration:none;padding:8px 6px 8px 0;min-width:0}
-.rn-bar a:hover{text-decoration:underline;text-underline-offset:3px}
-.rn-bar button{flex:none;width:34px;height:34px;margin:0;padding:0;border:0;border-radius:50%;background:transparent;color:inherit;font:400 22px/1 system-ui,sans-serif;cursor:pointer}
-.rn-bar button:hover{background:rgba(255,255,255,.18)}
-.rn-bar a:focus-visible,.rn-bar button:focus-visible{outline:3px solid var(--on-line,#B06E05);outline-offset:2px;border-radius:6px}
+#rn-bar.rn-bar{--rn-bg:#006CA3;--rn-fg:#FFFFFF}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #rn-bar.rn-bar{--rn-bg:#3DB0E6;--rn-fg:#0D1217}}
+:root[data-theme="dark"] #rn-bar.rn-bar{--rn-bg:#3DB0E6;--rn-fg:#0D1217}
+#rn-bar.rn-bar{position:fixed;left:10px;right:10px;bottom:max(12px,env(safe-area-inset-bottom));width:max-content;z-index:2147483000;display:flex;align-items:center;gap:2px;max-width:calc(100% - 20px);box-sizing:border-box;margin:0 auto;padding:3px 3px 3px 16px;border-radius:22px;background:var(--rn-bg);color:var(--rn-fg);box-shadow:0 4px 18px rgba(0,0,0,.28);font:600 15px/1.3 "Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#rn-bar.rn-bar a{color:var(--rn-fg);background:none;font:inherit;border:0;box-shadow:none;text-decoration:none;padding:8px 6px 8px 0;min-width:0}
+#rn-bar.rn-bar a:hover{text-decoration:underline;text-underline-offset:3px}
+#rn-bar.rn-bar button{flex:none;width:34px;height:34px;margin:0;padding:0;border:0;border-radius:50%;background:transparent;color:var(--rn-fg);font:400 22px/1 system-ui,sans-serif;cursor:pointer;box-shadow:none;min-width:0;min-height:0}
+#rn-bar.rn-bar button:hover{background:rgba(255,255,255,.18)}
+#rn-bar.rn-bar a:focus-visible,#rn-bar.rn-bar button:focus-visible{outline:3px solid var(--on-line,#B06E05);outline-offset:2px;border-radius:6px}
 html.rn-on body{padding-bottom:72px}
 html.rn-on .gl-item{scroll-margin-top:var(--gl-top,12px)}
 .rn-gl{margin:6px 0 0;font-size:.9em}
 .rn-gl a{font-weight:600}
-@media print{.rn-bar{display:none}}
+@media print{#rn-bar.rn-bar{display:none}}
 </style>
 <script>
 (function(){
@@ -541,7 +544,7 @@ Object.assign(MSCHEME, {
     <text x="10" y="80" class="t">гены-мишени TFEB (например, катепсин D, LAMP1) против гена сравнения</text>
     <defs><marker id="s201b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#334155"/></marker></defs></svg>`
 });
-ABBR_X.push(['TFEB', 'транскрипционный фактор EB — регулятор генов лизосомных и аутофагических белков'],
+ABBR_X.push(['TFEB', 'фактор транскрипции EB — регулятор генов лизосомных и аутофагических белков'],
   ['LAMP1', 'белок мембраны лизосом; служит меткой лизосом'],
   ['FLCN', 'фолликулин: в комплексе с FNIP переводит RagC/D в GDP-форму'],
   ['FKBP12', 'небольшой белок, с которым рапамицин образует комплекс, связывающий mTOR'],
@@ -2911,15 +2914,15 @@ Object.assign(MSCHEME, {
 ABBR_X.push(
   ['PERK', 'трансмембранная киназа ЭПР; люминальный домен воспринимает стресс ЭПР, цитозольный фосфорилирует eIF2α'],
   ['IRE1α', 'трансмембранный белок ЭПР с киназным и эндорибонуклеазным доменами; активируется при олигомеризации и взаимном фосфорилировании; вырезает интрон из мРНК XBP1', 'IRE1α|IRE1'],
-  ['ATF6f', 'N-концевой фрагмент ATF6α, отщеплённый в аппарате Гольджи; транскрипционный фактор'],
+  ['ATF6f', 'N-концевой фрагмент ATF6α, отщеплённый в аппарате Гольджи; фактор транскрипции'],
   ['ATF6', 'мембранный белок ЭПР; при стрессе переносится в аппарат Гольджи и расщепляется протеазами', 'ATF6(?!f)'],
-  ['ATF4', 'транскрипционный фактор; его мРНК избирательно транслируется при фосфорилировании eIF2α'],
-  ['XBP1s', 'транскрипционный фактор из мРНК XBP1 после вырезания интрона; увеличивает ёмкость ЭПР', 'XBP1s'],
+  ['ATF4', 'фактор транскрипции; его мРНК избирательно транслируется при фосфорилировании eIF2α'],
+  ['XBP1s', 'фактор транскрипции из мРНК XBP1 после вырезания интрона; увеличивает ёмкость ЭПР', 'XBP1s'],
   ['XBP1u', 'неактивный продукт исходной (неразрезанной) мРНК XBP1', 'XBP1u'],
   ['RtcB', 'РНК-лигаза, сшивающая части мРНК XBP1 после разреза IRE1α'],
   ['GADD34', 'регуляторная субъединица фосфатазы PP1; направляет её к фосфо-eIF2α (отрицательная обратная связь)'],
   ['PP1', 'протеинфосфатаза 1; в комплексе с GADD34 или CReP отщепляет фосфат от eIF2α', 'PP1'],
-  ['CHOP', 'транскрипционный фактор оси ATF4; при длительном стрессе участвует в программах гибели'],
+  ['CHOP', 'фактор транскрипции оси ATF4; при длительном стрессе участвует в программах гибели'],
   ['BiP', 'шаперон ЭПР (HSPA5); участвует в сворачивании белков и регуляции сенсоров UPR'],
   ['S1P, S2P', 'протеазы аппарата Гольджи, последовательно расщепляющие ATF6α', 'S1P|S2P|S1P, S2P'],
   ['UPR', 'ответ на неправильно свёрнутые белки (unfolded protein response); три ветви — PERK, IRE1α, ATF6'],
@@ -3116,7 +3119,7 @@ function signalLayer(s, cond) {
   if (s.atf6f >= 2) L.push(`<ellipse cx="200" cy="230" rx="16" ry="9" fill="#B45309" opacity=".85"/><text x="200" y="234" class="pp" style="font-size:8px">ATF6f</text><path d="M214 232 C 300 262 400 272 430 282" fill="none" stroke="#B45309" stroke-width="2" stroke-dasharray="3 4" marker-end="url(#S208-mv)"/>`);
   /* мРНК XBP1 разрезается IRE1α в цитозоле у ЭПР; белок XBP1s входит в ядро */
   if (s.xbp1s >= 2) L.push(`<path d="M670 330 q14 -8 28 0 q14 8 28 0" fill="none" stroke="#DC2626" stroke-width="2"/><text x="676" y="350" class="tiny" fill="#DC2626">мРНК XBP1 → XBP1s</text><path d="M664 340 C 640 372 600 380 544 358" fill="none" stroke="#DC2626" stroke-width="2" stroke-dasharray="3 4" marker-end="url(#S208-mv)"/>`);
-  /* ядро: транскрипционные факторы на гены ёмкости + CHOP */
+  /* ядро: факторы транскрипции на гены ёмкости + CHOP */
   L.push(`<text x="470" y="300" class="lbs" fill="${C.foxo}" text-anchor="middle">гены ёмкости ЭПР</text>`);
   if (s.chop >= 2) L.push(`<ellipse cx="520" cy="320" rx="16" ry="9" fill="#9333EA"/><text x="520" y="324" class="pp" style="font-size:9px">CHOP</text>`);
   /* GADD34·PP1 (в цитозоле) снимает фосфат с eIF2α */
@@ -3173,10 +3176,10 @@ Object.assign(SRC, {
   Singh2006: ['Singh A. и др. 2006. Dysfunctional KEAP1–NRF2 interaction in non-small-cell lung cancer. PLoS Med', '10.1371/journal.pmed.0030420']
 });
 ABBR_X.push(
-  ['NRF2', 'транскрипционный фактор антиоксидантного ответа (ген NFE2L2)', 'NRF2'],
+  ['NRF2', 'фактор транскрипции антиоксидантного ответа (ген NFE2L2)', 'NRF2'],
   ['KEAP1', 'адаптер убиквитинлигазы CUL3; сенсор электрофилов через цистеины'],
   ['CUL3', 'куллин 3 — каркас E3-убиквитинлигазы', 'CUL3'],
-  ['RBX1', 'субъединица E3-лигазы, привлекающая фермент переноса убиквитина'],
+  ['RBX1', 'субъединица убиквитинлигазы E3, привлекающая фермент переноса убиквитина'],
   ['ARE', 'элемент антиоксидантного ответа в промоторах генов-мишеней', 'ARE'],
   ['NQO1', 'NAD(P)H-хинон-оксидоредуктаза 1 — фермент-мишень NRF2'],
   ['HO-1', 'гемоксигеназа 1 — фермент-мишень NRF2', 'HO-1'],
@@ -3216,7 +3219,7 @@ const PH = [
  {id: 'P0', short: 'Покой: быстрый распад', sig: 0, time: 'период полужизни ≈7–20 мин',
   title: 'Без электрофила NRF2 быстро разрушается',
   what: 'NRF2 синтезируется постоянно, но его мало: комплекс KEAP1–CUL3–RBX1 направляет его на убиквитинирование и протеасомный распад.',
-  how: 'KEAP1 связывает NRF2 как субстратный адаптер E3-лигазы; убиквитинированный NRF2 расщепляется протеасомой, поэтому транскрипция генов-мишеней низкая, несмотря на постоянный синтез.',
+  how: 'KEAP1 связывает NRF2 как субстратный адаптер убиквитинлигазы E3; убиквитинированный NRF2 расщепляется протеасомой, поэтому транскрипция генов-мишеней низкая, несмотря на постоянный синтез.',
   next: 'Содержание NRF2 определяется скоростью распада, а не только синтезом.',
   exp: 'Вестерн-блот NRF2 и измерение периода полужизни; ингибитор протеасомы повышает NRF2.',
   st: 'F', src: ['Kobayashi2004', 'Liu2022'],
@@ -3767,7 +3770,7 @@ ABBR_X.push(
   ['20S', 'протеолитическое ядро протеасомы с центрами β1, β2, β5', '20S'],
   ['Rpn11', 'деубиквитиназа 19S-частицы: отщепляет цепь убиквитина перед расщеплением'],
   ['TAK-243', 'ингибитор фермента E1 (активации убиквитина)', 'TAK-243'],
-  ['NRF1', 'транскрипционный фактор восстановления протеасомы (ген NFE2L1)', 'NRF1']
+  ['NRF1', 'фактор транскрипции восстановления протеасомы (ген NFE2L1)', 'NRF1']
 );
 SC.S211 = (() => {
 const PH = [
@@ -4693,7 +4696,7 @@ Object.assign(MSCHEME, {
 ABBR_X.push(
   ['LLOMe', 'L-лейцил-L-лейцин метиловый эфир — вещество, повреждающее лизосомную мембрану изнутри'],
   ['ESCRT', 'комплексы белков, разделяющие и герметизирующие мембраны; участвуют в ремонте мембраны повреждённой лизосомы и (по данным для клеток HeLa) в замыкании фагофора'],
-  ['TFEB', 'транскрипционный фактор программы лизосомного и аутофагического биогенеза'],
+  ['TFEB', 'фактор транскрипции программы лизосомного и аутофагического биогенеза'],
   ['LC3', 'белок семейства ATG8, присоединяемый к мембранам', 'LC3(?!-)'],
   ['TAX1BP1', 'рецептор селективной аутофагии, необходимый для лизофагии'],
   ['TBK1', 'протеинкиназа, облегчающая работу рецептора TAX1BP1'],
@@ -5248,14 +5251,14 @@ const ABBR = [
  ['PKA', 'протеинкиназа A, активируется cAMP'],
  ['R₂C₂', 'неактивная PKA: две регуляторные (R) и две каталитические (C) субъединицы', 'R₂C₂'],
  ['AKAP', 'белок, закрепляющий PKA в определённом месте клетки'],
- ['CREB', 'транскрипционный фактор, связывающийся с cAMP-зависимым элементом промотора'],
+ ['CREB', 'фактор транскрипции, связывающийся с cAMP-зависимым элементом промотора'],
  ['Gαs', 'α-субъединица стимулирующего G-белка (Gs)', 'Gαs|Gs'],
  ['GTP / GDP', 'гуанозинтрифосфат / гуанозиндифосфат; с GTP малые ГТФазы и Gα активны', 'GTP|GDP'],
  ['β2-АР', 'β2-адренорецептор', 'β2-АР'],
  ['V1a', 'рецептор вазопрессина типа V1a'],
  ['STIM1', 'сенсор Ca²⁺ в мембране ЭПР; при опустошении депо открывает Orai1'],
  ['Orai1', 'Ca²⁺-канал плазматической мембраны, открываемый STIM1'],
- ['NFAT', 'ядерный фактор активированных Т-клеток — транскрипционный фактор, переходящий в ядро после дефосфорилирования'],
+ ['NFAT', 'ядерный фактор активированных Т-клеток — фактор транскрипции, переходящий в ядро после дефосфорилирования'],
  ['EGFR', 'рецептор эпидермального фактора роста (тирозинкиназа)'],
  ['EGF', 'эпидермальный фактор роста', 'EGF(?!R)'],
  ['GRB2', 'адаптерный белок, связывающий рецептор с SOS1'],
@@ -5263,7 +5266,7 @@ const ABBR = [
  ['RAS', 'малая ГТФаза; активна в форме RAS-GTP'],
  ['RAF, MEK, ERK', 'протеинкиназы каскада MAPK: RAF фосфорилирует MEK, MEK — ERK', 'RAF|MEK|ERK'],
  ['DUSP', 'фосфатазы двойной специфичности: дефосфорилируют ERK'],
- ['AP-1', 'транскрипционный фактор — димер белков семейств Fos и Jun'],
+ ['AP-1', 'фактор транскрипции — димер белков семейств Fos и Jun'],
  ['IRS1', 'субстрат рецептора инсулина 1 — адаптер, привлекающий PI3K'],
  ['AKT', 'протеинкиназа B'],
  ['TSC2', 'белок комплекса туберозного склероза; ГТФаза-активирующий белок для RHEB'],
@@ -5274,12 +5277,12 @@ const ABBR = [
  ['AMPK', 'AMP-активируемая протеинкиназа'],
  ['S6K', 'киназа рибосомного белка S6'],
  ['4E-BP1', 'белок, связывающий фактор инициации eIF4E; при фосфорилировании освобождает его', '4E-BP1|E-BP1'],
- ['SREBP-1c', 'транскрипционный фактор генов синтеза жирных кислот'],
- ['FOXO1', 'транскрипционный фактор семейства forkhead box O'],
+ ['SREBP-1c', 'фактор транскрипции генов синтеза жирных кислот'],
+ ['FOXO1', 'фактор транскрипции семейства forkhead box O'],
  ['PEPCK', 'фосфоенолпируваткарбоксикиназа — фермент глюконеогенеза'],
  ['G6PC', 'каталитическая субъединица глюкозо-6-фосфатазы — фермент глюконеогенеза'],
  ['IRE', 'элемент ответа на инсулин — участок промотора, связывающий FOXO1', 'IRE(?![0-9])'],
- ['FoxA', 'пионерные транскрипционные факторы FoxA1/FoxA2'],
+ ['FoxA', 'пионерные факторы транскрипции FoxA1/FoxA2'],
  ['Pol II', 'РНК-полимераза II', 'Pol II|(?<![-–(])II(?![I)])'],
  ['14-3-3', 'белки, связывающие фосфорилированные участки других белков и удерживающие их в цитоплазме'],
  ['H1', 'линкерный гистон'],
